@@ -27,7 +27,7 @@ The ESC PCB is a simple ESC design incorporating:
 The RC PCB has yet to be implemented. It will have RF communication with the FCC.
 
 ## Software Overview [Not Complete]
-Each PCB (FCC, ESC, and RC) has a dedicated MCU running unique code.
+Each PCB (FCC, ESC, and RC) has a dedicated STM32 MCU running FreeRTOS (using CMSIS_V2 API).
 #### Flight Control Computer
 Kalman filter
 Control loop (setpoint from remote controller, PID, commands to ESCs)
