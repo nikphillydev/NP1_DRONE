@@ -5,7 +5,7 @@ Hardware includes 3 custom PCB designs:
 1. Flight Control Computer (FCC)
 2. Electronic Speed Controller (ESC)
 3. Remote Controller (RC).
-### Flight Control Computer
+#### Flight Control Computer
 The FCC PCB incorporates:
 - STM32G474 microcontroller
 - IMU, magnetometer, barometer
@@ -15,7 +15,7 @@ The FCC PCB incorporates:
 - EEPROM
 - Power regulation (4S LIPO 16.8V max -> +5V -> +3.3V)
 - Payload header (exposing +5V, +3.3V, GPIO, I2C, SPI, UART)
-### Electronic Speed Controller
+#### Electronic Speed Controller
 The ESC PCB is a simple ESC design incorporating:
 - STM32G431 microcontroller
 - 3 Half-bridge MOSFET gate drivers
@@ -23,8 +23,17 @@ The ESC PCB is a simple ESC design incorporating:
 - Back EMF Zero Crossing detection using onboard comparators on the MCU
 - CANbus transceiver (comms to FCC)
 - Power regulation (4S LIPO 16.8V max -> +5V -> +3.3V)
-## Remote Controller
+#### Remote Controller
 The RC PCB has yet to be implemented. It will have RF communication with the FCC.
 
+## Software Overview [Not Complete]
+Each PCB (FCC, ESC, and RC) has a dedicated MCU running unique code.
+#### Flight Control Computer
+Kalman filter
+Control loop (setpoint from remote controller, PID, commands to ESCs)
+#### Electronic Speed Controller
+Trapezoidal control
+#### Remote Controller
+Commands to FCC over RF
 
 
