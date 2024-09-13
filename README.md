@@ -2,7 +2,7 @@
 Building a quadcopter from scratch. Hardware and software.
 ## Hardware Overview
 Hardware includes 3 custom PCB designs: 
-1. the Flight Control Computer (FCC)
+1. Flight Control Computer (FCC)
 2. Electronic Speed Controller (ESC)
 3. Remote Controller (RC).
 ### FCC
