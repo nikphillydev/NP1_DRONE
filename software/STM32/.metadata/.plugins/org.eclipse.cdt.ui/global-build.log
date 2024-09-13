@@ -1,0 +1,13 @@
+22:22:17 **** Incremental Build of configuration Debug for project Flight Control Computer ****
+make -j20 all 
+arm-none-eabi-g++ -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/STM32G474-PINOUT/Flight Control Computer_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+Finished building target: Flight Control Computer.elf
+ 
+arm-none-eabi-size  Flight\ Control\ Computer.elf 
+arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
+   text	   data	    bss	    dec	    hex	filename
+   4640	     20	   1572	   6232	   1858	Flight Control Computer.elf
+Finished building: default.size.stdout
+ 
+Finished building: Flight Control Computer.list
+ 

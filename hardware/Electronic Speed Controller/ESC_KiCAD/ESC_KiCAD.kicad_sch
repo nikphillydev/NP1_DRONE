@@ -1,0 +1,117 @@
+(kicad_sch
+	(version 20231120)
+	(generator "eeschema")
+	(generator_version "8.0")
+	(uuid "befe2457-67b1-4e2c-96c1-c48eafddae5c")
+	(paper "A4")
+	(title_block
+		(title "NP1 ELECTRONIC SPEED CONTROLLER")
+		(date "2024-08-21")
+		(comment 1 "REVIEWED BY:")
+		(comment 3 "GITHUB: /nikphillydev")
+		(comment 4 "DRAWN BY: N.PHILIPENKO")
+		(comment 5 "SIGNED:")
+	)
+	(lib_symbols)
+	(text "CANBUS\nAND\nMICROCONTROLLER"
+		(exclude_from_sim no)
+		(at 171.704 96.012 0)
+		(effects
+			(font
+				(size 2.54 2.54)
+			)
+		)
+		(uuid "4281c90c-cdd4-4af2-8bd4-b3d1dac1ad8d")
+	)
+	(text "3 PHASE H-BRIDGE\nAND\nBEMF SENSING"
+		(exclude_from_sim no)
+		(at 115.824 96.266 0)
+		(effects
+			(font
+				(size 2.54 2.54)
+			)
+		)
+		(uuid "d4f01cda-58a9-4a2b-810a-b39f0c5f531e")
+	)
+	(sheet
+		(at 149.86 78.74)
+		(size 42.926 31.75)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "7589b555-649b-48e3-9c17-4ae8c27427fd")
+		(property "Sheetname" "MCU"
+			(at 149.86 78.0284 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "mcu.kicad_sch"
+			(at 149.86 111.0746 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ESC_KiCAD"
+				(path "/befe2457-67b1-4e2c-96c1-c48eafddae5c"
+					(page "3")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 94.742 79.248)
+		(size 42.926 31.75)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "efa0b6a7-ad7d-44a5-8c82-9655636ed045")
+		(property "Sheetname" "PHASES"
+			(at 94.742 78.5364 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "phases.kicad_sch"
+			(at 94.742 111.5826 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ESC_KiCAD"
+				(path "/befe2457-67b1-4e2c-96c1-c48eafddae5c"
+					(page "2")
+				)
+			)
+		)
+	)
+	(sheet_instances
+		(path "/"
+			(page "1")
+		)
+	)
+)

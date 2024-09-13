@@ -1,0 +1,38 @@
+--------------------------------------------------------------------------------
+                            Design Rule Check Report
+
+                     CADSTAR Design Editor Version 11.0.0.1
+
+Design:     C:\DesignSync_WORKDIR\evm\em\CC2500_EM\Cadstar\CC2500EM_3_0.pcb
+
+Design Title:
+CC2500 EM
+Cadstar PCB Design
+
+Date:      Wednesday, April 07, 2010
+Time:      10:22 AM
+
+--------------------------------------------------------------------------------
+
+Summary of Errors By Layer
+
+  Layer 1 (physical layer 1) has 10 error(s).
+
+Detailed List of Errors By Layer
+
+
+Layer 1 (Physical Layer 1)
+
+  AK - Area Keepout at 2661.0000 2770.0000
+  AK - Area Keepout at 2661.0000 2770.0000
+  AK - Area Keepout at 2661.0000 2770.0000
+  AK - Area Keepout at 2666.0000 2833.0000
+  AK - Area Keepout at 2666.0000 2833.0000
+  AK - Area Keepout at 2757.0000 2691.0000
+  AK - Area Keepout at 2757.0000 2691.0000
+  AK - Area Keepout at 2757.0000 2691.0000
+  TK - Area No Routes at 2752.0000 2729.6535
+  TK - Area No Routes at 2754.3465 2767.0000
+--------------------------------------------------------------------------------
+                                 End of report
+--------------------------------------------------------------------------------
