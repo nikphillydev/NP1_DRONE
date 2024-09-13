@@ -1,4 +1,4 @@
-# NP1_DRONE
+# NP1 DRONE
 Building a quadcopter from scratch. Hardware and software.
 ## Hardware Overview
 Hardware includes 3 custom PCB designs: 
