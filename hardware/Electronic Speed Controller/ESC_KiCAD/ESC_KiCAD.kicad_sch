@@ -13,9 +13,9 @@
 		(comment 5 "SIGNED:")
 	)
 	(lib_symbols)
-	(text "CANBUS\nAND\nMICROCONTROLLER"
+	(text "POWER, USB,\nAND\nCANBUS"
 		(exclude_from_sim no)
-		(at 171.704 96.012 0)
+		(at 116.586 137.668 0)
 		(effects
 			(font
 				(size 2.54 2.54)
@@ -23,9 +23,19 @@
 		)
 		(uuid "4281c90c-cdd4-4af2-8bd4-b3d1dac1ad8d")
 	)
-	(text "3 PHASE H-BRIDGE\nAND\nBEMF SENSING"
+	(text "STM32G474\nMICROCONTROLLER"
 		(exclude_from_sim no)
-		(at 115.824 96.266 0)
+		(at 171.196 136.906 0)
+		(effects
+			(font
+				(size 2.54 2.54)
+			)
+		)
+		(uuid "4e0de320-a065-4bd8-a040-ecc1a9359168")
+	)
+	(text "3 PHASE\nH-BRIDGE"
+		(exclude_from_sim no)
+		(at 116.586 93.218 0)
 		(effects
 			(font
 				(size 2.54 2.54)
@@ -33,8 +43,56 @@
 		)
 		(uuid "d4f01cda-58a9-4a2b-810a-b39f0c5f531e")
 	)
+	(text "FEEDBACK\nSENSING\n\n"
+		(exclude_from_sim no)
+		(at 171.704 94.996 0)
+		(effects
+			(font
+				(size 2.54 2.54)
+			)
+		)
+		(uuid "fd31469d-02e0-4e8d-a023-730ddeaf4c2b")
+	)
 	(sheet
-		(at 149.86 78.74)
+		(at 149.86 120.65)
+		(size 42.926 31.75)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "2f1db597-5e53-4a2e-aa7b-7d41b49126b8")
+		(property "Sheetname" "MCU"
+			(at 149.86 119.9384 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "mcu.kicad_sch"
+			(at 149.86 152.9846 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ESC_KiCAD"
+				(path "/befe2457-67b1-4e2c-96c1-c48eafddae5c"
+					(page "5")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 95.25 120.65)
 		(size 42.926 31.75)
 		(fields_autoplaced yes)
 		(stroke
@@ -45,8 +103,8 @@
 			(color 0 0 0 0.0000)
 		)
 		(uuid "7589b555-649b-48e3-9c17-4ae8c27427fd")
-		(property "Sheetname" "MCU"
-			(at 149.86 78.0284 0)
+		(property "Sheetname" "POWER_USB_CAN"
+			(at 95.25 119.9384 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -54,8 +112,46 @@
 				(justify left bottom)
 			)
 		)
-		(property "Sheetfile" "mcu.kicad_sch"
-			(at 149.86 111.0746 0)
+		(property "Sheetfile" "pwr_usb_can.kicad_sch"
+			(at 95.25 152.9846 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left top)
+			)
+		)
+		(instances
+			(project "ESC_KiCAD"
+				(path "/befe2457-67b1-4e2c-96c1-c48eafddae5c"
+					(page "4")
+				)
+			)
+		)
+	)
+	(sheet
+		(at 149.86 77.47)
+		(size 42.926 31.75)
+		(fields_autoplaced yes)
+		(stroke
+			(width 0.1524)
+			(type solid)
+		)
+		(fill
+			(color 0 0 0 0.0000)
+		)
+		(uuid "e767d95f-9055-4655-b6c5-063728e72f09")
+		(property "Sheetname" "SENSING"
+			(at 149.86 76.7584 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left bottom)
+			)
+		)
+		(property "Sheetfile" "sensing.kicad_sch"
+			(at 149.86 109.8046 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -72,7 +168,7 @@
 		)
 	)
 	(sheet
-		(at 94.742 79.248)
+		(at 95.25 77.47)
 		(size 42.926 31.75)
 		(fields_autoplaced yes)
 		(stroke
@@ -84,7 +180,7 @@
 		)
 		(uuid "efa0b6a7-ad7d-44a5-8c82-9655636ed045")
 		(property "Sheetname" "PHASES"
-			(at 94.742 78.5364 0)
+			(at 95.25 76.7584 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -93,7 +189,7 @@
 			)
 		)
 		(property "Sheetfile" "phases.kicad_sch"
-			(at 94.742 111.5826 0)
+			(at 95.25 109.8046 0)
 			(effects
 				(font
 					(size 1.27 1.27)

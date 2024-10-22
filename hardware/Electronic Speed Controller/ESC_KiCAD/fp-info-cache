@@ -1,4 +1,4 @@
-23699978245420031
+23712107261129861
 Audio_Module
 Reverb_BTDR-1H
 Digital Reverberation Unit, http://www.belton.co.kr/inc/downfile.php?seq=17&file=pdf (footprint from http://www.uk-electronic.de/PDF/BTDR-1.pdf)
@@ -6435,6 +6435,13 @@ capacitor
 Capacitors
 CAP_0603_1608Metric
 Capacitor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator
+capacitor
+0
+2
+2
+Capacitors
+CAP_1206_3216Metric
+Capacitor SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator
 capacitor
 0
 2
@@ -52269,6 +52276,13 @@ CONN_MALE_TH_2.54MM_2x2
 4
 4
 Connectors
+CONN_MALE_TH_MT60
+
+
+0
+6
+3
+Connectors
 CONN_MALE_TH_XT60
 
 
@@ -55839,6 +55853,13 @@ B150-13-F
 2
 2
 Diodes
+DiodesINC_SOD123
+
+
+0
+2
+2
+Diodes
 DiodesINC_SOT23-3
 
 
@@ -55849,6 +55870,13 @@ Diodes
 LED_0603_1608Metric
 LED SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: http://www.tortai-tech.com/upload/download/2011102023233369053.pdf), generated with kicad-footprint-generator
 LED
+0
+2
+2
+Diodes
+Littelfuse_SMA
+
+SMAJ30CA 
 0
 2
 2
@@ -63255,6 +63283,13 @@ Inductors
 Abracon_ASPI-6045S
 
 
+0
+2
+2
+Inductors
+Bourns_RLB0914
+
+RLB0914-120KL 
 0
 2
 2
@@ -88706,6 +88741,20 @@ resistor
 Resistors
 RES_0603_1608Metric
 Resistor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator
+resistor
+0
+2
+2
+Resistors
+RES_0805_2012Metric
+Resistor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator
+resistor
+0
+2
+2
+Resistors
+RES_1206_3216Metric
+Resistor SMD 1206 (3216 Metric), square (rectangular) end terminal, IPC_7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf), generated with kicad-footprint-generator
 resistor
 0
 2
