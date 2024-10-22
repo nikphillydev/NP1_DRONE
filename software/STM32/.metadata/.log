@@ -1190,3 +1190,18 @@ Command-line arguments:  -os linux -ws gtk -arch x86_64
 
 !ENTRY org.eclipse.cdt.core 1 0 2024-09-14 16:09:37.889
 !MESSAGE Indexed 'Electronic Speed Controller' (19 sources, 81 headers) in 1.38 sec: 4,926 declarations; 20,910 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0077%)
+!SESSION 2024-10-21 22:02:30.126 -----------------------------------------------
+eclipse.buildId=Version 1.14.0
+java.version=17.0.8.1
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2024-10-21 22:02:42.693
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2024-10-21 22:02:42.693
+!MESSAGE Log4j2 initialized with config file /home/nikolai/Documents/NP1_DRONE/software/STM32/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2024-10-21 22:02:44.795
+!MESSAGE Started RMI Server, listening on port 41337
