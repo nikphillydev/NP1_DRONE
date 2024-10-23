@@ -57,6 +57,10 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
+#define GPIO2_Pin GPIO_PIN_13
+#define GPIO2_GPIO_Port GPIOC
+#define GPIO3_Pin GPIO_PIN_14
+#define GPIO3_GPIO_Port GPIOC
 #define ACCEL_INT_Pin GPIO_PIN_15
 #define ACCEL_INT_GPIO_Port GPIOC
 #define GYRO_CS_Pin GPIO_PIN_0
@@ -71,12 +75,26 @@ void Error_Handler(void);
 #define CC2500_CS_GPIO_Port GPIOB
 #define CC2500_GDO2_Pin GPIO_PIN_2
 #define CC2500_GDO2_GPIO_Port GPIOB
+#define GPIO8_Pin GPIO_PIN_10
+#define GPIO8_GPIO_Port GPIOB
+#define GPIO9_Pin GPIO_PIN_11
+#define GPIO9_GPIO_Port GPIOB
 #define MAG_DRDY_Pin GPIO_PIN_12
 #define MAG_DRDY_GPIO_Port GPIOB
 #define MAG_INT_Pin GPIO_PIN_13
 #define MAG_INT_GPIO_Port GPIOB
 #define BMP_INT_Pin GPIO_PIN_14
 #define BMP_INT_GPIO_Port GPIOB
+#define GPIO7_Pin GPIO_PIN_15
+#define GPIO7_GPIO_Port GPIOB
+#define GPIO6_Pin GPIO_PIN_10
+#define GPIO6_GPIO_Port GPIOA
+#define GPIO5_Pin GPIO_PIN_15
+#define GPIO5_GPIO_Port GPIOA
+#define GPIO4_Pin GPIO_PIN_4
+#define GPIO4_GPIO_Port GPIOB
+#define GPIO1_Pin GPIO_PIN_7
+#define GPIO1_GPIO_Port GPIOB
 
 /* USER CODE BEGIN Private defines */
 

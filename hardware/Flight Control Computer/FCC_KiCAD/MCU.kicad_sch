@@ -7,6 +7,7 @@
 	(title_block
 		(title "MCU AND PAYLOAD EXTENSION")
 		(date "2024-06-15")
+		(rev "A")
 		(comment 1 "REVIEWED BY:")
 		(comment 3 "GITHUB: /nikphillydev")
 		(comment 4 "DRAWN BY:  N. PHILIPENKO")
@@ -5199,6 +5200,25 @@
 			(type none)
 		)
 		(uuid bf0f2b49-501d-4bb1-a31c-2af052ab2d41)
+	)
+	(text_box "NOTE: SN65HVD232D DRIVER CAN PULL PIN45 (PB8_BOOT0) HIGH, THEREFORE SET MCU OPTION BYTE CONFIGURATION TO IGNORE PIN45 AND BOOT FROM MAIN FLASH."
+		(exclude_from_sim no)
+		(at 233.426 78.994 0)
+		(size 44.958 9.652)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(fill
+			(type none)
+		)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left top)
+		)
+		(uuid "16d39a7f-06b5-4867-88e6-671e9d4c4460")
 	)
 	(text "PAYLOAD EXTENSION"
 		(exclude_from_sim no)

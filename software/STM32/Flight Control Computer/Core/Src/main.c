@@ -86,6 +86,8 @@ int main(void)
 
   /* USER CODE BEGIN SysInit */
 
+//  HAL_Delay(1);
+
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
@@ -104,6 +106,10 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
+	  HAL_GPIO_WritePin(GPIO1_GPIO_Port, GPIO1_Pin, SET);
+	  HAL_Delay(1000);
+	  HAL_GPIO_WritePin(GPIO1_GPIO_Port, GPIO1_Pin, RESET);
+	  HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
