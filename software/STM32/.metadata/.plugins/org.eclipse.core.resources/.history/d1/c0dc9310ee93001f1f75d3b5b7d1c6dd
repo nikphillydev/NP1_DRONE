@@ -1,0 +1,25 @@
+/*
+ * bmi088.h
+ *
+ *  Created on: Oct 26, 2024
+ *      Author: nikolai
+ */
+
+#ifndef INC_DRIVERS_BMI088_H_
+#define INC_DRIVERS_BMI088_H_
+
+typedef struct BMI088
+{
+	SPI_HandleTypeDef* spi_handle;
+	GPIO_TypeDef* acc_cs_port;
+	GPIO_TypeDef* gyro_cs_port;
+	uint16_t acc_cs_pin;
+	uint16_t gyro_cs_pin;
+	uint16_t acc_irq_pin;
+	uint16_t gyro_irq_pin;
+
+} BMI088;
+
+
+
+#endif /* INC_DRIVERS_BMI088_H_ */

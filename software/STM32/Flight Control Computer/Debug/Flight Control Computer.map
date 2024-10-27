@@ -67,6 +67,112 @@ Discarded input sections
  .debug_str     0x0000000000000000       0xe2 /opt/st/stm32cubeide_1.14.0/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.linux64_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/crt0.o
  .ARM.attributes
                 0x0000000000000000       0x1c /opt/st/stm32cubeide_1.14.0/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.linux64_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/crt0.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .group         0x0000000000000000        0xc ./Core/Src/Drivers/bmi088.o
+ .text          0x0000000000000000        0x0 ./Core/Src/Drivers/bmi088.o
+ .data          0x0000000000000000        0x0 ./Core/Src/Drivers/bmi088.o
+ .bss           0x0000000000000000        0x0 ./Core/Src/Drivers/bmi088.o
+ .text.BMI088_Init
+                0x0000000000000000       0x46 ./Core/Src/Drivers/bmi088.o
+ .debug_info    0x0000000000000000      0x84b ./Core/Src/Drivers/bmi088.o
+ .debug_abbrev  0x0000000000000000      0x15e ./Core/Src/Drivers/bmi088.o
+ .debug_aranges
+                0x0000000000000000       0x20 ./Core/Src/Drivers/bmi088.o
+ .debug_rnglists
+                0x0000000000000000       0x13 ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000      0x225 ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000      0xaa8 ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000      0x16d ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000       0x2e ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000       0x28 ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000       0x22 ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000       0x8e ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000       0x51 ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000      0x103 ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000       0x6a ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000      0x1df ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000       0x1c ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000       0x22 ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000       0xfb ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000     0x1011 ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000      0x11f ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000    0x18b45 ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000       0x6d ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000     0x354d ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000      0x174 ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000       0x5c ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000     0x171f ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000      0x600 ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000      0x1b6 ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000      0x34a ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000      0x53c ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000      0x18b ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000       0x43 ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000      0x23d ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000      0x211 ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000      0x6bd ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000      0x45c ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000      0x11c ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000      0x22c ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000       0x61 ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000       0xa5 ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000       0x73 ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000      0x22d ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000      0x122 ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000      0x3d1 ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000      0x2fe ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000      0x693 ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000       0xa6 ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000      0x358 ./Core/Src/Drivers/bmi088.o
+ .debug_macro   0x0000000000000000      0x148 ./Core/Src/Drivers/bmi088.o
+ .debug_line    0x0000000000000000      0x764 ./Core/Src/Drivers/bmi088.o
+ .debug_str     0x0000000000000000    0xeca25 ./Core/Src/Drivers/bmi088.o
+ .comment       0x0000000000000000       0x44 ./Core/Src/Drivers/bmi088.o
+ .debug_frame   0x0000000000000000       0x38 ./Core/Src/Drivers/bmi088.o
+ .ARM.attributes
+                0x0000000000000000       0x34 ./Core/Src/Drivers/bmi088.o
  .group         0x0000000000000000        0xc ./Core/Src/fdcan.o
  .group         0x0000000000000000        0xc ./Core/Src/fdcan.o
  .group         0x0000000000000000        0xc ./Core/Src/fdcan.o
@@ -116,6 +222,49 @@ Discarded input sections
  .bss           0x0000000000000000        0x0 ./Core/Src/fdcan.o
  .text.HAL_FDCAN_MspDeInit
                 0x0000000000000000       0x88 ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000      0xaa8 ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000      0x16d ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000       0x2e ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000       0x28 ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000       0x22 ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000       0x8e ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000       0x51 ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000      0x103 ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000       0x6a ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000      0x1df ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000       0x1c ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000       0x22 ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000       0xfb ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000     0x1011 ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000      0x11f ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000    0x18b45 ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000       0x6d ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000     0x354d ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000      0x174 ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000       0x5c ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000     0x171f ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000      0x600 ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000      0x1b6 ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000      0x34a ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000      0x53c ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000      0x18b ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000       0x43 ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000      0x23d ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000      0x211 ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000      0x6bd ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000      0x45c ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000      0x11c ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000      0x22c ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000       0x61 ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000       0xa5 ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000       0x73 ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000      0x22d ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000      0x122 ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000      0x3d1 ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000      0x2fe ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000      0x693 ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000       0xa6 ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000000      0x358 ./Core/Src/fdcan.o
  .group         0x0000000000000000        0xc ./Core/Src/gpio.o
  .group         0x0000000000000000        0xc ./Core/Src/gpio.o
  .group         0x0000000000000000        0xc ./Core/Src/gpio.o
@@ -4833,6 +4982,7 @@ Linker script and memory map
 LOAD /opt/st/stm32cubeide_1.14.0/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.linux64_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/thumb/v7e-m+fp/hard/crti.o
 LOAD /opt/st/stm32cubeide_1.14.0/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.linux64_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/thumb/v7e-m+fp/hard/crtbegin.o
 LOAD /opt/st/stm32cubeide_1.14.0/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.11.3.rel1.linux64_1.1.100.202309141235/tools/bin/../lib/gcc/arm-none-eabi/11.3.1/../../../../arm-none-eabi/lib/thumb/v7e-m+fp/hard/crt0.o
+LOAD ./Core/Src/Drivers/bmi088.o
 LOAD ./Core/Src/fdcan.o
 LOAD ./Core/Src/gpio.o
 LOAD ./Core/Src/i2c.o
@@ -5659,76 +5809,33 @@ LOAD /opt/st/stm32cubeide_1.14.0/plugins/com.st.stm32cube.ide.mcu.externaltools.
  .debug_rnglists
                 0x0000000000000e59       0x99 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_usb.o
 
-.debug_macro    0x0000000000000000    0x2711f
+.debug_macro    0x0000000000000000     0x392f
  .debug_macro   0x0000000000000000      0x22f ./Core/Src/fdcan.o
- .debug_macro   0x000000000000022f      0xaa8 ./Core/Src/fdcan.o
- .debug_macro   0x0000000000000cd7      0x16d ./Core/Src/fdcan.o
- .debug_macro   0x0000000000000e44       0x2e ./Core/Src/fdcan.o
- .debug_macro   0x0000000000000e72       0x28 ./Core/Src/fdcan.o
- .debug_macro   0x0000000000000e9a       0x22 ./Core/Src/fdcan.o
- .debug_macro   0x0000000000000ebc       0x8e ./Core/Src/fdcan.o
- .debug_macro   0x0000000000000f4a       0x51 ./Core/Src/fdcan.o
- .debug_macro   0x0000000000000f9b      0x103 ./Core/Src/fdcan.o
- .debug_macro   0x000000000000109e       0x6a ./Core/Src/fdcan.o
- .debug_macro   0x0000000000001108      0x1df ./Core/Src/fdcan.o
- .debug_macro   0x00000000000012e7       0x1c ./Core/Src/fdcan.o
- .debug_macro   0x0000000000001303       0x22 ./Core/Src/fdcan.o
- .debug_macro   0x0000000000001325       0xfb ./Core/Src/fdcan.o
- .debug_macro   0x0000000000001420     0x1011 ./Core/Src/fdcan.o
- .debug_macro   0x0000000000002431      0x11f ./Core/Src/fdcan.o
- .debug_macro   0x0000000000002550    0x18b45 ./Core/Src/fdcan.o
- .debug_macro   0x000000000001b095       0x6d ./Core/Src/fdcan.o
- .debug_macro   0x000000000001b102     0x354d ./Core/Src/fdcan.o
- .debug_macro   0x000000000001e64f      0x174 ./Core/Src/fdcan.o
- .debug_macro   0x000000000001e7c3       0x5c ./Core/Src/fdcan.o
- .debug_macro   0x000000000001e81f     0x171f ./Core/Src/fdcan.o
- .debug_macro   0x000000000001ff3e      0x600 ./Core/Src/fdcan.o
- .debug_macro   0x000000000002053e      0x1b6 ./Core/Src/fdcan.o
- .debug_macro   0x00000000000206f4      0x34a ./Core/Src/fdcan.o
- .debug_macro   0x0000000000020a3e      0x53c ./Core/Src/fdcan.o
- .debug_macro   0x0000000000020f7a      0x18b ./Core/Src/fdcan.o
- .debug_macro   0x0000000000021105       0x43 ./Core/Src/fdcan.o
- .debug_macro   0x0000000000021148      0x23d ./Core/Src/fdcan.o
- .debug_macro   0x0000000000021385      0x211 ./Core/Src/fdcan.o
- .debug_macro   0x0000000000021596      0x6bd ./Core/Src/fdcan.o
- .debug_macro   0x0000000000021c53      0x45c ./Core/Src/fdcan.o
- .debug_macro   0x00000000000220af      0x11c ./Core/Src/fdcan.o
- .debug_macro   0x00000000000221cb      0x22c ./Core/Src/fdcan.o
- .debug_macro   0x00000000000223f7       0x61 ./Core/Src/fdcan.o
- .debug_macro   0x0000000000022458       0xa5 ./Core/Src/fdcan.o
- .debug_macro   0x00000000000224fd       0x73 ./Core/Src/fdcan.o
- .debug_macro   0x0000000000022570      0x22d ./Core/Src/fdcan.o
- .debug_macro   0x000000000002279d      0x122 ./Core/Src/fdcan.o
- .debug_macro   0x00000000000228bf      0x3d1 ./Core/Src/fdcan.o
- .debug_macro   0x0000000000022c90      0x2fe ./Core/Src/fdcan.o
- .debug_macro   0x0000000000022f8e      0x693 ./Core/Src/fdcan.o
- .debug_macro   0x0000000000023621       0xa6 ./Core/Src/fdcan.o
- .debug_macro   0x00000000000236c7      0x358 ./Core/Src/fdcan.o
- .debug_macro   0x0000000000023a1f       0xe8 ./Core/Src/fdcan.o
- .debug_macro   0x0000000000023b07      0x22f ./Core/Src/gpio.o
- .debug_macro   0x0000000000023d36      0x22f ./Core/Src/i2c.o
- .debug_macro   0x0000000000023f65      0x265 ./Core/Src/main.o
- .debug_macro   0x00000000000241ca      0x22f ./Core/Src/spi.o
- .debug_macro   0x00000000000243f9      0x225 ./Core/Src/stm32g4xx_hal_msp.o
- .debug_macro   0x000000000002461e      0x22f ./Core/Src/stm32g4xx_it.o
- .debug_macro   0x000000000002484d      0x216 ./Core/Src/system_stm32g4xx.o
- .debug_macro   0x0000000000024a63      0x22f ./Core/Src/usart.o
- .debug_macro   0x0000000000024c92      0x22f ./Core/Src/usb.o
- .debug_macro   0x0000000000024ec1      0x264 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.o
- .debug_macro   0x0000000000025125      0x216 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_cortex.o
- .debug_macro   0x000000000002533b      0x328 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_fdcan.o
- .debug_macro   0x0000000000025663      0x21d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_gpio.o
- .debug_macro   0x0000000000025880      0x2e2 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_i2c.o
- .debug_macro   0x0000000000025b62      0x216 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_i2c_ex.o
- .debug_macro   0x0000000000025d78      0x222 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pcd.o
- .debug_macro   0x0000000000025f9a      0x216 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pcd_ex.o
- .debug_macro   0x00000000000261b0      0x240 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr_ex.o
- .debug_macro   0x00000000000263f0      0x258 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc.o
- .debug_macro   0x0000000000026648      0x240 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc_ex.o
- .debug_macro   0x0000000000026888      0x21e ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi.o
- .debug_macro   0x0000000000026aa6      0x241 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart.o
- .debug_macro   0x0000000000026ce7      0x222 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart_ex.o
- .debug_macro   0x0000000000026f09      0x216 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_usb.o
+ .debug_macro   0x000000000000022f       0xe8 ./Core/Src/fdcan.o
+ .debug_macro   0x0000000000000317      0x22f ./Core/Src/gpio.o
+ .debug_macro   0x0000000000000546      0x22f ./Core/Src/i2c.o
+ .debug_macro   0x0000000000000775      0x265 ./Core/Src/main.o
+ .debug_macro   0x00000000000009da      0x22f ./Core/Src/spi.o
+ .debug_macro   0x0000000000000c09      0x225 ./Core/Src/stm32g4xx_hal_msp.o
+ .debug_macro   0x0000000000000e2e      0x22f ./Core/Src/stm32g4xx_it.o
+ .debug_macro   0x000000000000105d      0x216 ./Core/Src/system_stm32g4xx.o
+ .debug_macro   0x0000000000001273      0x22f ./Core/Src/usart.o
+ .debug_macro   0x00000000000014a2      0x22f ./Core/Src/usb.o
+ .debug_macro   0x00000000000016d1      0x264 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.o
+ .debug_macro   0x0000000000001935      0x216 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_cortex.o
+ .debug_macro   0x0000000000001b4b      0x328 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_fdcan.o
+ .debug_macro   0x0000000000001e73      0x21d ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_gpio.o
+ .debug_macro   0x0000000000002090      0x2e2 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_i2c.o
+ .debug_macro   0x0000000000002372      0x216 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_i2c_ex.o
+ .debug_macro   0x0000000000002588      0x222 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pcd.o
+ .debug_macro   0x00000000000027aa      0x216 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pcd_ex.o
+ .debug_macro   0x00000000000029c0      0x240 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr_ex.o
+ .debug_macro   0x0000000000002c00      0x258 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc.o
+ .debug_macro   0x0000000000002e58      0x240 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc_ex.o
+ .debug_macro   0x0000000000003098      0x21e ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi.o
+ .debug_macro   0x00000000000032b6      0x241 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart.o
+ .debug_macro   0x00000000000034f7      0x222 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart_ex.o
+ .debug_macro   0x0000000000003719      0x216 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_usb.o
 
 .debug_line     0x0000000000000000    0x19122
  .debug_line    0x0000000000000000      0x88d ./Core/Src/fdcan.o

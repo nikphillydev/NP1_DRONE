@@ -1,3 +1,4 @@
+"./Core/Src/Drivers/bmi088.o"
 "./Core/Src/fdcan.o"
 "./Core/Src/gpio.o"
 "./Core/Src/i2c.o"

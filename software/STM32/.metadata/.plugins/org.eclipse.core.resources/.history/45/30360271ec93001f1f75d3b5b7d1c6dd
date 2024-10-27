@@ -1,0 +1,13 @@
+/*
+ * bmi088.h
+ *
+ *  Created on: Oct 26, 2024
+ *      Author: nikolai
+ */
+
+#ifndef INC_DRIVERS_BMI088_H_
+#define INC_DRIVERS_BMI088_H_
+
+
+
+#endif /* INC_DRIVERS_BMI088_H_ */

@@ -1,0 +1,14 @@
+/*
+ * bmi088.c
+ *
+ *  Created on: Oct 26, 2024
+ *      Author: nikolai
+ */
+
+#include "Drivers/bmi088.h"
+
+uint8_t BMI088_Init(const SPI_HandleTypeDef* spi_handle, const GPIO_TypeDef* acc_cs_port, const GPIO_TypeDef* gyro_cs_port,
+		uint16_t acc_cs_pin, uint16_t gyro_cs_pin, uint16_t acc_irq_pin, uint16_t gyro_irq_pin)
+{
+
+}
