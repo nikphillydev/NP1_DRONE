@@ -1,1 +1,11 @@
-../Core/Src/Drivers/bmi088.c:10:9:BMI088_Init	24	static
+../Core/Src/Drivers/bmi088.c:21:9:BMI088_Init	32	static
+../Core/Src/Drivers/bmi088.c:160:9:BMI088_ReadAccData	32	static
+../Core/Src/Drivers/bmi088.c:184:9:BMI088_ReadGyroData	32	static
+../Core/Src/Drivers/bmi088.c:207:9:BMI088_ReadTempData	24	static
+../Core/Src/Drivers/bmi088.c:232:9:BMI088_LogAccData	184	static
+../Core/Src/Drivers/bmi088.c:239:9:BMI088_LogGyroData	184	static
+../Core/Src/Drivers/bmi088.c:246:9:BMI088_LogTempData	152	static
+../Core/Src/Drivers/bmi088.c:259:9:BMI088_ReadAccRegister	104	dynamic
+../Core/Src/Drivers/bmi088.c:295:9:BMI088_WriteAccRegister	72	dynamic
+../Core/Src/Drivers/bmi088.c:321:9:BMI088_ReadGyroRegister	104	dynamic
+../Core/Src/Drivers/bmi088.c:356:9:BMI088_WriteGyroRegister	72	dynamic

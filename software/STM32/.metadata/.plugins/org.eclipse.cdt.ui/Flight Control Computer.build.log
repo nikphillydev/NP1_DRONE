@@ -1,36 +1,17 @@
-19:16:06 **** Incremental Build of configuration Debug for project Flight Control Computer ****
+16:56:44 **** Incremental Build of configuration Debug for project Flight Control Computer ****
 make -j20 all 
-arm-none-eabi-gcc "../Core/Src/Drivers/bmi088.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/bmi088.d" -MT"Core/Src/Drivers/bmi088.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/bmi088.o"
-In file included from ../Core/Src/Drivers/bmi088.c:8:
-../Core/Inc/Drivers/bmi088.h:72: warning: "FIFO_CONFIG_0" redefined
-   72 | #define FIFO_CONFIG_0           0x3D
-      | 
-../Core/Inc/Drivers/bmi088.h:40: note: this is the location of the previous definition
-   40 | #define FIFO_CONFIG_0           0x48
-      | 
-../Core/Inc/Drivers/bmi088.h:73: warning: "FIFO_CONFIG_1" redefined
-   73 | #define FIFO_CONFIG_1           0x3E
-      | 
-../Core/Inc/Drivers/bmi088.h:41: note: this is the location of the previous definition
-   41 | #define FIFO_CONFIG_1           0x49
-      | 
-../Core/Inc/Drivers/bmi088.h:74: warning: "FIFO_DATA" redefined
-   74 | #define FIFO_DATA                       0x3F
-      | 
-../Core/Inc/Drivers/bmi088.h:34: note: this is the location of the previous definition
-   34 | #define FIFO_DATA                       0x26
-      | 
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+arm-none-eabi-gcc "../Core/Src/app_freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app_freertos.d" -MT"Core/Src/app_freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app_freertos.o"
+arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: Flight Control Computer.elf
  
 arm-none-eabi-size  Flight\ Control\ Computer.elf 
 arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
    text	   data	    bss	    dec	    hex	filename
-  15576	     20	   2836	  18432	   4800	Flight Control Computer.elf
+  80104	    856	  24544	 105504	  19c20	Flight Control Computer.elf
 Finished building: default.size.stdout
  
 Finished building: Flight Control Computer.list
  
 
-19:16:07 Build Finished. 0 errors, 3 warnings. (took 366ms)
+16:56:45 Build Finished. 0 errors, 0 warnings. (took 584ms)
 

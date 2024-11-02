@@ -9,10 +9,13 @@
 #define INC_DRIVERS_BMI088_H_
 
 #include "stm32g4xx_hal.h"
+#include "cmsis_os.h"
 #include <stdint.h>
 
 /*
+ *
  * ACCELEROMETER REGISTERS
+ *
  */
 #define ACC_CHIP_ID			0x00
 #define ACC_ERR_REG			0x02
@@ -48,7 +51,9 @@
 #define	ACC_SOFTRESET		0x7E
 
 /*
+ *
  * GYROSCOPE REGISTERS
+ *
  */
 #define GYRO_CHIP_ID		0x00
 #define RATE_X_LSB			0x02
@@ -74,11 +79,14 @@
 #define	GYRO_FIFO_DATA		0x3F
 
 /*
+ *
  * BMI088 INSTANCE
+ *
  */
 typedef struct BMI088
 {
 	SPI_HandleTypeDef* spi_handle;
+	osMutexId_t* spi_mutex;
 	GPIO_TypeDef* acc_cs_port;
 	GPIO_TypeDef* gyro_cs_port;
 	uint16_t acc_cs_pin;
@@ -86,13 +94,50 @@ typedef struct BMI088
 	uint16_t acc_irq_pin;
 	uint16_t gyro_irq_pin;
 
+	// Current linear accelerations (m/s^2)
+	float accel_x;
+	float accel_y;
+	float accel_z;
+
+	// Current angular velocities (rad/s)
+	float rate_x;
+	float rate_y;
+	float rate_z;
+
+	// Current temperature (degC)
+	float temperature;
+
+	// Conversion constants
+	float acc_conversion;
+	float gyro_conversion;
+
 } BMI088;
 
 /*
+ *
  * BMI088 INTERFACE
+ *
  */
-uint8_t BMI088_Init(BMI088* imu, SPI_HandleTypeDef* spi_handle, GPIO_TypeDef* acc_cs_port, GPIO_TypeDef* gyro_cs_port,
+uint8_t BMI088_Init(BMI088* imu, SPI_HandleTypeDef* spi_handle, osMutexId_t* spi_mutex, GPIO_TypeDef* acc_cs_port, GPIO_TypeDef* gyro_cs_port,
 		uint16_t acc_cs_pin, uint16_t gyro_cs_pin, uint16_t acc_irq_pin, uint16_t gyro_irq_pin);
 
+uint8_t BMI088_ReadAccData(BMI088* imu);
+uint8_t BMI088_ReadGyroData(BMI088* imu);
+uint8_t BMI088_ReadTempData(BMI088* imu);
+
+uint8_t BMI088_LogAccData(BMI088* imu);
+uint8_t BMI088_LogGyroData(BMI088* imu);
+uint8_t BMI088_LogTempData(BMI088* imu);
+
+/*
+ *
+ * BMI088 LOW-LEVEL REGISTER FUNCTIONS
+ *
+ */
+uint8_t BMI088_ReadAccRegister(BMI088* imu, uint8_t reg_addr, uint8_t* rx_data, uint16_t data_len);
+uint8_t BMI088_WriteAccRegister(BMI088* imu, uint8_t reg_addr, uint8_t* tx_data, uint16_t data_len);
+
+uint8_t BMI088_ReadGyroRegister(BMI088* imu, uint8_t reg_addr, uint8_t* rx_data, uint16_t data_len);
+uint8_t BMI088_WriteGyroRegister(BMI088* imu, uint8_t reg_addr, uint8_t* tx_data, uint16_t data_len);
 
 #endif /* INC_DRIVERS_BMI088_H_ */

@@ -1,0 +1,13 @@
+/*
+ * usb.h
+ *
+ *  Created on: Oct 26, 2024
+ *      Author: nikolai
+ */
+
+#ifndef INC_DRIVERS_USB_H_
+#define INC_DRIVERS_USB_H_
+
+uint8_t USB_Transmit(char* string);
+
+#endif /* INC_DRIVERS_USB_H_ */

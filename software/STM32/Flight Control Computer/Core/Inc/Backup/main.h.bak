@@ -31,11 +31,14 @@ extern "C" {
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "cmsis_os.h"
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
+
+extern osMutexId_t usbMutexHandle;
+extern osSemaphoreId_t usbTxSemaphoreHandle;
 
 /* USER CODE END ET */
 
@@ -63,10 +66,12 @@ void Error_Handler(void);
 #define GPIO3_GPIO_Port GPIOC
 #define ACCEL_INT_Pin GPIO_PIN_15
 #define ACCEL_INT_GPIO_Port GPIOC
+#define ACCEL_INT_EXTI_IRQn EXTI15_10_IRQn
 #define GYRO_CS_Pin GPIO_PIN_0
 #define GYRO_CS_GPIO_Port GPIOA
 #define GYRO_INT_Pin GPIO_PIN_1
 #define GYRO_INT_GPIO_Port GPIOA
+#define GYRO_INT_EXTI_IRQn EXTI1_IRQn
 #define ACCEL_CS_Pin GPIO_PIN_4
 #define ACCEL_CS_GPIO_Port GPIOA
 #define CC2500_GDO0_Pin GPIO_PIN_0
