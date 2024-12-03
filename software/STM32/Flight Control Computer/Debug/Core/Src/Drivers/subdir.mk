@@ -6,14 +6,17 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../Core/Src/Drivers/bmi088.c \
+../Core/Src/Drivers/bmp388.c \
 ../Core/Src/Drivers/usb.c 
 
 OBJS += \
 ./Core/Src/Drivers/bmi088.o \
+./Core/Src/Drivers/bmp388.o \
 ./Core/Src/Drivers/usb.o 
 
 C_DEPS += \
 ./Core/Src/Drivers/bmi088.d \
+./Core/Src/Drivers/bmp388.d \
 ./Core/Src/Drivers/usb.d 
 
 
@@ -24,7 +27,7 @@ Core/Src/Drivers/%.o Core/Src/Drivers/%.su Core/Src/Drivers/%.cyclo: ../Core/Src
 clean: clean-Core-2f-Src-2f-Drivers
 
 clean-Core-2f-Src-2f-Drivers:
-	-$(RM) ./Core/Src/Drivers/bmi088.cyclo ./Core/Src/Drivers/bmi088.d ./Core/Src/Drivers/bmi088.o ./Core/Src/Drivers/bmi088.su ./Core/Src/Drivers/usb.cyclo ./Core/Src/Drivers/usb.d ./Core/Src/Drivers/usb.o ./Core/Src/Drivers/usb.su
+	-$(RM) ./Core/Src/Drivers/bmi088.cyclo ./Core/Src/Drivers/bmi088.d ./Core/Src/Drivers/bmi088.o ./Core/Src/Drivers/bmi088.su ./Core/Src/Drivers/bmp388.cyclo ./Core/Src/Drivers/bmp388.d ./Core/Src/Drivers/bmp388.o ./Core/Src/Drivers/bmp388.su ./Core/Src/Drivers/usb.cyclo ./Core/Src/Drivers/usb.d ./Core/Src/Drivers/usb.o ./Core/Src/Drivers/usb.su
 
 .PHONY: clean-Core-2f-Src-2f-Drivers
 

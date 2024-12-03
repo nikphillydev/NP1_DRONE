@@ -38,7 +38,6 @@ extern "C" {
 /* USER CODE BEGIN ET */
 
 extern osMutexId_t usbMutexHandle;
-extern osSemaphoreId_t usbTxSemaphoreHandle;
 
 /* USER CODE END ET */
 
@@ -90,6 +89,7 @@ void Error_Handler(void);
 #define MAG_INT_GPIO_Port GPIOB
 #define BMP_INT_Pin GPIO_PIN_14
 #define BMP_INT_GPIO_Port GPIOB
+#define BMP_INT_EXTI_IRQn EXTI15_10_IRQn
 #define GPIO7_Pin GPIO_PIN_15
 #define GPIO7_GPIO_Port GPIOB
 #define GPIO6_Pin GPIO_PIN_10

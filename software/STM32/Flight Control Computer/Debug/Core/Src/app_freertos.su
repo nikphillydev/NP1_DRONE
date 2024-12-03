@@ -1,6 +1,7 @@
-../Core/Src/app_freertos.c:155:6:MX_FREERTOS_Init	8	static
-../Core/Src/app_freertos.c:219:6:start_application_task	40	static
-../Core/Src/app_freertos.c:245:6:start_acc_irq_task	16	static
-../Core/Src/app_freertos.c:265:6:start_gyro_irq_task	16	static
-../Core/Src/app_freertos.c:284:6:start_logging_task	16	static
-../Core/Src/app_freertos.c:303:6:HAL_GPIO_EXTI_Callback	16	static
+../Core/Src/app_freertos.c:188:6:MX_FREERTOS_Init	8	static
+../Core/Src/app_freertos.c:261:6:start_application_task	40	static
+../Core/Src/app_freertos.c:288:6:start_acc_irq_task	16	static
+../Core/Src/app_freertos.c:308:6:start_gyro_irq_task	16	static
+../Core/Src/app_freertos.c:327:6:start_logging_task	16	static
+../Core/Src/app_freertos.c:352:6:start_pressure_irq_task	16	static
+../Core/Src/app_freertos.c:367:6:HAL_GPIO_EXTI_Callback	16	static

@@ -14,24 +14,24 @@
 
 uint8_t USB_Log(const char* string, Log_Level level)
 {
-	char str[256];
+	char str[512];
 	float seconds = (float)osKernelGetTickCount() / (float)osKernelGetTickFreq();
 
 	switch (level) {
 		case INFO:
-			snprintf(str, 256, "%.2f LOG INFO %s\n", seconds, string);
+			snprintf(str, 256, "LOG %.2f INFO %s\n", seconds, string);
 			break;
 		case WARN:
-			snprintf(str, 256, "%.2f LOG WARN %s\n", seconds, string);
+			snprintf(str, 256, "LOG %.2f WARN %s\n", seconds, string);
 			break;
 		case ERR:
-			snprintf(str, 256, "%.2f LOG ERR %s\n", seconds, string);
+			snprintf(str, 256, "LOG %.2f ERR %s\n", seconds, string);
 			break;
 		case SENSOR:
-			snprintf(str, 256, "%.2f SENSOR %s\n", seconds, string);
+			snprintf(str, 256, "SENSOR %.2f %s\n", seconds, string);
 			break;
 		default:
-			snprintf(str, 256, "%.2f LOG ERR INVALID LOG FORMATTING: %s\n", seconds, string);
+			snprintf(str, 256, "LOG %.2f ERR INVALID LOG FORMATTING: %s\n", seconds, string);
 			break;
 	}
 

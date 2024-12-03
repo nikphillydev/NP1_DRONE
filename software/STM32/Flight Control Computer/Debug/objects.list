@@ -1,4 +1,5 @@
 "./Core/Src/Drivers/bmi088.o"
+"./Core/Src/Drivers/bmp388.o"
 "./Core/Src/Drivers/usb.o"
 "./Core/Src/app_freertos.o"
 "./Core/Src/fdcan.o"

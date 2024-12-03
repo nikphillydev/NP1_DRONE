@@ -43,7 +43,11 @@ uint8_t BMI088_Init(BMI088* imu, SPI_HandleTypeDef* spi_handle, osMutexId_t* spi
 	uint8_t tx_data[4];
 	uint8_t rx_data[4];
 
-	// Perform soft-reset of accelerometer
+	// Perform soft-reset of accelerometer (switch to SPI mode first)
+	HAL_GPIO_WritePin(imu->acc_cs_port, imu->acc_cs_pin, GPIO_PIN_RESET);
+	osDelay(10);
+	HAL_GPIO_WritePin(imu->acc_cs_port, imu->acc_cs_pin, GPIO_PIN_SET);
+	osDelay(10);
 	tx_data[0] = 0xB6;
 	BMI088_WriteAccRegister(imu, ACC_SOFTRESET, tx_data, 1);
 	osDelay(10);
@@ -78,7 +82,7 @@ uint8_t BMI088_Init(BMI088* imu, SPI_HandleTypeDef* spi_handle, osMutexId_t* spi
 	osDelay(10);
 
 	// Set 100Hz ODR, no over-sampling (40Hz BW)
-	tx_data[0] = 0x88;
+	tx_data[0] = 0xA8;
 	BMI088_WriteAccRegister(imu, ACC_CONF, tx_data, 1);
 	osDelay(10);
 
@@ -127,19 +131,14 @@ uint8_t BMI088_Init(BMI088* imu, SPI_HandleTypeDef* spi_handle, osMutexId_t* spi
 	}
 	osDelay(10);
 
-	// Set +-500 deg/s range (65.536 LSB/deg/s)
-	tx_data[0] = 0x02;
-	BMI088_WriteGyroRegister(imu, GYRO_RANGE, tx_data, 1);
-	osDelay(10);
-
 	// Set 100Hz ODR (32Hz BW)
 	tx_data[0] = 0x07;
 	BMI088_WriteGyroRegister(imu, GYRO_BANDWIDTH, tx_data, 1);
 	osDelay(10);
 
-	// Enable gyroscope new data interrupt
-	tx_data[0] = 0x80;
-	BMI088_WriteGyroRegister(imu, GYRO_INT_CTRL, tx_data, 1);
+	// Set +-500 deg/s range (65.536 LSB/deg/s)
+	tx_data[0] = 0x02;
+	BMI088_WriteGyroRegister(imu, GYRO_RANGE, tx_data, 1);
 	osDelay(10);
 
 	// Configure INT3 (push-pull, active high)
@@ -150,6 +149,11 @@ uint8_t BMI088_Init(BMI088* imu, SPI_HandleTypeDef* spi_handle, osMutexId_t* spi
 	// Map gyroscope data ready interrupt to INT3
 	tx_data[0] = 0x01;
 	BMI088_WriteGyroRegister(imu, INT3_INT4_IO_MAP, tx_data, 1);
+	osDelay(10);
+
+	// Enable gyroscope new data interrupt
+	tx_data[0] = 0x80;
+	BMI088_WriteGyroRegister(imu, GYRO_INT_CTRL, tx_data, 1);
 	osDelay(10);
 
 	USB_Log("BMI088 gyroscope initialized OK.", INFO);
@@ -232,7 +236,7 @@ uint8_t BMI088_ReadTempData(BMI088* imu)
 uint8_t BMI088_LogAccData(BMI088* imu)
 {
 	char string[128];
-	snprintf(string, 128, "ACC %.2f %.2f %.2f", imu->accel_x, imu->accel_y, imu->accel_z);
+	snprintf(string, 128, "ACC %.2f %.2f %.2f %.2f", imu->accel_x, imu->accel_y, imu->accel_z, imu->temperature);
 	return USB_Log(string, SENSOR);
 }
 
@@ -240,13 +244,6 @@ uint8_t BMI088_LogGyroData(BMI088* imu)
 {
 	char string[128];
 	snprintf(string, 128, "GYRO %.2f %.2f %.2f", imu->rate_x, imu->rate_y, imu->rate_z);
-	return USB_Log(string, SENSOR);
-}
-
-uint8_t BMI088_LogTempData(BMI088* imu)
-{
-	char string[128];
-	snprintf(string, 128, "TEMP %.2f", imu->temperature);
 	return USB_Log(string, SENSOR);
 }
 

@@ -7,4 +7,4 @@
 ../Core/Src/stm32g4xx_it.c:166:6:EXTI1_IRQHandler	1
 ../Core/Src/stm32g4xx_it.c:180:6:USB_LP_IRQHandler	1
 ../Core/Src/stm32g4xx_it.c:194:6:EXTI15_10_IRQHandler	1
-../Core/Src/stm32g4xx_it.c:208:6:TIM6_DAC_IRQHandler	1
+../Core/Src/stm32g4xx_it.c:209:6:TIM6_DAC_IRQHandler	1

@@ -27,7 +27,9 @@
 /* USER CODE BEGIN Includes */
 #include "Drivers/usb.h"
 #include "Drivers/bmi088.h"
+#include "Drivers/bmp388.h"
 #include "spi.h"
+#include "i2c.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -52,6 +54,8 @@ typedef StaticSemaphore_t osStaticSemaphoreDef_t;
 /* USER CODE BEGIN Variables */
 
 BMI088 imu;
+BMP388 press_sensor;
+BMP388_CalibrationData calib_data;
 
 /* USER CODE END Variables */
 /* Definitions for applicationTask */
@@ -68,7 +72,7 @@ const osThreadAttr_t applicationTask_attributes = {
 };
 /* Definitions for accIRQTask */
 osThreadId_t accIRQTaskHandle;
-uint32_t accIRQTaskBuffer[ 512 ];
+uint32_t accIRQTaskBuffer[ 256 ];
 osStaticThreadDef_t accIRQTaskControlBlock;
 const osThreadAttr_t accIRQTask_attributes = {
   .name = "accIRQTask",
@@ -80,7 +84,7 @@ const osThreadAttr_t accIRQTask_attributes = {
 };
 /* Definitions for gyroIRQTask */
 osThreadId_t gyroIRQTaskHandle;
-uint32_t gyroIRQTaskBuffer[ 512 ];
+uint32_t gyroIRQTaskBuffer[ 256 ];
 osStaticThreadDef_t gyroIRQTaskControlBlock;
 const osThreadAttr_t gyroIRQTask_attributes = {
   .name = "gyroIRQTask",
@@ -102,6 +106,18 @@ const osThreadAttr_t loggingTask_attributes = {
   .cb_size = sizeof(loggingTaskControlBlock),
   .priority = (osPriority_t) osPriorityLow,
 };
+/* Definitions for pressureIRQTask */
+osThreadId_t pressureIRQTaskHandle;
+uint32_t pressureIRQTaskBuffer[ 256 ];
+osStaticThreadDef_t pressureIRQTaskControlBlock;
+const osThreadAttr_t pressureIRQTask_attributes = {
+  .name = "pressureIRQTask",
+  .stack_mem = &pressureIRQTaskBuffer[0],
+  .stack_size = sizeof(pressureIRQTaskBuffer),
+  .cb_mem = &pressureIRQTaskControlBlock,
+  .cb_size = sizeof(pressureIRQTaskControlBlock),
+  .priority = (osPriority_t) osPriorityHigh,
+};
 /* Definitions for spi1Mutex */
 osMutexId_t spi1MutexHandle;
 osStaticMutexDef_t spi1MutexControlBlock;
@@ -117,6 +133,14 @@ const osMutexAttr_t usbMutex_attributes = {
   .name = "usbMutex",
   .cb_mem = &usbMutexControlBlock,
   .cb_size = sizeof(usbMutexControlBlock),
+};
+/* Definitions for i2c2Mutex */
+osMutexId_t i2c2MutexHandle;
+osStaticMutexDef_t myMutex03ControlBlock;
+const osMutexAttr_t i2c2Mutex_attributes = {
+  .name = "i2c2Mutex",
+  .cb_mem = &myMutex03ControlBlock,
+  .cb_size = sizeof(myMutex03ControlBlock),
 };
 /* Definitions for accIRQSemaphore */
 osSemaphoreId_t accIRQSemaphoreHandle;
@@ -134,6 +158,14 @@ const osSemaphoreAttr_t gyroIRQSemaphore_attributes = {
   .cb_mem = &gyroIRQSemaphoreControlBlock,
   .cb_size = sizeof(gyroIRQSemaphoreControlBlock),
 };
+/* Definitions for pressureIRQSemaphore */
+osSemaphoreId_t pressureIRQSemaphoreHandle;
+osStaticSemaphoreDef_t myCountingSem03ControlBlock;
+const osSemaphoreAttr_t pressureIRQSemaphore_attributes = {
+  .name = "pressureIRQSemaphore",
+  .cb_mem = &myCountingSem03ControlBlock,
+  .cb_size = sizeof(myCountingSem03ControlBlock),
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -144,6 +176,7 @@ void start_application_task(void *argument);
 void start_acc_irq_task(void *argument);
 void start_gyro_irq_task(void *argument);
 void start_logging_task(void *argument);
+void start_pressure_irq_task(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -163,6 +196,9 @@ void MX_FREERTOS_Init(void) {
   /* creation of usbMutex */
   usbMutexHandle = osMutexNew(&usbMutex_attributes);
 
+  /* creation of i2c2Mutex */
+  i2c2MutexHandle = osMutexNew(&i2c2Mutex_attributes);
+
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
@@ -173,6 +209,9 @@ void MX_FREERTOS_Init(void) {
 
   /* creation of gyroIRQSemaphore */
   gyroIRQSemaphoreHandle = osSemaphoreNew(64, 0, &gyroIRQSemaphore_attributes);
+
+  /* creation of pressureIRQSemaphore */
+  pressureIRQSemaphoreHandle = osSemaphoreNew(64, 0, &pressureIRQSemaphore_attributes);
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
@@ -199,6 +238,9 @@ void MX_FREERTOS_Init(void) {
   /* creation of loggingTask */
   loggingTaskHandle = osThreadNew(start_logging_task, NULL, &loggingTask_attributes);
 
+  /* creation of pressureIRQTask */
+  pressureIRQTaskHandle = osThreadNew(start_pressure_irq_task, NULL, &pressureIRQTask_attributes);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -221,16 +263,17 @@ void start_application_task(void *argument)
   /* USER CODE BEGIN start_application_task */
 
 	BMI088_Init(&imu, &hspi1, &spi1MutexHandle, ACCEL_CS_GPIO_Port, GYRO_CS_GPIO_Port, ACCEL_CS_Pin, GYRO_CS_Pin, ACCEL_INT_Pin, GYRO_INT_Pin);
+	BMP388_Init(&press_sensor, &calib_data, &hi2c2, &i2c2MutexHandle, BMP_INT_Pin);
 
 	/* Infinite loop */
 	for(;;)
 	{
 		osDelay(100);
-		USB_Log("nikolai", INFO);
+		USB_Log("nikolai info", INFO);
 		osDelay(100);
-		USB_Log("nikolai", WARN);
+		USB_Log("nikolai warning", WARN);
 		osDelay(100);
-		USB_Log("nikolai", ERR);
+		USB_Log("nikolai error", ERR);
 	}
   /* USER CODE END start_application_task */
 }
@@ -283,18 +326,37 @@ void start_gyro_irq_task(void *argument)
 /* USER CODE END Header_start_logging_task */
 void start_logging_task(void *argument)
 {
-	/* USER CODE BEGIN start_logging_task */
+  /* USER CODE BEGIN start_logging_task */
 	/* Infinite loop */
 	for(;;)
 	{
 		BMI088_LogAccData(&imu);
-		osDelay(3);
+		osDelay(2);
 		BMI088_LogGyroData(&imu);
-		osDelay(3);
-		BMI088_LogTempData(&imu);
-		osDelay(3);
+		osDelay(2);
+		BMP388_LogData(&press_sensor);
+		osDelay(2);
 	}
-	/* USER CODE END start_logging_task */
+  /* USER CODE END start_logging_task */
+}
+
+/* USER CODE BEGIN Header_start_pressure_irq_task */
+/**
+* @brief Function implementing the pressureIRQTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_start_pressure_irq_task */
+void start_pressure_irq_task(void *argument)
+{
+	/* USER CODE BEGIN start_pressure_irq_task */
+	/* Infinite loop */
+	for(;;)
+	{
+		osSemaphoreAcquire(pressureIRQSemaphoreHandle, osWaitForever);
+		BMP388_ReadData(&press_sensor);
+	}
+	/* USER CODE END start_pressure_irq_task */
 }
 
 /* Private application code --------------------------------------------------*/
@@ -309,6 +371,10 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	else if (GPIO_Pin == imu.gyro_irq_pin)
 	{
 		osSemaphoreRelease(gyroIRQSemaphoreHandle);
+	}
+	else if (GPIO_Pin == press_sensor.irq_pin)
+	{
+		osSemaphoreRelease(pressureIRQSemaphoreHandle);
 	}
 }
 
