@@ -29,7 +29,7 @@ The ESC PCB incorporates:
 - Power regulation (4S LIPO 16.8V max -> +5V -> +3.3V)
 
 ## Software Overview [In Progress]
-Each custom vehicle PCB (FCC and ESC) has a dedicated STM32 MCU running FreeRTOS (using CMSIS_V2 API). Ground station software running on the RPi5 built on PyQT6.
+Each custom vehicle PCB (FCC and ESC) has a dedicated STM32 MCU running FreeRTOS (using CMSIS_V2 API). The ground station software runs on the RPi5 and is built on PyQT6.
 #### Flight Control Computer
 Flight control computer implements software drivers for accelerometer, gyroscope, magnetometer, and barometer. Using this data, the FCC implements
 - Calibration for all sensors
