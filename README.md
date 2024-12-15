@@ -6,7 +6,7 @@ Hardware includes 2 custom PCB designs on the vehicle side:
 2. Electronic Speed Controller (ESC)
 
 And a RaspberryPi 5 with a 2.4GHz RF transceiver running the ground station software and commanding the drone.
-#### Flight Control Computer
+#### Flight Control Computer [COMPLETE]
 The FCC PCB incorporates:
 - STM32G474 microcontroller
 - IMU (accelerometer + gyroscope), magnetometer, barometer
@@ -16,7 +16,7 @@ The FCC PCB incorporates:
 - 32kBit EEPROM
 - Power regulation (4S LIPO 16.8V max -> +5V -> +3.3V)
 - Payload header (exposing +5V, +3.3V, GPIO, I2C, SPI, UART)
-#### Electronic Speed Controller
+#### Electronic Speed Controller [SCHEMATIC PHASE]
 The ESC PCB incorporates:
 - STM32G474 microcontroller
 - 3 Half-bridge MOSFET gate drivers to support a 3 phase BLDC motor
