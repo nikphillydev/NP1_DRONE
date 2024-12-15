@@ -4,6 +4,7 @@ Building a quadcopter from scratch. Hardware and software.
 Hardware includes 2 custom PCB designs on the vehicle side: 
 1. Flight Control Computer (FCC)
 2. Electronic Speed Controller (ESC)
+
 And a RaspberryPi5 with a 2.4GHz RF transceiver running the ground station software.
 #### Flight Control Computer
 The FCC PCB incorporates:
