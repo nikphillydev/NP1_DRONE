@@ -35,13 +35,16 @@ The flight control computer implements software drivers for the onboard accelero
 - Calibration for all sensors
 - 9-axis + barometer extended kalman filter (EKF) for state estimation [x, y, z, roll, pitch, yaw]
 - Communication with ground station for the following control modes:
-- - dvsdvsdv
-- Control loop (setpoint from remote controller -> PID -> commands to ESCs)
+  - Hover at specific altitude
+  - Circular loiter at altitude and radius
+  - Manual control 
+All control modes use a PID controller that converts thrust to RPM commands that are sent to the 4 ESCs via CANbus.
 #### Electronic Speed Controller
 The NP1 ESC hardware was designed to support the following BLDC control algorithms:
 - Trapezoidal control (Back-EMF zero-crossing detection)
+  - This will be implemented first
 - Field-oriented control (Voltage and current measurements per phase)
-#### Remote Controller
-Needs to send messages to FCC (message definitions TBD)
+#### NP1 Ground Control Station (GCS)
+The NP1 GCS displays current sensor and position data as well as information, critical, and error logs from the FCC.
 
 
