@@ -1,5 +1,5 @@
 # NP1 DRONE
-Building a quadcopter from scratch. Hardware and software.
+Building a quadcopter from scratch. Hardware and software by Nikolai Philipenko, University of Alberta.
 ## Hardware Overview [In Progress]
 Hardware includes 2 custom PCB designs on the vehicle side: 
 1. Flight Control Computer (FCC)
