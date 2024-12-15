@@ -5,7 +5,7 @@ Hardware includes 2 custom PCB designs on the vehicle side:
 1. Flight Control Computer (FCC)
 2. Electronic Speed Controller (ESC)
 
-And a RaspberryPi 5 with a 2.4GHz RF transceiver running the ground station software.
+And a RaspberryPi 5 with a 2.4GHz RF transceiver running the ground station software and commanding the drone.
 #### Flight Control Computer
 The FCC PCB incorporates:
 - STM32G474 microcontroller
