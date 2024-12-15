@@ -48,8 +48,8 @@ Core/Src/app_freertos.o: ../Core/Src/app_freertos.c \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
  ../Core/Inc/Drivers/usb.h ../Core/Inc/Drivers/bmi088.h \
- ../Core/Inc/Drivers/bmp388.h ../Core/Inc/spi.h ../Core/Inc/main.h \
- ../Core/Inc/i2c.h
+ ../Core/Inc/Drivers/bmp388.h ../Core/Inc/Drivers/lis3mdl.h \
+ ../Core/Inc/spi.h ../Core/Inc/main.h ../Core/Inc/i2c.h
 ../Middlewares/Third_Party/FreeRTOS/Source/include/FreeRTOS.h:
 ../Core/Inc/FreeRTOSConfig.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/projdefs.h:
@@ -102,6 +102,7 @@ Core/Src/app_freertos.o: ../Core/Src/app_freertos.c \
 ../Core/Inc/Drivers/usb.h:
 ../Core/Inc/Drivers/bmi088.h:
 ../Core/Inc/Drivers/bmp388.h:
+../Core/Inc/Drivers/lis3mdl.h:
 ../Core/Inc/spi.h:
 ../Core/Inc/main.h:
 ../Core/Inc/i2c.h:

@@ -9,6 +9,52 @@ from Widgets.plot_widget import AccelerometerPlot, GyroscopePlot, AltitudePlot
 from Widgets.sensor_widget import SensorDataWidget
 from Widgets.log_widget import LogWidget
 
+# Dark mode stylesheet
+dark_mode_stylesheet = """
+    QMainWindow {
+        background-color: #121212;
+        color: #FFFFFF;
+    }
+    QWidget {
+        background-color: #121212;
+        color: #FFFFFF;
+    }
+    QLineEdit, QTextEdit, QPlainTextEdit {
+        background-color: #1E1E1E;
+        color: #FFFFFF;
+        border: 1px solid #333333;
+    }
+    QPushButton {
+        background-color: #333333;
+        color: #FFFFFF;
+        border: 1px solid #444444;
+        padding: 5px;
+        border-radius: 5px;
+    }
+    QPushButton:hover {
+        background-color: #444444;
+    }
+    QPushButton:pressed {
+        background-color: #555555;
+    }
+    QScrollBar:vertical, QScrollBar:horizontal {
+        background-color: #1E1E1E;
+        border: none;
+        width: 10px;
+        margin: 0px;
+    }
+    QScrollBar::handle {
+        background-color: #555555;
+        border-radius: 5px;
+    }
+    QScrollBar::handle:hover {
+        background-color: #666666;
+    }
+    QScrollBar::add-line, QScrollBar::sub-line {
+        background: none;
+    }
+"""
+
 def main():
     # Configuration
     usb_port = "/dev/ttyACM1"
@@ -25,6 +71,7 @@ def main():
     serial_parser.start()
 
     app = QApplication(sys.argv)
+    # app.setStyleSheet(dark_mode_stylesheet) 
     main_window = MainWindow(sensor_data, logging_data)
     main_window.show()
     
@@ -67,10 +114,10 @@ class MainWindow(QMainWindow):
         
         self.info_log_box = LogWidget("Information Logs")
         grid_layout.addWidget(self.info_log_box, 1, 0) # (2,1) in grid
-        self.warn_log_box = LogWidget("Warning Logs")
-        grid_layout.addWidget(self.warn_log_box, 1, 1) # (2,2) in grid
-        self.err_log_box = LogWidget("Error Logs")
-        grid_layout.addWidget(self.err_log_box, 1, 2) # (2,3) in grid
+        self.critical_log_box = LogWidget("Critical Logs")
+        grid_layout.addWidget(self.critical_log_box, 1, 1) # (2,2) in grid
+        self.error_log_box = LogWidget("Error Logs")
+        grid_layout.addWidget(self.error_log_box, 1, 2) # (2,3) in grid
         
         # Setup a timer to trigger the redraw of plots.
         self.graph_timer = QTimer()
@@ -96,12 +143,12 @@ class MainWindow(QMainWindow):
         if (severity == Severity.INFO):
             logs = self.logging_data.info_logs
             log_box = self.info_log_box
-        if (severity == Severity.WARNING):
-            logs = self.logging_data.warn_logs
-            log_box = self.warn_log_box
-        if (severity == Severity.ERR):
-            logs = self.logging_data.err_logs
-            log_box = self.err_log_box
+        if (severity == Severity.CRITICAL):
+            logs = self.logging_data.critical_logs
+            log_box = self.critical_log_box
+        if (severity == Severity.ERROR):
+            logs = self.logging_data.error_logs
+            log_box = self.error_log_box
             
         log = logs[-1]
         temp_str = f"{log.tp:<8}: {log.log_string}"

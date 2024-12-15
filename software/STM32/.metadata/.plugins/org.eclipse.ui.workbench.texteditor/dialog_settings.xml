@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="MemAddSize"/>
+		<item key="selection" value="barometer"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="press_sensor"/>
 			<item value="MemAddSize"/>
 			<item value="IS_I2C_MEMADD_SIZE"/>
 			<item value="hcdc"/>
@@ -17,6 +18,7 @@
 			<item value="HAL_RCC_ClockConfig"/>
 		</list>
 		<list key="replacehistory">
+			<item value="barometer"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

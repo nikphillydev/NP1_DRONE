@@ -1,406 +1,56 @@
-22:32:02 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-   text	   data	    bss	    dec	    hex	filename
-  84912	    856	  23944	 109712	  1ac90	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-22:42:50 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-gcc "../Core/Src/Drivers/bmp388.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/bmp388.d" -MT"Core/Src/Drivers/bmp388.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/bmp388.o"
-arm-none-eabi-gcc "../Core/Src/app_freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app_freertos.d" -MT"Core/Src/app_freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app_freertos.o"
-../Core/Src/Drivers/bmp388.c: In function 'BMP388_ComputeStartupPressure':
-../Core/Src/Drivers/bmp388.c:258:1: warning: control reaches end of non-void function [-Wreturn-type]
-  258 | }
-      | ^
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
-  84992	    856	  23952	 109800	  1ace8	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-22:43:32 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-gcc "../Core/Src/Drivers/bmp388.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/bmp388.d" -MT"Core/Src/Drivers/bmp388.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/bmp388.o"
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
-  84992	    856	  23952	 109800	  1ace8	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-22:45:41 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-gcc "../Core/Src/Drivers/bmp388.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/bmp388.d" -MT"Core/Src/Drivers/bmp388.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/bmp388.o"
-arm-none-eabi-gcc "../Core/Src/app_freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app_freertos.d" -MT"Core/Src/app_freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app_freertos.o"
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
-  84992	    856	  23952	 109800	  1ace8	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-22:46:40 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-   text	   data	    bss	    dec	    hex	filename
-  84992	    856	  23952	 109800	  1ace8	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-22:47:27 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-gcc "../Core/Src/Drivers/bmp388.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/bmp388.d" -MT"Core/Src/Drivers/bmp388.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/bmp388.o"
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
-  84992	    856	  23952	 109800	  1ace8	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-22:47:59 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-   text	   data	    bss	    dec	    hex	filename
-  84992	    856	  23952	 109800	  1ace8	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-22:49:13 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-gcc "../Core/Src/Drivers/bmp388.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/bmp388.d" -MT"Core/Src/Drivers/bmp388.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/bmp388.o"
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
-  84992	    856	  23952	 109800	  1ace8	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-22:49:40 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-gcc "../Core/Src/Drivers/bmp388.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/bmp388.d" -MT"Core/Src/Drivers/bmp388.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/bmp388.o"
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
-  84992	    856	  23952	 109800	  1ace8	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-22:50:41 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-gcc "../Core/Src/Drivers/bmp388.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/bmp388.d" -MT"Core/Src/Drivers/bmp388.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/bmp388.o"
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
-  84992	    856	  23952	 109800	  1ace8	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-22:50:53 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-   text	   data	    bss	    dec	    hex	filename
-  84992	    856	  23952	 109800	  1ace8	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-22:58:43 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-gcc "../Core/Src/Drivers/bmp388.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/bmp388.d" -MT"Core/Src/Drivers/bmp388.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/bmp388.o"
-arm-none-eabi-gcc "../Core/Src/app_freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app_freertos.d" -MT"Core/Src/app_freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app_freertos.o"
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
-  87028	    856	  23952	 111836	  1b4dc	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-20:54:49 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-gcc "../Core/Src/Drivers/bmp388.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/bmp388.d" -MT"Core/Src/Drivers/bmp388.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/bmp388.o"
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
-  87044	    856	  23952	 111852	  1b4ec	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-20:56:28 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-gcc "../Core/Src/Drivers/bmp388.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/bmp388.d" -MT"Core/Src/Drivers/bmp388.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/bmp388.o"
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
-  87044	    856	  23952	 111852	  1b4ec	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-20:56:43 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-   text	   data	    bss	    dec	    hex	filename
-  87044	    856	  23952	 111852	  1b4ec	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-20:59:19 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-gcc "../Core/Src/Drivers/bmp388.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/bmp388.d" -MT"Core/Src/Drivers/bmp388.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/bmp388.o"
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
-  87076	    856	  23952	 111884	  1b50c	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-21:11:21 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-gcc "../Core/Src/Drivers/bmp388.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/bmp388.d" -MT"Core/Src/Drivers/bmp388.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/bmp388.o"
-arm-none-eabi-gcc "../Core/Src/app_freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app_freertos.d" -MT"Core/Src/app_freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app_freertos.o"
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
-  87316	    856	  23952	 112124	  1b5fc	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-19:36:03 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-gcc "../Core/Src/app_freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app_freertos.d" -MT"Core/Src/app_freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app_freertos.o"
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
-  86996	    856	  23952	 111804	  1b4bc	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-21:42:28 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-gcc "../Core/Src/app_freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app_freertos.d" -MT"Core/Src/app_freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app_freertos.o"
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
-  87316	    856	  23952	 112124	  1b5fc	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-21:53:03 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-gcc "../Core/Src/app_freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app_freertos.d" -MT"Core/Src/app_freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app_freertos.o"
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
-  87316	    856	  23952	 112124	  1b5fc	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-21:53:23 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-   text	   data	    bss	    dec	    hex	filename
-  87316	    856	  23952	 112124	  1b5fc	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-21:56:57 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-gcc "../Core/Src/app_freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app_freertos.d" -MT"Core/Src/app_freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app_freertos.o"
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
-  87124	    856	  23952	 111932	  1b53c	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-22:00:27 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-gcc "../Core/Src/Drivers/bmp388.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/bmp388.d" -MT"Core/Src/Drivers/bmp388.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/bmp388.o"
-arm-none-eabi-gcc "../Core/Src/app_freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app_freertos.d" -MT"Core/Src/app_freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app_freertos.o"
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
-  87124	    856	  23952	 111932	  1b53c	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-22:18:31 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-gcc "../Core/Src/Drivers/usb.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/usb.d" -MT"Core/Src/Drivers/usb.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/usb.o"
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
-  87124	    856	  23952	 111932	  1b53c	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-22:24:50 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-gcc "../Core/Src/app_freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app_freertos.d" -MT"Core/Src/app_freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app_freertos.o"
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
-  87124	    856	  23952	 111932	  1b53c	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-20:01:37 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-gcc "../Core/Src/app_freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app_freertos.d" -MT"Core/Src/app_freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app_freertos.o"
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
-  87236	    856	  23952	 112044	  1b5ac	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-21:35:49 **** Incremental Build of configuration Debug for project Flight Control Computer ****
+23:16:16 **** Incremental Build of configuration Debug for project Flight Control Computer ****
 make -j20 all 
 arm-none-eabi-gcc "../Core/Src/Drivers/bmi088.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/bmi088.d" -MT"Core/Src/Drivers/bmi088.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/bmi088.o"
-arm-none-eabi-gcc "../Core/Src/app_freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app_freertos.d" -MT"Core/Src/app_freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app_freertos.o"
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
-  87244	    856	  23952	 112052	  1b5b4	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-22:26:54 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-gcc "../Core/Src/app_freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app_freertos.d" -MT"Core/Src/app_freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app_freertos.o"
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
-  87276	    856	  23952	 112084	  1b5d4	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-22:37:11 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-gcc "../Core/Src/app_freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app_freertos.d" -MT"Core/Src/app_freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app_freertos.o"
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
-  87340	    856	  23952	 112148	  1b614	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-22:37:20 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-   text	   data	    bss	    dec	    hex	filename
-  87340	    856	  23952	 112148	  1b614	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-22:38:12 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
+arm-none-eabi-gcc "../Core/Src/Drivers/bmp388.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/bmp388.d" -MT"Core/Src/Drivers/bmp388.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/bmp388.o"
+arm-none-eabi-gcc "../Core/Src/Drivers/lis3mdl.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/lis3mdl.d" -MT"Core/Src/Drivers/lis3mdl.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/lis3mdl.o"
 arm-none-eabi-gcc "../Core/Src/Drivers/usb.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/usb.d" -MT"Core/Src/Drivers/usb.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/usb.o"
+arm-none-eabi-gcc "../Core/Src/app_freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app_freertos.d" -MT"Core/Src/app_freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app_freertos.o"
 arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 Finished building target: Flight Control Computer.elf
  
 arm-none-eabi-size  Flight\ Control\ Computer.elf 
 arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
    text	   data	    bss	    dec	    hex	filename
-  87340	    856	  23952	 112148	  1b614	Flight Control Computer.elf
+  88804	    856	  25264	 114924	  1c0ec	Flight Control Computer.elf
 Finished building: default.size.stdout
  
 Finished building: Flight Control Computer.list
  
-22:38:58 **** Incremental Build of configuration Debug for project Flight Control Computer ****
+23:21:31 **** Incremental Build of configuration Debug for project Flight Control Computer ****
 make -j20 all 
 arm-none-eabi-size  Flight\ Control\ Computer.elf 
    text	   data	    bss	    dec	    hex	filename
-  87340	    856	  23952	 112148	  1b614	Flight Control Computer.elf
+  88804	    856	  25264	 114924	  1c0ec	Flight Control Computer.elf
 Finished building: default.size.stdout
  
-22:39:47 **** Incremental Build of configuration Debug for project Flight Control Computer ****
+19:48:00 **** Incremental Build of configuration Debug for project Flight Control Computer ****
+make -j20 all 
+arm-none-eabi-gcc "../Core/Src/Drivers/lis3mdl.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/lis3mdl.d" -MT"Core/Src/Drivers/lis3mdl.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/lis3mdl.o"
+arm-none-eabi-gcc "../Core/Src/app_freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app_freertos.d" -MT"Core/Src/app_freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app_freertos.o"
+../Core/Src/Drivers/lis3mdl.c: In function 'LIS3MDL_LogData':
+../Core/Src/Drivers/lis3mdl.c:107:9: warning: implicit declaration of function 'snprintf' [-Wimplicit-function-declaration]
+  107 |         snprintf(string, 128, "%.2f %.2f %.2f", x_utesla, y_utesla, z_utesla);
+      |         ^~~~~~~~
+../Core/Src/Drivers/lis3mdl.c:10:1: note: include '<stdio.h>' or provide a declaration of 'snprintf'
+    9 | #include "Drivers/usb.h"
+  +++ |+#include <stdio.h>
+   10 | 
+../Core/Src/Drivers/lis3mdl.c:107:9: warning: incompatible implicit declaration of built-in function 'snprintf' [-Wbuiltin-declaration-mismatch]
+  107 |         snprintf(string, 128, "%.2f %.2f %.2f", x_utesla, y_utesla, z_utesla);
+      |         ^~~~~~~~
+../Core/Src/Drivers/lis3mdl.c:107:9: note: include '<stdio.h>' or provide a declaration of 'snprintf'
+arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+Finished building target: Flight Control Computer.elf
+ 
+arm-none-eabi-size  Flight\ Control\ Computer.elf 
+arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
+   text	   data	    bss	    dec	    hex	filename
+  88612	    856	  25264	 114732	  1c02c	Flight Control Computer.elf
+Finished building: default.size.stdout
+ 
+Finished building: Flight Control Computer.list
+ 
+19:48:44 **** Incremental Build of configuration Debug for project Flight Control Computer ****
 make -j20 all 
 arm-none-eabi-gcc "../Core/Src/app_freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app_freertos.d" -MT"Core/Src/app_freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app_freertos.o"
 arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
@@ -409,42 +59,7 @@ Finished building target: Flight Control Computer.elf
 arm-none-eabi-size  Flight\ Control\ Computer.elf 
 arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
    text	   data	    bss	    dec	    hex	filename
-  87308	    856	  23952	 112116	  1b5f4	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-22:45:47 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-gcc "../Core/Src/app_freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app_freertos.d" -MT"Core/Src/app_freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app_freertos.o"
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
-  87388	    856	  23952	 112196	  1b644	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-22:50:24 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-   text	   data	    bss	    dec	    hex	filename
-  87388	    856	  23952	 112196	  1b644	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-23:04:31 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-gcc "../Core/Src/app_freertos.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/app_freertos.d" -MT"Core/Src/app_freertos.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/app_freertos.o"
-arm-none-eabi-gcc -o "Flight Control Computer.elf" @"objects.list"   -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
-  87356	    856	  23952	 112164	  1b624	Flight Control Computer.elf
+  88564	    856	  25264	 114684	  1bffc	Flight Control Computer.elf
 Finished building: default.size.stdout
  
 Finished building: Flight Control Computer.list

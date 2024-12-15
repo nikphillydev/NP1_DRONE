@@ -29,13 +29,6 @@ uint8_t BMI088_Init(BMI088* imu, SPI_HandleTypeDef* spi_handle, osMutexId_t* spi
 	imu->gyro_cs_pin = gyro_cs_pin;
 	imu->acc_irq_pin = acc_irq_pin;
 	imu->gyro_irq_pin = gyro_irq_pin;
-	imu->accel_x = 0.0;
-	imu->accel_y = 0.0;
-	imu->accel_z = 0.0;
-	imu->rate_x = 0.0;
-	imu->rate_y = 0.0;
-	imu->rate_z = 0.0;
-	imu->temperature = 0.0;
 	imu->acc_conversion = 9.80665 / 32768.0f * 2.0f * 1.5f; /* Based on +-3g range */
 	imu->gyro_conversion = M_PI / 180.0f * 500.0f / 32768.0f; /* Based on +-500 deg/s range */
 
@@ -72,7 +65,7 @@ uint8_t BMI088_Init(BMI088* imu, SPI_HandleTypeDef* spi_handle, osMutexId_t* spi
 	BMI088_ReadAccRegister(imu, ACC_CHIP_ID, rx_data, 1);
 	if (rx_data[0] == 0x1E)
 	{
-		USB_Log("Found BMI088 accelerometer, starting initialization.", INFO);
+		USB_Log("Found BMI088 accelerometer, starting initialization.", CRITICAL);
 	}
 	else
 	{
@@ -111,7 +104,8 @@ uint8_t BMI088_Init(BMI088* imu, SPI_HandleTypeDef* spi_handle, osMutexId_t* spi
 	BMI088_WriteAccRegister(imu, ACC_PWR_CTRL, tx_data, 1);
 	osDelay(10);
 
-	USB_Log("BMI088 accelerometer initialized OK.", INFO);
+	USB_Log("BMI088 accelerometer initialized OK.", CRITICAL);
+	osDelay(100);
 
 	/*
 	 * GYROSCOPE SETUP
@@ -122,7 +116,7 @@ uint8_t BMI088_Init(BMI088* imu, SPI_HandleTypeDef* spi_handle, osMutexId_t* spi
 	BMI088_ReadGyroRegister(imu, GYRO_CHIP_ID, rx_data, 1);
 	if (rx_data[0] == 0x0F)
 	{
-		USB_Log("Found BMI088 gyroscope, starting initialization.", INFO);
+		USB_Log("Found BMI088 gyroscope, starting initialization.", CRITICAL);
 	}
 	else
 	{
@@ -156,7 +150,8 @@ uint8_t BMI088_Init(BMI088* imu, SPI_HandleTypeDef* spi_handle, osMutexId_t* spi
 	BMI088_WriteGyroRegister(imu, GYRO_INT_CTRL, tx_data, 1);
 	osDelay(10);
 
-	USB_Log("BMI088 gyroscope initialized OK.", INFO);
+	USB_Log("BMI088 gyroscope initialized OK.", CRITICAL);
+	osDelay(100);
 
 	return 1;
 }
@@ -181,6 +176,10 @@ uint8_t BMI088_ReadAccData(BMI088* imu)
 		// Clear data ready interrupt
 		BMI088_ReadAccRegister(imu, ACC_INT_STAT_1, rx_data, 1);
 	}
+	else
+	{
+		USB_Log("ERR reading BMI088 accelerometer data.", ERR);
+	}
 
 	return status;
 }
@@ -203,6 +202,10 @@ uint8_t BMI088_ReadGyroData(BMI088* imu)
 		imu->rate_z = rate_z_int16 * imu->gyro_conversion;
 
 		// Interrupt cleared automatically after 280-400us
+	}
+	else
+	{
+		USB_Log("ERR reading BMI088 gyroscope data.", ERR);
 	}
 
 	return status;
@@ -228,6 +231,10 @@ uint8_t BMI088_ReadTempData(BMI088* imu)
 			temp_int11 = temp_uint11;
 		}
 		imu->temperature = temp_int11 * 0.125f + 23.0f;
+	}
+	else
+	{
+		USB_Log("ERR reading BMI088 temperature data.", ERR);
 	}
 
 	return status;

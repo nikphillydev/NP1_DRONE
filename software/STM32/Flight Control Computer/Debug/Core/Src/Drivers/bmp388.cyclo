@@ -1,7 +1,7 @@
 ../Core/Src/Drivers/bmp388.c:18:9:BMP388_Init	2
-../Core/Src/Drivers/bmp388.c:82:9:BMP388_ReadData	3
-../Core/Src/Drivers/bmp388.c:130:9:BMP388_LogData	1
-../Core/Src/Drivers/bmp388.c:142:9:BMP388_ReadRegister	2
-../Core/Src/Drivers/bmp388.c:156:9:BMP388_WriteRegister	2
-../Core/Src/Drivers/bmp388.c:170:9:BMP388_ReadCalibrationData	1
-../Core/Src/Drivers/bmp388.c:247:9:BMP388_ComputeStartupPressure	2
+../Core/Src/Drivers/bmp388.c:86:9:BMP388_ReadData	8
+../Core/Src/Drivers/bmp388.c:146:9:BMP388_LogData	1
+../Core/Src/Drivers/bmp388.c:158:9:BMP388_ReadRegister	2
+../Core/Src/Drivers/bmp388.c:172:9:BMP388_WriteRegister	2
+../Core/Src/Drivers/bmp388.c:186:9:BMP388_ReadCalibrationData	1
+../Core/Src/Drivers/bmp388.c:263:9:BMP388_ComputeStartupPressure	2

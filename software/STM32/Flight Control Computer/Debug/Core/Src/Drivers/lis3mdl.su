@@ -1,0 +1,5 @@
+../Core/Src/Drivers/lis3mdl.c:16:9:LIS3MDL_Init	32	static
+../Core/Src/Drivers/lis3mdl.c:75:9:LIS3MDL_ReadData	32	static
+../Core/Src/Drivers/lis3mdl.c:100:9:LIS3MDL_LogData	200	static
+../Core/Src/Drivers/lis3mdl.c:116:9:LIS3MDL_ReadRegister	48	static
+../Core/Src/Drivers/lis3mdl.c:136:9:LIS3MDL_WriteRegister	48	static

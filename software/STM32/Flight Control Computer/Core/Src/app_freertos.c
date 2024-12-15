@@ -28,6 +28,7 @@
 #include "Drivers/usb.h"
 #include "Drivers/bmi088.h"
 #include "Drivers/bmp388.h"
+#include "Drivers/lis3mdl.h"
 #include "spi.h"
 #include "i2c.h"
 /* USER CODE END Includes */
@@ -54,8 +55,9 @@ typedef StaticSemaphore_t osStaticSemaphoreDef_t;
 /* USER CODE BEGIN Variables */
 
 BMI088 imu;
-BMP388 press_sensor;
+BMP388 barometer;
 BMP388_CalibrationData calib_data;
+LIS3MDL magnetometer;
 
 /* USER CODE END Variables */
 /* Definitions for applicationTask */
@@ -118,6 +120,18 @@ const osThreadAttr_t pressureIRQTask_attributes = {
   .cb_size = sizeof(pressureIRQTaskControlBlock),
   .priority = (osPriority_t) osPriorityHigh,
 };
+/* Definitions for magIRQTask */
+osThreadId_t magIRQTaskHandle;
+uint32_t magIRQTaskBuffer[ 256 ];
+osStaticThreadDef_t magIRQTaskControlBlock;
+const osThreadAttr_t magIRQTask_attributes = {
+  .name = "magIRQTask",
+  .stack_mem = &magIRQTaskBuffer[0],
+  .stack_size = sizeof(magIRQTaskBuffer),
+  .cb_mem = &magIRQTaskControlBlock,
+  .cb_size = sizeof(magIRQTaskControlBlock),
+  .priority = (osPriority_t) osPriorityHigh,
+};
 /* Definitions for spi1Mutex */
 osMutexId_t spi1MutexHandle;
 osStaticMutexDef_t spi1MutexControlBlock;
@@ -160,11 +174,19 @@ const osSemaphoreAttr_t gyroIRQSemaphore_attributes = {
 };
 /* Definitions for pressureIRQSemaphore */
 osSemaphoreId_t pressureIRQSemaphoreHandle;
-osStaticSemaphoreDef_t myCountingSem03ControlBlock;
+osStaticSemaphoreDef_t pressureIRQSemaphoreControlBlock;
 const osSemaphoreAttr_t pressureIRQSemaphore_attributes = {
   .name = "pressureIRQSemaphore",
-  .cb_mem = &myCountingSem03ControlBlock,
-  .cb_size = sizeof(myCountingSem03ControlBlock),
+  .cb_mem = &pressureIRQSemaphoreControlBlock,
+  .cb_size = sizeof(pressureIRQSemaphoreControlBlock),
+};
+/* Definitions for magIRQSemaphore */
+osSemaphoreId_t magIRQSemaphoreHandle;
+osStaticSemaphoreDef_t magIRQSemaphoreControlBlock;
+const osSemaphoreAttr_t magIRQSemaphore_attributes = {
+  .name = "magIRQSemaphore",
+  .cb_mem = &magIRQSemaphoreControlBlock,
+  .cb_size = sizeof(magIRQSemaphoreControlBlock),
 };
 
 /* Private function prototypes -----------------------------------------------*/
@@ -177,6 +199,7 @@ void start_acc_irq_task(void *argument);
 void start_gyro_irq_task(void *argument);
 void start_logging_task(void *argument);
 void start_pressure_irq_task(void *argument);
+void start_mag_irq_task(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -213,6 +236,9 @@ void MX_FREERTOS_Init(void) {
   /* creation of pressureIRQSemaphore */
   pressureIRQSemaphoreHandle = osSemaphoreNew(64, 0, &pressureIRQSemaphore_attributes);
 
+  /* creation of magIRQSemaphore */
+  magIRQSemaphoreHandle = osSemaphoreNew(64, 0, &magIRQSemaphore_attributes);
+
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
   /* USER CODE END RTOS_SEMAPHORES */
@@ -241,6 +267,9 @@ void MX_FREERTOS_Init(void) {
   /* creation of pressureIRQTask */
   pressureIRQTaskHandle = osThreadNew(start_pressure_irq_task, NULL, &pressureIRQTask_attributes);
 
+  /* creation of magIRQTask */
+  magIRQTaskHandle = osThreadNew(start_mag_irq_task, NULL, &magIRQTask_attributes);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -261,19 +290,21 @@ void MX_FREERTOS_Init(void) {
 void start_application_task(void *argument)
 {
   /* USER CODE BEGIN start_application_task */
+	osDelay(400);
+	USB_Log("------------ APPLICATION STARTING ------------", CRITICAL);
+	osDelay(100);
 
+	/* Initialize sensor drivers */
 	BMI088_Init(&imu, &hspi1, &spi1MutexHandle, ACCEL_CS_GPIO_Port, GYRO_CS_GPIO_Port, ACCEL_CS_Pin, GYRO_CS_Pin, ACCEL_INT_Pin, GYRO_INT_Pin);
-	BMP388_Init(&press_sensor, &calib_data, &hi2c2, &i2c2MutexHandle, BMP_INT_Pin);
+	BMP388_Init(&barometer, &calib_data, &hi2c2, &i2c2MutexHandle, BMP_INT_Pin);
+	LIS3MDL_Init(&magnetometer, &hi2c2, &i2c2MutexHandle, MAG_DRDY_Pin);
+	USB_Log("ALL SENSORS INITIALIZED", CRITICAL);
 
 	/* Infinite loop */
 	for(;;)
 	{
 		osDelay(100);
-		USB_Log("nikolai info", INFO);
-		osDelay(100);
-		USB_Log("nikolai warning", WARN);
-		osDelay(100);
-		USB_Log("nikolai error", ERR);
+//		USB_Log("nikolai informational log", INFO);
 	}
   /* USER CODE END start_application_task */
 }
@@ -330,12 +361,14 @@ void start_logging_task(void *argument)
 	/* Infinite loop */
 	for(;;)
 	{
-		BMI088_LogAccData(&imu);
-		osDelay(2);
-		BMI088_LogGyroData(&imu);
-		osDelay(2);
-		BMP388_LogData(&press_sensor);
-		osDelay(2);
+//		BMI088_LogAccData(&imu);
+//		osDelay(2);
+//		BMI088_LogGyroData(&imu);
+//		osDelay(2);
+//		BMP388_LogData(&barometer);
+//		osDelay(2);
+		LIS3MDL_LogData(&magnetometer);
+		osDelay(250);
 	}
   /* USER CODE END start_logging_task */
 }
@@ -349,14 +382,33 @@ void start_logging_task(void *argument)
 /* USER CODE END Header_start_pressure_irq_task */
 void start_pressure_irq_task(void *argument)
 {
-	/* USER CODE BEGIN start_pressure_irq_task */
+  /* USER CODE BEGIN start_pressure_irq_task */
 	/* Infinite loop */
 	for(;;)
 	{
 		osSemaphoreAcquire(pressureIRQSemaphoreHandle, osWaitForever);
-		BMP388_ReadData(&press_sensor);
+		BMP388_ReadData(&barometer);
 	}
-	/* USER CODE END start_pressure_irq_task */
+  /* USER CODE END start_pressure_irq_task */
+}
+
+/* USER CODE BEGIN Header_start_mag_irq_task */
+/**
+* @brief Function implementing the magIRQTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_start_mag_irq_task */
+void start_mag_irq_task(void *argument)
+{
+  /* USER CODE BEGIN start_mag_irq_task */
+	/* Infinite loop */
+	for(;;)
+	{
+		osSemaphoreAcquire(magIRQSemaphoreHandle, osWaitForever);
+		LIS3MDL_ReadData(&magnetometer);
+	}
+  /* USER CODE END start_mag_irq_task */
 }
 
 /* Private application code --------------------------------------------------*/
@@ -372,9 +424,13 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	{
 		osSemaphoreRelease(gyroIRQSemaphoreHandle);
 	}
-	else if (GPIO_Pin == press_sensor.irq_pin)
+	else if (GPIO_Pin == barometer.irq_pin)
 	{
 		osSemaphoreRelease(pressureIRQSemaphoreHandle);
+	}
+	else if (GPIO_Pin == magnetometer.irq_pin)
+	{
+		osSemaphoreRelease(magIRQSemaphoreHandle);
 	}
 }
 

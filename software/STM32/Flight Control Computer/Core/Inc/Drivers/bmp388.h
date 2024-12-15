@@ -98,7 +98,7 @@ typedef struct BMP388_CalibrationData
  * BMP388 INSTANCE
  *
  */
-#define SLAVE_ADDRESS		0x76
+#define BMP388_ADDRESS		0x76
 
 typedef struct BMP388
 {

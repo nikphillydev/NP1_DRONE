@@ -85,6 +85,7 @@ void Error_Handler(void);
 #define GPIO9_GPIO_Port GPIOB
 #define MAG_DRDY_Pin GPIO_PIN_12
 #define MAG_DRDY_GPIO_Port GPIOB
+#define MAG_DRDY_EXTI_IRQn EXTI15_10_IRQn
 #define MAG_INT_Pin GPIO_PIN_13
 #define MAG_INT_GPIO_Port GPIOB
 #define BMP_INT_Pin GPIO_PIN_14

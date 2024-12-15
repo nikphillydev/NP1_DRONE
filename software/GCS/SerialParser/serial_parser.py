@@ -16,10 +16,16 @@ class SerialParserThread(QThread):
         super().__init__()
         
         self.port = port
-        self.ser = serial.Serial(port)
         self.sensor_data = sensor_data
         self.logging_data = logging_data
-        self.running = True
+        self.running = False
+        while self.running is False:
+            try:
+                self.ser = serial.Serial(port)
+                self.running = True
+            except serial.SerialException:
+                print("Serial port with FCC not open, waiting...")
+                time.sleep(0.1)
         
     def run(self) -> None:
         while(self.running):
@@ -39,8 +45,11 @@ class SerialParserThread(QThread):
             except serial.SerialException:
                 print("Serial port with FCC closed, attempting to reopen port...")
                 self.ser.close()
-                time.sleep(0.5)
-                self.ser.open()
+                try:
+                    time.sleep(0.1)
+                    self.ser.open()
+                except serial.SerialException:
+                    pass
                 
     def stop(self):
         self.running = False
@@ -87,12 +96,12 @@ class SerialParserThread(QThread):
         if string_split[0] == "INFO":
             del string_split[0]
             severity = Severity.INFO
-        if string_split[0] == "WARN":
+        if string_split[0] == "CRIT":
             del string_split[0]
-            severity = Severity.WARNING
+            severity = Severity.CRITICAL
         if string_split[0] == "ERR":
             del string_split[0]
-            severity = Severity.ERR
+            severity = Severity.ERROR
         
         string = " ".join(string_split)
         self.logging_data.add_log(string, tp, severity)

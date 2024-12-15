@@ -121,7 +121,7 @@ class AltitudePlot(QWidget):
         
         # Add subplot and set y axis limits
         self.ax = self.figure.add_subplot()
-        self.ax.set_ylim(-2, 2)
+        self.ax.set_ylim(-3, 3)
         
         # Add data
         self.X = altitude_samples.tp_data

@@ -31,13 +31,14 @@ uint8_t BMP388_Init(BMP388* sensor, BMP388_CalibrationData* calib_data, I2C_Hand
 	BMP388_ReadRegister(sensor, REG_CHIP_ID, rx_data, 1);
 	if (rx_data[0] == 0x50)
 	{
-		USB_Log("Found BMP388, starting initialization.", INFO);
+		USB_Log("Found BMP388, starting initialization.", CRITICAL);
 	}
 	else
 	{
 		USB_Log("Failed to find BMP388. Initialization failed.", ERR);
 		return 0;
 	}
+	osDelay(10);
 
 	// Perform soft-reset of device
 	tx_data[0] = 0xB6;
@@ -76,6 +77,9 @@ uint8_t BMP388_Init(BMP388* sensor, BMP388_CalibrationData* calib_data, I2C_Hand
 	BMP388_WriteRegister(sensor, REG_INT_CTRL, tx_data, 1);
 	osDelay(10);
 
+	USB_Log("BMP388 initialized OK.", CRITICAL);
+	osDelay(100);
+
 	return 1;
 }
 
@@ -84,47 +88,59 @@ uint8_t BMP388_ReadData(BMP388* sensor)
 	// Compute compensated temperature
 
 	uint8_t rx_temp_data[3];
-	BMP388_ReadRegister(sensor, REG_DATA_3, rx_temp_data, 3);
-	uint32_t temp_raw = (rx_temp_data[2] << 16) | (rx_temp_data[1] << 8) | rx_temp_data[0];
+	uint8_t status_temp = BMP388_ReadRegister(sensor, REG_DATA_3, rx_temp_data, 3);
 
-	float temp_partial_data1 = (float)temp_raw - sensor->calib_data->par_t1;
-	float temp_partial_data2 = temp_partial_data1 * sensor->calib_data->par_t2;
+	if (status_temp)
+	{
+		uint32_t temp_raw = (rx_temp_data[2] << 16) | (rx_temp_data[1] << 8) | rx_temp_data[0];
 
-	sensor->temperature = temp_partial_data2 + (temp_partial_data1 * temp_partial_data1) * sensor->calib_data->par_t3;
+		float temp_partial_data1 = (float)temp_raw - sensor->calib_data->par_t1;
+		float temp_partial_data2 = temp_partial_data1 * sensor->calib_data->par_t2;
+
+		sensor->temperature = temp_partial_data2 + (temp_partial_data1 * temp_partial_data1) * sensor->calib_data->par_t3;
+	}
 
 	// Compute compensated pressure
 
 	uint8_t rx_press_data[3];
-	BMP388_ReadRegister(sensor, REG_DATA_0, rx_press_data, 3);
-	uint32_t press_raw = (rx_press_data[2] << 16) | (rx_press_data[1] << 8) | rx_press_data[0];
+	uint8_t status_pressure = BMP388_ReadRegister(sensor, REG_DATA_0, rx_press_data, 3);
 
-	float press_partial_data1 = sensor->calib_data->par_p6 * sensor->temperature;
-	float press_partial_data2 = sensor->calib_data->par_p7 * (sensor->temperature * sensor->temperature);
-	float press_partial_data3 = sensor->calib_data->par_p8 * (sensor->temperature * sensor->temperature * sensor->temperature);
-	float press_partial_out1 = sensor->calib_data->par_p5 + press_partial_data1 + press_partial_data2 + press_partial_data3;
-
-	press_partial_data1 = sensor->calib_data->par_p2 * sensor->temperature;
-	press_partial_data2 = sensor->calib_data->par_p3 * (sensor->temperature * sensor->temperature);
-	press_partial_data3 = sensor->calib_data->par_p4 * (sensor->temperature * sensor->temperature * sensor->temperature);
-	float press_partial_out2 = (float)press_raw * (sensor->calib_data->par_p1 + press_partial_data1 + press_partial_data2 + press_partial_data3);
-
-	press_partial_data1 = (float)press_raw * (float)press_raw;
-	press_partial_data2 = sensor->calib_data->par_p9 + sensor->calib_data->par_p10 * sensor->temperature;
-	press_partial_data3 = press_partial_data1 *	press_partial_data2;
-	float press_partial_out3 = press_partial_data3 + ((float)press_raw * (float)press_raw * (float)press_raw) * sensor->calib_data->par_p11;
-
-	sensor->pressure = press_partial_out1 + press_partial_out2 + press_partial_out3;
-
-	// Compute altitude
-
-	if (sensor->pressure && sensor->startup_pressure)
+	if (status_temp && status_pressure)
 	{
-		sensor->altitude = 44330 * (1 - powf(sensor->pressure / sensor->startup_pressure, 1.0 / 5.25579));
+		uint32_t press_raw = (rx_press_data[2] << 16) | (rx_press_data[1] << 8) | rx_press_data[0];
+
+		float press_partial_data1 = sensor->calib_data->par_p6 * sensor->temperature;
+		float press_partial_data2 = sensor->calib_data->par_p7 * (sensor->temperature * sensor->temperature);
+		float press_partial_data3 = sensor->calib_data->par_p8 * (sensor->temperature * sensor->temperature * sensor->temperature);
+		float press_partial_out1 = sensor->calib_data->par_p5 + press_partial_data1 + press_partial_data2 + press_partial_data3;
+
+		press_partial_data1 = sensor->calib_data->par_p2 * sensor->temperature;
+		press_partial_data2 = sensor->calib_data->par_p3 * (sensor->temperature * sensor->temperature);
+		press_partial_data3 = sensor->calib_data->par_p4 * (sensor->temperature * sensor->temperature * sensor->temperature);
+		float press_partial_out2 = (float)press_raw * (sensor->calib_data->par_p1 + press_partial_data1 + press_partial_data2 + press_partial_data3);
+
+		press_partial_data1 = (float)press_raw * (float)press_raw;
+		press_partial_data2 = sensor->calib_data->par_p9 + sensor->calib_data->par_p10 * sensor->temperature;
+		press_partial_data3 = press_partial_data1 *	press_partial_data2;
+		float press_partial_out3 = press_partial_data3 + ((float)press_raw * (float)press_raw * (float)press_raw) * sensor->calib_data->par_p11;
+
+		sensor->pressure = press_partial_out1 + press_partial_out2 + press_partial_out3;
+
+		// Compute altitude
+
+		if (sensor->pressure && sensor->startup_pressure)
+		{
+			sensor->altitude = 44330 * (1 - powf(sensor->pressure / sensor->startup_pressure, 1.0 / 5.25579));
+		}
+
+		// Data ready INT cleared automatically 2.5 ms after the interrupt assertion
+	}
+	else
+	{
+		USB_Log("ERR reading BMP388 data.", ERR);
 	}
 
-	// Data ready INT cleared automatically 2.5 ms after the interrupt assertion
-
-	return 1;
+	return status_temp && status_pressure;
 }
 
 uint8_t BMP388_LogData(BMP388* sensor)
@@ -142,7 +158,7 @@ uint8_t BMP388_LogData(BMP388* sensor)
 uint8_t BMP388_ReadRegister(BMP388* sensor, uint8_t reg_addr, uint8_t* rx_data, uint16_t data_len)
 {
 	osMutexAcquire(*sensor->i2c_mutex, osWaitForever);
-	uint8_t status = (HAL_I2C_Mem_Read(sensor->i2c_handle, (SLAVE_ADDRESS << 1), reg_addr, I2C_MEMADD_SIZE_8BIT, rx_data, data_len, HAL_MAX_DELAY) == HAL_OK);
+	uint8_t status = (HAL_I2C_Mem_Read(sensor->i2c_handle, (BMP388_ADDRESS << 1), reg_addr, I2C_MEMADD_SIZE_8BIT, rx_data, data_len, HAL_MAX_DELAY) == HAL_OK);
 	osMutexRelease(*sensor->i2c_mutex);
 
 	if (!status)
@@ -156,7 +172,7 @@ uint8_t BMP388_ReadRegister(BMP388* sensor, uint8_t reg_addr, uint8_t* rx_data, 
 uint8_t BMP388_WriteRegister(BMP388* sensor, uint8_t reg_addr, uint8_t* tx_data, uint16_t data_len)
 {
 	osMutexAcquire(*sensor->i2c_mutex, osWaitForever);
-	uint8_t status = (HAL_I2C_Mem_Write(sensor->i2c_handle, (SLAVE_ADDRESS << 1), reg_addr, I2C_MEMADD_SIZE_8BIT, tx_data, data_len, HAL_MAX_DELAY) == HAL_OK);
+	uint8_t status = (HAL_I2C_Mem_Write(sensor->i2c_handle, (BMP388_ADDRESS << 1), reg_addr, I2C_MEMADD_SIZE_8BIT, tx_data, data_len, HAL_MAX_DELAY) == HAL_OK);
 	osMutexRelease(*sensor->i2c_mutex);
 
 	if (!status)
