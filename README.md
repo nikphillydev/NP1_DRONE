@@ -31,9 +31,9 @@ The ESC PCB incorporates:
 ## Software Overview [In Progress]
 Each custom vehicle PCB (FCC and ESC) has a dedicated STM32 MCU running FreeRTOS (using CMSIS_V2 API). The ground station software runs on the RPi5 and is built on PyQT6.
 #### Flight Control Computer
-Flight control computer implements software drivers for accelerometer, gyroscope, magnetometer, and barometer. Using this data, the FCC implements
+The flight control computer implements software drivers for the onboard accelerometer, gyroscope, magnetometer, and barometer. Using this data, the FCC implements
 - Calibration for all sensors
-- 9-axis + barometer extended kalman filter (EKF) for state estimation (x, y, z, roll, pitch, yaw)
+- 9-axis + barometer extended kalman filter (EKF) for state estimation [x, y, z, roll, pitch, yaw]
 - Communication with ground station for the following control modes:
 - - dvsdvsdv
 - Control loop (setpoint from remote controller -> PID -> commands to ESCs)
