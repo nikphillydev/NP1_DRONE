@@ -38,6 +38,7 @@ The flight control computer implements software drivers for the onboard accelero
   - Hover at specific altitude
   - Circular loiter at altitude and radius
   - Manual control 
+
 All control modes use a PID controller that converts thrust to RPM commands that are sent to the 4 ESCs via CANbus.
 #### Electronic Speed Controller
 The NP1 ESC hardware was designed to support the following BLDC control algorithms:
