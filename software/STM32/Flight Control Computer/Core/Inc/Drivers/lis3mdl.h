@@ -61,8 +61,16 @@ typedef struct LIS3MDL {
 	float intensity_y_gauss;
 	float intensity_z_gauss;
 
-	// Conversion constants
-	float intensity_conversion;
+	// Current heading (XY only)
+	float heading;
+
+	// Conversion constant
+	float LSB_per_gauss;
+
+	// Hard-iron offsets (in gauss)
+	float x_offset;
+	float y_offset;
+	float z_offset;
 
 } LIS3MDL;
 

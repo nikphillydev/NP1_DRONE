@@ -303,6 +303,24 @@ void start_application_task(void *argument)
 	/* Infinite loop */
 	for(;;)
 	{
+//		// Raw format
+//		float mag_x_raw = magnetometer.intensity_x_gauss*100.0*10.0;
+//		float mag_y_raw = magnetometer.intensity_y_gauss*100.0*10.0;
+//		float mag_z_raw = magnetometer.intensity_z_gauss*100.0*10.0;
+//		// Uni format
+//		float mag_x_uni = magnetometer.intensity_x_gauss*100.0;
+//		float mag_y_uni = magnetometer.intensity_y_gauss*100.0;
+//		float mag_z_uni = magnetometer.intensity_z_gauss*100.0;
+//		char str[512];
+//		snprintf(str, 512, "Uni:0,0,0,0,0,0,%f,%f,%f\r", mag_x_uni, mag_y_uni, mag_z_uni);
+//		USB_Log(str, RAW);
+//		snprintf(str, 512, "Raw:0,0,0,0,0,0,%d,%d,%d\r", (int)mag_x_raw, (int)mag_y_raw, (int)mag_z_raw);
+//		USB_Log(str, RAW);
+
+
+		char str[512];
+		snprintf(str, 512, "Heading: %f", magnetometer.heading);
+		USB_Log(str, RAW);
 		osDelay(100);
 //		USB_Log("nikolai informational log", INFO);
 	}
@@ -367,7 +385,7 @@ void start_logging_task(void *argument)
 //		osDelay(2);
 //		BMP388_LogData(&barometer);
 //		osDelay(2);
-		LIS3MDL_LogData(&magnetometer);
+//		LIS3MDL_LogData(&magnetometer);
 		osDelay(250);
 	}
   /* USER CODE END start_logging_task */

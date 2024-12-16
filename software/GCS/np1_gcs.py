@@ -9,51 +9,6 @@ from Widgets.plot_widget import AccelerometerPlot, GyroscopePlot, AltitudePlot
 from Widgets.sensor_widget import SensorDataWidget
 from Widgets.log_widget import LogWidget
 
-# Dark mode stylesheet
-dark_mode_stylesheet = """
-    QMainWindow {
-        background-color: #121212;
-        color: #FFFFFF;
-    }
-    QWidget {
-        background-color: #121212;
-        color: #FFFFFF;
-    }
-    QLineEdit, QTextEdit, QPlainTextEdit {
-        background-color: #1E1E1E;
-        color: #FFFFFF;
-        border: 1px solid #333333;
-    }
-    QPushButton {
-        background-color: #333333;
-        color: #FFFFFF;
-        border: 1px solid #444444;
-        padding: 5px;
-        border-radius: 5px;
-    }
-    QPushButton:hover {
-        background-color: #444444;
-    }
-    QPushButton:pressed {
-        background-color: #555555;
-    }
-    QScrollBar:vertical, QScrollBar:horizontal {
-        background-color: #1E1E1E;
-        border: none;
-        width: 10px;
-        margin: 0px;
-    }
-    QScrollBar::handle {
-        background-color: #555555;
-        border-radius: 5px;
-    }
-    QScrollBar::handle:hover {
-        background-color: #666666;
-    }
-    QScrollBar::add-line, QScrollBar::sub-line {
-        background: none;
-    }
-"""
 
 def main():
     # Configuration

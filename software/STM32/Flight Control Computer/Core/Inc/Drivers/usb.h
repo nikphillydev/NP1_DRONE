@@ -14,7 +14,8 @@ typedef enum Log_Level {
   INFO,
   CRITICAL,
   ERR,
-  SENSOR
+  SENSOR,
+  RAW
 } Log_Level;
 
 uint8_t USB_Log(const char* string, Log_Level level);

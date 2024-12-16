@@ -19,19 +19,22 @@ uint8_t USB_Log(const char* string, Log_Level level)
 
 	switch (level) {
 		case INFO:
-			snprintf(str, 256, "LOG %.2f INFO %s\n", seconds, string);
+			snprintf(str, 512, "LOG %.2f INFO %s\n", seconds, string);
 			break;
 		case CRITICAL:
-			snprintf(str, 256, "LOG %.2f CRIT %s\n", seconds, string);
+			snprintf(str, 512, "LOG %.2f CRIT %s\n", seconds, string);
 			break;
 		case ERR:
-			snprintf(str, 256, "LOG %.2f ERR %s\n", seconds, string);
+			snprintf(str, 512, "LOG %.2f ERR %s\n", seconds, string);
 			break;
 		case SENSOR:
-			snprintf(str, 256, "SENSOR %.2f %s\n", seconds, string);
+			snprintf(str, 512, "SENSOR %.2f %s\n", seconds, string);
+			break;
+		case RAW:
+			snprintf(str, 512, "%s\n", string);
 			break;
 		default:
-			snprintf(str, 256, "LOG %.2f ERR INVALID LOG FORMATTING: %s\n", seconds, string);
+			snprintf(str, 512, "LOG %.2f ERR INVALID LOG FORMATTING: %s\n", seconds, string);
 			break;
 	}
 

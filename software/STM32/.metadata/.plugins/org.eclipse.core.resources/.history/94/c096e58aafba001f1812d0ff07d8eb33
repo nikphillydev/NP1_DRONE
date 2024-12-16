@@ -31,6 +31,10 @@
 #include "Drivers/lis3mdl.h"
 #include "spi.h"
 #include "i2c.h"
+
+// remove
+#include <stdio.h>
+#include "usbd_cdc_if.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -303,8 +307,20 @@ void start_application_task(void *argument)
 	/* Infinite loop */
 	for(;;)
 	{
+		float accel_x = imu.accel_x*8192.0/9.8;
+		float accel_y = imu.accel_y*8192.0/9.8;
+		float accel_z = imu.accel_z*8192.0/9.8;
+		float gyro_x = imu.rate_x*57.2958*16;
+		float gyro_y = imu.rate_y*57.2958*16;
+		float gyro_z = imu.rate_z*57.2958*16;
+		float mag_x = magnetometer.intensity_x_gauss*100.0*10.0;
+		float mag_y = magnetometer.intensity_y_gauss*100.0*10.0;
+		float mag_z = magnetometer.intensity_z_gauss*100.0*10.0;
+		char str[512];
+		snprintf(str, 512, "Raw:%f,%f,%f,%f,%f,%f,%f,%f,%f", accel_x, accel_y, accel_z, gyro_x, gyro_y, gyro_z, mag_x, mag_y, mag_z);
+		USB_Log(str, RAW);
 		osDelay(100);
-		USB_Log("nikolai informational log", INFO);
+//		USB_Log("nikolai informational log", INFO);
 	}
   /* USER CODE END start_application_task */
 }
@@ -367,7 +383,7 @@ void start_logging_task(void *argument)
 //		osDelay(2);
 //		BMP388_LogData(&barometer);
 //		osDelay(2);
-		LIS3MDL_LogData(&magnetometer);
+//		LIS3MDL_LogData(&magnetometer);
 		osDelay(250);
 	}
   /* USER CODE END start_logging_task */
