@@ -1,1 +1,3 @@
-../Core/Src/Drivers/usb.c:15:9:USB_Log	7
+../Core/Inc/Utility/lock_guard.hpp:20:2:np::lock_guard::lock_guard(void*&)	1
+../Core/Inc/Utility/lock_guard.hpp:21:2:np::lock_guard::~lock_guard()	1
+../Core/Src/Drivers/usb.cpp:15:6:void USB_Log(const char*, Log_Level)	7

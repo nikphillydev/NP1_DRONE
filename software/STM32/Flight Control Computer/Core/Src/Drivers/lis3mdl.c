@@ -6,7 +6,7 @@
  */
 
 #include "Drivers/lis3mdl.h"
-#include "Drivers/usb.h"
+#include "Drivers/usb.hpp"
 #include <math.h>
 #include <stdio.h>
 
@@ -110,7 +110,7 @@ uint8_t LIS3MDL_ReadData(LIS3MDL* sensor)
 	return 1;
 }
 
-uint8_t LIS3MDL_LogData(LIS3MDL* sensor)
+void LIS3MDL_LogData(LIS3MDL* sensor)
 {
 	float x_utesla = sensor->intensity_x_gauss * 100;
 	float y_utesla = sensor->intensity_y_gauss * 100;
@@ -118,7 +118,7 @@ uint8_t LIS3MDL_LogData(LIS3MDL* sensor)
 
 	char string[128];
 	snprintf(string, 128, "%.2f %.2f %.2f", x_utesla, y_utesla, z_utesla);
-	return USB_Log(string, SENSOR);
+	USB_Log(string, SENSOR);
 }
 
 /*

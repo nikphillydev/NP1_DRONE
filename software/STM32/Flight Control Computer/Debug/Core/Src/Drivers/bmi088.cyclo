@@ -2,8 +2,8 @@
 ../Core/Src/Drivers/bmi088.c:159:9:BMI088_ReadAccData	2
 ../Core/Src/Drivers/bmi088.c:187:9:BMI088_ReadGyroData	2
 ../Core/Src/Drivers/bmi088.c:214:9:BMI088_ReadTempData	3
-../Core/Src/Drivers/bmi088.c:243:9:BMI088_LogAccData	1
-../Core/Src/Drivers/bmi088.c:250:9:BMI088_LogGyroData	1
+../Core/Src/Drivers/bmi088.c:243:6:BMI088_LogAccData	1
+../Core/Src/Drivers/bmi088.c:250:6:BMI088_LogGyroData	1
 ../Core/Src/Drivers/bmi088.c:263:9:BMI088_ReadAccRegister	4
 ../Core/Src/Drivers/bmi088.c:299:9:BMI088_WriteAccRegister	3
 ../Core/Src/Drivers/bmi088.c:325:9:BMI088_ReadGyroRegister	4

@@ -1,8 +1,9 @@
-../Core/Src/app_freertos.c:215:6:MX_FREERTOS_Init	8	static
-../Core/Src/app_freertos.c:294:6:start_application_task	552	static
-../Core/Src/app_freertos.c:341:6:start_acc_irq_task	16	static
-../Core/Src/app_freertos.c:361:6:start_gyro_irq_task	16	static
-../Core/Src/app_freertos.c:380:6:start_logging_task	16	static
-../Core/Src/app_freertos.c:405:6:start_pressure_irq_task	16	static
-../Core/Src/app_freertos.c:424:6:start_mag_irq_task	16	static
-../Core/Src/app_freertos.c:439:6:HAL_GPIO_EXTI_Callback	16	static
+../Core/Src/app_freertos.c:188:13:configureTimerForRunTimeStats	4	static
+../Core/Src/app_freertos.c:193:22:getRunTimeCounterValue	4	static
+../Core/Src/app_freertos.c:204:6:MX_FREERTOS_Init	8	static
+../Core/Src/app_freertos.c:292:6:start_sensor_fusion_task	16	static
+../Core/Src/app_freertos.c:307:6:start_acc_irq_task	16	static
+../Core/Src/app_freertos.c:326:6:start_gyro_irq_task	16	static
+../Core/Src/app_freertos.c:345:6:start_baro_irq_task	16	static
+../Core/Src/app_freertos.c:364:6:start_mag_irq_task	16	static
+../Core/Src/app_freertos.c:379:6:HAL_GPIO_EXTI_Callback	16	static

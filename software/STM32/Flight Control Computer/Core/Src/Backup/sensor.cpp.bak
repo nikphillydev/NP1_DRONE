@@ -1,0 +1,44 @@
+/*
+ * sensor.cpp
+ *
+ *  Created on: Dec 15, 2024
+ *      Author: nikolai
+ */
+
+#include "sensor.hpp"
+#include "main.h"
+#include "spi.h"
+#include "Drivers/usb.hpp"
+#include "Drivers/BMI088.hpp"
+
+BMI088 imu(hspi1, spi1MutexHandle, ACCEL_CS_GPIO_Port, GYRO_CS_GPIO_Port, ACCEL_CS_Pin,
+		GYRO_CS_Pin, ACCEL_INT_Pin, GYRO_INT_Pin, accelDataMutexHandle, gyroDataMutexHandle);
+
+/*
+ * THREADS
+ */
+void sensor_fusion_thread()
+{
+	osDelay(400);
+	USB_Log("------------ APPLICATION STARTING ------------", CRITICAL);
+	osDelay(100);
+
+	imu.init();
+
+	USB_Log("ALL SENSORS INITIALIZED", CRITICAL);
+
+	while (1)
+	{
+		imu.log_data_to_gcs();
+	}
+}
+
+/*
+ * FUNCTIONS
+ */
+void service_BMI088_Accel() { imu.service_irq_accelerometer(); }
+void service_BMI088_Gyrol() { imu.service_irq_gyroscope(); }
+void service_BMP388() {}
+void service_LIS3MDL() {}
+
+

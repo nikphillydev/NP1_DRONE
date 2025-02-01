@@ -1,5 +1,5 @@
-Core/Src/Drivers/usb.o: ../Core/Src/Drivers/usb.c \
- ../Core/Inc/Drivers/usb.h ../Core/Inc/main.h \
+Core/Src/Drivers/usb.o: ../Core/Src/Drivers/usb.cpp \
+ ../Core/Inc/Drivers/usb.hpp ../Core/Inc/main.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h \
  ../Core/Inc/stm32g4xx_hal_conf.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_rcc.h \
@@ -48,7 +48,7 @@ Core/Src/Drivers/usb.o: ../Core/Src/Drivers/usb.c \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
- ../USB_Device/App/usbd_cdc_if.h \
+ ../Core/Inc/Utility/lock_guard.hpp ../USB_Device/App/usbd_cdc_if.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
@@ -57,7 +57,7 @@ Core/Src/Drivers/usb.o: ../Core/Src/Drivers/usb.c \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
-../Core/Inc/Drivers/usb.h:
+../Core/Inc/Drivers/usb.hpp:
 ../Core/Inc/main.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:
 ../Core/Inc/stm32g4xx_hal_conf.h:
@@ -107,6 +107,7 @@ Core/Src/Drivers/usb.o: ../Core/Src/Drivers/usb.c \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
+../Core/Inc/Utility/lock_guard.hpp:
 ../USB_Device/App/usbd_cdc_if.h:
 ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h:
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h:

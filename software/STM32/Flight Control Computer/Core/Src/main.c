@@ -22,6 +22,7 @@
 #include "fdcan.h"
 #include "i2c.h"
 #include "spi.h"
+#include "tim.h"
 #include "usart.h"
 #include "usb_device.h"
 #include "gpio.h"
@@ -49,7 +50,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-
+volatile unsigned long ulHighFrequencyTimerTicks;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -70,6 +71,7 @@ void MX_FREERTOS_Init(void);
   */
 int main(void)
 {
+
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
@@ -97,21 +99,22 @@ int main(void)
   MX_I2C2_Init();
   MX_SPI1_Init();
   MX_USART2_UART_Init();
-  MX_USB_Device_Init();
+  MX_TIM16_Init();
   /* USER CODE BEGIN 2 */
-
+  MX_USB_Device_Init();
   /* USER CODE END 2 */
 
   /* Init scheduler */
   osKernelInitialize();
 
-  /* Call init function for freertos objects (in freertos.c) */
+  /* Call init function for freertos objects (in cmsis_os2.c) */
   MX_FREERTOS_Init();
 
   /* Start scheduler */
   osKernelStart();
 
   /* We should never get here as control is now taken by the scheduler */
+
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
@@ -170,6 +173,17 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
+
+void configureTimerForRunTimeStats(void)
+{
+    ulHighFrequencyTimerTicks = 0;
+    HAL_TIM_Base_Start_IT(&htim16);
+}
+
+unsigned long getRunTimeCounterValue(void)
+{
+	return ulHighFrequencyTimerTicks;
+}
 
 /* USER CODE END 4 */
 

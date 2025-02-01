@@ -125,8 +125,8 @@ uint8_t BMI088_ReadAccData(BMI088* imu);
 uint8_t BMI088_ReadGyroData(BMI088* imu);
 uint8_t BMI088_ReadTempData(BMI088* imu);
 
-uint8_t BMI088_LogAccData(BMI088* imu);
-uint8_t BMI088_LogGyroData(BMI088* imu);
+void BMI088_LogAccData(BMI088* imu);
+void BMI088_LogGyroData(BMI088* imu);
 
 /*
  *

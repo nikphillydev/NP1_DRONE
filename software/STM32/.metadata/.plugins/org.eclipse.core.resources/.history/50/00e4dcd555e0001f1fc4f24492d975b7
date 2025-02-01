@@ -1,0 +1,23 @@
+/*
+ * IIRFilter.cpp
+ *
+ *  Created on: Jan 31, 2025
+ *      Author: Nikolai Philipenko
+ */
+#include "Utility/IIRFilter.hpp"
+#include <cmath>
+
+
+IIRFilter::IIRFilter(float cutoff_frequency, float sampling_frequency)
+	: cutoff_frequency{cutoff_frequency},
+	  sampling_frequency{sampling_frequency}
+{
+	float sampling_period = 1.0f / sampling_frequency;
+	float time_constant = 1.0f / (2 * M_PI * cutoff_frequency);
+
+	a0 = sampling_period / (sampling_period + time_constant);
+	b1 = time_constant / (sampling_period + time_constant);
+}
+
+
+

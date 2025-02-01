@@ -37,7 +37,14 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
 
+/* Export mutexes for everyone to use */
+extern osMutexId_t spi1MutexHandle;
 extern osMutexId_t usbMutexHandle;
+extern osMutexId_t i2c2MutexHandle;
+extern osMutexId_t accelDataMutexHandle;
+extern osMutexId_t gyroDataMutexHandle;
+extern osMutexId_t baroDataMutexHandle;
+extern osMutexId_t magDataMutexHandle;
 
 /* USER CODE END ET */
 

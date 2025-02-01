@@ -1,23 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="barometer"/>
+		<item key="selection" value="spi_mutex"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="spi_mutex"/>
+			<item value="magIRQSemaphoreHandle"/>
+			<item value="BMP388_ReadRegister(sensor, "/>
+			<item value="BMP388_WriteRegister"/>
+			<item value="BMP388_ReadRegister"/>
+			<item value="acc_irq_pin"/>
+			<item value="gyro_cs_pin"/>
+			<item value="gyro_cs_port"/>
+			<item value="acc_cs_pin"/>
+			<item value="acc_cs_port"/>
+			<item value="BMI088_WriteGyroRegister"/>
+			<item value="BMI088_ReadGyroRegister"/>
+			<item value="BMI088_ReadAccRegister"/>
+			<item value="BMI088_WriteAccRegister"/>
 			<item value="press_sensor"/>
-			<item value="MemAddSize"/>
-			<item value="IS_I2C_MEMADD_SIZE"/>
-			<item value="hcdc"/>
-			<item value="#define USER_VECT_TAB_ADDRESS&#x09;"/>
-			<item value="HAL"/>
-			<item value="HAL_NVIC"/>
-			<item value="HAL_RCC_ClockConfig"/>
 		</list>
 		<list key="replacehistory">
+			<item value="read_register("/>
+			<item value="write_register"/>
+			<item value="read_register"/>
+			<item value="&amp;gyro_cs_pin"/>
+			<item value="&amp;gyro_cs_port"/>
+			<item value="&amp;acc_cs_pin"/>
+			<item value="&amp;acc_cs_port"/>
+			<item value="write_gyro_register"/>
+			<item value="read_gyro_register"/>
+			<item value="read_accel_register"/>
+			<item value="write_accel_register"/>
 			<item value="barometer"/>
 		</list>
 	</section>

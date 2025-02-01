@@ -1,0 +1,24 @@
+/*
+ * IIRFilter.hpp
+ *
+ *  Created on: Jan 31, 2025
+ *      Author: Nikolai Philipenko
+ */
+
+#pragma once
+
+class IIRFilter
+{
+	/*
+	 * Class to implement mutex RAII for CMSIS-V2
+	 */
+public:
+	IIRFilter(uint32_t cutoff_frequency, );
+
+	float update();
+
+private:
+
+};
+
+

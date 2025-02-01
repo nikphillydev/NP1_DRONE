@@ -34,6 +34,13 @@ class SensorDataWidget(QWidget):
             max_columns=1
         )
         main_layout.addWidget(self.barometer_group)
+        
+        self.magnetometer_group = self.create_sensor_group(
+            "Magnetometer (Gauss)", 
+            ["X:", "Y:", "Z:", "Heading (degrees):"],
+            ["mag_x", "mag_y", "mag_z", "mag_heading"],
+        )
+        main_layout.addWidget(self.magnetometer_group)
 
         # Set the main layout
         self.setLayout(main_layout)
@@ -79,17 +86,27 @@ class SensorDataWidget(QWidget):
         # Update with the most recent sensor data
         
         # Accelerometer
-        self.acc_x.setText(str(self.sensor_data.acc_samples.acc_x_data[-1]))
-        self.acc_y.setText(str(self.sensor_data.acc_samples.acc_y_data[-1]))
-        self.acc_z.setText(str(self.sensor_data.acc_samples.acc_z_data[-1]))
-        self.acc_temp.setText(str(self.sensor_data.acc_samples.acc_temp_data[-1]))
+        if len(self.sensor_data.acc_samples.acc_x_data) > 0:
+            self.acc_x.setText(str(self.sensor_data.acc_samples.acc_x_data[-1]))
+            self.acc_y.setText(str(self.sensor_data.acc_samples.acc_y_data[-1]))
+            self.acc_z.setText(str(self.sensor_data.acc_samples.acc_z_data[-1]))
+            self.acc_temp.setText(str(self.sensor_data.acc_samples.acc_temp_data[-1]))
         
         # Gyroscope
-        self.gyro_x.setText(str(self.sensor_data.gyro_samples.rate_x_data[-1]))
-        self.gyro_y.setText(str(self.sensor_data.gyro_samples.rate_y_data[-1]))
-        self.gyro_z.setText(str(self.sensor_data.gyro_samples.rate_z_data[-1]))
+        if len(self.sensor_data.gyro_samples.rate_x_data) > 0:
+            self.gyro_x.setText(str(self.sensor_data.gyro_samples.rate_x_data[-1]))
+            self.gyro_y.setText(str(self.sensor_data.gyro_samples.rate_y_data[-1]))
+            self.gyro_z.setText(str(self.sensor_data.gyro_samples.rate_z_data[-1]))
         
         # Barometer
-        self.bar_alt.setText(str(self.sensor_data.bar_samples.bar_alt_data[-1]))
-        self.bar_press.setText(str(self.sensor_data.bar_samples.bar_press_data[-1]))
-        self.bar_temp.setText(str(self.sensor_data.bar_samples.bar_temp_data[-1]))
+        if len(self.sensor_data.bar_samples.altitude_data) > 0:
+            self.bar_alt.setText(str(self.sensor_data.bar_samples.altitude_data[-1]))
+            self.bar_press.setText(str(self.sensor_data.bar_samples.press_data[-1]))
+            self.bar_temp.setText(str(self.sensor_data.bar_samples.temp_data[-1]))
+        
+        # Magnetometer
+        if len(self.sensor_data.mag_samples.intensity_x) > 0:
+            self.mag_x.setText(str(self.sensor_data.mag_samples.intensity_x[-1]))
+            self.mag_y.setText(str(self.sensor_data.mag_samples.intensity_y[-1]))
+            self.mag_z.setText(str(self.sensor_data.mag_samples.intensity_z[-1]))
+            self.mag_heading.setText(str(self.sensor_data.mag_samples.heading[-1]))

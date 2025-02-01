@@ -6,7 +6,7 @@
  */
 
 #include "Drivers/bmp388.h"
-#include "Drivers/usb.h"
+#include "Drivers/usb.hpp"
 #include <math.h>
 #include <stdio.h>
 
@@ -143,11 +143,11 @@ uint8_t BMP388_ReadData(BMP388* sensor)
 	return status_temp && status_pressure;
 }
 
-uint8_t BMP388_LogData(BMP388* sensor)
+void BMP388_LogData(BMP388* sensor)
 {
 	char string[128];
 	snprintf(string, 128, "BAR %.2f %.2f %.2f", sensor->pressure, sensor->temperature, sensor->altitude);
-	return USB_Log(string, SENSOR);
+	USB_Log(string, SENSOR);
 }
 
 /*

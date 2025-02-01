@@ -15,7 +15,7 @@
 	(lib_symbols)
 	(text "POWER, USB,\nAND\nCANBUS"
 		(exclude_from_sim no)
-		(at 116.586 137.668 0)
+		(at 116.586 116.078 0)
 		(effects
 			(font
 				(size 2.54 2.54)
@@ -25,7 +25,7 @@
 	)
 	(text "STM32G474\nMICROCONTROLLER"
 		(exclude_from_sim no)
-		(at 171.196 136.906 0)
+		(at 171.196 115.316 0)
 		(effects
 			(font
 				(size 2.54 2.54)
@@ -35,7 +35,7 @@
 	)
 	(text "3 PHASE\nH-BRIDGE"
 		(exclude_from_sim no)
-		(at 116.586 93.218 0)
+		(at 116.586 71.628 0)
 		(effects
 			(font
 				(size 2.54 2.54)
@@ -45,7 +45,7 @@
 	)
 	(text "FEEDBACK\nSENSING\n\n"
 		(exclude_from_sim no)
-		(at 171.704 94.996 0)
+		(at 171.704 73.406 0)
 		(effects
 			(font
 				(size 2.54 2.54)
@@ -54,7 +54,7 @@
 		(uuid "fd31469d-02e0-4e8d-a023-730ddeaf4c2b")
 	)
 	(sheet
-		(at 149.86 120.65)
+		(at 149.86 99.06)
 		(size 42.926 31.75)
 		(fields_autoplaced yes)
 		(stroke
@@ -66,7 +66,7 @@
 		)
 		(uuid "2f1db597-5e53-4a2e-aa7b-7d41b49126b8")
 		(property "Sheetname" "MCU"
-			(at 149.86 119.9384 0)
+			(at 149.86 98.3484 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -75,7 +75,7 @@
 			)
 		)
 		(property "Sheetfile" "mcu.kicad_sch"
-			(at 149.86 152.9846 0)
+			(at 149.86 131.3946 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -92,7 +92,7 @@
 		)
 	)
 	(sheet
-		(at 95.25 120.65)
+		(at 95.25 99.06)
 		(size 42.926 31.75)
 		(fields_autoplaced yes)
 		(stroke
@@ -104,7 +104,7 @@
 		)
 		(uuid "7589b555-649b-48e3-9c17-4ae8c27427fd")
 		(property "Sheetname" "POWER_USB_CAN"
-			(at 95.25 119.9384 0)
+			(at 95.25 98.3484 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -113,7 +113,7 @@
 			)
 		)
 		(property "Sheetfile" "pwr_usb_can.kicad_sch"
-			(at 95.25 152.9846 0)
+			(at 95.25 131.3946 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -130,7 +130,7 @@
 		)
 	)
 	(sheet
-		(at 149.86 77.47)
+		(at 149.86 55.88)
 		(size 42.926 31.75)
 		(fields_autoplaced yes)
 		(stroke
@@ -142,7 +142,7 @@
 		)
 		(uuid "e767d95f-9055-4655-b6c5-063728e72f09")
 		(property "Sheetname" "SENSING"
-			(at 149.86 76.7584 0)
+			(at 149.86 55.1684 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -151,7 +151,7 @@
 			)
 		)
 		(property "Sheetfile" "sensing.kicad_sch"
-			(at 149.86 109.8046 0)
+			(at 149.86 88.2146 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -168,7 +168,7 @@
 		)
 	)
 	(sheet
-		(at 95.25 77.47)
+		(at 95.25 55.88)
 		(size 42.926 31.75)
 		(fields_autoplaced yes)
 		(stroke
@@ -180,7 +180,7 @@
 		)
 		(uuid "efa0b6a7-ad7d-44a5-8c82-9655636ed045")
 		(property "Sheetname" "PHASES"
-			(at 95.25 76.7584 0)
+			(at 95.25 55.1684 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -189,7 +189,7 @@
 			)
 		)
 		(property "Sheetfile" "phases.kicad_sch"
-			(at 95.25 109.8046 0)
+			(at 95.25 88.2146 0)
 			(effects
 				(font
 					(size 1.27 1.27)

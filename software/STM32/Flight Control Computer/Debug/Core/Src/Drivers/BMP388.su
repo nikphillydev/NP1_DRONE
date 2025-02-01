@@ -1,0 +1,13 @@
+../Core/Inc/Utility/lock_guard.hpp:20:2:np::lock_guard::lock_guard(void*&)	16	static
+../Core/Inc/Utility/lock_guard.hpp:21:2:np::lock_guard::~lock_guard()	16	static
+../Core/Src/Drivers/BMP388.cpp:14:1:BMP388::BMP388(I2C_HandleTypeDef&, void*&, void*&)	24	static
+../Core/Src/Drivers/BMP388.cpp:19:6:bool BMP388::init()	32	static
+../Core/Src/Drivers/BMP388.cpp:92:6:bool BMP388::service_irq()	80	static
+../Core/Src/Drivers/BMP388.cpp:156:6:void BMP388::log_data_to_gcs()	192	static
+../Core/Src/Drivers/BMP388.cpp:166:7:float BMP388::get_pressure()	32	static
+../Core/Src/Drivers/BMP388.cpp:172:7:float BMP388::get_altitude()	32	static
+../Core/Src/Drivers/BMP388.cpp:178:7:float BMP388::get_temperature()	32	static
+../Core/Src/Drivers/BMP388.cpp:184:6:bool BMP388::read_calibration_nvm()	48	static
+../Core/Src/Drivers/BMP388.cpp:276:6:bool BMP388::compute_startup_pressure()	48	static
+../Core/Src/Drivers/BMP388.cpp:305:6:bool BMP388::read_register(uint8_t, uint8_t*, uint16_t)	48	static
+../Core/Src/Drivers/BMP388.cpp:321:6:bool BMP388::write_register(uint8_t, uint8_t*, uint16_t)	48	static

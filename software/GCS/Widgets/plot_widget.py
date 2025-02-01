@@ -125,7 +125,7 @@ class AltitudePlot(QWidget):
         
         # Add data
         self.X = altitude_samples.tp_data
-        self.Y1 = altitude_samples.bar_alt_data
+        self.Y1 = altitude_samples.altitude_data
         self.line1, = self.ax.plot(self.X, self.Y1, label="Height")
         
         # Format graph

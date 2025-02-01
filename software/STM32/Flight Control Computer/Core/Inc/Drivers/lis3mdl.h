@@ -82,7 +82,7 @@ typedef struct LIS3MDL {
 uint8_t LIS3MDL_Init(LIS3MDL* sensor, I2C_HandleTypeDef* i2c_handle, osMutexId_t* i2c_mutex, uint16_t irq_pin);
 
 uint8_t LIS3MDL_ReadData(LIS3MDL* sensor);
-uint8_t LIS3MDL_LogData(LIS3MDL* sensor);
+void LIS3MDL_LogData(LIS3MDL* sensor);
 
 /*
  *

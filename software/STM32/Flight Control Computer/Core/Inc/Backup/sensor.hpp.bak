@@ -1,0 +1,21 @@
+/*
+ * sensor.hpp
+ *
+ *  Created on: Dec 15, 2024
+ *      Author: nikolai
+ */
+
+#pragma once
+
+/*
+ * THREADS
+ */
+void sensor_fusion_thread();
+
+/*
+ * FUNCTIONS
+ */
+void service_BMI088_Accel();
+void service_BMI088_Gyrol();
+void service_BMP388();
+void service_LIS3MDL();

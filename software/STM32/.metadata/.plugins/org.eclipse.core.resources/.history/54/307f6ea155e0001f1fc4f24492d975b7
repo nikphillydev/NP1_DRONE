@@ -1,0 +1,34 @@
+/*
+ * IIRFilter.hpp
+ *
+ *  Created on: Jan 31, 2025
+ *      Author: Nikolai Philipenko
+ */
+#pragma once
+
+#include <cstdint>
+
+class IIRFilter
+{
+	/*
+	 * Class to implement a first-order IIR low-pass filter
+	 */
+public:
+	IIRFilter(float cutoff_frequency, float sampling_frequency);
+
+	float update(float input);
+
+private:
+	// Parameters
+	float cutoff_frequency;
+	float sampling_frequency;
+
+	// Filter coefficients
+	float a0;
+	float b1;
+
+	// Previously filtered output
+	float output;
+};
+
+

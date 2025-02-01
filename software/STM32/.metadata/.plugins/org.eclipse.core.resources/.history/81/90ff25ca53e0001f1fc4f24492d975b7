@@ -1,0 +1,21 @@
+/*
+ * IIRFilter.hpp
+ *
+ *  Created on: Jan 31, 2025
+ *      Author: Nikolai Philipenko
+ */
+
+#pragma once
+
+class IIRFilter
+{
+public:
+	IIRFilter();
+
+	float update();
+
+private:
+
+};
+
+

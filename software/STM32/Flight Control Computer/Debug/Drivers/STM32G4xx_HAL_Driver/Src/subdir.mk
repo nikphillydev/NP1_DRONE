@@ -31,33 +31,6 @@ C_SRCS += \
 ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart_ex.c \
 ../Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_usb.c 
 
-OBJS += \
-./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.o \
-./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_cortex.o \
-./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma.o \
-./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma_ex.o \
-./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_exti.o \
-./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_fdcan.o \
-./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash.o \
-./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash_ex.o \
-./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash_ramfunc.o \
-./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_gpio.o \
-./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_i2c.o \
-./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_i2c_ex.o \
-./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pcd.o \
-./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pcd_ex.o \
-./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr.o \
-./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr_ex.o \
-./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc.o \
-./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc_ex.o \
-./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi.o \
-./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi_ex.o \
-./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim.o \
-./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim_ex.o \
-./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart.o \
-./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart_ex.o \
-./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_usb.o 
-
 C_DEPS += \
 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.d \
 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_cortex.d \
@@ -85,10 +58,37 @@ C_DEPS += \
 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart_ex.d \
 ./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_usb.d 
 
+OBJS += \
+./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal.o \
+./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_cortex.o \
+./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma.o \
+./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_dma_ex.o \
+./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_exti.o \
+./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_fdcan.o \
+./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash.o \
+./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash_ex.o \
+./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_flash_ramfunc.o \
+./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_gpio.o \
+./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_i2c.o \
+./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_i2c_ex.o \
+./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pcd.o \
+./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pcd_ex.o \
+./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr.o \
+./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_pwr_ex.o \
+./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc.o \
+./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_rcc_ex.o \
+./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi.o \
+./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_spi_ex.o \
+./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim.o \
+./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_tim_ex.o \
+./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart.o \
+./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_hal_uart_ex.o \
+./Drivers/STM32G4xx_HAL_Driver/Src/stm32g4xx_ll_usb.o 
+
 
 # Each subdirectory must supply rules for building sources it contributes
 Drivers/STM32G4xx_HAL_Driver/Src/%.o Drivers/STM32G4xx_HAL_Driver/Src/%.su Drivers/STM32G4xx_HAL_Driver/Src/%.cyclo: ../Drivers/STM32G4xx_HAL_Driver/Src/%.c Drivers/STM32G4xx_HAL_Driver/Src/subdir.mk
-	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
+	arm-none-eabi-gcc "$<" -mcpu=cortex-m4 -std=gnu18 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Core/Inc/Threads -I../Core/Inc/Utility -I../Core/Inc/Drivers -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"$(@:%.o=%.d)" -MT"$@" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "$@"
 
 clean: clean-Drivers-2f-STM32G4xx_HAL_Driver-2f-Src
 

@@ -128,7 +128,7 @@ typedef struct BMP388
 uint8_t BMP388_Init(BMP388* sensor, BMP388_CalibrationData* calib_data, I2C_HandleTypeDef* i2c_handle, osMutexId_t* i2c_mutex, uint16_t irq_pin);
 
 uint8_t BMP388_ReadData(BMP388* sensor);
-uint8_t BMP388_LogData(BMP388* sensor);
+void BMP388_LogData(BMP388* sensor);
 
 /*
  *

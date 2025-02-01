@@ -5551,7 +5551,7 @@
 				(justify right)
 			)
 		)
-		(property "Value" "2x2-2.54MM "
+		(property "Value" "2x2-2.54MM"
 			(at 116.586 135.89 90)
 			(effects
 				(font

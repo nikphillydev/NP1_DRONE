@@ -26,7 +26,6 @@ def main():
     serial_parser.start()
 
     app = QApplication(sys.argv)
-    # app.setStyleSheet(dark_mode_stylesheet) 
     main_window = MainWindow(sensor_data, logging_data)
     main_window.show()
     

@@ -64,24 +64,29 @@ class SerialParserThread(QThread):
         
         # Parse sensor data
         
-        if string_split[0] == "ACC":
-            x = float(string_split[1])
-            y = float(string_split[2])   
-            z = float(string_split[3])  
-            temp = float(string_split[4])  
-            self.sensor_data.add_accelerometer_sample(x, y, z, temp, tp)
-            
-        if string_split[0] == "GYRO":
-            x = float(string_split[1])
-            y = float(string_split[2])   
-            z = float(string_split[3])   
-            self.sensor_data.add_gyroscope_sample(x, y, z, tp)
+        if string_split[0] == "BMI088":
+            acc_x = float(string_split[1])
+            acc_y = float(string_split[2])   
+            acc_z = float(string_split[3])
+            rate_x = float(string_split[4])  
+            rate_y = float(string_split[5])   
+            rate_z = float(string_split[6])  
+            temp = float(string_split[7])  
+            self.sensor_data.add_accelerometer_sample(acc_x, acc_y, acc_z, temp, tp)
+            self.sensor_data.add_gyroscope_sample(rate_x, rate_y, rate_z, tp)
         
-        if string_split[0] == "BAR":
+        if string_split[0] == "BMP388":
             pressure = float(string_split[1])
-            temp = float(string_split[2])   
-            altitude = float(string_split[3])  
-            self.sensor_data.add_barometer_sample(pressure, temp, altitude, tp)
+            altitude = float(string_split[2]) 
+            temp = float(string_split[3])    
+            self.sensor_data.add_barometer_sample(pressure, altitude, temp, tp)
+        
+        if string_split[0] == "LIS3MDL":
+            intensity_x = float(string_split[1])
+            intensity_y = float(string_split[2]) 
+            intensity_z = float(string_split[3])
+            heading = float(string_split[4])
+            self.sensor_data.add_magnetometer_sample(intensity_x, intensity_y, intensity_z, heading, tp)
     
     def parse_logging_data(self, string_split: list[str]) -> None:
         """ Parse a string list into relevant logging data. """

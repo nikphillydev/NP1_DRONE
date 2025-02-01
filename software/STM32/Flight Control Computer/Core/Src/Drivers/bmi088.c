@@ -6,9 +6,9 @@
  */
 
 #include "Drivers/bmi088.h"
-#include "Drivers/usb.h"
 #include <math.h>
 #include <stdio.h>
+#include "Drivers/usb.hpp"
 
 #define _USE_MATH_DEFINES
 
@@ -240,18 +240,18 @@ uint8_t BMI088_ReadTempData(BMI088* imu)
 	return status;
 }
 
-uint8_t BMI088_LogAccData(BMI088* imu)
+void BMI088_LogAccData(BMI088* imu)
 {
 	char string[128];
 	snprintf(string, 128, "ACC %.2f %.2f %.2f %.2f", imu->accel_x, imu->accel_y, imu->accel_z, imu->temperature);
-	return USB_Log(string, SENSOR);
+	USB_Log(string, SENSOR);
 }
 
-uint8_t BMI088_LogGyroData(BMI088* imu)
+void BMI088_LogGyroData(BMI088* imu)
 {
 	char string[128];
 	snprintf(string, 128, "GYRO %.2f %.2f %.2f", imu->rate_x, imu->rate_y, imu->rate_z);
-	return USB_Log(string, SENSOR);
+	USB_Log(string, SENSOR);
 }
 
 /*

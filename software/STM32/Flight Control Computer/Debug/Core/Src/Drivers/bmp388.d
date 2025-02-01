@@ -48,7 +48,7 @@ Core/Src/Drivers/bmp388.o: ../Core/Src/Drivers/bmp388.c \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
- ../Core/Inc/Drivers/usb.h
+ ../Core/Inc/Drivers/usb.hpp
 ../Core/Inc/Drivers/bmp388.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:
 ../Core/Inc/stm32g4xx_hal_conf.h:
@@ -98,4 +98,4 @@ Core/Src/Drivers/bmp388.o: ../Core/Src/Drivers/bmp388.c \
 ../Middlewares/Third_Party/FreeRTOS/Source/include/task.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h:
 ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h:
-../Core/Inc/Drivers/usb.h:
+../Core/Inc/Drivers/usb.hpp:
