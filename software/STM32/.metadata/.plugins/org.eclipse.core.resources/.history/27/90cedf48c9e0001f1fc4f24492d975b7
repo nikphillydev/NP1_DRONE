@@ -1,0 +1,38 @@
+/*
+ * IIRFilter.cpp
+ *
+ *  Created on: Jan 31, 2025
+ *      Author: Nikolai Philipenko
+ */
+#include "Utility/IIRFilter.hpp"
+#include <cmath>
+
+
+IIRFilter::IIRFilter(float cutoff_frequency, float sampling_frequency)
+	: cutoff_frequency{cutoff_frequency},
+	  sampling_frequency{sampling_frequency},
+	  K{tanf(M_PI * (cutoff_frequency / sampling_frequency))}
+{
+	a[0] = (K * K) / (K * K + K / Q + 1);
+	a[1] = 2 * a[0];
+	a[2] = a[0];
+
+	b[0] = (2 * (K * K - 1)) / (K * K + K / Q + 1);
+	b.at(1) = (K * K - K / Q + 1) / (K * K + K / Q + 1);
+}
+
+float IIRFilter::update(float input)
+{
+	float sum1 = a.at(0) * input + a.at(1) * prev_input.at(0) + a.at(2) * prev_input.at(1);
+	float sum2 = b.at(0) * prev_output.at(0) + b.at(1) * prev_output.at(1);
+	float output = sum1 - sum2;
+
+	prev_input.at(1) = prev_input.at(0);
+	prev_input.at(0) = input;
+	prev_output.at(1) = prev_output.at(0);
+	prev_output.at(0) = output;
+	return output;
+}
+
+
+

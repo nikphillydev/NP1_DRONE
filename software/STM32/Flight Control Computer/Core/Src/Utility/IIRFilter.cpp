@@ -10,24 +10,27 @@
 
 IIRFilter::IIRFilter(float cutoff_frequency, float sampling_frequency)
 	: cutoff_frequency{cutoff_frequency},
-	  sampling_frequency{sampling_frequency}
+	  sampling_frequency{sampling_frequency},
+	  K{tanf(M_PI * (cutoff_frequency / sampling_frequency))}
 {
-	if (cutoff_frequency > sampling_frequency / 2.0f)
-	{
-		// Ensure Nyquist frequency limit is satisfied
-		cutoff_frequency = sampling_frequency / 2.0f;
-	}
+	a[0] = (K * K) / (K * K + K / Q + 1);
+	a[1] = 2 * a[0];
+	a[2] = a[0];
 
-	float sampling_period = 1.0f / sampling_frequency;
-	float time_constant = 1.0f / (2 * M_PI * cutoff_frequency);
-
-	a0 = sampling_period / (sampling_period + time_constant);
-	b1 = time_constant / (sampling_period + time_constant);
+	b[0] = (2 * (K * K - 1)) / (K * K + K / Q + 1);
+	b[1] = (K * K - K / Q + 1) / (K * K + K / Q + 1);
 }
 
 float IIRFilter::update(float input)
 {
-	output = a0 * input + b1 * output;
+	float sum1 = a[0] * input + a[1] * prev_input[0] + a[2] * prev_input[1];
+	float sum2 = b[0] * prev_output[0] + b[1] * prev_output[1];
+	float output = sum1 - sum2;
+
+	prev_input[1] = prev_input[0];
+	prev_input[0] = input;
+	prev_output[1] = prev_output[0];
+	prev_output[0] = output;
 	return output;
 }
 

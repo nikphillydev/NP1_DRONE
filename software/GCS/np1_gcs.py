@@ -12,7 +12,7 @@ from Widgets.log_widget import LogWidget
 
 def main():
     # Configuration
-    usb_port = "/dev/ttyACM1"
+    usb_port = "/dev/ttyACM0"
     max_saved_samples = 1000
     max_saved_logs = 30
     
