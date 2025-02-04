@@ -34,7 +34,7 @@ Each custom vehicle PCB (FCC and ESC) has a dedicated STM32 MCU running FreeRTOS
 The flight control computer implements software drivers for the onboard accelerometer, gyroscope, magnetometer, and barometer. Using this data, the FCC implements
 - Calibration for all sensors
 - 9-axis + barometer extended kalman filter (EKF) for state estimation [x, y, z, roll, pitch, yaw]
-- Communication with ground station for the following control modes:
+The FCC also communicates with ground station for the following control modes:
   - Hover at specific altitude
   - Circular loiter at altitude and radius
   - Manual control 
