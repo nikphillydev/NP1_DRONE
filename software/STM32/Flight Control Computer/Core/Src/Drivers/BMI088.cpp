@@ -79,7 +79,7 @@ bool BMI088::init()
 
 	// Initilize accelerometer IIR Filters
 	float ACCEL_ODR = 400;			// Hz
-	float ACCEL_CUTOFF = 5;			// Hz
+	float ACCEL_CUTOFF = 10;		// Hz
 	for (size_t i = 0; i < accel_filters.size(); i++)
 	{
 		accel_filters[i] = std::make_unique<IIRFilter>(ACCEL_CUTOFF, ACCEL_ODR);
@@ -144,7 +144,7 @@ bool BMI088::init()
 
 	// Initilize gyroscope IIR Filters
 	float GYRO_ODR = 400;		// Hz
-	float GYRO_CUTOFF = 5;		// Hz
+	float GYRO_CUTOFF = 50;		// Hz
 	for (size_t i = 0; i < gyro_filters.size(); i++)
 	{
 		gyro_filters[i] = std::make_unique<IIRFilter>(GYRO_CUTOFF, GYRO_ODR);
