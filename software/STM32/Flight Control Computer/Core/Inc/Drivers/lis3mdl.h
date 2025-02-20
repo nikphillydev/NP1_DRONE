@@ -2,7 +2,7 @@
  * lis3mdl.h
  *
  *  Created on: Dec 3, 2024
- *      Author: nikolai
+ *      Author: Nikolai Philipenko
  */
 
 #ifndef INC_DRIVERS_LIS3MDL_H_

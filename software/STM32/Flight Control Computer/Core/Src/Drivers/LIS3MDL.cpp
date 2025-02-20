@@ -97,17 +97,14 @@ bool LIS3MDL::service_irq()
 		int16_t raw_y_int16 = (raw_data[3] << 8) | raw_data[2];
 		int16_t raw_z_int16 = (raw_data[5] << 8) | raw_data[4];
 
-		np::lock_guard lock(mag_data_mutex);
-		axis_intensities[0] = filters[0]->update((float)raw_x_int16 / LSB_per_gauss - calib_data.x_offset);
-		axis_intensities[1] = filters[1]->update((float)raw_y_int16 / LSB_per_gauss - calib_data.y_offset);
-		axis_intensities[2] = filters[2]->update((float)raw_z_int16 / LSB_per_gauss - calib_data.z_offset);
+		float LIS3_x = filters[0]->update(raw_x_int16 / LSB_per_gauss - calib_data.x_offset);
+		float LIS3_y = filters[1]->update(raw_y_int16 / LSB_per_gauss - calib_data.y_offset);
+		float LIS3_z = filters[2]->update(raw_z_int16 / LSB_per_gauss - calib_data.z_offset);
 
-		heading = atan2f(axis_intensities[1], axis_intensities[0]) * (180.0 / M_PI);
-		heading += calib_data.declination;
-		if (heading < 0)
-		{
-			heading += 360;
-		}
+		np::lock_guard lock(mag_data_mutex);
+		axis_intensities[0] = LIS3_x;
+		axis_intensities[1] = LIS3_y;
+		axis_intensities[2] = LIS3_z;
 
 		// DRDY interrupt cleared automatically after read
 	}
@@ -124,7 +121,7 @@ void LIS3MDL::log_data_to_gcs()
 	char string[128];
 	{
 		np::lock_guard lock(mag_data_mutex);
-		snprintf(string, 128, "LIS3MDL %.2f %.2f %.2f %.2f", axis_intensities[0], axis_intensities[1], axis_intensities[2], heading);
+		snprintf(string, 128, "LIS3MDL %.2f %.2f %.2f", axis_intensities[0], axis_intensities[1], axis_intensities[2]);
 	}
 	USB_Log(string, SENSOR);
 }

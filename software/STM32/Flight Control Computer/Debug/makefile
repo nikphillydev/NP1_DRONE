@@ -96,7 +96,7 @@ main-build: Flight\ Control\ Computer.elf secondary-outputs
 
 # Tool invocations
 Flight\ Control\ Computer.elf Flight\ Control\ Computer.map: $(OBJS) $(USER_OBJS) /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight\ Control\ Computer/STM32G474CETX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-g++ -o "Flight Control Computer.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--cref -Wl,--gc-sections -static -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
+	arm-none-eabi-g++ -o "Flight Control Computer.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--cref -Wl,--gc-sections -static -L../Middlewares/ST/STM32_MotionFX_Library/Lib -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

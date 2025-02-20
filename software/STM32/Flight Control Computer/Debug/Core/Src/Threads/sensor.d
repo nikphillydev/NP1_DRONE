@@ -19,6 +19,8 @@ Core/Src/Threads/sensor.o: ../Core/Src/Threads/sensor.cpp \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_dma.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_dma_ex.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_cortex.h \
+ ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_crc.h \
+ ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_crc_ex.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_exti.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_fdcan.h \
  ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_flash.h \
@@ -59,7 +61,8 @@ Core/Src/Threads/sensor.o: ../Core/Src/Threads/sensor.cpp \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_core.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h \
- ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h
+ ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
+ ../Middlewares/ST/STM32_MotionFX_Library/Inc/motion_fx.h
 ../Core/Inc/Threads/sensor.hpp:
 ../Core/Inc/main.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:
@@ -81,6 +84,8 @@ Core/Src/Threads/sensor.o: ../Core/Src/Threads/sensor.cpp \
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_dma.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_dma_ex.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_cortex.h:
+../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_crc.h:
+../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_crc_ex.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_exti.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_fdcan.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal_flash.h:
@@ -127,3 +132,4 @@ Core/Src/Threads/sensor.o: ../Core/Src/Threads/sensor.cpp \
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h:
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h:
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h:
+../Middlewares/ST/STM32_MotionFX_Library/Inc/motion_fx.h:

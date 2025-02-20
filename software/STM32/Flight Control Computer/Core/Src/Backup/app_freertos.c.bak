@@ -52,7 +52,7 @@ typedef StaticTask_t osStaticThreadDef_t;
 /* USER CODE END Variables */
 /* Definitions for sensorFusionTask */
 osThreadId_t sensorFusionTaskHandle;
-uint32_t sensorFusionTaskBuffer[ 512 ];
+uint32_t sensorFusionTaskBuffer[ 2048 ];
 osStaticThreadDef_t sensorFusionTaskControlBlock;
 const osThreadAttr_t sensorFusionTask_attributes = {
   .name = "sensorFusionTask",

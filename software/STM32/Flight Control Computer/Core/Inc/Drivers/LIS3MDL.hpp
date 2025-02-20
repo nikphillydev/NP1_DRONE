@@ -49,8 +49,6 @@ struct LIS3MDL_CalibrationData
 	const float x_offset = -0.3124;
 	const float y_offset = -0.2715;
 	const float z_offset = -0.0920;
-	/* GEOGRAPHIC DECLINATION */
-	const float declination = 13.7333;	// Based on Medicine Hat, Alberta
 };
 
 
@@ -90,7 +88,6 @@ private:
 
 	// Magnetometer data
 	std::array<float, 3> axis_intensities {};	// Current magnetic intensities [x, y, z] (gauss)
-	float heading;								// Current heading (XY only, must be level)
 
 	// IIR Filters
 	std::array<std::unique_ptr<IIRFilter>, 3> filters {};

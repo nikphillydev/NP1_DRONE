@@ -199,10 +199,8 @@ bool BMI088::service_irq_accelerometer()
 
 		{
 			np::lock_guard lock(accel_data_mutex);
-
-			// Apply translation to match drone body's ENU orientation
-			linear_accelerations[0] = bmi_y;
-			linear_accelerations[1] = -1.0 * bmi_x;
+			linear_accelerations[0] = bmi_x;
+			linear_accelerations[1] = bmi_y;
 			linear_accelerations[2] = bmi_z;
 		}
 
@@ -236,10 +234,8 @@ bool BMI088::service_irq_gyroscope()
 		float bmi_z = gyro_filters[2]->update(rate_z_int16 * gyro_conversion);
 
 		np::lock_guard lock(gyro_data_mutex);
-
-		// Apply translation to match drone body's ENU orientation
-		angular_velocities[0] = bmi_y;
-		angular_velocities[1] = -1.0 * bmi_x;
+		angular_velocities[0] = bmi_x;
+		angular_velocities[1] = bmi_y;
 		angular_velocities[2] = bmi_z;
 
 		// Interrupt cleared automatically after 280-400us

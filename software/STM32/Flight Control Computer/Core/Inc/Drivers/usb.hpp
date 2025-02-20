@@ -12,6 +12,7 @@ typedef enum Log_Level {
   CRITICAL,
   ERR,
   SENSOR,
+  STATE,
   RAW
 } Log_Level;
 

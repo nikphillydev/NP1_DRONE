@@ -41,7 +41,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
-extern volatile unsigned long ulHighFrequencyTimerTicks;
+extern volatile unsigned long ulHighFrequencyTimerCounts;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -196,7 +196,7 @@ void TIM1_UP_TIM16_IRQHandler(void)
 {
   /* USER CODE BEGIN TIM1_UP_TIM16_IRQn 0 */
 
-  ++ulHighFrequencyTimerTicks;		// Needed for FREERTOS stats
+  ++ulHighFrequencyTimerCounts;		// Needed for FREERTOS stats
 
   /* USER CODE END TIM1_UP_TIM16_IRQn 0 */
   HAL_TIM_IRQHandler(&htim16);

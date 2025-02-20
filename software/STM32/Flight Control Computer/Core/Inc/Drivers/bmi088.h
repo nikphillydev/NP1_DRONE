@@ -2,7 +2,7 @@
  * bmi088.h
  *
  *  Created on: Oct 26, 2024
- *      Author: nikolai philipenko
+ *      Author: Nikolai Philipenko
  */
 
 #ifndef INC_DRIVERS_BMI088_H_

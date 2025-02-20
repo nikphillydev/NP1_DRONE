@@ -37,10 +37,17 @@ class SensorDataWidget(QWidget):
         
         self.magnetometer_group = self.create_sensor_group(
             "Magnetometer (Gauss)", 
-            ["X:", "Y:", "Z:", "Heading (degrees):"],
-            ["mag_x", "mag_y", "mag_z", "mag_heading"],
+            ["X:", "Y:", "Z:"],
+            ["mag_x", "mag_y", "mag_z"],
         )
         main_layout.addWidget(self.magnetometer_group)
+        
+        self.state_group = self.create_sensor_group(
+            "Vehicle State", 
+            ["Roll:", "Pitch:", "Yaw:"],
+            ["roll", "pitch", "yaw"],
+        )
+        main_layout.addWidget(self.state_group)
 
         # Set the main layout
         self.setLayout(main_layout)
@@ -109,4 +116,8 @@ class SensorDataWidget(QWidget):
             self.mag_x.setText(str(self.sensor_data.mag_samples.intensity_x[-1]))
             self.mag_y.setText(str(self.sensor_data.mag_samples.intensity_y[-1]))
             self.mag_z.setText(str(self.sensor_data.mag_samples.intensity_z[-1]))
-            self.mag_heading.setText(str(self.sensor_data.mag_samples.heading[-1]))
+            
+        # Vehicle State
+        self.roll.setText(str(self.sensor_data.state.roll))
+        self.pitch.setText(str(self.sensor_data.state.pitch))
+        self.yaw.setText(str(self.sensor_data.state.yaw))

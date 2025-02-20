@@ -19,6 +19,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "cmsis_os.h"
+#include "crc.h"
 #include "fdcan.h"
 #include "i2c.h"
 #include "spi.h"
@@ -50,7 +51,7 @@
 /* Private variables ---------------------------------------------------------*/
 
 /* USER CODE BEGIN PV */
-volatile unsigned long ulHighFrequencyTimerTicks;
+volatile unsigned long ulHighFrequencyTimerCounts;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -79,7 +80,8 @@ int main(void)
   /* MCU Configuration--------------------------------------------------------*/
 
   /* Reset of all peripherals, Initializes the Flash interface and the Systick. */
-  HAL_Init();
+
+	HAL_Init();
 
   /* USER CODE BEGIN Init */
 
@@ -100,6 +102,7 @@ int main(void)
   MX_SPI1_Init();
   MX_USART2_UART_Init();
   MX_TIM16_Init();
+  MX_CRC_Init();
   /* USER CODE BEGIN 2 */
   MX_USB_Device_Init();
   /* USER CODE END 2 */
@@ -176,13 +179,13 @@ void SystemClock_Config(void)
 
 void configureTimerForRunTimeStats(void)
 {
-    ulHighFrequencyTimerTicks = 0;
+    ulHighFrequencyTimerCounts = 0;
     HAL_TIM_Base_Start_IT(&htim16);
 }
 
 unsigned long getRunTimeCounterValue(void)
 {
-	return ulHighFrequencyTimerTicks;
+	return ulHighFrequencyTimerCounts;
 }
 
 /* USER CODE END 4 */

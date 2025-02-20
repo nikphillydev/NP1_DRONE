@@ -2,7 +2,7 @@
  * bmi088.c
  *
  *  Created on: Oct 26, 2024
- *      Author: nikolai philipenko
+ *      Author: Nikolai Philipenko
  */
 
 #include "Drivers/bmi088.h"

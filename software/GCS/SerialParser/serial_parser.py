@@ -38,6 +38,10 @@ class SerialParserThread(QThread):
                     del string_split[0]
                     self.parse_sensor_data(string_split)
                 
+                if string_split[0] == "STATE":
+                    del string_split[0]
+                    self.parse_vehicle_state(string_split)
+                
                 if string_split[0] == "LOG":
                     del string_split[0]
                     self.parse_logging_data(string_split)
@@ -85,8 +89,15 @@ class SerialParserThread(QThread):
             intensity_x = float(string_split[1])
             intensity_y = float(string_split[2]) 
             intensity_z = float(string_split[3])
-            heading = float(string_split[4])
-            self.sensor_data.add_magnetometer_sample(intensity_x, intensity_y, intensity_z, heading, tp)
+            self.sensor_data.add_magnetometer_sample(intensity_x, intensity_y, intensity_z, tp)
+    
+    def parse_vehicle_state(self, string_split: list[str]) -> None:
+        """ Parse a string list into vehicle state information. """
+        
+        roll = float(string_split[0])
+        pitch = float(string_split[1])
+        yaw = float(string_split[2])
+        self.sensor_data.update_state(roll, pitch, yaw)
     
     def parse_logging_data(self, string_split: list[str]) -> None:
         """ Parse a string list into relevant logging data. """

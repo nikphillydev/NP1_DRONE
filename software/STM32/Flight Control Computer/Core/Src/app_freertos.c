@@ -52,7 +52,7 @@ typedef StaticTask_t osStaticThreadDef_t;
 /* USER CODE END Variables */
 /* Definitions for sensorFusionTask */
 osThreadId_t sensorFusionTaskHandle;
-uint32_t sensorFusionTaskBuffer[ 512 ];
+uint32_t sensorFusionTaskBuffer[ 2048 ];
 osStaticThreadDef_t sensorFusionTaskControlBlock;
 const osThreadAttr_t sensorFusionTask_attributes = {
   .name = "sensorFusionTask",
@@ -291,6 +291,8 @@ void MX_FREERTOS_Init(void) {
 /* USER CODE END Header_start_sensor_fusion_task */
 void start_sensor_fusion_task(void *argument)
 {
+  /* init code for USB_Device */
+  MX_USB_Device_Init();
   /* USER CODE BEGIN start_sensor_fusion_task */
   /* Infinite loop */
   sensor_fusion_thread();

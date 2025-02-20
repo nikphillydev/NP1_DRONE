@@ -8,6 +8,7 @@ class SensorData():
         self.gyro_samples = BMI088_GyroscopeSamples(max_samples)
         self.bar_samples = BMP388_BarometerSamples(max_samples)
         self.mag_samples = LIS3MDL_MagnetometerSamples(max_samples)
+        self.state = Vehicle_State()
         
     def add_accelerometer_sample(self, x: float, y: float, z: float, temp: float, tp: float) -> None:
         self.acc_samples.add_sample(x, y, z, temp, tp)
@@ -18,9 +19,24 @@ class SensorData():
     def add_barometer_sample(self, pressure: float, altitude: float, temperature: float, tp: float) -> None:
         self.bar_samples.add_sample(pressure, altitude, temperature, tp)
     
-    def add_magnetometer_sample(self, intensity_x: float, intensity_y: float, intensity_z: float, heading: float, tp: float) -> None:
-        self.mag_samples.add_sample(intensity_x, intensity_y, intensity_z, heading, tp)
+    def add_magnetometer_sample(self, intensity_x: float, intensity_y: float, intensity_z: float, tp: float) -> None:
+        self.mag_samples.add_sample(intensity_x, intensity_y, intensity_z, tp)
     
+    def update_state(self, roll: float, pitch: float, yaw: float) -> None:
+        self.state.update(roll, pitch, yaw)
+   
+class Vehicle_State():
+    """ This class holds information about the current vehicle state.
+    """
+    def __init__(self) -> None:
+        self.roll = 0
+        self.pitch = 0
+        self.yaw = 0
+    
+    def update(self, roll: float, pitch: float, yaw: float) -> None:
+        self.roll = roll
+        self.pitch = pitch
+        self.yaw = yaw
     
 class BMI088_AccelerometerSamples():
     """ This class holds BMI088 accelerometer data samples.
@@ -79,13 +95,11 @@ class LIS3MDL_MagnetometerSamples():
         self.intensity_x = deque(maxlen=max_samples)
         self.intensity_y = deque(maxlen=max_samples)
         self.intensity_z = deque(maxlen=max_samples)
-        self.heading = deque(maxlen=max_samples)
         self.tp_data = deque(maxlen=max_samples)
     
-    def add_sample(self, intensity_x: float, intensity_y: float, intensity_z: float, heading: float, tp: float) -> None:
+    def add_sample(self, intensity_x: float, intensity_y: float, intensity_z: float, tp: float) -> None:
         self.intensity_x.append(intensity_x)
         self.intensity_y.append(intensity_y)
         self.intensity_z.append(intensity_z)
-        self.heading.append(heading)
         self.tp_data.append(tp)
     
