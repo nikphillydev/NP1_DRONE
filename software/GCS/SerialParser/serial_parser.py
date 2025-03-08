@@ -25,7 +25,7 @@ class SerialParserThread(QThread):
                 self.running = True
             except serial.SerialException:
                 print("Serial port with FCC not open, waiting...")
-                time.sleep(0.1)
+                time.sleep(0.01)
         
     def run(self) -> None:
         while(self.running):
@@ -50,7 +50,7 @@ class SerialParserThread(QThread):
                 print("Serial port with FCC closed, attempting to reopen port...")
                 self.ser.close()
                 try:
-                    time.sleep(0.1)
+                    time.sleep(0.01)
                     self.ser.open()
                 except serial.SerialException:
                     pass

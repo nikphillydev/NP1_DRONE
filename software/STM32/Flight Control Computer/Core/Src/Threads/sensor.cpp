@@ -11,21 +11,20 @@
 #include "main.h"
 #include "spi.h"
 #include "i2c.h"
+#include "usbd_cdc_if.h"
+#include "usbd_def.h"
+#include "motion_fx.h"
 #include "Drivers/usb.hpp"
 #include "Drivers/BMI088.hpp"
 #include "Drivers/BMP388.hpp"
 #include "Drivers/LIS3MDL.hpp"
-
-#include "usbd_cdc_if.h"
-#include "usbd_def.h"
-#include "motion_fx.h"
+#include "Utility/lock_guard.hpp"
 #include <cstdio>
 #include <cmath>
 
-#define TIMER_PERIOD			(size_t)1700 							// cycles per count
-#define TIMER_FREQUENCY			(size_t)170000000						// cycles per second
+#define TIMER_PERIOD			(size_t)1700 					// cycles per count
+#define TIMER_FREQUENCY			(size_t)170000000				// cycles per second
 #define COUNTS_TO_SECONDS		(float)TIMER_PERIOD / TIMER_FREQUENCY
-
 #define STATE_SIZE				(size_t)2432
 #define MS2_TO_G				(float)1 / 9.80665
 #define RADIANS_TO_DEGREES		(float)180 / M_PI
@@ -33,6 +32,7 @@
 #define GBIAS_ACC_TH_SC         (float)2 * 0.000765
 #define GBIAS_GYRO_TH_SC        (float)2 * 0.002
 #define GBIAS_MAG_TH_SC         (float)2 * 0.001500
+
 
 /*
  * Sensor drivers
@@ -49,13 +49,11 @@ std::array<float, 3> mag_intensities {};
 /*
  * Magnetometer calibration
  */
-bool calibrate_mag = true;			// To calibrate the magnetometer at startup or not...
-bool mag_calibrated = true;
-uint32_t mag_update_period_ms = 25;
-uint32_t mag_timestamp = 0;
-MFX_MagCal_input_t mag_data_in;
-MFX_MagCal_output_t mag_data_out;
-std::array<float, 3> hard_iron {};	// in uT/50
+bool calibrate_mag = true;				// To calibrate the magnetometer at startup or not...
+bool mag_calibrated = false;
+uint32_t mag_calib_timestamp = 0;
+uint32_t mag_calib_period_ms = 25;		// ms
+std::array<float, 3> hard_iron {};		// in uT/50
 
 /*
  * MotionFX instance
@@ -64,17 +62,27 @@ static uint8_t mfxstate[STATE_SIZE];
 MFX_knobs_t iKnobs;
 MFX_input_t data_in;
 MFX_output_t data_out;
+MFX_MagCal_input_t mag_data_in;
+MFX_MagCal_output_t mag_data_out;
 
 /*
- * Counter for delta time between MotionFX updates
+ * Delta time for MotionFX updates
  */
 extern volatile unsigned long ulHighFrequencyTimerCounts;
 float last_time = 0;
 float current_time = 0;
 float dT = 0;
+uint32_t fusion_period_ms = 4;			// ms
 
 /*
- * THREAD
+ * Drone state variable
+ */
+state drone_state { 0.0f, 0.0f, 0.0f};
+
+/*
+ *
+ * THREADS
+ *
  */
 void sensor_fusion_thread()
 {
@@ -82,9 +90,7 @@ void sensor_fusion_thread()
 	USB_Log("--- SENSOR FUSION THREAD STARTING ---", CRITICAL);
 	osDelay(100);
 
-	/*
-	 * Initialize sensors
-	 */
+	// Initialize sensors
 	bool imu_init = imu.init();
 	bool baro_init = barometer.init();
 	bool mag_init = magnetometer.init();
@@ -93,53 +99,24 @@ void sensor_fusion_thread()
 	{
 		USB_Log("All sensors initialized successfully.", CRITICAL);
 
-		/*
-		 * Initialize MotionFX Sensor Fusion library
-		 */
-		if (STATE_SIZE < MotionFX_GetStateSize())
-		{
-			USB_Log("MotionFX algorithm state not enough memory", ERR);
-			osDelay(500);
-			Error_Handler();
-		}
-		MotionFX_initialize((MFXState_t *)mfxstate);
+		// Initialize MotionFX Sensor Fusion library
+		initialize_sensor_fusion();
 
-		// Turn library knobs...
-		MotionFX_getKnobs(mfxstate, &iKnobs);
-
-		iKnobs.acc_orientation[0] = 'w';	// positive orientation to the
-		iKnobs.acc_orientation[1] = 's';	// 	   board's reference frame
-		iKnobs.acc_orientation[2] = 'u';
-		iKnobs.gyro_orientation[0] = 'w';
-		iKnobs.gyro_orientation[1] = 's';
-		iKnobs.gyro_orientation[2] = 'u';
-		iKnobs.mag_orientation[0] = 'n';
-		iKnobs.mag_orientation[1] = 'w';
-		iKnobs.mag_orientation[2] = 'u';
-
-		iKnobs.gbias_acc_th_sc = GBIAS_ACC_TH_SC;
-		iKnobs.gbias_gyro_th_sc = GBIAS_GYRO_TH_SC;
-		iKnobs.gbias_mag_th_sc = GBIAS_MAG_TH_SC;
-
-		iKnobs.output_type = MFX_ENGINE_OUTPUT_NED;	// NED output orientation
-		iKnobs.LMode = 1;							// static learning
-		iKnobs.modx = 1;							// decimation of MotionFX_update call frequency
-
-		MotionFX_setKnobs(mfxstate, &iKnobs);
-
-		// Enable 9-axis sensor fusion
-		MotionFX_enable_6X(mfxstate, MFX_ENGINE_DISABLE);
-		MotionFX_enable_9X(mfxstate, MFX_ENGINE_ENABLE);
-
-		USB_Log("Starting sensor fusion.", CRITICAL);
-		osDelay(10);
-
+		// Setup magnetometer calibration if necessary
 		if (calibrate_mag)
 		{
-			mag_calibrated = false;
 			USB_Log("Please, slowly rotate the device in a figure 8 pattern in space to calibrate the magnetometer...", INFO);
-			MotionFX_MagCal_init(mag_update_period_ms, 1);
+			MotionFX_MagCal_init(mag_calib_period_ms, 1);
 		}
+		else
+		{
+			mag_calibrated = true;
+			USB_Log("Starting sensor fusion.", CRITICAL);
+			osDelay(10);
+		}
+
+		// Initialize last_wake_time variable with the current time
+		uint32_t last_wake_time = osKernelGetTickCount();
 
 		while (1)
 		{
@@ -148,8 +125,8 @@ void sensor_fusion_thread()
 				/*
 				 * Perform magnetometer calibration
 				 */
-
-				osDelay(mag_update_period_ms);
+				last_wake_time += mag_calib_period_ms;
+				osDelayUntil(last_wake_time);
 
 				// Get magnetometer data
 				mag_intensities = magnetometer.get_axis_intensities();
@@ -158,8 +135,8 @@ void sensor_fusion_thread()
 				mag_data_in.mag[2] = mag_intensities[2] * GAUSS_TO_uTESLA / 50;
 
 				// Apply timestamp to data
-				mag_data_in.time_stamp = mag_timestamp;	// in ms
-				mag_timestamp += mag_update_period_ms;
+				mag_data_in.time_stamp = mag_calib_timestamp;	// in ms
+				mag_calib_timestamp += mag_calib_period_ms;
 
 				// Run calibration
 				MotionFX_MagCal_run(&mag_data_in);
@@ -174,7 +151,10 @@ void sensor_fusion_thread()
 					// Disable magnetometer calibration
 					mag_calibrated = true;
 					USB_Log("Magnetomer calibration complete.", INFO);
-					MotionFX_MagCal_init(mag_update_period_ms, 0);
+					MotionFX_MagCal_init(mag_calib_period_ms, 0);
+
+					USB_Log("Starting sensor fusion.", CRITICAL);
+					osDelay(10);
 				}
 			}
 			else
@@ -182,14 +162,20 @@ void sensor_fusion_thread()
 				/*
 				 * Run Sensor Fusion algorithm
 				 */
-
-				osDelay(4);		// ~250 Hz update
+				last_wake_time += fusion_period_ms;
+				osDelayUntil(last_wake_time);
 
 				// Get sensor data
 				linear_accelerations = imu.get_linear_accelerations();
 				angular_velocities = imu.get_angular_velocities();
 				mag_intensities = magnetometer.get_axis_intensities();
 
+				// Compute delta time since last update
+				current_time = ulHighFrequencyTimerCounts * COUNTS_TO_SECONDS;
+				dT = current_time - last_time;
+				last_time = current_time;
+
+				// Apply sensor data to MotionFX input struct
 				data_in.acc[0] = linear_accelerations[0] * MS2_TO_G;			// in g
 				data_in.acc[1] = linear_accelerations[1] * MS2_TO_G;
 				data_in.acc[2] = linear_accelerations[2] * MS2_TO_G;
@@ -200,50 +186,105 @@ void sensor_fusion_thread()
 				data_in.mag[1] = mag_intensities[1] * GAUSS_TO_uTESLA / 50 - hard_iron[1];
 				data_in.mag[2] = mag_intensities[2] * GAUSS_TO_uTESLA / 50 - hard_iron[2];
 
-				// Compute delta time since last update
-				current_time = ulHighFrequencyTimerCounts * COUNTS_TO_SECONDS;
-				dT = current_time - last_time;
-				last_time = current_time;
-
 				// Kalman filter predict and update
 				MotionFX_propagate(mfxstate, &data_out, &data_in, &dT);
 				MotionFX_update(mfxstate, &data_out, &data_in, &dT, NULL);
 
-				// Log sensor data
-				char str[100];
-				snprintf(str, 100, "%.2f %.2f %.2f", data_out.rotation[2], data_out.rotation[1], data_out.rotation[0]);
-				USB_Log(str, STATE);
+				// TODO: add complimentary filter for accelerometer intergration and optical flow
 
-				imu.log_data_to_gcs();
-	//			osDelay(2);
-				barometer.log_data_to_gcs();
-	//			osDelay(2);
-				magnetometer.log_data_to_gcs();
-	//			osDelay(2);
+				// Update drone state variable
+				{
+					np::lock_guard lock(stateMutexHandle);
+					drone_state.roll = data_out.rotation[2];
+					drone_state.pitch = data_out.rotation[1];
+					drone_state.yaw = data_out.rotation[0];
+				}
+
+				// TODO: send to control system queue!
 			}
-
-			// ------------------------------------
-			// --- OLD MAGNETOMETER CALIBRATION ---
-			// ------------------------------------
-//			std::array<float, 3> mag_data = magnetometer.get_axis_intensities();
-//			osDelay(100);
-//			char str[256];
-//			int x = static_cast<int>(mag_data[0] * 1000.0);
-//			int y = static_cast<int>(mag_data[1] * 1000.0);
-//			int z = static_cast<int>(mag_data[2] * 1000.0);
-//			snprintf(str, 256, "Raw:0,0,0,0,0,0,%d,%d,%d\r", x,y,z);
-//			USB_Log(str, RAW);
 		}
 	}
 	vTaskDelete( NULL );
 }
 
+void logging_thread()
+{
+	osDelay(400);
+	USB_Log("--- LOGGING THREAD STARTING ---", CRITICAL);
+	osDelay(100);
+
+	char state_log[100];
+	while (1)
+	{
+		if (!mag_calibrated) { osDelay(500); continue; }
+		{
+			np::lock_guard lock(stateMutexHandle);
+			snprintf(state_log, sizeof(state_log), "%.2f %.2f %.2f", drone_state.roll, drone_state.pitch, drone_state.yaw);
+		}
+		USB_Log(state_log, STATE);		// Log drone state data
+		osDelay(10);
+		imu.log_data_to_gcs();			// Log IMU data
+		osDelay(10);
+		barometer.log_data_to_gcs();	// Log barometer data
+		osDelay(10);
+		magnetometer.log_data_to_gcs();	// Log magnetometer data
+
+		osDelay(50);					// Further throttle loop
+	}
+	vTaskDelete( NULL );
+}
+
+
 /*
+ *
  * FUNCTIONS
+ *
  */
-void service_BMI088_Accel(){ imu.service_irq_accelerometer(); imu.service_irq_temperature(); }
+void initialize_sensor_fusion()
+{
+	// Check MotionFX state size
+	if (STATE_SIZE < MotionFX_GetStateSize())
+	{
+		USB_Log("MotionFX algorithm state not enough memory", ERR);
+		osDelay(500);
+		Error_Handler();
+	}
+	MotionFX_initialize((MFXState_t *)mfxstate);
+
+	// Turn library knobs...
+	MotionFX_getKnobs(mfxstate, &iKnobs);
+
+	iKnobs.acc_orientation[0] = 'w';	// positive orientation to the
+	iKnobs.acc_orientation[1] = 's';	// 	   board's reference frame
+	iKnobs.acc_orientation[2] = 'u';
+	iKnobs.gyro_orientation[0] = 'w';
+	iKnobs.gyro_orientation[1] = 's';
+	iKnobs.gyro_orientation[2] = 'u';
+	iKnobs.mag_orientation[0] = 'n';
+	iKnobs.mag_orientation[1] = 'w';
+	iKnobs.mag_orientation[2] = 'u';
+
+	iKnobs.gbias_acc_th_sc = GBIAS_ACC_TH_SC;
+	iKnobs.gbias_gyro_th_sc = GBIAS_GYRO_TH_SC;
+	iKnobs.gbias_mag_th_sc = GBIAS_MAG_TH_SC;
+
+	iKnobs.output_type = MFX_ENGINE_OUTPUT_NED;	// NED output orientation
+	iKnobs.LMode = 1;							// static learning
+	iKnobs.modx = 1;							// decimation of MotionFX_update call frequency
+
+	MotionFX_setKnobs(mfxstate, &iKnobs);
+
+	// Enable 9-axis sensor fusion
+	MotionFX_enable_6X(mfxstate, MFX_ENGINE_DISABLE);
+	MotionFX_enable_9X(mfxstate, MFX_ENGINE_ENABLE);
+}
+
+void service_BMI088_Accel(){ imu.service_irq_accelerometer(); }
 void service_BMI088_Gyro() { imu.service_irq_gyroscope(); }
 void service_BMP388() { barometer.service_irq(); }
-void service_LIS3MDL() { magnetometer.service_irq(); }
+void service_LIS3MDL() {
+	magnetometer.service_irq();
+	imu.service_irq_temperature();	// Magnetometer low output data rate, so include IMU temperature read here
+}
 
 

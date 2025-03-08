@@ -1,0 +1,285 @@
+/*
+ * sensor.cpp
+ *
+ *  Created on: Dec 15, 2024
+ *      Author: Nikolai Philipenko
+ *
+ *      Using NED coordinate system.
+ */
+
+#include "Threads/sensor.hpp"
+#include "main.h"
+#include "spi.h"
+#include "i2c.h"
+#include "usbd_cdc_if.h"
+#include "usbd_def.h"
+#include "motion_fx.h"
+#include "Drivers/usb.hpp"
+#include "Drivers/BMI088.hpp"
+#include "Drivers/BMP388.hpp"
+#include "Drivers/LIS3MDL.hpp"
+#include "Utility/lock_guard.hpp"
+#include <cstdio>
+#include <cmath>
+
+#define TIMER_PERIOD			(size_t)1700 							// cycles per count
+#define TIMER_FREQUENCY			(size_t)170000000						// cycles per second
+#define COUNTS_TO_SECONDS		(float)TIMER_PERIOD / TIMER_FREQUENCY
+#define STATE_SIZE				(size_t)2432
+#define MS2_TO_G				(float)1 / 9.80665
+#define RADIANS_TO_DEGREES		(float)180 / M_PI
+#define GAUSS_TO_uTESLA			(float)100
+#define GBIAS_ACC_TH_SC         (float)2 * 0.000765
+#define GBIAS_GYRO_TH_SC        (float)2 * 0.002
+#define GBIAS_MAG_TH_SC         (float)2 * 0.001500
+
+/*
+ * Sensor drivers
+ */
+BMI088 imu(hspi1, spi1MutexHandle, ACCEL_CS_GPIO_Port, GYRO_CS_GPIO_Port, ACCEL_CS_Pin,
+		GYRO_CS_Pin, accelDataMutexHandle, gyroDataMutexHandle);
+BMP388 barometer(hi2c2, i2c2MutexHandle, baroDataMutexHandle);
+LIS3MDL magnetometer(hi2c2, i2c2MutexHandle, magDataMutexHandle);
+
+std::array<float, 3> linear_accelerations {};
+std::array<float, 3> angular_velocities {};
+std::array<float, 3> mag_intensities {};
+
+/*
+ * Magnetometer calibration
+ */
+bool calibrate_mag = true;			// To calibrate the magnetometer at startup or not...
+bool mag_calibrated = false;
+uint32_t mag_update_period_ms = 25;
+uint32_t mag_timestamp = 0;
+MFX_MagCal_input_t mag_data_in;
+MFX_MagCal_output_t mag_data_out;
+std::array<float, 3> hard_iron {};	// in uT/50
+
+/*
+ * MotionFX instance
+ */
+static uint8_t mfxstate[STATE_SIZE];
+MFX_knobs_t iKnobs;
+MFX_input_t data_in;
+MFX_output_t data_out;
+
+/*
+ * Counter for delta time between MotionFX updates
+ */
+extern volatile unsigned long ulHighFrequencyTimerCounts;
+float last_time = 0;
+float current_time = 0;
+float dT = 0;
+
+/*
+ * Drone state variable
+ */
+state drone_state { 0.0f, 0.0f, 0.0f};
+
+/*
+ * THREADS
+ */
+void sensor_fusion_thread()
+{
+	osDelay(400);
+	USB_Log("--- SENSOR FUSION THREAD STARTING ---", CRITICAL);
+	osDelay(100);
+
+	/*
+	 * Initialize sensors
+	 */
+	bool imu_init = imu.init();
+	bool baro_init = barometer.init();
+	bool mag_init = magnetometer.init();
+
+	if (imu_init && baro_init && mag_init)
+	{
+		USB_Log("All sensors initialized successfully.", CRITICAL);
+
+		/*
+		 * Initialize MotionFX Sensor Fusion library
+		 */
+		initialize_sensor_fusion();
+
+		USB_Log("Starting sensor fusion.", CRITICAL);
+		osDelay(10);
+
+		if (calibrate_mag)
+		{
+			USB_Log("Please, slowly rotate the device in a figure 8 pattern in space to calibrate the magnetometer...", INFO);
+			MotionFX_MagCal_init(mag_update_period_ms, 1);
+		}
+		else
+		{
+			// Disable magnetometer calibration
+			mag_calibrated = true;
+		}
+
+		while (1)
+		{
+			if (!mag_calibrated)
+			{
+				/*
+				 * Perform magnetometer calibration
+				 */
+
+				osDelay(mag_update_period_ms);
+
+				// Get magnetometer data
+				mag_intensities = magnetometer.get_axis_intensities();
+				mag_data_in.mag[0] = mag_intensities[0] * GAUSS_TO_uTESLA / 50;		// in uT/50
+				mag_data_in.mag[1] = mag_intensities[1] * GAUSS_TO_uTESLA / 50;
+				mag_data_in.mag[2] = mag_intensities[2] * GAUSS_TO_uTESLA / 50;
+
+				// Apply timestamp to data
+				mag_data_in.time_stamp = mag_timestamp;	// in ms
+				mag_timestamp += mag_update_period_ms;
+
+				// Run calibration
+				MotionFX_MagCal_run(&mag_data_in);
+				MotionFX_MagCal_getParams(&mag_data_out);
+
+				if (mag_data_out.cal_quality == MFX_MAGCALGOOD)
+				{
+					hard_iron[0] = mag_data_out.hi_bias[0];
+					hard_iron[1] = mag_data_out.hi_bias[1];
+					hard_iron[2] = mag_data_out.hi_bias[2];
+
+					// Disable magnetometer calibration
+					mag_calibrated = true;
+					USB_Log("Magnetomer calibration complete.", INFO);
+					MotionFX_MagCal_init(mag_update_period_ms, 0);
+				}
+			}
+			else
+			{
+				/*
+				 * Run Sensor Fusion algorithm
+				 */
+
+				// TODO change to osDelayUntil to ensure constant execution frequency (xTaskDelayUntil?)
+
+				osDelay(4);		// 250 Hz update
+
+				// Get sensor data
+				linear_accelerations = imu.get_linear_accelerations();
+				angular_velocities = imu.get_angular_velocities();
+				mag_intensities = magnetometer.get_axis_intensities();
+
+				// Compute delta time since last update
+				current_time = ulHighFrequencyTimerCounts * COUNTS_TO_SECONDS;
+				dT = current_time - last_time;
+				last_time = current_time;
+
+				// Apply sensor data to MotionFX input struct
+				data_in.acc[0] = linear_accelerations[0] * MS2_TO_G;			// in g
+				data_in.acc[1] = linear_accelerations[1] * MS2_TO_G;
+				data_in.acc[2] = linear_accelerations[2] * MS2_TO_G;
+				data_in.gyro[0] = angular_velocities[0] * RADIANS_TO_DEGREES;	// in dps
+				data_in.gyro[1] = angular_velocities[1] * RADIANS_TO_DEGREES;
+				data_in.gyro[2] = angular_velocities[2] * RADIANS_TO_DEGREES;
+				data_in.mag[0] = mag_intensities[0] * GAUSS_TO_uTESLA / 50 - hard_iron[0];		// in uT/50
+				data_in.mag[1] = mag_intensities[1] * GAUSS_TO_uTESLA / 50 - hard_iron[1];
+				data_in.mag[2] = mag_intensities[2] * GAUSS_TO_uTESLA / 50 - hard_iron[2];
+
+				// Kalman filter predict and update
+				MotionFX_propagate(mfxstate, &data_out, &data_in, &dT);
+				MotionFX_update(mfxstate, &data_out, &data_in, &dT, NULL);
+
+				// TODO: add complimentary filter for accelerometer intergration and optical flow
+
+				// Update drone state variable
+				{
+					np::lock_guard lock(stateMutexHandle);
+					drone_state.roll = data_out.rotation[2];
+					drone_state.pitch = data_out.rotation[1];
+					drone_state.yaw = data_out.rotation[0];
+				}
+
+				// TODO: send to control system queue!
+			}
+		}
+	}
+	vTaskDelete( NULL );
+}
+
+
+void logging_thread()
+{
+	/*
+	 * Sensor and State Logging to GCS
+	 */
+	char state_log[100];
+	while (1)
+	{
+		if (!mag_calibrated) { osDelay(500); continue; }
+		{
+			np::lock_guard lock(stateMutexHandle);
+			snprintf(state_log, sizeof(state_log), "%.2f %.2f %.2f", drone_state.roll, drone_state.pitch, drone_state.yaw);
+		}
+		USB_Log(state_log, STATE);		// Log drone state data
+		osDelay(10);
+		imu.log_data_to_gcs();			// Log IMU data
+		osDelay(10);
+		barometer.log_data_to_gcs();	// Log barometer data
+		osDelay(10);
+		magnetometer.log_data_to_gcs();	// Log magnetometer data
+
+		osDelay(50);					// Further throttle loop
+	}
+}
+
+
+/*
+ * FUNCTIONS
+ */
+
+void initialize_sensor_fusion()
+{
+	// Check MotionFX state size
+	if (STATE_SIZE < MotionFX_GetStateSize())
+	{
+		USB_Log("MotionFX algorithm state not enough memory", ERR);
+		osDelay(500);
+		Error_Handler();
+	}
+	MotionFX_initialize((MFXState_t *)mfxstate);
+
+	// Turn library knobs...
+	MotionFX_getKnobs(mfxstate, &iKnobs);
+
+	iKnobs.acc_orientation[0] = 'w';	// positive orientation to the
+	iKnobs.acc_orientation[1] = 's';	// 	   board's reference frame
+	iKnobs.acc_orientation[2] = 'u';
+	iKnobs.gyro_orientation[0] = 'w';
+	iKnobs.gyro_orientation[1] = 's';
+	iKnobs.gyro_orientation[2] = 'u';
+	iKnobs.mag_orientation[0] = 'n';
+	iKnobs.mag_orientation[1] = 'w';
+	iKnobs.mag_orientation[2] = 'u';
+
+	iKnobs.gbias_acc_th_sc = GBIAS_ACC_TH_SC;
+	iKnobs.gbias_gyro_th_sc = GBIAS_GYRO_TH_SC;
+	iKnobs.gbias_mag_th_sc = GBIAS_MAG_TH_SC;
+
+	iKnobs.output_type = MFX_ENGINE_OUTPUT_NED;	// NED output orientation
+	iKnobs.LMode = 1;							// static learning
+	iKnobs.modx = 1;							// decimation of MotionFX_update call frequency
+
+	MotionFX_setKnobs(mfxstate, &iKnobs);
+
+	// Enable 9-axis sensor fusion
+	MotionFX_enable_6X(mfxstate, MFX_ENGINE_DISABLE);
+	MotionFX_enable_9X(mfxstate, MFX_ENGINE_ENABLE);
+}
+
+void service_BMI088_Accel(){ imu.service_irq_accelerometer(); }
+void service_BMI088_Gyro() { imu.service_irq_gyroscope(); }
+void service_BMP388() { barometer.service_irq(); }
+void service_LIS3MDL() {
+	magnetometer.service_irq();
+	imu.service_irq_temperature();	// Magnetometer low output data rate, so include IMU temperature read here
+}
+
+

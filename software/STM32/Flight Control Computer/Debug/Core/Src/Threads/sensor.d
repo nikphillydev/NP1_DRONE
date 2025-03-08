@@ -51,9 +51,7 @@ Core/Src/Threads/sensor.o: ../Core/Src/Threads/sensor.cpp \
  ../Middlewares/Third_Party/FreeRTOS/Source/include/list.h \
  ../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2/cmsis_os2.h \
  ../Core/Inc/spi.h ../Core/Inc/main.h ../Core/Inc/i2c.h \
- ../Core/Inc/Drivers/usb.hpp ../Core/Inc/Drivers/BMI088.hpp \
- ../Core/Inc/Utility/IIRFilter.hpp ../Core/Inc/Drivers/BMP388.hpp \
- ../Core/Inc/Drivers/LIS3MDL.hpp ../USB_Device/App/usbd_cdc_if.h \
+ ../USB_Device/App/usbd_cdc_if.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
@@ -62,7 +60,10 @@ Core/Src/Threads/sensor.o: ../Core/Src/Threads/sensor.cpp \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h \
  ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h \
- ../Middlewares/ST/STM32_MotionFX_Library/Inc/motion_fx.h
+ ../Middlewares/ST/STM32_MotionFX_Library/Inc/motion_fx.h \
+ ../Core/Inc/Drivers/usb.hpp ../Core/Inc/Drivers/BMI088.hpp \
+ ../Core/Inc/Utility/IIRFilter.hpp ../Core/Inc/Drivers/BMP388.hpp \
+ ../Core/Inc/Drivers/LIS3MDL.hpp ../Core/Inc/Utility/lock_guard.hpp
 ../Core/Inc/Threads/sensor.hpp:
 ../Core/Inc/main.h:
 ../Drivers/STM32G4xx_HAL_Driver/Inc/stm32g4xx_hal.h:
@@ -118,11 +119,6 @@ Core/Src/Threads/sensor.o: ../Core/Src/Threads/sensor.cpp \
 ../Core/Inc/spi.h:
 ../Core/Inc/main.h:
 ../Core/Inc/i2c.h:
-../Core/Inc/Drivers/usb.hpp:
-../Core/Inc/Drivers/BMI088.hpp:
-../Core/Inc/Utility/IIRFilter.hpp:
-../Core/Inc/Drivers/BMP388.hpp:
-../Core/Inc/Drivers/LIS3MDL.hpp:
 ../USB_Device/App/usbd_cdc_if.h:
 ../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/usbd_cdc.h:
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ioreq.h:
@@ -133,3 +129,9 @@ Core/Src/Threads/sensor.o: ../Core/Src/Threads/sensor.cpp \
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_ctlreq.h:
 ../Middlewares/ST/STM32_USB_Device_Library/Core/Inc/usbd_def.h:
 ../Middlewares/ST/STM32_MotionFX_Library/Inc/motion_fx.h:
+../Core/Inc/Drivers/usb.hpp:
+../Core/Inc/Drivers/BMI088.hpp:
+../Core/Inc/Utility/IIRFilter.hpp:
+../Core/Inc/Drivers/BMP388.hpp:
+../Core/Inc/Drivers/LIS3MDL.hpp:
+../Core/Inc/Utility/lock_guard.hpp:

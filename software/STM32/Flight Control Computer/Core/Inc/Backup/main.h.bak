@@ -45,6 +45,10 @@ extern osMutexId_t accelDataMutexHandle;
 extern osMutexId_t gyroDataMutexHandle;
 extern osMutexId_t baroDataMutexHandle;
 extern osMutexId_t magDataMutexHandle;
+extern osMutexId_t stateMutexHandle;
+
+/* Export task handles for everyone to use */
+extern osThreadId_t loggingTaskHandle;
 
 /* USER CODE END ET */
 

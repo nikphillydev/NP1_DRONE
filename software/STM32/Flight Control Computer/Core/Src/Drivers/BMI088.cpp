@@ -326,12 +326,6 @@ bool BMI088::read_accel_register(uint8_t reg_addr, uint8_t* rx_data, uint16_t da
 	uint8_t tx_buffer[num_bytes];
 	uint8_t rx_buffer[num_bytes];
 
-	for (int i = 0; i < num_bytes; i++)
-	{
-		tx_buffer[i] = 0;
-		rx_buffer[i] = 0;
-	}
-
 	tx_buffer[0] = 0x80 | reg_addr;	// Read operation
 
 	{
@@ -363,12 +357,6 @@ bool BMI088::read_gyro_register(uint8_t reg_addr, uint8_t* rx_data, uint16_t dat
 	uint16_t num_bytes = data_len + 1;
 	uint8_t tx_buffer[num_bytes];
 	uint8_t rx_buffer[num_bytes];
-
-	for (int i = 0; i < num_bytes; i++)
-	{
-		tx_buffer[i] = 0;
-		rx_buffer[i] = 0;
-	}
 
 	tx_buffer[0] = 0x80 | reg_addr;	// Read operation
 

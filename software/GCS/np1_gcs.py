@@ -13,7 +13,7 @@ from Widgets.log_widget import LogWidget
 def main():
     # Configuration
     usb_port = "/dev/ttyACM1"
-    max_saved_samples = 1000
+    max_saved_samples = 100
     max_saved_logs = 30
     
     # Structures for sensor and logging data

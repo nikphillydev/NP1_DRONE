@@ -16,13 +16,31 @@ extern "C" {
  */
 
 /*
-* THREADS
-*/
-void sensor_fusion_thread();
+ *
+ * TYPES
+ *
+ */
+struct state
+{
+	float roll;
+	float pitch;
+	float yaw;
+};
 
 /*
-* FUNCTIONS
-*/
+ *
+ * THREADS
+ *
+ */
+void sensor_fusion_thread();		// Implements sensor fusion algorithm
+void logging_thread();				// Logs sensor and state data to GCS
+
+/*
+ *
+ * FUNCTIONS
+ *
+ */
+void initialize_sensor_fusion();
 void service_BMI088_Accel();
 void service_BMI088_Gyro();
 void service_BMP388();
