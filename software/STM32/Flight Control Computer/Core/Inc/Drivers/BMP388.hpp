@@ -65,6 +65,8 @@
 #define REG_NVM_PAR_P10			0x44
 #define REG_NVM_PAR_P11			0x45
 
+#define BMP388_ADDRESS			0x76
+
 struct BMP388_CalibrationData
 {
 	float par_t1;
@@ -86,7 +88,7 @@ struct BMP388_CalibrationData
 class BMP388
 {
 public:
-	BMP388(I2C_HandleTypeDef& i2c_handle, osMutexId_t& i2c_mutex, osMutexId_t& baro_data_mutex);
+	BMP388(I2C_HandleTypeDef* i2c_handle, osMutexId_t& i2c_mutex, osMutexId_t& baro_data_mutex);
 
 	// Initialization after startup
 	[[nodiscard]] bool init();
@@ -110,9 +112,8 @@ private:
 	[[nodiscard]] bool compute_startup_pressure();
 
 	// I2C communication
-	I2C_HandleTypeDef& i2c_handle;
+	I2C_HandleTypeDef* i2c_handle;
 	osMutexId_t& i2c_mutex;
-	const uint8_t BMP388_ADDRESS = 0x76;
 
 	// Calibration
 	BMP388_CalibrationData calib_data;

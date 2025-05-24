@@ -5,12 +5,25 @@
  *      Author: Nikolai Philipenko
  *
  *      Using NED coordinate system.
+ *
+ *      HOW TO TUNE SENSOR FUSION ALGORITHM:
+ *      	- Accelerometer:
+ *      		LPF cutoff frequency
+ *      	- Optical flow sensor:
+ *      		MOTION_SCALER		(scale magnitude)
+ *      		CORRECTION_SCALER	(correct for roll and pitch changes)
+ *      	Ensure integrated velocity and velocity from optical flow match in phase and magnitude.
+ *      	- Fusion:
+ *      		XY_VEL_RESET_FREQ	(frequency to reset integrated XY velocity to camera velocity)
+ *      		XY_VELOCITY_ALPHA	(degree of trust placed on integrated XY velocity)
+ *      		ALTITUDE_ALPHA		(degree of trust placed on barometer altitude)
  */
 
 #include "Threads/sensor.hpp"
 #include "main.h"
 #include "spi.h"
 #include "i2c.h"
+#include "usart.h"
 #include "usbd_cdc_if.h"
 #include "usbd_def.h"
 #include "motion_fx.h"
@@ -18,42 +31,58 @@
 #include "Drivers/BMI088.hpp"
 #include "Drivers/BMP388.hpp"
 #include "Drivers/LIS3MDL.hpp"
+#include "Drivers/US100_Ultrasonic.hpp"
+#include "Drivers/PMW3901.hpp"
 #include "Utility/lock_guard.hpp"
 #include <cstdio>
 #include <cmath>
 
-#define TIMER_PERIOD			(size_t)1700 					// cycles per count
-#define TIMER_FREQUENCY			(size_t)170000000				// cycles per second
-#define COUNTS_TO_SECONDS		(float)TIMER_PERIOD / TIMER_FREQUENCY
-#define STATE_SIZE				(size_t)2432
-#define MS2_TO_G				(float)1 / 9.80665
-#define RADIANS_TO_DEGREES		(float)180 / M_PI
-#define GAUSS_TO_uTESLA			(float)100
-#define GBIAS_ACC_TH_SC         (float)2 * 0.000765
-#define GBIAS_GYRO_TH_SC        (float)2 * 0.002
-#define GBIAS_MAG_TH_SC         (float)2 * 0.001500
+#define TIMER_PERIOD				1700 				// cycles per count
+#define TIMER_FREQUENCY				170000000			// cycles per second
+#define COUNTS_TO_SECONDS			(float)TIMER_PERIOD / TIMER_FREQUENCY
+
+#define STATE_SIZE					2432
+#define FUSION_FREQ					250
+#define XY_VEL_RESET_FREQ			1.5
+
+#define MS2_TO_G					1 / 9.80665
+#define G_TO_MS2					9.80665
+#define RADIANS_TO_DEGREES			180.0 / M_PI
+#define GAUSS_TO_uTESLA				100.0
+
+#define GBIAS_ACC_TH_SC        	 	2 * 0.000765
+#define GBIAS_GYRO_TH_SC        	2 * 0.002
+#define GBIAS_MAG_TH_SC         	2 * 0.001500
+
+#define XY_VELOCITY_ALPHA			0.25				// XY Velocity complimentary filter parameter
+#define ALTITUDE_ALPHA				0.005				// Altitude complimentary filter parameter
 
 
 /*
  * Sensor drivers
  */
-BMI088 imu(hspi1, spi1MutexHandle, ACCEL_CS_GPIO_Port, GYRO_CS_GPIO_Port, ACCEL_CS_Pin,
+BMI088 imu(&hspi1, spi1MutexHandle, ACCEL_CS_GPIO_Port, GYRO_CS_GPIO_Port, ACCEL_CS_Pin,
 		GYRO_CS_Pin, accelDataMutexHandle, gyroDataMutexHandle);
-BMP388 barometer(hi2c2, i2c2MutexHandle, baroDataMutexHandle);
-LIS3MDL magnetometer(hi2c2, i2c2MutexHandle, magDataMutexHandle);
+LIS3MDL magnetometer(&hi2c2, i2c2MutexHandle, magDataMutexHandle);
+BMP388 barometer(&hi2c2, i2c2MutexHandle, baroDataMutexHandle);
+US100_Ultrasonic range_finder(&huart2, uart2MutexHandle, ultrasonicDataMutexHandle);
+PMW3901 optical_flow(&hspi1, spi1MutexHandle, FLOW_CS_GPIO_Port, FLOW_CS_Pin, flowDataMutexHandle);
 
-std::array<float, 3> linear_accelerations {};
-std::array<float, 3> angular_velocities {};
-std::array<float, 3> mag_intensities {};
+std::array<float, 3> linear_acceleration_BODY {};	// Accelerations from accelerometer in BODY frame
+std::array<float, 3> angular_velocity_BODY {};		// Velocities from gyroscope in BODY frame
+std::array<float, 3> mag_intensity_BODY {};			// Magnetic field strength from magnetometer in BODY frame
+float barometer_altitude = 0;						// Altitude from barometer in WORLD frame
+float rf_distance_BODY = 0;							// Distance from range finder in BODY frame
+std::array<float, 2> vel_camera_BODY {};			// XY Velocity from optical flow and range finder in BODY frame
 
 /*
  * Magnetometer calibration
  */
-bool calibrate_mag = true;				// To calibrate the magnetometer at startup or not...
+bool calibrate_mag = false;				// To calibrate the magnetometer at startup or not...
 bool mag_calibrated = false;
 uint32_t mag_calib_timestamp = 0;
-uint32_t mag_calib_period_ms = 25;		// ms
-std::array<float, 3> hard_iron {};		// in uT/50
+uint32_t mag_calib_period_ms = 25;		// calibration period in ms
+std::array<float, 3> hard_iron {};		// hard iron offsets in uT/50
 
 /*
  * MotionFX instance
@@ -69,15 +98,26 @@ MFX_MagCal_output_t mag_data_out;
  * Delta time for MotionFX updates
  */
 extern volatile unsigned long ulHighFrequencyTimerCounts;
-float last_time = 0;
 float current_time = 0;
+float last_time = 0;
 float dT = 0;
-uint32_t fusion_period_ms = 4;			// ms
+uint32_t fusion_period_ms = (1.0 / FUSION_FREQ) * 1000;			// ms
 
 /*
- * Drone state variable
+ * Drone state variables
  */
-state drone_state { 0.0f, 0.0f, 0.0f};
+state drone_state;									// Drone state in WORLD frame
+
+std::array<std::array<float, 3>, 3> R {};			// Rotation matrix from BODY frame to WORLD frame
+std::array<float, 3> acceleration_BODY {};			// Acceleration in BODY frame
+std::array<float, 3> prev_acceleration_BODY {};		// ...Needed for trapezoidal integration
+std::array<float, 3> vel_integrated_BODY {};		// Velocity integrated from acceleration data in BODY frame
+std::array<float, 3> velocity_BODY {};				// Velocity in BODY frame (from complimentary filter)
+std::array<float, 3> prev_velocity_BODY {};			// ...Needed for trapezoidal integration
+float rf_distance_WORLD = 0;						// Distance from range finder in WORLD frame
+float altitude = 0;									// Altitude in WORLD frame (from complimentary filter)
+
+std::array<float, 3> prev_roll_pitch {};			// Previous roll and pitch for optical flow XY velocity calculations
 
 /*
  *
@@ -90,12 +130,16 @@ void sensor_fusion_thread()
 	USB_Log("--- SENSOR FUSION THREAD STARTING ---", CRITICAL);
 	osDelay(100);
 
+	// Initialize state
+	memset(&drone_state, 0, sizeof(state));
+
 	// Initialize sensors
 	bool imu_init = imu.init();
 	bool baro_init = barometer.init();
 	bool mag_init = magnetometer.init();
+	bool flow_init = optical_flow.init();
 
-	if (imu_init && baro_init && mag_init)
+	if (imu_init && baro_init && mag_init && flow_init)
 	{
 		USB_Log("All sensors initialized successfully.", CRITICAL);
 
@@ -118,6 +162,10 @@ void sensor_fusion_thread()
 		// Initialize last_wake_time variable with the current time
 		uint32_t last_wake_time = osKernelGetTickCount();
 
+		// Counter to reset integrated XY velocity drift (resets to absolute optical flow value)
+		uint32_t reset_xy_counter = 0;
+		uint32_t reset_xy_period_multiple = FUSION_FREQ / XY_VEL_RESET_FREQ;
+
 		while (1)
 		{
 			if (!mag_calibrated)
@@ -129,10 +177,10 @@ void sensor_fusion_thread()
 				osDelayUntil(last_wake_time);
 
 				// Get magnetometer data
-				mag_intensities = magnetometer.get_axis_intensities();
-				mag_data_in.mag[0] = mag_intensities[0] * GAUSS_TO_uTESLA / 50;		// in uT/50
-				mag_data_in.mag[1] = mag_intensities[1] * GAUSS_TO_uTESLA / 50;
-				mag_data_in.mag[2] = mag_intensities[2] * GAUSS_TO_uTESLA / 50;
+				mag_intensity_BODY = magnetometer.get_axis_intensities();
+				mag_data_in.mag[0] = mag_intensity_BODY[0] * GAUSS_TO_uTESLA / 50;		// in uT/50
+				mag_data_in.mag[1] = mag_intensity_BODY[1] * GAUSS_TO_uTESLA / 50;
+				mag_data_in.mag[2] = mag_intensity_BODY[2] * GAUSS_TO_uTESLA / 50;
 
 				// Apply timestamp to data
 				mag_data_in.time_stamp = mag_calib_timestamp;	// in ms
@@ -144,7 +192,7 @@ void sensor_fusion_thread()
 
 				if (mag_data_out.cal_quality == MFX_MAGCALGOOD)
 				{
-					hard_iron[0] = mag_data_out.hi_bias[0];
+					hard_iron[0] = mag_data_out.hi_bias[0];		// in uT/50
 					hard_iron[1] = mag_data_out.hi_bias[1];
 					hard_iron[2] = mag_data_out.hi_bias[2];
 
@@ -164,11 +212,12 @@ void sensor_fusion_thread()
 				 */
 				last_wake_time += fusion_period_ms;
 				osDelayUntil(last_wake_time);
+				reset_xy_counter++;
 
-				// Get sensor data
-				linear_accelerations = imu.get_linear_accelerations();
-				angular_velocities = imu.get_angular_velocities();
-				mag_intensities = magnetometer.get_axis_intensities();
+				// Get accelerometer, gyroscope, and magnetometer data for Orientation Kalman Filter
+				linear_acceleration_BODY = imu.get_linear_accelerations();
+				angular_velocity_BODY = imu.get_angular_velocities();
+				mag_intensity_BODY = magnetometer.get_axis_intensities();
 
 				// Compute delta time since last update
 				current_time = ulHighFrequencyTimerCounts * COUNTS_TO_SECONDS;
@@ -176,60 +225,131 @@ void sensor_fusion_thread()
 				last_time = current_time;
 
 				// Apply sensor data to MotionFX input struct
-				data_in.acc[0] = linear_accelerations[0] * MS2_TO_G;			// in g
-				data_in.acc[1] = linear_accelerations[1] * MS2_TO_G;
-				data_in.acc[2] = linear_accelerations[2] * MS2_TO_G;
-				data_in.gyro[0] = angular_velocities[0] * RADIANS_TO_DEGREES;	// in dps
-				data_in.gyro[1] = angular_velocities[1] * RADIANS_TO_DEGREES;
-				data_in.gyro[2] = angular_velocities[2] * RADIANS_TO_DEGREES;
-				data_in.mag[0] = mag_intensities[0] * GAUSS_TO_uTESLA / 50 - hard_iron[0];		// in uT/50
-				data_in.mag[1] = mag_intensities[1] * GAUSS_TO_uTESLA / 50 - hard_iron[1];
-				data_in.mag[2] = mag_intensities[2] * GAUSS_TO_uTESLA / 50 - hard_iron[2];
+				data_in.acc[0] = linear_acceleration_BODY[0] * MS2_TO_G;				// in g
+				data_in.acc[1] = linear_acceleration_BODY[1] * MS2_TO_G;
+				data_in.acc[2] = linear_acceleration_BODY[2] * MS2_TO_G;
+				data_in.gyro[0] = angular_velocity_BODY[0] * RADIANS_TO_DEGREES;		// in dps
+				data_in.gyro[1] = angular_velocity_BODY[1] * RADIANS_TO_DEGREES;
+				data_in.gyro[2] = angular_velocity_BODY[2] * RADIANS_TO_DEGREES;
+				data_in.mag[0] = mag_intensity_BODY[0] * GAUSS_TO_uTESLA / 50 - hard_iron[0];		// in uT/50
+				data_in.mag[1] = mag_intensity_BODY[1] * GAUSS_TO_uTESLA / 50 - hard_iron[1];
+				data_in.mag[2] = mag_intensity_BODY[2] * GAUSS_TO_uTESLA / 50 - hard_iron[2];
 
-				// Kalman filter predict and update
+				// Kalman filter predict and update orientation
 				MotionFX_propagate(mfxstate, &data_out, &data_in, &dT);
 				MotionFX_update(mfxstate, &data_out, &data_in, &dT, NULL);
 
-				// TODO: add complimentary filter for accelerometer intergration and optical flow
+				// Extract and normalize rotation quaternion
+				float qx = data_out.quaternion[0], qy = data_out.quaternion[1], qz = data_out.quaternion[2], qw = data_out.quaternion[3];
+				float n = 1.0f / sqrtf(qx*qx + qy*qy + qz*qz + qw*qw);
+				qx *= n; qy *= n; qz *= n; qw *= n;
+
+				// Update BODY -> WORLD rotation matrix using current orientation
+				R[0][0] = 1.0f - 2.0f * (qy*qy + qz*qz);		// Row 1
+			    R[0][1] = 2.0f * (qx*qy - qw*qz);
+			    R[0][2] = 2.0f * (qx*qz + qw*qy);
+			    R[1][0] = 2.0f * (qx*qy + qw*qz);				// Row 2
+			    R[1][1] = 1.0f - 2.0f * (qx*qx + qz*qz);
+			    R[1][2] = 2.0f * (qy*qz - qw*qx);
+			    R[2][0] = 2.0f * (qx*qz - qw*qy);				// Row 3
+			    R[2][1] = 2.0f * (qy*qz + qw*qx);
+			    R[2][2] = 1.0f - 2.0f * (qx*qx + qy*qy);
+
+			    // Extract BODY acceleration
+			    acceleration_BODY[0] = data_out.linear_acceleration[0];
+			    acceleration_BODY[1] = data_out.linear_acceleration[1];
+			    acceleration_BODY[2] = data_out.linear_acceleration[2];
+
+			    // Integrate BODY acceleration to get velocity (trapezoidal rule)
+				vel_integrated_BODY[0] += 0.5f * (acceleration_BODY[0] + prev_acceleration_BODY[0]) * dT;
+				vel_integrated_BODY[1] += 0.5f * (acceleration_BODY[1] + prev_acceleration_BODY[1]) * dT;
+				vel_integrated_BODY[2] += 0.5f * (acceleration_BODY[2] + prev_acceleration_BODY[2]) * dT;
+
+				// Update previous for next iteration
+				prev_acceleration_BODY[0] = acceleration_BODY[0];
+				prev_acceleration_BODY[1] = acceleration_BODY[1];
+				prev_acceleration_BODY[2] = acceleration_BODY[2];
+
+				// Get range finder distance and transform to WORLD frame
+				rf_distance_BODY = range_finder.get_distance();
+				rf_distance_WORLD =	R[2][0] * rf_distance_BODY +
+									R[2][1] * rf_distance_BODY +
+									R[2][2] * rf_distance_BODY;
+
+				// Get optical flow data for Velocity Complimentary Filter
+				float delta_roll = data_out.rotation[2] - prev_roll_pitch[0];		// Roll change
+				float delta_pitch = data_out.rotation[1] - prev_roll_pitch[1];		// Pitch change
+				vel_camera_BODY = optical_flow.get_delta_m(rf_distance_WORLD, delta_pitch, delta_roll);
+
+				// Update previous for next iteration
+				prev_roll_pitch[0] = data_out.rotation[2];		// Roll
+				prev_roll_pitch[1] = data_out.rotation[1];		// Pitch
+
+				// Reset integrated XY velocity drift if necessary
+				if (reset_xy_counter % reset_xy_period_multiple == 0) {
+					vel_integrated_BODY[0] = vel_camera_BODY[0];
+					vel_integrated_BODY[1] = vel_camera_BODY[1];
+				}
+
+				// Fuse XY velocity via complimentary filter
+				velocity_BODY[0] = XY_VELOCITY_ALPHA * vel_integrated_BODY[0] + (1.0f - XY_VELOCITY_ALPHA) * vel_camera_BODY[0];
+				velocity_BODY[1] = XY_VELOCITY_ALPHA * vel_integrated_BODY[1] + (1.0f - XY_VELOCITY_ALPHA) * vel_camera_BODY[1];
+				velocity_BODY[2] = vel_integrated_BODY[2];
+
+				// Get barometer altitude
+				barometer_altitude = barometer.get_altitude();
+
+				// Fuse altitude via complimentary filter
+				altitude = ALTITUDE_ALPHA * barometer_altitude + (1.0f - ALTITUDE_ALPHA) * rf_distance_WORLD;
 
 				// Update drone state variable
 				{
 					np::lock_guard lock(stateMutexHandle);
-					drone_state.roll = data_out.rotation[2];
-					drone_state.pitch = data_out.rotation[1];
-					drone_state.yaw = data_out.rotation[0];
+					drone_state.rotation[0] = data_out.rotation[2];		// Roll
+					drone_state.rotation[1] = data_out.rotation[1];		// Pitch
+					drone_state.rotation[2] = data_out.rotation[0];		// Yaw
+					drone_state.quaternion[0] = qx;
+					drone_state.quaternion[1] = qy;
+					drone_state.quaternion[2] = qz;
+					drone_state.quaternion[3] = qw;
+					drone_state.xy_velocity[0] = velocity_BODY[0];		// X velocity
+					drone_state.xy_velocity[1] = velocity_BODY[1];		// Y velocity
+					drone_state.altitude = altitude;					// Z position
 				}
 
 				// TODO: send to control system queue!
 			}
 		}
 	}
-	vTaskDelete( NULL );
+	else
+	{
+		USB_Log("Failed to initialize sensors.", ERR);
+		osDelay(10);
+		vTaskDelete( NULL );
+	}
 }
 
-void logging_thread()
+void fusion_logging_thread()
 {
 	osDelay(400);
-	USB_Log("--- LOGGING THREAD STARTING ---", CRITICAL);
+	USB_Log("--- FUSION LOGGING THREAD STARTING ---", CRITICAL);
 	osDelay(100);
 
-	char state_log[100];
+	char state_log[128];
 	while (1)
 	{
 		if (!mag_calibrated) { osDelay(500); continue; }
 		{
 			np::lock_guard lock(stateMutexHandle);
-			snprintf(state_log, sizeof(state_log), "%.2f %.2f %.2f", drone_state.roll, drone_state.pitch, drone_state.yaw);
+			snprintf(state_log, sizeof(state_log),
+					"%.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f",
+					drone_state.rotation[0], drone_state.rotation[1], drone_state.rotation[2],
+					drone_state.quaternion[0], drone_state.quaternion[1], drone_state.quaternion[2], drone_state.quaternion[3],
+					drone_state.xy_velocity[0], drone_state.xy_velocity[1],
+					drone_state.altitude);
 		}
 		USB_Log(state_log, STATE);		// Log drone state data
-		osDelay(10);
-		imu.log_data_to_gcs();			// Log IMU data
-		osDelay(10);
-		barometer.log_data_to_gcs();	// Log barometer data
-		osDelay(10);
-		magnetometer.log_data_to_gcs();	// Log magnetometer data
-
-		osDelay(50);					// Further throttle loop
+		osDelay(50);
 	}
 	vTaskDelete( NULL );
 }
@@ -286,5 +406,14 @@ void service_LIS3MDL() {
 	magnetometer.service_irq();
 	imu.service_irq_temperature();	// Magnetometer low output data rate, so include IMU temperature read here
 }
+void poll_US100_Ultrasonic(uint8_t start_transfer)
+{
+	if (start_transfer) {
+		range_finder.start_distance_transfer();
+	} else {
+		range_finder.finish_distance_transfer();
+	}
+}
+void poll_PMW3901() { optical_flow.update(); }
 
 

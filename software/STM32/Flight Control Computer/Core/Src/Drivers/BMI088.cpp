@@ -9,8 +9,9 @@
 #include "Drivers/usb.hpp"
 #include "Utility/lock_guard.hpp"
 #include <cstdio>
+#include <cstring>
 
-BMI088::BMI088(SPI_HandleTypeDef& spi_handle, osMutexId_t& spi_mutex, GPIO_TypeDef* acc_cs_port, GPIO_TypeDef* gyro_cs_port, 
+BMI088::BMI088(SPI_HandleTypeDef* spi_handle, osMutexId_t& spi_mutex, GPIO_TypeDef* acc_cs_port, GPIO_TypeDef* gyro_cs_port,
 			uint16_t acc_cs_pin, uint16_t gyro_cs_pin, osMutexId_t& accel_data_mutex, osMutexId_t& gyro_data_mutex)
 	: spi_handle(spi_handle),
 	  spi_mutex(spi_mutex),
@@ -28,6 +29,8 @@ bool BMI088::init()
 	// Temporary buffers
 	uint8_t tx_data[4];
 	uint8_t rx_data[4];
+	memset(tx_data, 0, sizeof(tx_data));
+	memset(rx_data, 0, sizeof(rx_data));
 
 	// Accelerometer requires rising edge on CS pin to switch to SPI mode
 	HAL_GPIO_WritePin(acc_cs_port, acc_cs_pin, GPIO_PIN_RESET);
@@ -77,16 +80,16 @@ bool BMI088::init()
 	if (!status) return status;
 	osDelay(10);
 
-	// Initilize accelerometer IIR Filters
-	float ACCEL_ODR = 400;			// Hz
-	float ACCEL_CUTOFF = 10;		// Hz
+	// Initialize accelerometer IIR Filters
+	float ACCEL_ODR = 400;				// Hz
+	float ACCEL_CUTOFF = 10;			// Hz
 	for (size_t i = 0; i < accel_filters.size(); i++)
 	{
 		accel_filters[i] = std::make_unique<IIRFilter>(ACCEL_CUTOFF, ACCEL_ODR);
 	}
 
-	// Set +-3g range (10920 LSB/g)
-	tx_data[0] = 0x00;
+	// Set +-6g range (5460 LSB/g)
+	tx_data[0] = 0x01;
 	status = write_accel_register(REG_ACC_RANGE, tx_data, 1);
 	if (!status) return status;
 	osDelay(10);
@@ -142,7 +145,7 @@ bool BMI088::init()
 	if (!status) return status;
 	osDelay(10);
 
-	// Initilize gyroscope IIR Filters
+	// Initialize gyroscope IIR Filters
 	float GYRO_ODR = 400;		// Hz
 	float GYRO_CUTOFF = 50;		// Hz
 	for (size_t i = 0; i < gyro_filters.size(); i++)
@@ -284,7 +287,7 @@ void BMI088::log_data_to_gcs()
 	{
 		np::lock_guard lock1(accel_data_mutex);
 		np::lock_guard lock2(gyro_data_mutex);
-		snprintf(string, 128, "BMI088 %.2f %.2f %.2f %.2f %.2f %.2f %.2f",
+		snprintf(string, sizeof(string), "BMI088 %.2f %.2f %.2f %.2f %.2f %.2f %.2f",
 				linear_accelerations[0],
 				linear_accelerations[1],
 				linear_accelerations[2],
@@ -325,13 +328,15 @@ bool BMI088::read_accel_register(uint8_t reg_addr, uint8_t* rx_data, uint16_t da
 	uint16_t num_bytes = data_len + 2;
 	uint8_t tx_buffer[num_bytes];
 	uint8_t rx_buffer[num_bytes];
+	memset(tx_buffer, 0, num_bytes);
+	memset(rx_buffer, 0, num_bytes);
 
 	tx_buffer[0] = 0x80 | reg_addr;	// Read operation
 
 	{
 		np::lock_guard lock(spi_mutex);
 		HAL_GPIO_WritePin(acc_cs_port, acc_cs_pin, GPIO_PIN_RESET);
-		status = (HAL_SPI_TransmitReceive(&spi_handle, tx_buffer, rx_buffer, num_bytes, HAL_MAX_DELAY) == HAL_OK);
+		status = (HAL_SPI_TransmitReceive(spi_handle, tx_buffer, rx_buffer, num_bytes, HAL_MAX_DELAY) == HAL_OK);
 		HAL_GPIO_WritePin(acc_cs_port, acc_cs_pin, GPIO_PIN_SET);
 	}
 
@@ -357,13 +362,15 @@ bool BMI088::read_gyro_register(uint8_t reg_addr, uint8_t* rx_data, uint16_t dat
 	uint16_t num_bytes = data_len + 1;
 	uint8_t tx_buffer[num_bytes];
 	uint8_t rx_buffer[num_bytes];
+	memset(tx_buffer, 0, num_bytes);
+	memset(rx_buffer, 0, num_bytes);
 
 	tx_buffer[0] = 0x80 | reg_addr;	// Read operation
 
 	{
 		np::lock_guard lock(spi_mutex);
 		HAL_GPIO_WritePin(gyro_cs_port, gyro_cs_pin, GPIO_PIN_RESET);
-		status = (HAL_SPI_TransmitReceive(&spi_handle, tx_buffer, rx_buffer, num_bytes, HAL_MAX_DELAY) == HAL_OK);
+		status = (HAL_SPI_TransmitReceive(spi_handle, tx_buffer, rx_buffer, num_bytes, HAL_MAX_DELAY) == HAL_OK);
 		HAL_GPIO_WritePin(gyro_cs_port, gyro_cs_pin, GPIO_PIN_SET);
 	}
 
@@ -387,6 +394,7 @@ bool BMI088::write_accel_register(uint8_t reg_addr, uint8_t* tx_data, uint16_t d
 	bool status = false;
 	uint16_t num_bytes = data_len + 1;
 	uint8_t tx_buffer[num_bytes];
+	memset(tx_buffer, 0, num_bytes);
 
 	tx_buffer[0] = reg_addr;	// Write operation
 
@@ -398,7 +406,7 @@ bool BMI088::write_accel_register(uint8_t reg_addr, uint8_t* tx_data, uint16_t d
 	{
 		np::lock_guard lock(spi_mutex);
 		HAL_GPIO_WritePin(acc_cs_port, acc_cs_pin, GPIO_PIN_RESET);
-		status = (HAL_SPI_Transmit(&spi_handle, tx_buffer, num_bytes, HAL_MAX_DELAY) == HAL_OK);
+		status = (HAL_SPI_Transmit(spi_handle, tx_buffer, num_bytes, HAL_MAX_DELAY) == HAL_OK);
 		HAL_GPIO_WritePin(acc_cs_port, acc_cs_pin, GPIO_PIN_SET);
 	}
 
@@ -415,6 +423,7 @@ bool BMI088::write_gyro_register(uint8_t reg_addr, uint8_t* tx_data, uint16_t da
 	bool status = false;
 	uint16_t num_bytes = data_len + 1;
 	uint8_t tx_buffer[num_bytes];
+	memset(tx_buffer, 0, num_bytes);
 
 	tx_buffer[0] = reg_addr;	// Write operation
 
@@ -426,7 +435,7 @@ bool BMI088::write_gyro_register(uint8_t reg_addr, uint8_t* tx_data, uint16_t da
 	{
 		np::lock_guard lock(spi_mutex);
 		HAL_GPIO_WritePin(gyro_cs_port, gyro_cs_pin, GPIO_PIN_RESET);
-		status = (HAL_SPI_Transmit(&spi_handle, tx_buffer, num_bytes, HAL_MAX_DELAY) == HAL_OK);
+		status = (HAL_SPI_Transmit(spi_handle, tx_buffer, num_bytes, HAL_MAX_DELAY) == HAL_OK);
 		HAL_GPIO_WritePin(gyro_cs_port, gyro_cs_pin, GPIO_PIN_SET);
 	}
 

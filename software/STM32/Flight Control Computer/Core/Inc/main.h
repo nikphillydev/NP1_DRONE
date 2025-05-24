@@ -46,6 +46,9 @@ extern osMutexId_t gyroDataMutexHandle;
 extern osMutexId_t baroDataMutexHandle;
 extern osMutexId_t magDataMutexHandle;
 extern osMutexId_t stateMutexHandle;
+extern osMutexId_t uart2MutexHandle;
+extern osMutexId_t ultrasonicDataMutexHandle;
+extern osMutexId_t flowDataMutexHandle;
 
 /* USER CODE END ET */
 
@@ -69,8 +72,8 @@ void Error_Handler(void);
 /* Private defines -----------------------------------------------------------*/
 #define GPIO2_Pin GPIO_PIN_13
 #define GPIO2_GPIO_Port GPIOC
-#define GPIO3_Pin GPIO_PIN_14
-#define GPIO3_GPIO_Port GPIOC
+#define FLOW_CS_Pin GPIO_PIN_14
+#define FLOW_CS_GPIO_Port GPIOC
 #define ACCEL_INT_Pin GPIO_PIN_15
 #define ACCEL_INT_GPIO_Port GPIOC
 #define ACCEL_INT_EXTI_IRQn EXTI15_10_IRQn

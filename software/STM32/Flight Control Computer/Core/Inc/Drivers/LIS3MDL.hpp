@@ -42,20 +42,21 @@
 #define REG_INT_THS_L				0x32
 #define REG_INT_THS_H				0x33
 
+#define LIS3MDL_ADDRESS				0x1C
 
 struct LIS3MDL_CalibrationData
 {
 	/* HARD IRON OFFSETS (gauss) */
-	const float x_offset = -0.3124;
-	const float y_offset = -0.2715;
-	const float z_offset = -0.0920;
+	const float x_offset = -0.2884;
+	const float y_offset = -0.2835;
+	const float z_offset = -0.1110;
 };
 
 
 class LIS3MDL
 {
 public:
-	LIS3MDL(I2C_HandleTypeDef& i2c_handle, osMutexId_t& i2c_mutex, osMutexId_t& mag_data_mutex);
+	LIS3MDL(I2C_HandleTypeDef* i2c_handle, osMutexId_t& i2c_mutex, osMutexId_t& mag_data_mutex);
 
 	// Initialization after startup
 	[[nodiscard]] bool init();
@@ -73,9 +74,8 @@ private:
 	[[nodiscard]] bool write_register(uint8_t reg_addr, uint8_t* tx_data, uint16_t data_len);
 
 	// I2C communication
-	I2C_HandleTypeDef& i2c_handle;
+	I2C_HandleTypeDef* i2c_handle;
 	osMutexId_t& i2c_mutex;
-	const uint8_t LIS3MDL_ADDRESS = 0x1C;
 
     // Calibration
     LIS3MDL_CalibrationData calib_data;

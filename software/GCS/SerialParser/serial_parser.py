@@ -38,13 +38,18 @@ class SerialParserThread(QThread):
                     del string_split[0]
                     self.parse_sensor_data(string_split)
                 
-                if string_split[0] == "STATE":
+                elif string_split[0] == "STATE":
                     del string_split[0]
                     self.parse_vehicle_state(string_split)
                 
-                if string_split[0] == "LOG":
+                elif string_split[0] == "LOG":
                     del string_split[0]
                     self.parse_logging_data(string_split)
+                
+                else:
+                    # Else RAW output 
+                    self.logging_data.add_log(string, 0.0, Severity.INFO)
+                    self.added_log.emit(Severity.INFO)
                     
             except serial.SerialException:
                 print("Serial port with FCC closed, attempting to reopen port...")
@@ -94,10 +99,22 @@ class SerialParserThread(QThread):
     def parse_vehicle_state(self, string_split: list[str]) -> None:
         """ Parse a string list into vehicle state information. """
         
-        roll = float(string_split[0])
-        pitch = float(string_split[1])
-        yaw = float(string_split[2])
-        self.sensor_data.update_state(roll, pitch, yaw)
+        # Parse timepoint
+        tp = float(string_split[0])
+        
+        # Parse vehicle state
+        
+        roll = float(string_split[1])
+        pitch = float(string_split[2])
+        yaw = float(string_split[3])
+        qx = float(string_split[4])
+        qy = float(string_split[5])
+        qz = float(string_split[6])
+        qw = float(string_split[7])
+        vel_x = float(string_split[8]) * 100.0    # Meters to centimeters
+        vel_y = float(string_split[9]) * 100.0    # Meters to centimeters
+        altitude = float(string_split[10])
+        self.sensor_data.update_state(roll, pitch, yaw, qx, qy, qz, qw, vel_x, vel_y, altitude, tp)
     
     def parse_logging_data(self, string_split: list[str]) -> None:
         """ Parse a string list into relevant logging data. """

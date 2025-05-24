@@ -27,6 +27,7 @@
 /* USER CODE BEGIN Includes */
 
 #include "Threads/sensor.hpp"
+#include "usart.h"
 
 /* USER CODE END Includes */
 
@@ -111,17 +112,41 @@ const osThreadAttr_t magIRQTask_attributes = {
   .cb_size = sizeof(magIRQTaskControlBlock),
   .priority = (osPriority_t) osPriorityHigh,
 };
-/* Definitions for loggingTask */
-osThreadId_t loggingTaskHandle;
-uint32_t loggingTaskBuffer[ 512 ];
-osStaticThreadDef_t loggingTaskControlBlock;
-const osThreadAttr_t loggingTask_attributes = {
-  .name = "loggingTask",
-  .stack_mem = &loggingTaskBuffer[0],
-  .stack_size = sizeof(loggingTaskBuffer),
-  .cb_mem = &loggingTaskControlBlock,
-  .cb_size = sizeof(loggingTaskControlBlock),
+/* Definitions for fusionLoggingTask */
+osThreadId_t fusionLoggingTaskHandle;
+uint32_t fusionLoggingTaskBuffer[ 512 ];
+osStaticThreadDef_t fusionLoggingTaskControlBlock;
+const osThreadAttr_t fusionLoggingTask_attributes = {
+  .name = "fusionLoggingTask",
+  .stack_mem = &fusionLoggingTaskBuffer[0],
+  .stack_size = sizeof(fusionLoggingTaskBuffer),
+  .cb_mem = &fusionLoggingTaskControlBlock,
+  .cb_size = sizeof(fusionLoggingTaskControlBlock),
   .priority = (osPriority_t) osPriorityLow,
+};
+/* Definitions for ultrasonicPollingTask */
+osThreadId_t ultrasonicPollingTaskHandle;
+uint32_t ultrasonicPollingTaskBuffer[ 512 ];
+osStaticThreadDef_t ultrasonicPollingTaskControlBlock;
+const osThreadAttr_t ultrasonicPollingTask_attributes = {
+  .name = "ultrasonicPollingTask",
+  .stack_mem = &ultrasonicPollingTaskBuffer[0],
+  .stack_size = sizeof(ultrasonicPollingTaskBuffer),
+  .cb_mem = &ultrasonicPollingTaskControlBlock,
+  .cb_size = sizeof(ultrasonicPollingTaskControlBlock),
+  .priority = (osPriority_t) osPriorityHigh,
+};
+/* Definitions for opticalFlowPollingTask */
+osThreadId_t opticalFlowPollingTaskHandle;
+uint32_t opticalFlowUpdateTaskBuffer[ 256 ];
+osStaticThreadDef_t opticalFlowUpdateTaskControlBlock;
+const osThreadAttr_t opticalFlowPollingTask_attributes = {
+  .name = "opticalFlowPollingTask",
+  .stack_mem = &opticalFlowUpdateTaskBuffer[0],
+  .stack_size = sizeof(opticalFlowUpdateTaskBuffer),
+  .cb_mem = &opticalFlowUpdateTaskControlBlock,
+  .cb_size = sizeof(opticalFlowUpdateTaskControlBlock),
+  .priority = (osPriority_t) osPriorityHigh,
 };
 /* Definitions for spi1Mutex */
 osMutexId_t spi1MutexHandle;
@@ -189,11 +214,27 @@ const osMutexAttr_t stateMutex_attributes = {
 };
 /* Definitions for uart2Mutex */
 osMutexId_t uart2MutexHandle;
-osStaticMutexDef_t myMutex09ControlBlock;
+osStaticMutexDef_t uart2MutexControlBlock;
 const osMutexAttr_t uart2Mutex_attributes = {
   .name = "uart2Mutex",
-  .cb_mem = &myMutex09ControlBlock,
-  .cb_size = sizeof(myMutex09ControlBlock),
+  .cb_mem = &uart2MutexControlBlock,
+  .cb_size = sizeof(uart2MutexControlBlock),
+};
+/* Definitions for ultrasonicDataMutex */
+osMutexId_t ultrasonicDataMutexHandle;
+osStaticMutexDef_t ultrasonicDataMutexControlBlock;
+const osMutexAttr_t ultrasonicDataMutex_attributes = {
+  .name = "ultrasonicDataMutex",
+  .cb_mem = &ultrasonicDataMutexControlBlock,
+  .cb_size = sizeof(ultrasonicDataMutexControlBlock),
+};
+/* Definitions for flowDataMutex */
+osMutexId_t flowDataMutexHandle;
+osStaticMutexDef_t flowDataMutexControlBlock;
+const osMutexAttr_t flowDataMutex_attributes = {
+  .name = "flowDataMutex",
+  .cb_mem = &flowDataMutexControlBlock,
+  .cb_size = sizeof(flowDataMutexControlBlock),
 };
 
 /* Private function prototypes -----------------------------------------------*/
@@ -206,7 +247,9 @@ void start_acc_irq_task(void *argument);
 void start_gyro_irq_task(void *argument);
 void start_baro_irq_task(void *argument);
 void start_mag_irq_task(void *argument);
-void start_logging_task(void *argument);
+void start_fusion_logging_task(void *argument);
+void start_ultrasonic_polling_task(void *argument);
+void start_optical_flow_polling_task(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -257,6 +300,12 @@ void MX_FREERTOS_Init(void) {
   /* creation of uart2Mutex */
   uart2MutexHandle = osMutexNew(&uart2Mutex_attributes);
 
+  /* creation of ultrasonicDataMutex */
+  ultrasonicDataMutexHandle = osMutexNew(&ultrasonicDataMutex_attributes);
+
+  /* creation of flowDataMutex */
+  flowDataMutexHandle = osMutexNew(&flowDataMutex_attributes);
+
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
@@ -289,8 +338,14 @@ void MX_FREERTOS_Init(void) {
   /* creation of magIRQTask */
   magIRQTaskHandle = osThreadNew(start_mag_irq_task, NULL, &magIRQTask_attributes);
 
-  /* creation of loggingTask */
-  loggingTaskHandle = osThreadNew(start_logging_task, NULL, &loggingTask_attributes);
+  /* creation of fusionLoggingTask */
+  fusionLoggingTaskHandle = osThreadNew(start_fusion_logging_task, NULL, &fusionLoggingTask_attributes);
+
+  /* creation of ultrasonicPollingTask */
+  ultrasonicPollingTaskHandle = osThreadNew(start_ultrasonic_polling_task, NULL, &ultrasonicPollingTask_attributes);
+
+  /* creation of opticalFlowPollingTask */
+  opticalFlowPollingTaskHandle = osThreadNew(start_optical_flow_polling_task, NULL, &opticalFlowPollingTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -393,19 +448,65 @@ void start_mag_irq_task(void *argument)
   /* USER CODE END start_mag_irq_task */
 }
 
-/* USER CODE BEGIN Header_start_logging_task */
+/* USER CODE BEGIN Header_start_fusion_logging_task */
 /**
-* @brief Function implementing the loggingTask thread.
+* @brief Function implementing the fusionLoggingTask thread.
 * @param argument: Not used
 * @retval None
 */
-/* USER CODE END Header_start_logging_task */
-void start_logging_task(void *argument)
+/* USER CODE END Header_start_fusion_logging_task */
+void start_fusion_logging_task(void *argument)
 {
-  /* USER CODE BEGIN start_logging_task */
+  /* USER CODE BEGIN start_fusion_logging_task */
+  /* Infinite loop */
+  fusion_logging_thread();
+  /* USER CODE END start_fusion_logging_task */
+}
+
+/* USER CODE BEGIN Header_start_ultrasonic_polling_task */
+/**
+* @brief Function implementing the ultrasonicPollingTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_start_ultrasonic_polling_task */
+void start_ultrasonic_polling_task(void *argument)
+{
+  /* USER CODE BEGIN start_ultrasonic_polling_task */
 	/* Infinite loop */
-	logging_thread();
-  /* USER CODE END start_logging_task */
+	uint32_t last_wake_time = osKernelGetTickCount();
+	for(;;)
+	{
+		poll_US100_Ultrasonic( 1 );
+		osThreadFlagsWait(0x00000001U, osFlagsWaitAll, osWaitForever);
+		poll_US100_Ultrasonic( 0 );
+
+		last_wake_time += 100;			// 100ms delay, update distance at 10Hz
+		osDelayUntil(last_wake_time);
+	}
+  /* USER CODE END start_ultrasonic_polling_task */
+}
+
+/* USER CODE BEGIN Header_start_optical_flow_polling_task */
+/**
+* @brief Function implementing the opticalFlowPollingTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_start_optical_flow_polling_task */
+void start_optical_flow_polling_task(void *argument)
+{
+  /* USER CODE BEGIN start_optical_flow_polling_task */
+	/* Infinite loop */
+	uint32_t last_wake_time = osKernelGetTickCount();
+	for(;;)
+	{
+		poll_PMW3901();
+
+		last_wake_time += 10;			// 10ms delay, update delta x,y at 100 Hz
+		osDelayUntil(last_wake_time);
+	}
+  /* USER CODE END start_optical_flow_polling_task */
 }
 
 /* Private application code --------------------------------------------------*/
@@ -429,6 +530,11 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	{
 		osThreadFlagsSet(magIRQTaskHandle, 0x00000001U);
 	}
+}
+
+void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
+{
+	osThreadFlagsSet(ultrasonicPollingTaskHandle, 0x00000001U);
 }
 
 /* USER CODE END Application */

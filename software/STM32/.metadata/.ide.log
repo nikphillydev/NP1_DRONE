@@ -1,658 +1,359 @@
-2025-03-07 00:05:41,553 [INFO] TasksAndQueuesTab:757 - Static
-2025-03-07 00:05:41,555 [INFO] TasksAndQueuesTab:757 - Static
-2025-03-07 00:05:41,555 [INFO] TasksAndQueuesTab:757 - Static
-2025-03-07 00:05:41,555 [INFO] TasksAndQueuesTab:757 - Static
-2025-03-07 00:05:41,555 [INFO] TasksAndQueuesTab:757 - Static
-2025-03-07 00:05:41,555 [INFO] TasksAndQueuesTab:757 - Static
-2025-03-07 00:15:08,651 [INFO] EditThreadDialog:704 - RAM SIZE (in KB): 128
-2025-03-07 00:15:08,651 [INFO] EditThreadDialog:706 - RAM SIZE (in words): 32768
-2025-03-07 00:15:12,757 [INFO] TasksAndQueuesTab:757 - Static
-2025-03-07 00:15:12,757 [INFO] TasksAndQueuesTab:757 - Static
-2025-03-07 00:15:12,757 [INFO] TasksAndQueuesTab:757 - Static
-2025-03-07 00:15:12,757 [INFO] TasksAndQueuesTab:757 - Static
-2025-03-07 00:15:12,757 [INFO] TasksAndQueuesTab:757 - Static
-2025-03-07 00:15:12,757 [INFO] TasksAndQueuesTab:757 - Static
-2025-03-07 00:15:18,208 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 536721400 Bytes (835715072)
-2025-03-07 00:15:18,372 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 554546480 Bytes (835715072)
-2025-03-07 00:15:18,773 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 593343976 Bytes (835715072)
-2025-03-07 00:15:19,037 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: SPI
-2025-03-07 00:15:19,038 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: FDCAN
-2025-03-07 00:15:19,038 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: FREERTOS
-2025-03-07 00:15:19,038 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: USB_Device
-2025-03-07 00:15:19,038 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: SYS
-2025-03-07 00:15:19,038 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: RCC
-2025-03-07 00:15:19,038 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: CRC
-2025-03-07 00:15:19,038 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: I2C
-2025-03-07 00:15:19,038 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: NVIC
-2025-03-07 00:15:19,039 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: USART
-2025-03-07 00:15:19,039 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: TIM1_8G4
-2025-03-07 00:15:19,039 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: USB
-2025-03-07 00:15:19,039 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: STMicroelectronics.X-CUBE-MEMS1.11.1.0
-2025-03-07 00:15:19,039 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: GPIO
-2025-03-07 00:15:19,039 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: FDCAN
-2025-03-07 00:15:19,040 [WARN] ThirdPartyIpManager:480 - Condition 'CM0_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:19,041 [WARN] ThirdPartyIpManager:480 - Condition 'CM0_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:19,041 [WARN] ThirdPartyIpManager:480 - Condition 'CM0_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:19,041 [WARN] ThirdPartyIpManager:480 - Condition 'CM3_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:19,041 [WARN] ThirdPartyIpManager:480 - Condition 'CM3_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:19,041 [WARN] ThirdPartyIpManager:480 - Condition 'CM3_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:19,041 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:19,042 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:19,042 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_GCC_NoFPU' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:19,042 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_IAR_NoFPU' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:19,042 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_Keil_NoFPU' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:19,042 [WARN] ThirdPartyIpManager:480 - Condition 'CM7_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:19,043 [WARN] ThirdPartyIpManager:480 - Condition 'CM7_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:19,043 [WARN] ThirdPartyIpManager:480 - Condition 'CM7_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:19,043 [WARN] ThirdPartyIpManager:480 - Condition 'CM33_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:19,043 [WARN] ThirdPartyIpManager:480 - Condition 'CM33_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:19,043 [WARN] ThirdPartyIpManager:480 - Condition 'CM33_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:19,044 [INFO] CodeGenerator:896 - code generatio: config db path: /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.common.mx_6.13.0.202411220809//db/
-2025-03-07 00:15:19,050 [WARN] IP:2251 - MessageRAMOffset not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,050 [WARN] IP:2251 - RxFifo0ElmtsNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,050 [WARN] IP:2251 - RxFifo0ElmtSize not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,051 [WARN] IP:2251 - RxFifo1ElmtsNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,051 [WARN] IP:2251 - RxFifo1ElmtSize not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,051 [WARN] IP:2251 - RxBuffersNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,051 [WARN] IP:2251 - RxBufferSize not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,051 [WARN] IP:2251 - TxEventsNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,051 [WARN] IP:2251 - TxBuffersNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,051 [WARN] IP:2251 - TxFifoQueueElmtsNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,051 [WARN] IP:2251 - TxElmtSize not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,051 [WARN] IP:2251 - ClockCalibrationCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,051 [WARN] IP:2251 - ClockDividerCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,051 [WARN] IP:2251 - MinOscClkPeriodsCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,051 [WARN] IP:2251 - TimeQuantaPerBitTimeCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,051 [WARN] IP:2251 - WatchdogStartValueCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,054 [WARN] IP:2251 - MessageRAMOffset not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,054 [WARN] IP:2251 - RxFifo0ElmtsNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,054 [WARN] IP:2251 - RxFifo0ElmtSize not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,054 [WARN] IP:2251 - RxFifo1ElmtsNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,054 [WARN] IP:2251 - RxFifo1ElmtSize not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,054 [WARN] IP:2251 - RxBuffersNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,054 [WARN] IP:2251 - RxBufferSize not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,054 [WARN] IP:2251 - TxEventsNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,055 [WARN] IP:2251 - TxBuffersNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,055 [WARN] IP:2251 - TxFifoQueueElmtsNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,055 [WARN] IP:2251 - TxElmtSize not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,055 [WARN] IP:2251 - ClockCalibrationCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,055 [WARN] IP:2251 - ClockDividerCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,055 [WARN] IP:2251 - MinOscClkPeriodsCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,055 [WARN] IP:2251 - TimeQuantaPerBitTimeCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,055 [WARN] IP:2251 - WatchdogStartValueCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 00:15:19,146 [INFO] IP:3348 - RTE Config file name : RTE_Component
-2025-03-07 00:15:19,146 [INFO] IP:3366 - RTE template : RTE_Components.ftl
-2025-03-07 00:15:19,147 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/license.tmp_save
-2025-03-07 00:15:19,359 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/license.tmp
-2025-03-07 00:15:19,477 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/gpio.c_save
-2025-03-07 00:15:19,581 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/gpio.c
-2025-03-07 00:15:19,584 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/gpio.h_save
-2025-03-07 00:15:19,650 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/gpio.h
-2025-03-07 00:15:19,819 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_vars.tmp_save
-2025-03-07 00:15:19,878 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_vars.tmp
-2025-03-07 00:15:19,879 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_inc.tmp_save
-2025-03-07 00:15:19,944 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_inc.tmp
-2025-03-07 00:15:19,945 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_HalInit.tmp_save
-2025-03-07 00:15:20,008 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_HalInit.tmp
-2025-03-07 00:15:20,009 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_Msp.tmp_save
-2025-03-07 00:15:20,060 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_Msp.tmp
-2025-03-07 00:15:20,704 [INFO] Middleware:1450 - No code input for Bsp Dependency
-2025-03-07 00:15:20,707 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_inc.tmp_save
-2025-03-07 00:15:20,758 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_inc.tmp
-2025-03-07 00:15:20,759 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelInit.tmp_save
-2025-03-07 00:15:20,795 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelInit.tmp
-2025-03-07 00:15:20,795 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelStart.tmp_save
-2025-03-07 00:15:20,833 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelStart.tmp
-2025-03-07 00:15:20,834 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_typedefs.tmp_save
-2025-03-07 00:15:20,871 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_typedefs.tmp
-2025-03-07 00:15:20,873 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_vars.tmp_save
-2025-03-07 00:15:20,913 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_vars.tmp
-2025-03-07 00:15:20,913 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_pfp.tmp_save
-2025-03-07 00:15:20,948 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_pfp.tmp
-2025-03-07 00:15:20,949 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_obj_creat.tmp_save
-2025-03-07 00:15:20,988 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_obj_creat.tmp
-2025-03-07 00:15:20,989 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_default_thread.tmp_save
-2025-03-07 00:15:21,025 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_default_thread.tmp
-2025-03-07 00:15:21,025 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_threads.tmp_save
-2025-03-07 00:15:21,068 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_threads.tmp
-2025-03-07 00:15:21,096 [INFO] Middleware:1450 - No code input for Bsp Dependency
-2025-03-07 00:15:21,101 [INFO] Middleware:1450 - No code input for Bsp Dependency
-2025-03-07 00:15:21,106 [INFO] Middleware:1450 - No code input for Bsp Dependency
-2025-03-07 00:15:21,108 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_inc.tmp_save
-2025-03-07 00:15:21,144 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_inc.tmp
-2025-03-07 00:15:21,145 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelInit.tmp_save
-2025-03-07 00:15:21,178 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelInit.tmp
-2025-03-07 00:15:21,179 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelStart.tmp_save
-2025-03-07 00:15:21,213 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelStart.tmp
-2025-03-07 00:15:21,214 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_typedefs.tmp_save
-2025-03-07 00:15:21,247 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_typedefs.tmp
-2025-03-07 00:15:21,248 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_vars.tmp_save
-2025-03-07 00:15:21,283 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_vars.tmp
-2025-03-07 00:15:21,284 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_pfp.tmp_save
-2025-03-07 00:15:21,319 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_pfp.tmp
-2025-03-07 00:15:21,320 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_obj_creat.tmp_save
-2025-03-07 00:15:21,357 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_obj_creat.tmp
-2025-03-07 00:15:21,358 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_default_thread.tmp_save
-2025-03-07 00:15:21,392 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_default_thread.tmp
-2025-03-07 00:15:21,392 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_threads.tmp_save
-2025-03-07 00:15:21,429 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_threads.tmp
-2025-03-07 00:15:21,430 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/FreeRTOSConfig.h_save
-2025-03-07 00:15:21,485 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/FreeRTOSConfig.h
-2025-03-07 00:15:21,486 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/app_freertos.c_save
-2025-03-07 00:15:21,536 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/app_freertos.c
-2025-03-07 00:15:21,538 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/crc.c_save
-2025-03-07 00:15:21,595 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/crc.c
-2025-03-07 00:15:21,596 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/crc.h_save
-2025-03-07 00:15:21,628 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/crc.h
-2025-03-07 00:15:21,631 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/fdcan.c_save
-2025-03-07 00:15:21,685 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/fdcan.c
-2025-03-07 00:15:21,686 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/fdcan.h_save
-2025-03-07 00:15:21,718 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/fdcan.h
-2025-03-07 00:15:21,720 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/i2c.c_save
-2025-03-07 00:15:21,775 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/i2c.c
-2025-03-07 00:15:21,776 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/i2c.h_save
-2025-03-07 00:15:21,811 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/i2c.h
-2025-03-07 00:15:21,813 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/spi.c_save
-2025-03-07 00:15:21,867 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/spi.c
-2025-03-07 00:15:21,867 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/spi.h_save
-2025-03-07 00:15:21,901 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/spi.h
-2025-03-07 00:15:21,922 [INFO] Middleware:1450 - No code input for Bsp Dependency
-2025-03-07 00:15:21,924 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/tim.c_save
-2025-03-07 00:15:21,976 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/tim.c
-2025-03-07 00:15:21,977 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/tim.h_save
-2025-03-07 00:15:22,017 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/tim.h
-2025-03-07 00:15:22,019 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/usart.c_save
-2025-03-07 00:15:22,069 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/usart.c
-2025-03-07 00:15:22,070 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/usart.h_save
-2025-03-07 00:15:22,105 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/usart.h
-2025-03-07 00:15:22,109 [INFO] Middleware:1450 - No code input for Bsp Dependency
-2025-03-07 00:15:22,112 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usb_device.c_save
-2025-03-07 00:15:22,166 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usb_device.c
-2025-03-07 00:15:22,166 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usb_device.h_save
-2025-03-07 00:15:22,202 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usb_device.h
-2025-03-07 00:15:22,203 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/Target/usbd_conf.h_save
-2025-03-07 00:15:22,236 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/Target/usbd_conf.h
-2025-03-07 00:15:22,237 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/Target/usbd_conf.c_save
-2025-03-07 00:15:22,304 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/Target/usbd_conf.c
-2025-03-07 00:15:22,306 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_desc.h_save
-2025-03-07 00:15:22,374 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_desc.h
-2025-03-07 00:15:22,375 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_desc.c_save
-2025-03-07 00:15:22,419 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_desc.c
-2025-03-07 00:15:22,421 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_cdc_if.h_save
-2025-03-07 00:15:22,457 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_cdc_if.h
-2025-03-07 00:15:22,458 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_cdc_if.c_save
-2025-03-07 00:15:22,502 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_cdc_if.c
-2025-03-07 00:15:22,509 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/stm32g4xx_it.c_save
-2025-03-07 00:15:22,595 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/stm32g4xx_it.c
-2025-03-07 00:15:22,596 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/stm32g4xx_it.h_save
-2025-03-07 00:15:22,631 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/stm32g4xx_it.h
-2025-03-07 00:15:22,638 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/stm32g4xx_hal_msp.c_save
-2025-03-07 00:15:22,687 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/stm32g4xx_hal_msp.c
-2025-03-07 00:15:22,688 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/system.tmp_save
-2025-03-07 00:15:22,720 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/system.tmp
-2025-03-07 00:15:22,720 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/stm32g4xx_hal_timebase_tim.c_save
-2025-03-07 00:15:22,758 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/stm32g4xx_hal_timebase_tim.c
-2025-03-07 00:15:22,760 [INFO] CodeEngine:311 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/stm32g4xx_hal_conf.h_save
-2025-03-07 00:15:22,793 [INFO] CodeEngine:335 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/stm32g4xx_hal_conf.h
-2025-03-07 00:15:22,801 [WARN] IPConfigManager:3034 - Warning: the RefConfig RCC_CommonPeriphClockConfig is not available in your config.xml file
-2025-03-07 00:15:22,811 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/main.h_save
-2025-03-07 00:15:22,847 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/main.h
-2025-03-07 00:15:22,848 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/main.c_save
-2025-03-07 00:15:22,896 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/main.c
-2025-03-07 00:15:23,002 [INFO] ProjectBuilder:3289 - Time for Copy HAL[1] : 20mS.
-2025-03-07 00:15:23,003 [WARN] ThirdPartyIpManager:480 - Condition 'CM0_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:23,003 [WARN] ThirdPartyIpManager:480 - Condition 'CM0_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:23,003 [WARN] ThirdPartyIpManager:480 - Condition 'CM0_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:23,003 [WARN] ThirdPartyIpManager:480 - Condition 'CM3_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:23,003 [WARN] ThirdPartyIpManager:480 - Condition 'CM3_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:23,003 [WARN] ThirdPartyIpManager:480 - Condition 'CM3_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:23,003 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:23,003 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:23,003 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_GCC_NoFPU' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:23,003 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_IAR_NoFPU' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:23,003 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_Keil_NoFPU' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:23,003 [WARN] ThirdPartyIpManager:480 - Condition 'CM7_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:23,003 [WARN] ThirdPartyIpManager:480 - Condition 'CM7_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:23,003 [WARN] ThirdPartyIpManager:480 - Condition 'CM7_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:23,003 [WARN] ThirdPartyIpManager:480 - Condition 'CM33_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:23,003 [WARN] ThirdPartyIpManager:480 - Condition 'CM33_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:23,003 [WARN] ThirdPartyIpManager:480 - Condition 'CM33_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:15:23,004 [INFO] ProjectBuilder:9095 - Time for Copy ThirdParty[1] : 0mS.
-2025-03-07 00:15:23,006 [INFO] ProjectBuilder:4876 - Project Generator version: 4.5.0-RC5
-2025-03-07 00:15:23,049 [INFO] ConfigFileManager:1579 - The Die is : DIE469
-2025-03-07 00:15:23,488 [INFO] ProjectBuilder:5154 - Time for Generating toolchain IDE Files: 481mS.
-2025-03-07 00:15:23,488 [INFO] ProjectBuilder:3146 - Time for Copy CMSIS : 0mS.
-2025-03-07 00:15:23,490 [INFO] ProjectBuilder:3146 - Time for Copy CMSIS : 0mS.
-2025-03-07 00:15:40,193 [INFO] Gpio:277 - dependency for GPIO [FDCAN1, FDCAN2, I2C2, RCC, SPI1, SYS, USART2, USB]
-2025-03-07 00:15:41,532 [INFO] NvicIntPanel:101 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,2,26,950x565,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
-2025-03-07 00:17:06,692 [INFO] Gpio:277 - dependency for GPIO [FDCAN1, FDCAN2, I2C2, RCC, SPI1, SYS, USART2, USB]
-2025-03-07 00:17:09,518 [INFO] NvicIntPanel:101 - NVIC parent = com.st.microxplorer.plugins.ip.nvic.MultiNvicIntPanel[,2,26,950x565,layout=javax.swing.BoxLayout,alignmentX=0.0,alignmentY=0.0,border=,flags=9,maximumSize=,minimumSize=,preferredSize=]
-2025-03-07 00:18:31,063 [ERROR] RtosPanel:558 - Can not restore the selected Tab for FREERTOS(A reason can be that the tab is no more available.)
-2025-03-07 00:19:03,920 [INFO] TasksAndQueuesTab:757 - Static
-2025-03-07 00:19:03,920 [INFO] TasksAndQueuesTab:757 - Static
-2025-03-07 00:19:03,920 [INFO] TasksAndQueuesTab:757 - Static
-2025-03-07 00:19:03,920 [INFO] TasksAndQueuesTab:757 - Static
-2025-03-07 00:19:03,920 [INFO] TasksAndQueuesTab:757 - Static
-2025-03-07 00:19:03,920 [INFO] TasksAndQueuesTab:757 - Static
-2025-03-07 00:19:25,836 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 570728888 Bytes (835715072)
-2025-03-07 00:19:25,970 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 589076920 Bytes (835715072)
-2025-03-07 00:19:26,346 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 637837752 Bytes (835715072)
-2025-03-07 00:19:26,405 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: SPI
-2025-03-07 00:19:26,406 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: FDCAN
-2025-03-07 00:19:26,406 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: FREERTOS
-2025-03-07 00:19:26,406 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: USB_Device
-2025-03-07 00:19:26,406 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: SYS
-2025-03-07 00:19:26,406 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: RCC
-2025-03-07 00:19:26,406 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: CRC
-2025-03-07 00:19:26,406 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: I2C
-2025-03-07 00:19:26,406 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: NVIC
-2025-03-07 00:19:26,406 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: USART
-2025-03-07 00:19:26,406 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: TIM1_8G4
-2025-03-07 00:19:26,406 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: USB
-2025-03-07 00:19:26,406 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: STMicroelectronics.X-CUBE-MEMS1.11.1.0
-2025-03-07 00:19:26,406 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: GPIO
-2025-03-07 00:19:26,406 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: FDCAN
-2025-03-07 00:19:26,407 [WARN] ThirdPartyIpManager:480 - Condition 'CM0_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:26,407 [WARN] ThirdPartyIpManager:480 - Condition 'CM0_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:26,407 [WARN] ThirdPartyIpManager:480 - Condition 'CM0_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:26,407 [WARN] ThirdPartyIpManager:480 - Condition 'CM3_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:26,407 [WARN] ThirdPartyIpManager:480 - Condition 'CM3_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:26,407 [WARN] ThirdPartyIpManager:480 - Condition 'CM3_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:26,407 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:26,408 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:26,408 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_GCC_NoFPU' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:26,408 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_IAR_NoFPU' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:26,408 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_Keil_NoFPU' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:26,408 [WARN] ThirdPartyIpManager:480 - Condition 'CM7_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:26,408 [WARN] ThirdPartyIpManager:480 - Condition 'CM7_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:26,408 [WARN] ThirdPartyIpManager:480 - Condition 'CM7_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:26,408 [WARN] ThirdPartyIpManager:480 - Condition 'CM33_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:26,408 [WARN] ThirdPartyIpManager:480 - Condition 'CM33_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:26,408 [WARN] ThirdPartyIpManager:480 - Condition 'CM33_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:26,408 [INFO] CodeGenerator:896 - code generatio: config db path: /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.common.mx_6.13.0.202411220809//db/
-2025-03-07 00:19:26,413 [WARN] IP:2251 - MessageRAMOffset not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,413 [WARN] IP:2251 - RxFifo0ElmtsNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,413 [WARN] IP:2251 - RxFifo0ElmtSize not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,413 [WARN] IP:2251 - RxFifo1ElmtsNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,413 [WARN] IP:2251 - RxFifo1ElmtSize not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,413 [WARN] IP:2251 - RxBuffersNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,413 [WARN] IP:2251 - RxBufferSize not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,413 [WARN] IP:2251 - TxEventsNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,413 [WARN] IP:2251 - TxBuffersNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,413 [WARN] IP:2251 - TxFifoQueueElmtsNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,413 [WARN] IP:2251 - TxElmtSize not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,413 [WARN] IP:2251 - ClockCalibrationCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,413 [WARN] IP:2251 - ClockDividerCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,413 [WARN] IP:2251 - MinOscClkPeriodsCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,413 [WARN] IP:2251 - TimeQuantaPerBitTimeCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,413 [WARN] IP:2251 - WatchdogStartValueCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,415 [WARN] IP:2251 - MessageRAMOffset not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,415 [WARN] IP:2251 - RxFifo0ElmtsNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,415 [WARN] IP:2251 - RxFifo0ElmtSize not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,415 [WARN] IP:2251 - RxFifo1ElmtsNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,415 [WARN] IP:2251 - RxFifo1ElmtSize not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,415 [WARN] IP:2251 - RxBuffersNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,415 [WARN] IP:2251 - RxBufferSize not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,415 [WARN] IP:2251 - TxEventsNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,415 [WARN] IP:2251 - TxBuffersNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,415 [WARN] IP:2251 - TxFifoQueueElmtsNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,415 [WARN] IP:2251 - TxElmtSize not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,415 [WARN] IP:2251 - ClockCalibrationCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,415 [WARN] IP:2251 - ClockDividerCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,415 [WARN] IP:2251 - MinOscClkPeriodsCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,415 [WARN] IP:2251 - TimeQuantaPerBitTimeCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,415 [WARN] IP:2251 - WatchdogStartValueCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 00:19:26,472 [INFO] IP:3348 - RTE Config file name : RTE_Component
-2025-03-07 00:19:26,472 [INFO] IP:3366 - RTE template : RTE_Components.ftl
-2025-03-07 00:19:26,474 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/license.tmp_save
-2025-03-07 00:19:26,511 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/license.tmp
-2025-03-07 00:19:26,562 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/gpio.c_save
-2025-03-07 00:19:26,602 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/gpio.c
-2025-03-07 00:19:26,603 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/gpio.h_save
-2025-03-07 00:19:26,633 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/gpio.h
-2025-03-07 00:19:26,712 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_vars.tmp_save
-2025-03-07 00:19:26,744 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_vars.tmp
-2025-03-07 00:19:26,745 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_inc.tmp_save
-2025-03-07 00:19:26,779 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_inc.tmp
-2025-03-07 00:19:26,779 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_HalInit.tmp_save
-2025-03-07 00:19:26,816 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_HalInit.tmp
-2025-03-07 00:19:26,816 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_Msp.tmp_save
-2025-03-07 00:19:26,857 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_Msp.tmp
-2025-03-07 00:19:27,362 [INFO] Middleware:1450 - No code input for Bsp Dependency
-2025-03-07 00:19:27,364 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_inc.tmp_save
-2025-03-07 00:19:27,399 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_inc.tmp
-2025-03-07 00:19:27,399 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelInit.tmp_save
-2025-03-07 00:19:27,429 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelInit.tmp
-2025-03-07 00:19:27,429 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelStart.tmp_save
-2025-03-07 00:19:27,461 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelStart.tmp
-2025-03-07 00:19:27,462 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_typedefs.tmp_save
-2025-03-07 00:19:27,495 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_typedefs.tmp
-2025-03-07 00:19:27,496 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_vars.tmp_save
-2025-03-07 00:19:27,531 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_vars.tmp
-2025-03-07 00:19:27,531 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_pfp.tmp_save
-2025-03-07 00:19:27,564 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_pfp.tmp
-2025-03-07 00:19:27,565 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_obj_creat.tmp_save
-2025-03-07 00:19:27,600 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_obj_creat.tmp
-2025-03-07 00:19:27,600 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_default_thread.tmp_save
-2025-03-07 00:19:27,634 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_default_thread.tmp
-2025-03-07 00:19:27,634 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_threads.tmp_save
-2025-03-07 00:19:27,667 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_threads.tmp
-2025-03-07 00:19:27,692 [INFO] Middleware:1450 - No code input for Bsp Dependency
-2025-03-07 00:19:27,696 [INFO] Middleware:1450 - No code input for Bsp Dependency
-2025-03-07 00:19:27,700 [INFO] Middleware:1450 - No code input for Bsp Dependency
-2025-03-07 00:19:27,701 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_inc.tmp_save
-2025-03-07 00:19:27,734 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_inc.tmp
-2025-03-07 00:19:27,735 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelInit.tmp_save
-2025-03-07 00:19:27,767 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelInit.tmp
-2025-03-07 00:19:27,768 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelStart.tmp_save
-2025-03-07 00:19:27,798 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelStart.tmp
-2025-03-07 00:19:27,799 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_typedefs.tmp_save
-2025-03-07 00:19:27,831 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_typedefs.tmp
-2025-03-07 00:19:27,831 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_vars.tmp_save
-2025-03-07 00:19:27,864 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_vars.tmp
-2025-03-07 00:19:27,865 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_pfp.tmp_save
-2025-03-07 00:19:27,896 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_pfp.tmp
-2025-03-07 00:19:27,896 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_obj_creat.tmp_save
-2025-03-07 00:19:27,929 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_obj_creat.tmp
-2025-03-07 00:19:27,929 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_default_thread.tmp_save
-2025-03-07 00:19:27,960 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_default_thread.tmp
-2025-03-07 00:19:27,961 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_threads.tmp_save
-2025-03-07 00:19:27,992 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_threads.tmp
-2025-03-07 00:19:27,993 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/FreeRTOSConfig.h_save
-2025-03-07 00:19:28,036 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/FreeRTOSConfig.h
-2025-03-07 00:19:28,037 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/app_freertos.c_save
-2025-03-07 00:19:28,079 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/app_freertos.c
-2025-03-07 00:19:28,081 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/crc.c_save
-2025-03-07 00:19:28,125 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/crc.c
-2025-03-07 00:19:28,126 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/crc.h_save
-2025-03-07 00:19:28,157 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/crc.h
-2025-03-07 00:19:28,159 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/fdcan.c_save
-2025-03-07 00:19:28,208 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/fdcan.c
-2025-03-07 00:19:28,209 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/fdcan.h_save
-2025-03-07 00:19:28,241 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/fdcan.h
-2025-03-07 00:19:28,243 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/i2c.c_save
-2025-03-07 00:19:28,288 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/i2c.c
-2025-03-07 00:19:28,289 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/i2c.h_save
-2025-03-07 00:19:28,321 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/i2c.h
-2025-03-07 00:19:28,322 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/spi.c_save
-2025-03-07 00:19:28,367 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/spi.c
-2025-03-07 00:19:28,367 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/spi.h_save
-2025-03-07 00:19:28,399 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/spi.h
-2025-03-07 00:19:28,422 [INFO] Middleware:1450 - No code input for Bsp Dependency
-2025-03-07 00:19:28,424 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/tim.c_save
-2025-03-07 00:19:28,470 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/tim.c
-2025-03-07 00:19:28,471 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/tim.h_save
-2025-03-07 00:19:28,503 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/tim.h
-2025-03-07 00:19:28,505 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/usart.c_save
-2025-03-07 00:19:28,552 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/usart.c
-2025-03-07 00:19:28,553 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/usart.h_save
-2025-03-07 00:19:28,585 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/usart.h
-2025-03-07 00:19:28,589 [INFO] Middleware:1450 - No code input for Bsp Dependency
-2025-03-07 00:19:28,591 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usb_device.c_save
-2025-03-07 00:19:28,627 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usb_device.c
-2025-03-07 00:19:28,628 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usb_device.h_save
-2025-03-07 00:19:28,661 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usb_device.h
-2025-03-07 00:19:28,662 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/Target/usbd_conf.h_save
-2025-03-07 00:19:28,696 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/Target/usbd_conf.h
-2025-03-07 00:19:28,697 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/Target/usbd_conf.c_save
-2025-03-07 00:19:28,745 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/Target/usbd_conf.c
-2025-03-07 00:19:28,746 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_desc.h_save
-2025-03-07 00:19:28,780 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_desc.h
-2025-03-07 00:19:28,780 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_desc.c_save
-2025-03-07 00:19:28,816 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_desc.c
-2025-03-07 00:19:28,817 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_cdc_if.h_save
-2025-03-07 00:19:28,850 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_cdc_if.h
-2025-03-07 00:19:28,850 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_cdc_if.c_save
-2025-03-07 00:19:28,888 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_cdc_if.c
-2025-03-07 00:19:28,894 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/stm32g4xx_it.c_save
-2025-03-07 00:19:28,935 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/stm32g4xx_it.c
-2025-03-07 00:19:28,936 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/stm32g4xx_it.h_save
-2025-03-07 00:19:28,968 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/stm32g4xx_it.h
-2025-03-07 00:19:28,976 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/stm32g4xx_hal_msp.c_save
-2025-03-07 00:19:29,023 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/stm32g4xx_hal_msp.c
-2025-03-07 00:19:29,023 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/system.tmp_save
-2025-03-07 00:19:29,056 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/system.tmp
-2025-03-07 00:19:29,057 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/stm32g4xx_hal_timebase_tim.c_save
-2025-03-07 00:19:29,094 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/stm32g4xx_hal_timebase_tim.c
-2025-03-07 00:19:29,096 [INFO] CodeEngine:311 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/stm32g4xx_hal_conf.h_save
-2025-03-07 00:19:29,130 [INFO] CodeEngine:335 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/stm32g4xx_hal_conf.h
-2025-03-07 00:19:29,135 [WARN] IPConfigManager:3034 - Warning: the RefConfig RCC_CommonPeriphClockConfig is not available in your config.xml file
-2025-03-07 00:19:29,146 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/main.h_save
-2025-03-07 00:19:29,182 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/main.h
-2025-03-07 00:19:29,183 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/main.c_save
-2025-03-07 00:19:29,234 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/main.c
-2025-03-07 00:19:29,375 [INFO] ProjectBuilder:3289 - Time for Copy HAL[1] : 20mS.
-2025-03-07 00:19:29,376 [WARN] ThirdPartyIpManager:480 - Condition 'CM0_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:29,376 [WARN] ThirdPartyIpManager:480 - Condition 'CM0_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:29,376 [WARN] ThirdPartyIpManager:480 - Condition 'CM0_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:29,376 [WARN] ThirdPartyIpManager:480 - Condition 'CM3_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:29,376 [WARN] ThirdPartyIpManager:480 - Condition 'CM3_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:29,376 [WARN] ThirdPartyIpManager:480 - Condition 'CM3_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:29,376 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:29,376 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:29,376 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_GCC_NoFPU' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:29,376 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_IAR_NoFPU' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:29,376 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_Keil_NoFPU' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:29,376 [WARN] ThirdPartyIpManager:480 - Condition 'CM7_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:29,376 [WARN] ThirdPartyIpManager:480 - Condition 'CM7_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:29,376 [WARN] ThirdPartyIpManager:480 - Condition 'CM7_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:29,376 [WARN] ThirdPartyIpManager:480 - Condition 'CM33_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:29,376 [WARN] ThirdPartyIpManager:480 - Condition 'CM33_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:29,376 [WARN] ThirdPartyIpManager:480 - Condition 'CM33_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 00:19:29,377 [INFO] ProjectBuilder:9095 - Time for Copy ThirdParty[1] : 0mS.
-2025-03-07 00:19:29,379 [INFO] ProjectBuilder:4876 - Project Generator version: 4.5.0-RC5
-2025-03-07 00:19:29,423 [INFO] ConfigFileManager:1579 - The Die is : DIE469
-2025-03-07 00:19:29,719 [INFO] ProjectBuilder:5154 - Time for Generating toolchain IDE Files: 339mS.
-2025-03-07 00:19:29,719 [INFO] ProjectBuilder:3146 - Time for Copy CMSIS : 0mS.
-2025-03-07 00:19:29,722 [INFO] ProjectBuilder:3146 - Time for Copy CMSIS : 0mS.
-2025-03-07 22:49:04,765 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 458121072 Bytes (970981376)
-2025-03-07 22:49:04,842 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 475422576 Bytes (970981376)
-2025-03-07 22:49:05,186 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 579755888 Bytes (970981376)
-2025-03-07 22:49:05,401 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: SPI
-2025-03-07 22:49:05,401 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: FDCAN
-2025-03-07 22:49:05,401 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: FREERTOS
-2025-03-07 22:49:05,401 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: USB_Device
-2025-03-07 22:49:05,401 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: SYS
-2025-03-07 22:49:05,402 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: RCC
-2025-03-07 22:49:05,402 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: CRC
-2025-03-07 22:49:05,402 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: I2C
-2025-03-07 22:49:05,402 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: NVIC
-2025-03-07 22:49:05,402 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: USART
-2025-03-07 22:49:05,402 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: TIM1_8G4
-2025-03-07 22:49:05,402 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: USB
-2025-03-07 22:49:05,402 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: STMicroelectronics.X-CUBE-MEMS1.11.1.0
-2025-03-07 22:49:05,403 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: GPIO
-2025-03-07 22:49:05,403 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: FDCAN
-2025-03-07 22:49:05,404 [WARN] ThirdPartyIpManager:480 - Condition 'CM0_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:05,404 [WARN] ThirdPartyIpManager:480 - Condition 'CM0_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:05,404 [WARN] ThirdPartyIpManager:480 - Condition 'CM0_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:05,404 [WARN] ThirdPartyIpManager:480 - Condition 'CM3_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:05,404 [WARN] ThirdPartyIpManager:480 - Condition 'CM3_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:05,405 [WARN] ThirdPartyIpManager:480 - Condition 'CM3_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:05,405 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:05,405 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:05,405 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_GCC_NoFPU' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:05,406 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_IAR_NoFPU' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:05,406 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_Keil_NoFPU' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:05,406 [WARN] ThirdPartyIpManager:480 - Condition 'CM7_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:05,406 [WARN] ThirdPartyIpManager:480 - Condition 'CM7_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:05,406 [WARN] ThirdPartyIpManager:480 - Condition 'CM7_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:05,406 [WARN] ThirdPartyIpManager:480 - Condition 'CM33_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:05,407 [WARN] ThirdPartyIpManager:480 - Condition 'CM33_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:05,407 [WARN] ThirdPartyIpManager:480 - Condition 'CM33_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:05,407 [INFO] CodeGenerator:896 - code generatio: config db path: /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.common.mx_6.13.0.202411220809//db/
-2025-03-07 22:49:05,414 [WARN] IP:2251 - MessageRAMOffset not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,414 [WARN] IP:2251 - RxFifo0ElmtsNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,414 [WARN] IP:2251 - RxFifo0ElmtSize not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,415 [WARN] IP:2251 - RxFifo1ElmtsNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,415 [WARN] IP:2251 - RxFifo1ElmtSize not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,415 [WARN] IP:2251 - RxBuffersNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,415 [WARN] IP:2251 - RxBufferSize not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,416 [WARN] IP:2251 - TxEventsNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,417 [WARN] IP:2251 - TxBuffersNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,418 [WARN] IP:2251 - TxFifoQueueElmtsNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,418 [WARN] IP:2251 - TxElmtSize not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,418 [WARN] IP:2251 - ClockCalibrationCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,418 [WARN] IP:2251 - ClockDividerCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,418 [WARN] IP:2251 - MinOscClkPeriodsCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,418 [WARN] IP:2251 - TimeQuantaPerBitTimeCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,419 [WARN] IP:2251 - WatchdogStartValueCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,421 [WARN] IP:2251 - MessageRAMOffset not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,421 [WARN] IP:2251 - RxFifo0ElmtsNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,421 [WARN] IP:2251 - RxFifo0ElmtSize not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,421 [WARN] IP:2251 - RxFifo1ElmtsNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,421 [WARN] IP:2251 - RxFifo1ElmtSize not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,421 [WARN] IP:2251 - RxBuffersNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,421 [WARN] IP:2251 - RxBufferSize not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,422 [WARN] IP:2251 - TxEventsNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,422 [WARN] IP:2251 - TxBuffersNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,422 [WARN] IP:2251 - TxFifoQueueElmtsNbr not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,422 [WARN] IP:2251 - TxElmtSize not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,422 [WARN] IP:2251 - ClockCalibrationCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,422 [WARN] IP:2251 - ClockDividerCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,422 [WARN] IP:2251 - MinOscClkPeriodsCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,422 [WARN] IP:2251 - TimeQuantaPerBitTimeCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,422 [WARN] IP:2251 - WatchdogStartValueCCU not found: check if there is a RefParameter without a condition.
-2025-03-07 22:49:05,493 [INFO] IP:3348 - RTE Config file name : RTE_Component
-2025-03-07 22:49:05,493 [INFO] IP:3366 - RTE template : RTE_Components.ftl
-2025-03-07 22:49:05,495 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/license.tmp_save
-2025-03-07 22:49:05,720 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/license.tmp
-2025-03-07 22:49:05,813 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/gpio.c_save
-2025-03-07 22:49:05,889 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/gpio.c
-2025-03-07 22:49:05,891 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/gpio.h_save
-2025-03-07 22:49:05,930 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/gpio.h
-2025-03-07 22:49:06,043 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_vars.tmp_save
-2025-03-07 22:49:06,086 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_vars.tmp
-2025-03-07 22:49:06,087 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_inc.tmp_save
-2025-03-07 22:49:06,118 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_inc.tmp
-2025-03-07 22:49:06,118 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_HalInit.tmp_save
-2025-03-07 22:49:06,170 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_HalInit.tmp
-2025-03-07 22:49:06,171 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_Msp.tmp_save
-2025-03-07 22:49:06,229 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_Msp.tmp
-2025-03-07 22:49:06,715 [INFO] Middleware:1450 - No code input for Bsp Dependency
-2025-03-07 22:49:06,717 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_inc.tmp_save
-2025-03-07 22:49:06,750 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_inc.tmp
-2025-03-07 22:49:06,751 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelInit.tmp_save
-2025-03-07 22:49:06,781 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelInit.tmp
-2025-03-07 22:49:06,782 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelStart.tmp_save
-2025-03-07 22:49:06,812 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelStart.tmp
-2025-03-07 22:49:06,813 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_typedefs.tmp_save
-2025-03-07 22:49:06,844 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_typedefs.tmp
-2025-03-07 22:49:06,844 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_vars.tmp_save
-2025-03-07 22:49:06,877 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_vars.tmp
-2025-03-07 22:49:06,878 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_pfp.tmp_save
-2025-03-07 22:49:06,908 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_pfp.tmp
-2025-03-07 22:49:06,909 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_obj_creat.tmp_save
-2025-03-07 22:49:06,941 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_obj_creat.tmp
-2025-03-07 22:49:06,942 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_default_thread.tmp_save
-2025-03-07 22:49:06,977 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_default_thread.tmp
-2025-03-07 22:49:06,978 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_threads.tmp_save
-2025-03-07 22:49:07,009 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_threads.tmp
-2025-03-07 22:49:07,039 [INFO] Middleware:1450 - No code input for Bsp Dependency
-2025-03-07 22:49:07,047 [INFO] Middleware:1450 - No code input for Bsp Dependency
-2025-03-07 22:49:07,055 [INFO] Middleware:1450 - No code input for Bsp Dependency
-2025-03-07 22:49:07,057 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_inc.tmp_save
-2025-03-07 22:49:07,106 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_inc.tmp
-2025-03-07 22:49:07,108 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelInit.tmp_save
-2025-03-07 22:49:07,181 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelInit.tmp
-2025-03-07 22:49:07,182 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelStart.tmp_save
-2025-03-07 22:49:07,212 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelStart.tmp
-2025-03-07 22:49:07,212 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_typedefs.tmp_save
-2025-03-07 22:49:07,243 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_typedefs.tmp
-2025-03-07 22:49:07,244 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_vars.tmp_save
-2025-03-07 22:49:07,278 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_vars.tmp
-2025-03-07 22:49:07,279 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_pfp.tmp_save
-2025-03-07 22:49:07,318 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_pfp.tmp
-2025-03-07 22:49:07,319 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_obj_creat.tmp_save
-2025-03-07 22:49:07,350 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_obj_creat.tmp
-2025-03-07 22:49:07,351 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_default_thread.tmp_save
-2025-03-07 22:49:07,385 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_default_thread.tmp
-2025-03-07 22:49:07,385 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_threads.tmp_save
-2025-03-07 22:49:07,416 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_threads.tmp
-2025-03-07 22:49:07,417 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/FreeRTOSConfig.h_save
-2025-03-07 22:49:07,459 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/FreeRTOSConfig.h
-2025-03-07 22:49:07,459 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/app_freertos.c_save
-2025-03-07 22:49:07,500 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/app_freertos.c
-2025-03-07 22:49:07,502 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/crc.c_save
-2025-03-07 22:49:07,545 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/crc.c
-2025-03-07 22:49:07,546 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/crc.h_save
-2025-03-07 22:49:07,578 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/crc.h
-2025-03-07 22:49:07,580 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/fdcan.c_save
-2025-03-07 22:49:07,629 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/fdcan.c
-2025-03-07 22:49:07,630 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/fdcan.h_save
-2025-03-07 22:49:07,661 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/fdcan.h
-2025-03-07 22:49:07,662 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/i2c.c_save
-2025-03-07 22:49:07,706 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/i2c.c
-2025-03-07 22:49:07,707 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/i2c.h_save
-2025-03-07 22:49:07,737 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/i2c.h
-2025-03-07 22:49:07,739 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/spi.c_save
-2025-03-07 22:49:07,782 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/spi.c
-2025-03-07 22:49:07,783 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/spi.h_save
-2025-03-07 22:49:07,814 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/spi.h
-2025-03-07 22:49:07,833 [INFO] Middleware:1450 - No code input for Bsp Dependency
-2025-03-07 22:49:07,835 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/tim.c_save
-2025-03-07 22:49:07,881 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/tim.c
-2025-03-07 22:49:07,881 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/tim.h_save
-2025-03-07 22:49:07,912 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/tim.h
-2025-03-07 22:49:07,914 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/usart.c_save
-2025-03-07 22:49:07,961 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/usart.c
-2025-03-07 22:49:07,962 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/usart.h_save
-2025-03-07 22:49:08,000 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/usart.h
-2025-03-07 22:49:08,005 [INFO] Middleware:1450 - No code input for Bsp Dependency
-2025-03-07 22:49:08,008 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usb_device.c_save
-2025-03-07 22:49:08,055 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usb_device.c
-2025-03-07 22:49:08,055 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usb_device.h_save
-2025-03-07 22:49:08,088 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usb_device.h
-2025-03-07 22:49:08,089 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/Target/usbd_conf.h_save
-2025-03-07 22:49:08,124 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/Target/usbd_conf.h
-2025-03-07 22:49:08,125 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/Target/usbd_conf.c_save
-2025-03-07 22:49:08,187 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/Target/usbd_conf.c
-2025-03-07 22:49:08,189 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_desc.h_save
-2025-03-07 22:49:08,222 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_desc.h
-2025-03-07 22:49:08,223 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_desc.c_save
-2025-03-07 22:49:08,259 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_desc.c
-2025-03-07 22:49:08,260 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_cdc_if.h_save
-2025-03-07 22:49:08,290 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_cdc_if.h
-2025-03-07 22:49:08,290 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_cdc_if.c_save
-2025-03-07 22:49:08,325 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_cdc_if.c
-2025-03-07 22:49:08,332 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/stm32g4xx_it.c_save
-2025-03-07 22:49:08,407 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/stm32g4xx_it.c
-2025-03-07 22:49:08,408 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/stm32g4xx_it.h_save
-2025-03-07 22:49:08,439 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/stm32g4xx_it.h
-2025-03-07 22:49:08,446 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/stm32g4xx_hal_msp.c_save
-2025-03-07 22:49:08,491 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/stm32g4xx_hal_msp.c
-2025-03-07 22:49:08,492 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/system.tmp_save
-2025-03-07 22:49:08,523 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/system.tmp
-2025-03-07 22:49:08,523 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/stm32g4xx_hal_timebase_tim.c_save
-2025-03-07 22:49:08,555 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/stm32g4xx_hal_timebase_tim.c
-2025-03-07 22:49:08,557 [INFO] CodeEngine:311 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/stm32g4xx_hal_conf.h_save
-2025-03-07 22:49:08,587 [INFO] CodeEngine:335 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/stm32g4xx_hal_conf.h
-2025-03-07 22:49:08,596 [WARN] IPConfigManager:3034 - Warning: the RefConfig RCC_CommonPeriphClockConfig is not available in your config.xml file
-2025-03-07 22:49:08,605 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/main.h_save
-2025-03-07 22:49:08,637 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/main.h
-2025-03-07 22:49:08,637 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/main.c_save
-2025-03-07 22:49:08,682 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/main.c
-2025-03-07 22:49:08,772 [INFO] ProjectBuilder:3289 - Time for Copy HAL[1] : 18mS.
-2025-03-07 22:49:08,774 [WARN] ThirdPartyIpManager:480 - Condition 'CM0_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:08,774 [WARN] ThirdPartyIpManager:480 - Condition 'CM0_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:08,774 [WARN] ThirdPartyIpManager:480 - Condition 'CM0_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:08,774 [WARN] ThirdPartyIpManager:480 - Condition 'CM3_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:08,774 [WARN] ThirdPartyIpManager:480 - Condition 'CM3_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:08,774 [WARN] ThirdPartyIpManager:480 - Condition 'CM3_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:08,774 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:08,774 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:08,774 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_GCC_NoFPU' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:08,774 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_IAR_NoFPU' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:08,774 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_Keil_NoFPU' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:08,774 [WARN] ThirdPartyIpManager:480 - Condition 'CM7_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:08,774 [WARN] ThirdPartyIpManager:480 - Condition 'CM7_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:08,775 [WARN] ThirdPartyIpManager:480 - Condition 'CM7_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:08,775 [WARN] ThirdPartyIpManager:480 - Condition 'CM33_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:08,775 [WARN] ThirdPartyIpManager:480 - Condition 'CM33_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:08,775 [WARN] ThirdPartyIpManager:480 - Condition 'CM33_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
-2025-03-07 22:49:08,776 [INFO] ProjectBuilder:9095 - Time for Copy ThirdParty[1] : 1mS.
-2025-03-07 22:49:08,779 [INFO] ProjectBuilder:4876 - Project Generator version: 4.5.0-RC5
-2025-03-07 22:49:08,826 [INFO] ConfigFileManager:1579 - The Die is : DIE469
-2025-03-07 22:49:09,457 [INFO] ProjectBuilder:5154 - Time for Generating toolchain IDE Files: 678mS.
-2025-03-07 22:49:09,458 [INFO] ProjectBuilder:3146 - Time for Copy CMSIS : 0mS.
-2025-03-07 22:49:09,460 [INFO] ProjectBuilder:3146 - Time for Copy CMSIS : 0mS.
+2025-05-22 22:26:13,578 [INFO] Activator:176 - 
+
+
+2025-05-22 22:26:13,580 [INFO] Activator:177 - !SESSION log4j initialized
+2025-05-22 22:26:16,220 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] 
+2025-05-22 22:26:17,011 [INFO] ApplicationProperties:184 - Using Application install path: /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.common.mx_6.13.0.202411220809
+2025-05-22 22:26:17,022 [INFO] DbMcusXml:78 - Set database path to: /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.common.mx_6.13.0.202411220809//db//mcu/
+2025-05-22 22:26:17,022 [INFO] ApiDb:274 - Set plugin database path to: /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.common.mx_6.13.0.202411220809//db//plugins/boardmanager/
+2025-05-22 22:26:17,022 [WARN] ApiDb:259 - Overriding images path with different value:  => /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.common.mx_6.13.0.202411220809//db//plugins/mcufinder/images/
+2025-05-22 22:26:17,025 [INFO] ApiDb:250 - Set database path to: /home/nikolai/.stmcufinder/plugins/mcufinder//mcu/
+2025-05-22 22:26:17,026 [INFO] DbMcusAds:125 - Set database path to: /home/nikolai/.stmcufinder/plugins/mcufinder//mcu/
+2025-05-22 22:26:17,027 [INFO] CrossReferenceDbSqlite:203 - Set database path to: /home/nikolai/.stmcufinder/plugins/mcufinder//mcu/cs/
+2025-05-22 22:26:17,083 [INFO] RulesReader:64 - Compatibility file has been processed (297 Rules)
+2025-05-22 22:26:17,121 [INFO] DbMcusXml:78 - Set database path to: /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.common.mx_6.13.0.202411220809//db//mcu/
+2025-05-22 22:26:17,121 [INFO] ApiDb:274 - Set plugin database path to: /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.common.mx_6.13.0.202411220809//db//plugins/boardmanager/
+2025-05-22 22:26:17,121 [INFO] ApiDb:261 - Set plugin images path to: /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.common.mx_6.13.0.202411220809//db//plugins/mcufinder/images/
+2025-05-22 22:26:17,121 [WARN] DbFile:41 - Overriding database path with different value: /home/nikolai/.stmcufinder/plugins/mcufinder/ => /home/nikolai/.stmcufinder/plugins/mcufinder
+2025-05-22 22:26:17,121 [INFO] ApiDb:250 - Set database path to: /home/nikolai/.stmcufinder/plugins/mcufinder//mcu/
+2025-05-22 22:26:17,121 [WARN] DbFile:41 - Overriding database path with different value: /home/nikolai/.stmcufinder/plugins/mcufinder/ => /home/nikolai/.stmcufinder/plugins/mcufinder
+2025-05-22 22:26:17,121 [INFO] DbMcusAds:125 - Set database path to: /home/nikolai/.stmcufinder/plugins/mcufinder//mcu/
+2025-05-22 22:26:17,121 [WARN] DbFile:41 - Overriding database path with different value: /home/nikolai/.stmcufinder/plugins/mcufinder/ => /home/nikolai/.stmcufinder/plugins/mcufinder
+2025-05-22 22:26:17,121 [WARN] DbFile:41 - Overriding database path with different value: /home/nikolai/.stmcufinder/plugins/mcufinder/ => /home/nikolai/.stmcufinder/plugins/mcufinder
+2025-05-22 22:26:17,121 [INFO] CrossReferenceDbSqlite:203 - Set database path to: /home/nikolai/.stmcufinder/plugins/mcufinder//mcu/cs/
+2025-05-22 22:26:17,161 [INFO] MainPanel:272 - HeapMemory: 268435456
+2025-05-22 22:26:17,238 [INFO] DbMcusXml:78 - Set database path to: /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.common.mx_6.13.0.202411220809//db//mcu/
+2025-05-22 22:26:17,239 [INFO] ApiDb:274 - Set plugin database path to: /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.common.mx_6.13.0.202411220809//db//plugins/boardmanager/
+2025-05-22 22:26:17,239 [INFO] ApiDb:261 - Set plugin images path to: /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.common.mx_6.13.0.202411220809//db//plugins/mcufinder/images/
+2025-05-22 22:26:17,239 [WARN] DbFile:41 - Overriding database path with different value: /home/nikolai/.stmcufinder/plugins/mcufinder/ => /home/nikolai/.stmcufinder/plugins/mcufinder
+2025-05-22 22:26:17,239 [INFO] ApiDb:250 - Set database path to: /home/nikolai/.stmcufinder/plugins/mcufinder//mcu/
+2025-05-22 22:26:17,239 [WARN] DbFile:41 - Overriding database path with different value: /home/nikolai/.stmcufinder/plugins/mcufinder/ => /home/nikolai/.stmcufinder/plugins/mcufinder
+2025-05-22 22:26:17,239 [INFO] DbMcusAds:125 - Set database path to: /home/nikolai/.stmcufinder/plugins/mcufinder//mcu/
+2025-05-22 22:26:17,239 [WARN] DbFile:41 - Overriding database path with different value: /home/nikolai/.stmcufinder/plugins/mcufinder/ => /home/nikolai/.stmcufinder/plugins/mcufinder
+2025-05-22 22:26:17,239 [WARN] DbFile:41 - Overriding database path with different value: /home/nikolai/.stmcufinder/plugins/mcufinder/ => /home/nikolai/.stmcufinder/plugins/mcufinder
+2025-05-22 22:26:17,239 [INFO] CrossReferenceDbSqlite:203 - Set database path to: /home/nikolai/.stmcufinder/plugins/mcufinder//mcu/cs/
+2025-05-22 22:26:17,248 [INFO] ApplicationProperties:184 - Using Application install path: /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.common.mx_6.13.0.202411220809
+2025-05-22 22:26:17,249 [INFO] PluginManage:196 - Search for loadable plugins [exclusion list=, ]
+2025-05-22 22:26:17,250 [INFO] PluginManage:310 - Check plugin analytics
+2025-05-22 22:26:17,335 [INFO] AnalyticsPlugin:253 - Accepted Software Licenses: 
+2025-05-22 22:26:17,335 [INFO] AnalyticsPlugin:255 - Accepted CMSIS Pack Licenses: 
+2025-05-22 22:26:17,335 [INFO] AnalyticsPlugin:257 - Accepted Firmware Licenses: FW.L4.1.18.0,FW.G4.1.5.0,FW.G4.1.6.0
+2025-05-22 22:26:17,336 [INFO] PluginManage:359 - Loaded plugin analytics (category:tool,tabindex:-1)
+2025-05-22 22:26:17,337 [INFO] PluginManage:310 - Check plugin cadmodel
+2025-05-22 22:26:17,340 [INFO] CADModel:105 - Init CAD model plugin
+2025-05-22 22:26:17,340 [INFO] PluginManage:359 - Loaded plugin cadmodel (category:power,tabindex:5)
+2025-05-22 22:26:17,340 [INFO] PluginManage:310 - Check plugin clock
+2025-05-22 22:26:17,345 [INFO] PluginManage:359 - Loaded plugin clock (category:base,tabindex:2)
+2025-05-22 22:26:17,345 [INFO] PluginManage:310 - Check plugin ddr
+2025-05-22 22:26:17,347 [INFO] PluginManage:359 - Loaded plugin ddr (category:tool,tabindex:6)
+2025-05-22 22:26:17,347 [INFO] PluginManage:310 - Check plugin filemanager
+2025-05-22 22:26:17,435 [INFO] PluginManage:359 - Loaded plugin filemanager (category:base,tabindex:10)
+2025-05-22 22:26:17,436 [INFO] PluginManage:310 - Check plugin ipmanager
+2025-05-22 22:26:17,438 [INFO] PluginManage:359 - Loaded plugin ipmanager (category:base,tabindex:5)
+2025-05-22 22:26:17,438 [INFO] PluginManage:310 - Check plugin lpbam
+2025-05-22 22:26:17,443 [INFO] PluginManage:359 - Loaded plugin lpbam (category:base,tabindex:0)
+2025-05-22 22:26:17,443 [INFO] PluginManage:310 - Check plugin memorymap
+2025-05-22 22:26:17,450 [INFO] PluginManage:359 - Loaded plugin memorymap (category:base,tabindex:4)
+2025-05-22 22:26:17,450 [INFO] PluginManage:310 - Check plugin pinoutandconfiguration
+2025-05-22 22:26:17,454 [INFO] PluginManage:359 - Loaded plugin pinoutandconfiguration (category:base,tabindex:1)
+2025-05-22 22:26:17,454 [INFO] PluginManage:310 - Check plugin pinoutconfig
+2025-05-22 22:26:17,506 [WARN] SupportedApi:132 - Cannot load RTOS API schema: s4s-elt-must-match.1: The content of 'definitions' must match (annotation?, (simpleType | complexType)?, (unique | key | keyref)*)). A problem was found starting at: attribute.
+2025-05-22 22:26:17,576 [INFO] PluginManage:359 - Loaded plugin pinoutconfig (category:base,tabindex:0)
+2025-05-22 22:26:17,577 [INFO] PluginManage:310 - Check plugin power
+2025-05-22 22:26:17,582 [INFO] PluginManage:359 - Loaded plugin power (category:power,tabindex:4)
+2025-05-22 22:26:17,582 [INFO] PluginManage:310 - Check plugin projectmanager
+2025-05-22 22:26:17,590 [INFO] PluginManage:359 - Loaded plugin projectmanager (category:projectmanager,tabindex:4)
+2025-05-22 22:26:17,590 [INFO] PluginManage:310 - Check plugin rif
+2025-05-22 22:26:17,594 [INFO] PluginManage:359 - Loaded plugin rif (category:base,tabindex:3)
+2025-05-22 22:26:17,594 [INFO] PluginManage:310 - Check plugin thirdparty
+2025-05-22 22:26:17,660 [INFO] PluginManage:359 - Loaded plugin thirdparty (category:base,tabindex:-1)
+2025-05-22 22:26:17,661 [INFO] PluginManage:310 - Check plugin tools
+2025-05-22 22:26:17,660 [WARN] IntegrityCheckThread:84 - waiting for thirdparty lock release [integrity check]
+2025-05-22 22:26:17,661 [INFO] IntegrityCheckThread:86 - entering critical section [integrity check]
+2025-05-22 22:26:17,661 [INFO] ThirdPartyUpdaterWithRetryManager:70 - Updater plugin not ready yet. [1/15]
+2025-05-22 22:26:17,662 [INFO] PluginManage:359 - Loaded plugin tools (category:base,tabindex:7)
+2025-05-22 22:26:17,662 [INFO] PluginManage:310 - Check plugin tutovideos
+2025-05-22 22:26:17,754 [INFO] PluginManage:359 - Loaded plugin tutovideos (category:base,tabindex:-1)
+2025-05-22 22:26:17,754 [INFO] PluginManage:310 - Check plugin updater
+2025-05-22 22:26:17,768 [INFO] PluginManage:359 - Loaded plugin updater (category:base,tabindex:12)
+2025-05-22 22:26:17,768 [INFO] PluginManage:310 - Check plugin userauth
+2025-05-22 22:26:17,770 [INFO] UserAuth:118 - Init User Auth plugin
+2025-05-22 22:26:17,771 [INFO] PluginManage:359 - Loaded plugin userauth (category:base,tabindex:14)
+2025-05-22 22:26:17,771 [INFO] PluginManage:283 - PluginManage : Loaded plugins [18]
+2025-05-22 22:26:17,883 [INFO] PinOutPanel:1589 - setPackage(No Configuration,No Configuration)
+2025-05-22 22:26:17,919 [INFO] CADModel:165 - CPN selected for project level
+2025-05-22 22:26:17,919 [INFO] CADModel:114 - Register for checkConnection events
+2025-05-22 22:26:17,928 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,928 [INFO] PluginManager:220 - loadIPPluginJar : add hash
+2025-05-22 22:26:17,933 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,935 [INFO] PluginManager:220 - loadIPPluginJar : add plateformsettings
+2025-05-22 22:26:17,936 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,936 [INFO] PluginManager:220 - loadIPPluginJar : add i2c
+2025-05-22 22:26:17,937 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,937 [INFO] PluginManager:220 - loadIPPluginJar : add comp
+2025-05-22 22:26:17,938 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,938 [INFO] PluginManager:220 - loadIPPluginJar : add quadspi
+2025-05-22 22:26:17,940 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,940 [INFO] PluginManager:220 - loadIPPluginJar : add opamp
+2025-05-22 22:26:17,943 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,943 [INFO] PluginManager:220 - loadIPPluginJar : add stm32_wpan
+2025-05-22 22:26:17,944 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,944 [INFO] PluginManager:220 - loadIPPluginJar : add cryp
+2025-05-22 22:26:17,945 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,945 [INFO] PluginManager:220 - loadIPPluginJar : add can
+2025-05-22 22:26:17,946 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,946 [INFO] PluginManager:220 - loadIPPluginJar : add i2s
+2025-05-22 22:26:17,947 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,947 [INFO] PluginManager:220 - loadIPPluginJar : add gtzc
+2025-05-22 22:26:17,949 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,949 [INFO] PluginManager:220 - loadIPPluginJar : add ipddr
+2025-05-22 22:26:17,950 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,950 [INFO] PluginManager:220 - loadIPPluginJar : add sai
+2025-05-22 22:26:17,952 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,952 [INFO] PluginManager:220 - loadIPPluginJar : add fmc
+2025-05-22 22:26:17,953 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,953 [INFO] PluginManager:220 - loadIPPluginJar : add lorawan
+2025-05-22 22:26:17,956 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,956 [INFO] PluginManager:220 - loadIPPluginJar : add gic
+2025-05-22 22:26:17,959 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,959 [INFO] PluginManager:220 - loadIPPluginJar : add dma
+2025-05-22 22:26:17,960 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,960 [INFO] PluginManager:220 - loadIPPluginJar : add dma3
+2025-05-22 22:26:17,962 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,962 [INFO] PluginManager:220 - loadIPPluginJar : add freertos
+2025-05-22 22:26:17,963 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,963 [INFO] PluginManager:220 - loadIPPluginJar : add pdm2pcm
+2025-05-22 22:26:17,965 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,965 [INFO] PluginManager:220 - loadIPPluginJar : add usbx
+2025-05-22 22:26:17,966 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,966 [INFO] PluginManager:220 - loadIPPluginJar : add ddr_ctrl_phy
+2025-05-22 22:26:17,967 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,967 [INFO] PluginManager:220 - loadIPPluginJar : add openamp
+2025-05-22 22:26:17,969 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,969 [INFO] PluginManager:220 - loadIPPluginJar : add i3c
+2025-05-22 22:26:17,970 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,971 [INFO] PluginManager:220 - loadIPPluginJar : add extmemmanager
+2025-05-22 22:26:17,971 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,971 [INFO] PluginManager:220 - loadIPPluginJar : add dfsdm
+2025-05-22 22:26:17,972 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,972 [INFO] PluginManager:220 - loadIPPluginJar : add radio
+2025-05-22 22:26:17,973 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,973 [INFO] PluginManager:220 - loadIPPluginJar : add tracer_emb
+2025-05-22 22:26:17,975 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,975 [INFO] PluginManager:220 - loadIPPluginJar : add gpio
+2025-05-22 22:26:17,976 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,976 [INFO] PluginManager:220 - loadIPPluginJar : add aes
+2025-05-22 22:26:17,977 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,977 [INFO] PluginManager:220 - loadIPPluginJar : add tim
+2025-05-22 22:26:17,981 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,981 [INFO] PluginManager:220 - loadIPPluginJar : add linkedlist
+2025-05-22 22:26:17,982 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,982 [INFO] PluginManager:220 - loadIPPluginJar : add ts
+2025-05-22 22:26:17,983 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,983 [INFO] PluginManager:220 - loadIPPluginJar : add spi
+2025-05-22 22:26:17,986 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,986 [INFO] PluginManager:220 - loadIPPluginJar : add mdma
+2025-05-22 22:26:17,988 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,988 [INFO] PluginManager:220 - loadIPPluginJar : add nvic
+2025-05-22 22:26:17,988 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,988 [INFO] PluginManager:220 - loadIPPluginJar : add tsc
+2025-05-22 22:26:17,989 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,989 [INFO] PluginManager:220 - loadIPPluginJar : add ucpd
+2025-05-22 22:26:17,990 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,991 [INFO] PluginManager:220 - loadIPPluginJar : add touchsensing
+2025-05-22 22:26:17,991 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,991 [INFO] PluginManager:220 - loadIPPluginJar : add genericplugin
+2025-05-22 22:26:17,994 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,994 [INFO] PluginManager:220 - loadIPPluginJar : add adc
+2025-05-22 22:26:17,996 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,996 [INFO] PluginManager:220 - loadIPPluginJar : add usart
+2025-05-22 22:26:17,996 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,997 [INFO] PluginManager:220 - loadIPPluginJar : add gfxmmu
+2025-05-22 22:26:17,997 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,997 [INFO] PluginManager:220 - loadIPPluginJar : add ltdc
+2025-05-22 22:26:17,998 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,998 [INFO] PluginManager:220 - loadIPPluginJar : add fatfs
+2025-05-22 22:26:17,999 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-22 22:26:17,999 [INFO] PluginManager:220 - loadIPPluginJar : add resmgrutility
+2025-05-22 22:26:18,086 [FATAL] Updater:351 - Updater called before beeing initialized
+2025-05-22 22:26:18,101 [INFO] RulesReader:64 - Compatibility file has been processed (297 Rules)
+2025-05-22 22:26:18,106 [INFO] RulesReader:64 - Compatibility file has been processed (297 Rules)
+2025-05-22 22:26:18,109 [INFO] CADModel:165 - CPN selected for project level
+2025-05-22 22:26:18,109 [INFO] CADModel:114 - Register for checkConnection events
+2025-05-22 22:26:18,109 [FATAL] Updater:351 - Updater called before beeing initialized
+2025-05-22 22:26:18,109 [ERROR] CADModel:125 - Updater not yet initialized, retry later 
+2025-05-22 22:26:18,184 [FATAL] Updater:351 - Updater called before beeing initialized
+2025-05-22 22:26:18,186 [INFO] CADModel:165 - CPN selected for project level
+2025-05-22 22:26:18,186 [INFO] CADModel:114 - Register for checkConnection events
+2025-05-22 22:26:18,186 [FATAL] Updater:351 - Updater called before beeing initialized
+2025-05-22 22:26:18,186 [ERROR] CADModel:125 - Updater not yet initialized, retry later 
+2025-05-22 22:26:18,188 [FATAL] Updater:351 - Updater called before beeing initialized
+2025-05-22 22:26:18,257 [FATAL] Updater:351 - Updater called before beeing initialized
+2025-05-22 22:26:18,261 [INFO] DbMcusAds:53 - JSON generation date=Thu Sep 30 00:55:09 MDT 2021 (1632984909247)
+2025-05-22 22:26:18,261 [FATAL] Updater:351 - Updater called before beeing initialized
+2025-05-22 22:26:18,281 [WARN] DetailPanel:346 - Failed to get advertising image, set to default
+2025-05-22 22:26:18,424 [FATAL] Updater:351 - Updater called before beeing initialized
+2025-05-22 22:26:18,425 [FATAL] Updater:351 - Updater called before beeing initialized
+2025-05-22 22:26:18,425 [FATAL] Updater:351 - Updater called before beeing initialized
+2025-05-22 22:26:18,425 [WARN] DetailPanel:346 - Failed to get advertising image, set to default
+2025-05-22 22:26:18,426 [FATAL] Updater:351 - Updater called before beeing initialized
+2025-05-22 22:26:18,442 [ERROR] Updater:1198 - MainUpdater not yet initialized. External WinMGr cannot be set.
+2025-05-22 22:26:18,443 [INFO] Updater:1134 - Updater Version found : 6.13.0
+2025-05-22 22:26:18,452 [INFO] ApplicationProperties:184 - Using Application install path: /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.common.mx_6.13.0.202411220809
+2025-05-22 22:26:18,761 [INFO] MainUpdater:2872 - connection check result : 10
+2025-05-22 22:26:18,761 [INFO] MainUpdater:3566 - Updater definition file requires update
+2025-05-22 22:26:18,762 [INFO] MainUpdater:289 - Updater Check For Update Now.
+2025-05-22 22:26:18,762 [INFO] MicroXplorer:498 - Change Database Version : DB.6.0.130
+2025-05-22 22:26:18,764 [INFO] McuFinderGlobals:63 - Set McuFinder mode to 2 (CubeIDE integrated)
+2025-05-22 22:26:18,764 [INFO] UserAuth:486 - Internet connection configuration mode: 1
+2025-05-22 22:26:18,772 [INFO] JxBrowserEngine:152 - Initiate JxBrowser Engine with user profile folder
+2025-05-22 22:26:19,184 [INFO] WebApp:168 - Instantiating new browser for Auth
+2025-05-22 22:26:19,444 [INFO] ServerAccessManage:473 - Download File updaters.zip
+2025-05-22 22:26:19,520 [INFO] FileExtend:240 - Unzip File : updaters.zip
+2025-05-22 22:26:19,520 [INFO] FileExtend:255 - Standard Zip Deflate
+2025-05-22 22:26:19,570 [INFO] WebApp:449 - Apply proxy settings
+2025-05-22 22:26:19,570 [INFO] WebApp:534 - Chromium requires no authentication
+2025-05-22 22:26:19,577 [INFO] WebApp:477 - Direct internet connection detected
+2025-05-22 22:26:19,610 [INFO] WebApp:880 - Register for checkConnection events
+2025-05-22 22:26:19,610 [INFO] WebApp:449 - Apply proxy settings
+2025-05-22 22:26:19,611 [INFO] WebApp:534 - Chromium requires no authentication
+2025-05-22 22:26:19,611 [INFO] WebApp:477 - Direct internet connection detected
+2025-05-22 22:26:19,702 [INFO] WebApp:221 - Starting web application
+2025-05-22 22:26:19,702 [INFO] WebApp:579 - Web application path used /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.common.mx_6.13.0.202411220809/db/plugins/mcufinder/reactClient1/index.html
+2025-05-22 22:26:19,827 [INFO] WebApp:187 - Connection restablished
+2025-05-22 22:26:19,920 [INFO] UserAuth:486 - Internet connection configuration mode: 1
+2025-05-22 22:26:20,165 [INFO] ServerAccessManage:473 - Download File PacksControlFlags.xml
+2025-05-22 22:26:20,662 [WARN] MainUpdater:1193 - Updater busy. Cannot search thirdparties
+2025-05-22 22:26:20,662 [INFO] ThirdPartyUpdaterWithRetryManager:96 - Updater plugin is busy. [1/15]
+2025-05-22 22:26:20,725 [INFO] ServerAccessManage:473 - Download File cubemx.pidx
+2025-05-22 22:26:21,032 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 22:26:21.031 ERROR Chromium process exit code: 133
+2025-05-22 22:26:21,033 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
+2025-05-22 22:26:21,033 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 22:26:21.033 ERROR Crash dump dir: /home/nikolai/.config/jxbrowser/7.39.2/crash-reports
+2025-05-22 22:26:21,033 [ERROR] LogOutputStream:75 - [STDERR_REDIRECT] 
+2025-05-22 22:26:21,034 [ERROR] WebApp:398 - JxBrowser engine crashed! Exit code: 133
+2025-05-22 22:26:21,683 [INFO] ServerAccessManage:473 - Download File STMicroelectronics.X-CUBE-ST60.pdsc
+2025-05-22 22:26:22,742 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-ST60.1.0.0
+2025-05-22 22:26:22,744 [INFO] PopulateThirdPartyThread:66 - Ending populate Thread
+2025-05-22 22:26:22,745 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-ST60 1.0.0
+2025-05-22 22:26:22,745 [INFO] LoadServerUpdatesThread:375 - End of LoadServerUpdate Thread
+2025-05-22 22:26:22,853 [INFO] CheckServerUpdateThread:120 - End of CheckServer Thread
+2025-05-22 22:26:23,718 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.FP-SNS-MOTENVWB1.1.4.0
+2025-05-22 22:26:23,721 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.FP-ATR-ASTRA1.2.0.2
+2025-05-22 22:26:23,722 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.FP-ATR-ASTRA1.2.0.1
+2025-05-22 22:26:23,726 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-SMBUS.2.1.0
+2025-05-22 22:26:23,729 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-WB05N.1.1.0
+2025-05-22 22:26:23,731 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-ST60.1.0.0
+2025-05-22 22:26:23,733 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-TOUCHGFX.4.23.0
+2025-05-22 22:26:23,733 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-TOUCHGFX.4.23.2
+2025-05-22 22:26:23,744 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-AZRTOS-F7.1.1.0
+2025-05-22 22:26:23,748 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.FP-SNS-MOTENV1.4.3.2
+2025-05-22 22:26:23,771 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-MEMS1.11.0.0
+2025-05-22 22:26:23,849 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.FP-SNS-FLIGHT1.5.0.2
+2025-05-22 22:26:23,854 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-DISPLAY.3.0.0
+2025-05-22 22:26:23,858 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-BLE1.7.0.0
+2025-05-22 22:26:23,861 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-NFC10.1.0.0
+2025-05-22 22:26:23,867 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-BLEMGR.4.0.0
+2025-05-22 22:26:23,871 [WARN] PackLoader:240 - Cannot read IP mode file for emotas.I-CUBE-CANOPEN.1.3.0
+2025-05-22 22:26:23,875 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-BLEMGR.3.1.0
+2025-05-22 22:26:23,878 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-AI.10.0.0
+2025-05-22 22:26:23,880 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.FP-SNS-SMARTAG2.1.2.0
+2025-05-22 22:26:23,882 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.FP-SNS-FLIGHT1.5.1.0
+2025-05-22 22:26:23,907 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-MEMS1.11.1.0
+2025-05-22 22:26:24,052 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] 1 : Invalid condition id : UX_CORESTACK_Condition cause : null
+2025-05-22 22:26:24,053 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] 1 : Invalid condition id : UX_CORESTACK_Condition cause : null
+2025-05-22 22:26:24,053 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] 1 : Invalid condition id : UX_CORESTACK_Condition cause : null
+2025-05-22 22:26:24,053 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] 1 : Invalid condition id : UX_CORESTACK_Condition cause : null
+2025-05-22 22:26:24,053 [INFO] LogOutputStream:77 - [STDOUT_REDIRECT] 1 : Invalid condition id : UX_CORESTACK_Condition cause : null
+2025-05-22 22:26:24,056 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-AZRTOS-WL.2.0.0
+2025-05-22 22:26:24,061 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.FP-SNS-MOTENV1.5.0.0
+2025-05-22 22:26:24,064 [WARN] PackLoader:240 - Cannot read IP mode file for wolfSSL.I-CUBE-wolfMQTT.1.19.0
+2025-05-22 22:26:24,068 [WARN] PackLoader:240 - Cannot read IP mode file for WES.I-CUBE-Cesium.1.3.0
+2025-05-22 22:26:24,072 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-BLE2.3.3.0
+2025-05-22 22:26:24,077 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-NFC9.1.0.0
+2025-05-22 22:26:24,081 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-BLE1.7.1.0
+2025-05-22 22:26:24,083 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-TCPP.4.1.0
+2025-05-22 22:26:24,086 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-ALGOBUILD.1.3.0
+2025-05-22 22:26:24,106 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-MEMS1.11.2.0
+2025-05-22 22:26:24,163 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-AZRTOS-G0.1.1.0
+2025-05-22 22:26:24,167 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-SAFEA1.1.2.2
+2025-05-22 22:26:24,170 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-NFC4.3.0.0
+2025-05-22 22:26:24,173 [WARN] PackLoader:240 - Cannot read IP mode file for EmbeddedOffice.I-CUBE-FS-RTOS.1.0.1
+2025-05-22 22:26:24,176 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-WB05N.2.0.0
+2025-05-22 22:26:24,179 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-BLEMGR.3.0.0
+2025-05-22 22:26:24,183 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-TCPP.4.2.0
+2025-05-22 22:26:24,187 [WARN] PackLoader:240 - Cannot read IP mode file for RealThread.X-CUBE-RT-Thread_Nano.4.1.1
+2025-05-22 22:26:24,189 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.FP-ATR-SIGFOX1.3.2.0
+2025-05-22 22:26:24,191 [WARN] ConditionMgr:438 - getConditionDescription Invalid condition id : Cortex-A Device cause : null
+2025-05-22 22:26:24,197 [WARN] ConditionMgr:1044 - genDependencies : Invalid condition id : Cortex-A Device cause : null
+2025-05-22 22:26:24,197 [WARN] ConditionMgr:1044 - genDependencies : Invalid condition id : Cortex-A Device cause : null
+2025-05-22 22:26:24,198 [WARN] ConditionMgr:1044 - genDependencies : Invalid condition id : Cortex-A Device cause : null
+2025-05-22 22:26:24,201 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-EEPRMA1.5.1.0
+2025-05-22 22:26:24,221 [WARN] PackLoader:240 - Cannot read IP mode file for SEGGER.I-CUBE-embOS.1.3.1
+2025-05-22 22:26:24,244 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-ALGOBUILD.1.4.0
+2025-05-22 22:26:24,247 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-AI.9.1.0
+2025-05-22 22:26:24,250 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-GNSS1.6.0.0
+2025-05-22 22:26:24,261 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-AZRTOS-F4.1.1.0
+2025-05-22 22:26:24,265 [WARN] PackLoader:240 - Cannot read IP mode file for Avnet-IotConnect.X-CUBE-IoTC-DA16k-PMOD.1.0.0
+2025-05-22 22:26:24,267 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-ISPU.2.1.0
+2025-05-22 22:26:24,270 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-FREERTOS.1.2.0
+2025-05-22 22:26:24,272 [WARN] PackLoader:240 - Cannot read IP mode file for wolfSSL.I-CUBE-wolfSSL.5.6.6
+2025-05-22 22:26:24,279 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-AZRTOS-L5.2.0.0
+2025-05-22 22:26:24,282 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-EEPRMA1.4.2.0
+2025-05-22 22:26:24,285 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-NFC6.3.1.0
+2025-05-22 22:26:24,287 [WARN] PackLoader:240 - Cannot read IP mode file for ITTIA_DB.I-CUBE-ITTIADB.8.8.0
+2025-05-22 22:26:24,289 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-DPower.1.2.0
+2025-05-22 22:26:24,290 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-AI.9.0.0
+2025-05-22 22:26:24,292 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-FREERTOS.1.3.1
+2025-05-22 22:26:24,293 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-FREERTOS.1.3.0
+2025-05-22 22:26:24,295 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-NFC7.1.0.1
+2025-05-22 22:26:24,297 [WARN] PackLoader:240 - Cannot read IP mode file for wolfSSL.I-CUBE-wolfTPM.3.2.0
+2025-05-22 22:26:24,299 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-NFC6.3.0.0
+2025-05-22 22:26:24,302 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-DPower.1.3.0
+2025-05-22 22:26:24,303 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-AI.8.1.0
+2025-05-22 22:26:24,310 [WARN] ConditionMgr:438 - getConditionDescription Invalid condition id : LAN8742 Phy interface Condition cause : null
+2025-05-22 22:26:24,310 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-AZRTOS-L4.2.0.0
+2025-05-22 22:26:24,310 [WARN] ConditionMgr:1044 - genDependencies : Invalid condition id : LAN8742 Phy interface Condition cause : null
+2025-05-22 22:26:24,310 [WARN] ConditionMgr:1044 - genDependencies : Invalid condition id : LAN8742 Phy interface Condition cause : null
+2025-05-22 22:26:24,311 [WARN] ConditionMgr:1044 - genDependencies : Invalid condition id : LAN8742 Phy interface Condition cause : null
+2025-05-22 22:26:24,313 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-SFXS2LP1.4.0.0
+2025-05-22 22:26:24,322 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-AZRTOS-H7.3.3.0
+2025-05-22 22:26:24,326 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-IPS.3.0.0
+2025-05-22 22:26:24,332 [WARN] ConditionMgr:438 - getConditionDescription Invalid condition id : UX DEVICE CLASS RTOS Condition cause : null
+2025-05-22 22:26:24,332 [WARN] ConditionMgr:438 - getConditionDescription Invalid condition id : UX DEVICE CLASS RTOS Condition cause : null
+2025-05-22 22:26:24,333 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-AZRTOS-WB.2.0.0
+2025-05-22 22:26:24,333 [WARN] ConditionMgr:1044 - genDependencies : Invalid condition id : UX DEVICE CLASS RTOS Condition cause : null
+2025-05-22 22:26:24,333 [WARN] ConditionMgr:1044 - genDependencies : Invalid condition id : UX DEVICE CLASS RTOS Condition cause : null
+2025-05-22 22:26:24,333 [WARN] ConditionMgr:1044 - genDependencies : Invalid condition id : UX DEVICE CLASS RTOS Condition cause : null
+2025-05-22 22:26:24,334 [WARN] ConditionMgr:1044 - genDependencies : Invalid condition id : UX DEVICE CLASS RTOS Condition cause : null
+2025-05-22 22:26:24,334 [WARN] ConditionMgr:1044 - genDependencies : Invalid condition id : UX DEVICE CLASS RTOS Condition cause : null
+2025-05-22 22:26:24,336 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-GNSS1.7.0.0
+2025-05-22 22:26:24,338 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-GNSS1.7.0.1
+2025-05-22 22:26:24,339 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-TOUCHGFX.4.25.0
+2025-05-22 22:26:24,341 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.FP-SNS-STBOX1.2.0.0
+2025-05-22 22:26:24,344 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-SUBG2.5.0.0
+2025-05-22 22:26:24,352 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-AZRTOS-H7RS.1.1.0
+2025-05-22 22:26:24,358 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-AZRTOS-G4.2.0.0
+2025-05-22 22:26:24,362 [WARN] PackLoader:240 - Cannot read IP mode file for Infineon.AIROC-Wi-Fi-Bluetooth-STM32.1.5.1
+2025-05-22 22:26:24,365 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-NFC7.2.0.0
+2025-05-22 22:26:24,367 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.FP-SNS-MOTENVWB1.1.3.1
+2025-05-22 22:26:24,368 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-ISPU.2.0.0
+2025-05-22 22:26:24,371 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-IPS.3.1.0
+2025-05-22 22:26:24,375 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-ALS.1.0.2
+2025-05-22 22:26:24,395 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-MEMS1.10.0.0
+2025-05-22 22:26:24,452 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-FREERTOS.1.1.0
+2025-05-22 22:26:24,453 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-TOUCHGFX.4.24.0
+2025-05-22 22:26:24,455 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-TOUCHGFX.4.24.2
+2025-05-22 22:26:24,456 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-TOUCHGFX.4.24.1
+2025-05-22 22:26:24,458 [WARN] PackLoader:240 - Cannot read IP mode file for portGmbH.I-Cube-SoM-uGOAL.1.1.0
+2025-05-22 22:26:24,459 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-ALS.1.0.1
+2025-05-22 22:26:24,470 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-AZRTOS-H7RS.1.0.0
+2025-05-22 22:26:24,474 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.FP-ATR-ASTRA1.2.0.0
+2025-05-22 22:26:24,480 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-TOF1.3.4.2
+2025-05-22 22:26:24,489 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-TOF1.3.4.3
+2025-05-22 22:26:24,497 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-TOF1.3.4.0
+2025-05-22 22:26:24,505 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-TOF1.3.4.1
+2025-05-22 22:26:24,516 [WARN] PackLoader:240 - Cannot read IP mode file for STMicroelectronics.X-CUBE-AZRTOS-H7.3.2.0
+2025-05-22 22:26:24,519 [WARN] PackLoader:240 - Cannot read IP mode file for wolfSSL.I-CUBE-wolfSSH.1.4.17
+2025-05-22 22:26:24,520 [INFO] ThirdParty:978 - Integrity check success = true
+2025-05-22 22:26:24,520 [INFO] IntegrityCheckThread:100 - exiting critical section [integrity check]
+2025-05-22 22:26:24,520 [INFO] IntegrityCheckThread:103 - End integrity checks thread

@@ -31,7 +31,7 @@ void USB_Log(const char* string, Log_Level level)
 			snprintf(str, 512, "SENSOR %.2f %s\n", seconds, string);
 			break;
 		case STATE:
-			snprintf(str, 512, "STATE %s\n", string);
+			snprintf(str, 512, "STATE %.2f %s\n", seconds, string);
 			break;
 		case RAW:
 			snprintf(str, 512, "%s\n", string);

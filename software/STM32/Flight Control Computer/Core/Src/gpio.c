@@ -51,10 +51,10 @@ void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, GPIO2_Pin|GPIO3_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, GPIO2_Pin|FLOW_CS_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GYRO_CS_Pin|ACCEL_CS_Pin, GPIO_PIN_SET);
+  HAL_GPIO_WritePin(GPIOA, GYRO_CS_Pin|ACCEL_CS_Pin|GPIO5_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(CC2500_CS_GPIO_Port, CC2500_CS_Pin, GPIO_PIN_SET);
@@ -64,10 +64,10 @@ void MX_GPIO_Init(void)
                           |GPIO1_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOA, GPIO6_Pin|GPIO5_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIO6_GPIO_Port, GPIO6_Pin, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : GPIO2_Pin GPIO3_Pin */
-  GPIO_InitStruct.Pin = GPIO2_Pin|GPIO3_Pin;
+  /*Configure GPIO pins : GPIO2_Pin FLOW_CS_Pin */
+  GPIO_InitStruct.Pin = GPIO2_Pin|FLOW_CS_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;

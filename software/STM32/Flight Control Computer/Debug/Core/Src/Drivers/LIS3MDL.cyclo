@@ -6,16 +6,16 @@
 /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.linux64_1.1.0.202410170702/tools/arm-none-eabi/include/c++/12.3.1/tuple:189:17:constexpr std::_Head_base<_Idx, _Head, false>::_Head_base() [with unsigned int _Idx = 0; _Head = IIRFilter*]	1
 ../Core/Inc/Utility/lock_guard.hpp:20:2:np::lock_guard::lock_guard(void*&)	1
 ../Core/Inc/Utility/lock_guard.hpp:21:2:np::lock_guard::~lock_guard()	1
-../Core/Inc/Drivers/LIS3MDL.hpp:46:8:constexpr LIS3MDL_CalibrationData::LIS3MDL_CalibrationData()	1
-../Core/Src/Drivers/LIS3MDL.cpp:15:1:LIS3MDL::LIS3MDL(I2C_HandleTypeDef&, void*&, void*&)	1
+../Core/Inc/Drivers/LIS3MDL.hpp:47:8:constexpr LIS3MDL_CalibrationData::LIS3MDL_CalibrationData()	1
+../Core/Src/Drivers/LIS3MDL.cpp:16:1:LIS3MDL::LIS3MDL(I2C_HandleTypeDef*, void*&, void*&)	1
 /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.linux64_1.1.0.202410170702/tools/arm-none-eabi/include/c++/12.3.1/bits/unique_ptr.h:235:24:std::__uniq_ptr_data<_Tp, _Dp, <anonymous>, <anonymous> >& std::__uniq_ptr_data<_Tp, _Dp, <anonymous>, <anonymous> >::operator=(std::__uniq_ptr_data<_Tp, _Dp, <anonymous>, <anonymous> >&&) [with _Tp = IIRFilter; _Dp = std::default_delete<IIRFilter>; bool <anonymous> = true; bool <anonymous> = true]	1
 /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.linux64_1.1.0.202410170702/tools/arm-none-eabi/include/c++/12.3.1/bits/unique_ptr.h:406:19:std::unique_ptr<_Tp, _Dp>& std::unique_ptr<_Tp, _Dp>::operator=(std::unique_ptr<_Tp, _Dp>&&) [with _Tp = IIRFilter; _Dp = std::default_delete<IIRFilter>]	1
-../Core/Src/Drivers/LIS3MDL.cpp:20:6:bool LIS3MDL::init()	9
-../Core/Src/Drivers/LIS3MDL.cpp:89:6:bool LIS3MDL::service_irq()	2
-../Core/Src/Drivers/LIS3MDL.cpp:119:6:void LIS3MDL::log_data_to_gcs()	1
-../Core/Src/Drivers/LIS3MDL.cpp:129:22:std::array<float, 3> LIS3MDL::get_axis_intensities()	1
-../Core/Src/Drivers/LIS3MDL.cpp:140:6:bool LIS3MDL::read_register(uint8_t, uint8_t*, uint16_t)	3
-../Core/Src/Drivers/LIS3MDL.cpp:163:6:bool LIS3MDL::write_register(uint8_t, uint8_t*, uint16_t)	2
+../Core/Src/Drivers/LIS3MDL.cpp:21:6:bool LIS3MDL::init()	9
+../Core/Src/Drivers/LIS3MDL.cpp:92:6:bool LIS3MDL::service_irq()	2
+../Core/Src/Drivers/LIS3MDL.cpp:122:6:void LIS3MDL::log_data_to_gcs()	1
+../Core/Src/Drivers/LIS3MDL.cpp:132:22:std::array<float, 3> LIS3MDL::get_axis_intensities()	1
+../Core/Src/Drivers/LIS3MDL.cpp:143:6:bool LIS3MDL::read_register(uint8_t, uint8_t*, uint16_t)	3
+../Core/Src/Drivers/LIS3MDL.cpp:166:6:bool LIS3MDL::write_register(uint8_t, uint8_t*, uint16_t)	2
 /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.linux64_1.1.0.202410170702/tools/arm-none-eabi/include/c++/12.3.1/bits/unique_ptr.h:390:7:std::unique_ptr<_Tp, _Dp>::~unique_ptr() [with _Tp = IIRFilter; _Dp = std::default_delete<IIRFilter>]	2
 /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.linux64_1.1.0.202410170702/tools/arm-none-eabi/include/c++/12.3.1/array:193:7:constexpr std::array<_Tp, _Nm>::size_type std::array<_Tp, _Nm>::size() const [with _Tp = std::unique_ptr<IIRFilter>; unsigned int _Nm = 3]	1
 /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.linux64_1.1.0.202410170702/tools/arm-none-eabi/include/c++/12.3.1/array:206:7:constexpr std::array<_Tp, _Nm>::value_type& std::array<_Tp, _Nm>::operator[](size_type) [with _Tp = std::unique_ptr<IIRFilter>; unsigned int _Nm = 3]	1

@@ -1,13 +1,14 @@
 import sys
-from PyQt6.QtCore import QTimer
+from PyQt6.QtCore import QTimer, Qt
 from PyQt6.QtWidgets import (
     QApplication, QMainWindow, QGridLayout, QWidget
 )
 
 from SerialParser.serial_parser import SerialParserThread, SensorData, LoggingData, Severity
-from Widgets.plot_widget import AccelerometerPlot, GyroscopePlot, AltitudePlot
-from Widgets.sensor_widget import SensorDataWidget
+from Widgets.plot_widget import VelocityPlot
 from Widgets.log_widget import LogWidget
+from Widgets.aircraft_display_widget import AircraftDisplayWidget
+from Widgets.altimeter_widget import AltimeterWidget
 
 
 def main():
@@ -51,44 +52,34 @@ class MainWindow(QMainWindow):
         grid_layout = QGridLayout()
         central_widget.setLayout(grid_layout)
         
-        # Create Matplotlib graph widgets for sensors
-        self.acc_graph = AccelerometerPlot(sensor_data.acc_samples)
-        self.gyro_graph = GyroscopePlot(sensor_data.gyro_samples)
-        self.alt_graph = AltitudePlot(sensor_data.bar_samples)
-        grid_layout.addWidget(self.acc_graph, 0, 0)  # (1,1) in grid
-        grid_layout.addWidget(self.gyro_graph, 0, 1)  # (1,2) in grid
-        grid_layout.addWidget(self.alt_graph, 0, 2)  # (1,3) in grid
-        
-        # Add sensor data box
-        self.sensor_data_box = SensorDataWidget(sensor_data)
-        grid_layout.addWidget(self.sensor_data_box, 0, 3) # (1,4) in grid
+        # Create custom widgets
+        self.vel_graph = VelocityPlot(sensor_data.state)
+        self.model = AircraftDisplayWidget(sensor_data.state)
+        self.altimeter = AltimeterWidget(sensor_data.state)
+        grid_layout.addWidget(self.vel_graph, 0, 0) 
+        grid_layout.addWidget(self.model, 0, 1)     
+        grid_layout.addWidget(self.altimeter, 0, 2, Qt.AlignmentFlag.AlignCenter)
         
         # Add logging outputs
         self.logging_data = logging_data
         
         self.info_log_box = LogWidget("Information Logs")
-        grid_layout.addWidget(self.info_log_box, 1, 0) # (2,1) in grid
+        grid_layout.addWidget(self.info_log_box, 1, 0)
         self.critical_log_box = LogWidget("Critical Logs")
-        grid_layout.addWidget(self.critical_log_box, 1, 1) # (2,2) in grid
+        grid_layout.addWidget(self.critical_log_box, 1, 1)
         self.error_log_box = LogWidget("Error Logs")
-        grid_layout.addWidget(self.error_log_box, 1, 2) # (2,3) in grid
+        grid_layout.addWidget(self.error_log_box, 1, 2)
         
-        # Setup a timer to trigger the redraw of plots.
+        # Setup a timer to trigger the redraw of widgets.
         self.graph_timer = QTimer()
         self.graph_timer.setInterval(100)
         self.graph_timer.timeout.connect(self.update_plots)
         self.graph_timer.start()
-        
-        # Setup a timer to trigger update of sensor data box.
-        self.sensor_timer = QTimer()
-        self.sensor_timer.setInterval(50)
-        self.sensor_timer.timeout.connect(self.sensor_data_box.update)
-        self.sensor_timer.start()
 
     def update_plots(self):
-        self.acc_graph.update_plot()
-        self.gyro_graph.update_plot()
-        self.alt_graph.update_plot()
+        self.vel_graph.update_plot()
+        self.model.update_plot()
+        self.altimeter.update_altitude()
         
     def update_log(self, severity: Severity):
         

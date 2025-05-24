@@ -8,7 +8,7 @@ class SensorData():
         self.gyro_samples = BMI088_GyroscopeSamples(max_samples)
         self.bar_samples = BMP388_BarometerSamples(max_samples)
         self.mag_samples = LIS3MDL_MagnetometerSamples(max_samples)
-        self.state = Vehicle_State()
+        self.state = Vehicle_State(max_samples)
         
     def add_accelerometer_sample(self, x: float, y: float, z: float, temp: float, tp: float) -> None:
         self.acc_samples.add_sample(x, y, z, temp, tp)
@@ -22,21 +22,41 @@ class SensorData():
     def add_magnetometer_sample(self, intensity_x: float, intensity_y: float, intensity_z: float, tp: float) -> None:
         self.mag_samples.add_sample(intensity_x, intensity_y, intensity_z, tp)
     
-    def update_state(self, roll: float, pitch: float, yaw: float) -> None:
-        self.state.update(roll, pitch, yaw)
+    def update_state(self, roll: float, pitch: float, yaw: float, 
+                     qx: float, qy: float, qz: float, qw: float,
+                     vel_x: float, vel_y: float, altitude: float, tp: float) -> None:
+        self.state.update(roll, pitch, yaw, qx, qy, qz, qw, vel_x, vel_y, altitude, tp)
    
 class Vehicle_State():
     """ This class holds information about the current vehicle state.
     """
-    def __init__(self) -> None:
+    def __init__(self, max_samples: int) -> None:
         self.roll = 0
         self.pitch = 0
         self.yaw = 0
+        self.qx = 0
+        self.qy = 0
+        self.qz = 0
+        self.qw = 0
+        self.vel_x_data = deque(maxlen=max_samples)
+        self.vel_y_data = deque(maxlen=max_samples)
+        self.tp_data = deque(maxlen=max_samples)
+        self.altitude = 0
     
-    def update(self, roll: float, pitch: float, yaw: float) -> None:
+    def update(self, roll: float, pitch: float, yaw: float, 
+                qx: float, qy: float, qz: float, qw: float,
+                vel_x: float, vel_y: float, altitude: float, tp: float) -> None:
         self.roll = roll
         self.pitch = pitch
         self.yaw = yaw
+        self.qx = qx
+        self.qy = qy
+        self.qz = qz
+        self.qw = qw
+        self.vel_x_data.append(vel_x)
+        self.vel_y_data.append(vel_y)
+        self.tp_data.append(tp)
+        self.altitude = altitude
     
 class BMI088_AccelerometerSamples():
     """ This class holds BMI088 accelerometer data samples.

@@ -8,6 +8,8 @@ CPP_SRCS += \
 ../Core/Src/Drivers/BMI088.cpp \
 ../Core/Src/Drivers/BMP388.cpp \
 ../Core/Src/Drivers/LIS3MDL.cpp \
+../Core/Src/Drivers/PMW3901.cpp \
+../Core/Src/Drivers/US100_Ultrasonic.cpp \
 ../Core/Src/Drivers/usb.cpp 
 
 C_SRCS += \
@@ -24,6 +26,8 @@ OBJS += \
 ./Core/Src/Drivers/BMI088.o \
 ./Core/Src/Drivers/BMP388.o \
 ./Core/Src/Drivers/LIS3MDL.o \
+./Core/Src/Drivers/PMW3901.o \
+./Core/Src/Drivers/US100_Ultrasonic.o \
 ./Core/Src/Drivers/bmi088.o \
 ./Core/Src/Drivers/bmp388.o \
 ./Core/Src/Drivers/lis3mdl.o \
@@ -33,6 +37,8 @@ CPP_DEPS += \
 ./Core/Src/Drivers/BMI088.d \
 ./Core/Src/Drivers/BMP388.d \
 ./Core/Src/Drivers/LIS3MDL.d \
+./Core/Src/Drivers/PMW3901.d \
+./Core/Src/Drivers/US100_Ultrasonic.d \
 ./Core/Src/Drivers/usb.d 
 
 
@@ -45,7 +51,7 @@ Core/Src/Drivers/%.o Core/Src/Drivers/%.su Core/Src/Drivers/%.cyclo: ../Core/Src
 clean: clean-Core-2f-Src-2f-Drivers
 
 clean-Core-2f-Src-2f-Drivers:
-	-$(RM) ./Core/Src/Drivers/BMI088.cyclo ./Core/Src/Drivers/BMI088.d ./Core/Src/Drivers/BMI088.o ./Core/Src/Drivers/BMI088.su ./Core/Src/Drivers/BMP388.cyclo ./Core/Src/Drivers/BMP388.d ./Core/Src/Drivers/BMP388.o ./Core/Src/Drivers/BMP388.su ./Core/Src/Drivers/LIS3MDL.cyclo ./Core/Src/Drivers/LIS3MDL.d ./Core/Src/Drivers/LIS3MDL.o ./Core/Src/Drivers/LIS3MDL.su ./Core/Src/Drivers/bmi088.cyclo ./Core/Src/Drivers/bmi088.d ./Core/Src/Drivers/bmi088.o ./Core/Src/Drivers/bmi088.su ./Core/Src/Drivers/bmp388.cyclo ./Core/Src/Drivers/bmp388.d ./Core/Src/Drivers/bmp388.o ./Core/Src/Drivers/bmp388.su ./Core/Src/Drivers/lis3mdl.cyclo ./Core/Src/Drivers/lis3mdl.d ./Core/Src/Drivers/lis3mdl.o ./Core/Src/Drivers/lis3mdl.su ./Core/Src/Drivers/usb.cyclo ./Core/Src/Drivers/usb.d ./Core/Src/Drivers/usb.o ./Core/Src/Drivers/usb.su
+	-$(RM) ./Core/Src/Drivers/BMI088.cyclo ./Core/Src/Drivers/BMI088.d ./Core/Src/Drivers/BMI088.o ./Core/Src/Drivers/BMI088.su ./Core/Src/Drivers/BMP388.cyclo ./Core/Src/Drivers/BMP388.d ./Core/Src/Drivers/BMP388.o ./Core/Src/Drivers/BMP388.su ./Core/Src/Drivers/LIS3MDL.cyclo ./Core/Src/Drivers/LIS3MDL.d ./Core/Src/Drivers/LIS3MDL.o ./Core/Src/Drivers/LIS3MDL.su ./Core/Src/Drivers/PMW3901.cyclo ./Core/Src/Drivers/PMW3901.d ./Core/Src/Drivers/PMW3901.o ./Core/Src/Drivers/PMW3901.su ./Core/Src/Drivers/US100_Ultrasonic.cyclo ./Core/Src/Drivers/US100_Ultrasonic.d ./Core/Src/Drivers/US100_Ultrasonic.o ./Core/Src/Drivers/US100_Ultrasonic.su ./Core/Src/Drivers/bmi088.cyclo ./Core/Src/Drivers/bmi088.d ./Core/Src/Drivers/bmi088.o ./Core/Src/Drivers/bmi088.su ./Core/Src/Drivers/bmp388.cyclo ./Core/Src/Drivers/bmp388.d ./Core/Src/Drivers/bmp388.o ./Core/Src/Drivers/bmp388.su ./Core/Src/Drivers/lis3mdl.cyclo ./Core/Src/Drivers/lis3mdl.d ./Core/Src/Drivers/lis3mdl.o ./Core/Src/Drivers/lis3mdl.su ./Core/Src/Drivers/usb.cyclo ./Core/Src/Drivers/usb.d ./Core/Src/Drivers/usb.o ./Core/Src/Drivers/usb.su
 
 .PHONY: clean-Core-2f-Src-2f-Drivers
 

@@ -7,6 +7,8 @@
 
 #pragma once
 
+#include <stdint.h>
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -20,11 +22,12 @@ extern "C" {
  * TYPES
  *
  */
-struct state
+struct state	// Drone state vector in NED coordinate system
 {
-	float roll;
-	float pitch;
-	float yaw;
+	float rotation[3];				// Roll, Pitch, Yaw 					(deg)
+	float quaternion[4];			// Quaternion rotation 					(X-Y-Z-W)
+	float xy_velocity[2];			// Linear velocity in BODY frame (m/s) 	[x,y]
+	float altitude;					// Altitude (m)		 					[z]
 };
 
 /*
@@ -33,7 +36,7 @@ struct state
  *
  */
 void sensor_fusion_thread();		// Implements sensor fusion algorithm
-void logging_thread();				// Logs sensor and state data to GCS
+void fusion_logging_thread();		// Logs sensor and vehicle state data to GCS
 
 /*
  *
@@ -45,6 +48,8 @@ void service_BMI088_Accel();
 void service_BMI088_Gyro();
 void service_BMP388();
 void service_LIS3MDL();
+void poll_US100_Ultrasonic(uint8_t start_transfer);
+void poll_PMW3901();
 
 
 #ifdef __cplusplus

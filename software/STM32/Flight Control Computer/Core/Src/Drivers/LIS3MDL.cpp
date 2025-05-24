@@ -10,9 +10,10 @@
 #include "Utility/lock_guard.hpp"
 #include <cmath>
 #include <cstdio>
+#include <cstring>
 
 
-LIS3MDL::LIS3MDL(I2C_HandleTypeDef& i2c_handle, osMutexId_t& i2c_mutex, osMutexId_t& mag_data_mutex)
+LIS3MDL::LIS3MDL(I2C_HandleTypeDef* i2c_handle, osMutexId_t& i2c_mutex, osMutexId_t& mag_data_mutex)
 	:i2c_handle(i2c_handle),
 	 i2c_mutex(i2c_mutex),
 	 mag_data_mutex(mag_data_mutex) {}
@@ -24,6 +25,8 @@ bool LIS3MDL::init()
 	// Temporary buffers
 	uint8_t tx_data[4];
 	uint8_t rx_data[4];
+	memset(tx_data, 0, sizeof(tx_data));
+	memset(rx_data, 0, sizeof(rx_data));
 
 	// Check chip ID
 	rx_data[0] = 0x00;
@@ -121,7 +124,7 @@ void LIS3MDL::log_data_to_gcs()
 	char string[128];
 	{
 		np::lock_guard lock(mag_data_mutex);
-		snprintf(string, 128, "LIS3MDL %.2f %.2f %.2f", axis_intensities[0], axis_intensities[1], axis_intensities[2]);
+		snprintf(string, sizeof(string), "LIS3MDL %.2f %.2f %.2f", axis_intensities[0], axis_intensities[1], axis_intensities[2]);
 	}
 	USB_Log(string, SENSOR);
 }
@@ -149,7 +152,7 @@ bool LIS3MDL::read_register(uint8_t reg_addr, uint8_t* rx_data, uint16_t data_le
 
 	{
 		np::lock_guard lock(i2c_mutex);
-		status = (HAL_I2C_Mem_Read(&i2c_handle, (LIS3MDL_ADDRESS << 1), reg_addr, I2C_MEMADD_SIZE_8BIT, rx_data, data_len, HAL_MAX_DELAY) == HAL_OK);
+		status = (HAL_I2C_Mem_Read(i2c_handle, (LIS3MDL_ADDRESS << 1), reg_addr, I2C_MEMADD_SIZE_8BIT, rx_data, data_len, HAL_MAX_DELAY) == HAL_OK);
 	}
 
 	if (!status)
@@ -165,7 +168,7 @@ bool LIS3MDL::write_register(uint8_t reg_addr, uint8_t* tx_data, uint16_t data_l
 	bool status = false;
 	{
 		np::lock_guard lock(i2c_mutex);
-		status = (HAL_I2C_Mem_Write(&i2c_handle, (LIS3MDL_ADDRESS << 1), reg_addr, I2C_MEMADD_SIZE_8BIT, tx_data, data_len, HAL_MAX_DELAY) == HAL_OK);
+		status = (HAL_I2C_Mem_Write(i2c_handle, (LIS3MDL_ADDRESS << 1), reg_addr, I2C_MEMADD_SIZE_8BIT, tx_data, data_len, HAL_MAX_DELAY) == HAL_OK);
 	}
 
 	if (!status)

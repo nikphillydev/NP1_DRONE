@@ -77,7 +77,7 @@
 class BMI088
 {
 public:
-	BMI088(SPI_HandleTypeDef& spi_handle, osMutexId_t& spi_mutex, GPIO_TypeDef* acc_cs_port, GPIO_TypeDef* gyro_cs_port, 
+	BMI088(SPI_HandleTypeDef* spi_handle, osMutexId_t& spi_mutex, GPIO_TypeDef* acc_cs_port, GPIO_TypeDef* gyro_cs_port,
 			uint16_t acc_cs_pin, uint16_t gyro_cs_pin, osMutexId_t& accel_data_mutex, osMutexId_t& gyro_data_mutex);
 
 	// Initialization after startup
@@ -102,7 +102,7 @@ private:
 	[[nodiscard]] bool write_gyro_register(uint8_t reg_addr, uint8_t* tx_data, uint16_t data_len);
 
 	// SPI communication
-	SPI_HandleTypeDef& spi_handle;
+	SPI_HandleTypeDef* spi_handle;
 	osMutexId_t& spi_mutex;
 	GPIO_TypeDef* acc_cs_port;
 	GPIO_TypeDef* gyro_cs_port;
@@ -112,8 +112,8 @@ private:
 	uint16_t gyro_irq_pin;
 
 	// Conversion constants
-	const float acc_conversion = 9.80665 / 32768.0f * 2.0f * 1.5f; 		/* Based on +-3g range */
-	const float gyro_conversion = M_PI / 180.0f * 500.0f / 32768.0f; 	/* Based on +-500 deg/s range */
+	const float acc_conversion = 9.80665 / 32768.0f * powf(2.0, 0x01 + 1) * 1.5f; 		// Based on +-6g range
+	const float gyro_conversion = M_PI / 180.0f * 500.0f / 32768.0f; 					// Based on +-500 deg/s range
 
 	// IMU data mutexes
 	osMutexId_t& accel_data_mutex;

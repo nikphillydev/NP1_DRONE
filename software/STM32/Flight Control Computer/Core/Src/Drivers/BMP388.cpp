@@ -10,8 +10,10 @@
 #include "Utility/lock_guard.hpp"
 #include <cmath>
 #include <cstdio>
+#include <cstring>
 
-BMP388::BMP388(I2C_HandleTypeDef& i2c_handle, osMutexId_t& i2c_mutex, osMutexId_t& baro_data_mutex)
+
+BMP388::BMP388(I2C_HandleTypeDef* i2c_handle, osMutexId_t& i2c_mutex, osMutexId_t& baro_data_mutex)
 	:i2c_handle(i2c_handle),
 	 i2c_mutex(i2c_mutex),
 	 baro_data_mutex(baro_data_mutex) {}
@@ -23,6 +25,8 @@ bool BMP388::init()
 	// Temporary buffers
 	uint8_t tx_data[4];
 	uint8_t rx_data[4];
+	memset(tx_data, 0, sizeof(tx_data));
+	memset(rx_data, 0, sizeof(rx_data));
 
 	// Check chip ID
 	rx_data[0] = 0x00;
@@ -158,7 +162,7 @@ void BMP388::log_data_to_gcs()
 	char string[128];
 	{
 		np::lock_guard lock(baro_data_mutex);
-		snprintf(string, 128, "BMP388 %.2f %.2f %.2f", pressure, altitude, temperature);
+		snprintf(string, sizeof(string), "BMP388 %.2f %.2f %.2f", pressure, altitude, temperature);
 	}
 	USB_Log(string, SENSOR);
 }
@@ -278,6 +282,7 @@ bool BMP388::compute_startup_pressure()
 	/* Compute the average current pressure (for initial altitude reference) */
 	bool status = false;
 	uint8_t tx_data[2];
+	memset(tx_data, 0, sizeof(tx_data));
 	uint8_t sample_num = 50;
 	float running_pressure = 0;
 
@@ -307,7 +312,7 @@ bool BMP388::read_register(uint8_t reg_addr, uint8_t* rx_data, uint16_t data_len
 	bool status = false;
 	{
 		np::lock_guard lock(i2c_mutex);
-		status = (HAL_I2C_Mem_Read(&i2c_handle, (BMP388_ADDRESS << 1), reg_addr, I2C_MEMADD_SIZE_8BIT, rx_data, data_len, HAL_MAX_DELAY) == HAL_OK);
+		status = (HAL_I2C_Mem_Read(i2c_handle, (BMP388_ADDRESS << 1), reg_addr, I2C_MEMADD_SIZE_8BIT, rx_data, data_len, HAL_MAX_DELAY) == HAL_OK);
 	}
 
 	if (!status)
@@ -323,7 +328,7 @@ bool BMP388::write_register(uint8_t reg_addr, uint8_t* tx_data, uint16_t data_le
 	bool status = false;
 	{
 		np::lock_guard lock(i2c_mutex);
-		status = (HAL_I2C_Mem_Write(&i2c_handle, (BMP388_ADDRESS << 1), reg_addr, I2C_MEMADD_SIZE_8BIT, tx_data, data_len, HAL_MAX_DELAY) == HAL_OK);
+		status = (HAL_I2C_Mem_Write(i2c_handle, (BMP388_ADDRESS << 1), reg_addr, I2C_MEMADD_SIZE_8BIT, tx_data, data_len, HAL_MAX_DELAY) == HAL_OK);
 	}
 
 	if (!status)
