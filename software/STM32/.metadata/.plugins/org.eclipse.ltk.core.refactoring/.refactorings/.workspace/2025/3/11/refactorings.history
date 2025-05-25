@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Delete resource &apos;Flight Control Computer/Core/Src/Utility/MovingAverageFilter.cpp&apos;" deleteContents="false" description="Delete resource &apos;Flight Control Computer/Core/Src/Utility/MovingAverageFilter.cpp&apos;" element1="/Flight Control Computer/Core/Src/Utility/MovingAverageFilter.cpp" flags="7" id="org.eclipse.ltk.core.refactoring.delete.resources" resources="1" stamp="1741665950969"/>
+</session>
