@@ -1,7 +1,0 @@
-../Core/Src/Drivers/bmp388.c:18:9:BMP388_Init	32	static
-../Core/Src/Drivers/bmp388.c:86:9:BMP388_ReadData	72	static
-../Core/Src/Drivers/bmp388.c:146:6:BMP388_LogData	184	static
-../Core/Src/Drivers/bmp388.c:158:9:BMP388_ReadRegister	48	static
-../Core/Src/Drivers/bmp388.c:172:9:BMP388_WriteRegister	48	static
-../Core/Src/Drivers/bmp388.c:186:9:BMP388_ReadCalibrationData	40	static
-../Core/Src/Drivers/bmp388.c:263:9:BMP388_ComputeStartupPressure	32	static

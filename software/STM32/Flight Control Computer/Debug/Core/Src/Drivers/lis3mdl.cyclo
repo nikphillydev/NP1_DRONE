@@ -1,5 +1,0 @@
-../Core/Src/Drivers/lis3mdl.c:18:9:LIS3MDL_Init	2
-../Core/Src/Drivers/lis3mdl.c:80:9:LIS3MDL_ReadData	3
-../Core/Src/Drivers/lis3mdl.c:113:6:LIS3MDL_LogData	1
-../Core/Src/Drivers/lis3mdl.c:129:9:LIS3MDL_ReadRegister	3
-../Core/Src/Drivers/lis3mdl.c:149:9:LIS3MDL_WriteRegister	2

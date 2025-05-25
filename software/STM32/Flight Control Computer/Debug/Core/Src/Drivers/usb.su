@@ -1,3 +1,0 @@
-../Core/Inc/Utility/lock_guard.hpp:20:2:np::lock_guard::lock_guard(void*&)	16	static
-../Core/Inc/Utility/lock_guard.hpp:21:2:np::lock_guard::~lock_guard()	16	static
-../Core/Src/Drivers/usb.cpp:15:6:void USB_Log(const char*, Log_Level)	568	static
