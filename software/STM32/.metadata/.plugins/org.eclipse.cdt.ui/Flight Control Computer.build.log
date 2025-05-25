@@ -1,4 +1,4 @@
-17:12:03 **** Incremental Build of configuration Debug for project Flight Control Computer ****
+10:49:29 **** Incremental Build of configuration Debug for project Flight Control Computer ****
 make -j20 all 
 arm-none-eabi-g++ "../Core/Src/Threads/sensor.cpp" -mcpu=cortex-m4 -std=gnu++20 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Core/Inc/Threads -I../Core/Inc/Utility -I../Core/Inc/Drivers -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Middlewares/ST/STM32_MotionFX_Library/Inc -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Threads/sensor.d" -MT"Core/Src/Threads/sensor.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Threads/sensor.o"
 arm-none-eabi-g++ -o "Flight Control Computer.elf" @"objects.list"  -l:MotionFX_CM4F_wc32_ot_hard.a -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--cref -Wl,--gc-sections -static -L../Middlewares/ST/STM32_MotionFX_Library/Lib -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
@@ -8,11 +8,11 @@ Finished building target: Flight Control Computer.elf
 arm-none-eabi-size  Flight\ Control\ Computer.elf 
 arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
    text	   data	    bss	    dec	    hex	filename
- 164632	    896	 105304	 270832	  421f0	Flight Control Computer.elf
+ 164872	    896	 105328	 271096	  422f8	Flight Control Computer.elf
 Finished building: default.size.stdout
  
 Finished building: Flight Control Computer.list
  
 
-17:12:04 Build Finished. 0 errors, 1 warnings. (took 976ms)
+10:49:30 Build Finished. 0 errors, 1 warnings. (took 1s.29ms)
 

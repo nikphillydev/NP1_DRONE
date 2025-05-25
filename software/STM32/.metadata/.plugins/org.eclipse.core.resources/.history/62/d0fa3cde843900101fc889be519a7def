@@ -166,9 +166,6 @@ void sensor_fusion_thread()
 		uint32_t counter = 0;
 		uint32_t reset_xy_period_multiple = FUSION_FREQ / XY_VEL_RESET_FREQ;
 
-		// Range finder saturated flag
-		bool rf_saturated = false;
-
 		while (1)
 		{
 			if (!mag_calibrated)
@@ -215,7 +212,7 @@ void sensor_fusion_thread()
 				 */
 				last_wake_time += fusion_period_ms;
 				osDelayUntil(last_wake_time);
-				counter++;
+				reset_xy_counter++;
 
 				// Get accelerometer, gyroscope, and magnetometer data for Orientation Kalman Filter
 				linear_acceleration_BODY = imu.get_linear_accelerations();
@@ -282,34 +279,20 @@ void sensor_fusion_thread()
 				// Get barometer altitude
 				barometer_altitude = barometer.get_altitude();
 
-				// Fuse altitude via complimentary filter (if range finder distance valid)
-				if (rf_distance_BODY < MAX_DISTANCE_M) {
-					// Range finder NOT saturated
-					rf_saturated = false;
-					altitude = ALTITUDE_ALPHA * barometer_altitude + (1.0f - ALTITUDE_ALPHA) * rf_distance_WORLD;
-				}
-				else {
-					// Range finder saturated, ignore
-					rf_saturated = true;
-					altitude = barometer_altitude;
-				}
-
-				// Log range finder saturation
-				if (counter % FUSION_FREQ == 0 && rf_saturated) {
-					USB_Log("sensor fusion: rf saturated", CRITICAL);
-				}
+				// Fuse altitude via complimentary filter
+				altitude = ALTITUDE_ALPHA * barometer_altitude + (1.0f - ALTITUDE_ALPHA) * rf_distance_WORLD;
 
 				// Get optical flow data for Velocity Complimentary Filter
 				float delta_roll = data_out.rotation[2] - prev_roll_pitch[0];		// Roll change
 				float delta_pitch = data_out.rotation[1] - prev_roll_pitch[1];		// Pitch change
-				vel_camera_BODY = optical_flow.get_delta_m(altitude, delta_pitch, delta_roll);
+				vel_camera_BODY = optical_flow.get_delta_m(rf_distance_WORLD, delta_pitch, delta_roll);
 
 				// Update previous for next iteration
 				prev_roll_pitch[0] = data_out.rotation[2];		// Roll
 				prev_roll_pitch[1] = data_out.rotation[1];		// Pitch
 
 				// Reset integrated XY velocity drift if necessary
-				if (counter % reset_xy_period_multiple == 0) {
+				if (reset_xy_counter % reset_xy_period_multiple == 0) {
 					vel_integrated_BODY[0] = vel_camera_BODY[0];
 					vel_integrated_BODY[1] = vel_camera_BODY[1];
 				}

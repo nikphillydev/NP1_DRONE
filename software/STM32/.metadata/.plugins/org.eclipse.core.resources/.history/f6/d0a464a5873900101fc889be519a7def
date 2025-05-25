@@ -289,7 +289,7 @@ void sensor_fusion_thread()
 					altitude = ALTITUDE_ALPHA * barometer_altitude + (1.0f - ALTITUDE_ALPHA) * rf_distance_WORLD;
 				}
 				else {
-					// Range finder saturated, ignore
+					// Range finder saturated
 					rf_saturated = true;
 					altitude = barometer_altitude;
 				}

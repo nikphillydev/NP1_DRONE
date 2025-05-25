@@ -17,7 +17,7 @@ BMP388::BMP388(I2C_HandleTypeDef* i2c_handle, osMutexId_t& i2c_mutex, osMutexId_
 	:i2c_handle(i2c_handle),
 	 i2c_mutex(i2c_mutex),
 	 baro_data_mutex(baro_data_mutex),
-	 alt_filter(4) {}
+	 alt_filter(8) {}
 
 bool BMP388::init()
 {
@@ -145,7 +145,7 @@ bool BMP388::service_irq()
 
 		if (pressure && startup_pressure)
 		{
-			altitude = alt_filter.update(44330.0 * (1.0 - powf(pressure / startup_pressure, 1.0 / 5.25579)));
+			altitude = alt_filter.update(44330.0 * (1 - powf(pressure / startup_pressure, 1.0 / 5.25579)));
 			if (altitude < 0.0) {
 				altitude = 0.0;
 			}

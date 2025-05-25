@@ -9,7 +9,6 @@
 
 #include "stm32g4xx_hal.h"
 #include "cmsis_os.h"
-#include "Utility/MovingAverageFilter.hpp"
 
 
 /* BMP388 REGISTERS */
@@ -127,9 +126,6 @@ private:
 	float startup_pressure;
 	float altitude; 			// Based on startup_pressure (meters)
 	float temperature;			// Current temperature (degC)
-
-	// Filter for altitude data
-	MovingAverageFilter<float> alt_filter;
 };
 
 

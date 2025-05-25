@@ -17,7 +17,7 @@ BMP388::BMP388(I2C_HandleTypeDef* i2c_handle, osMutexId_t& i2c_mutex, osMutexId_
 	:i2c_handle(i2c_handle),
 	 i2c_mutex(i2c_mutex),
 	 baro_data_mutex(baro_data_mutex),
-	 alt_filter(4) {}
+	 alt_filter(1) {}
 
 bool BMP388::init()
 {

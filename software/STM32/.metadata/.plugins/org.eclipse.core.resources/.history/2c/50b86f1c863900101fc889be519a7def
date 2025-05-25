@@ -128,8 +128,8 @@ private:
 	float altitude; 			// Based on startup_pressure (meters)
 	float temperature;			// Current temperature (degC)
 
-	// Filter for altitude data
-	MovingAverageFilter<float> alt_filter;
+	// Filter for altitude
+	MovingAverageFilter<float> alt_filter {};
 };
 
 
