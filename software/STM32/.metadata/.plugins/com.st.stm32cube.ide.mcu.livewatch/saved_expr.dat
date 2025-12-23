@@ -1,3 +1,0 @@
-*imu->spi_mutex
-spi1_mutexHandle
-imu->spi_mutex
