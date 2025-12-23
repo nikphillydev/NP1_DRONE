@@ -20,6 +20,9 @@ class VelocityPlot(QWidget):
         self.ax = self.figure.add_subplot()
         self.ax.set_ylim(-10, 10)
         
+        # Add a permanent, faint, solid horizontal line at y=0
+        self.ax.axhline(0, color='gray', linestyle='-', alpha=0.7, zorder=0)
+        
         # Add data
         self.X = vehicle_state.tp_data
         self.Y1 = vehicle_state.vel_x_data

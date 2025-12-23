@@ -26,8 +26,8 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+#include "Threads/radio.hpp"
 #include "Threads/sensor.hpp"
-#include "usart.h"
 
 /* USER CODE END Includes */
 
@@ -148,6 +148,30 @@ const osThreadAttr_t opticalFlowPollingTask_attributes = {
   .cb_size = sizeof(opticalFlowUpdateTaskControlBlock),
   .priority = (osPriority_t) osPriorityHigh,
 };
+/* Definitions for radioTask */
+osThreadId_t radioTaskHandle;
+uint32_t radioTaskBuffer[ 1024 ];
+osStaticThreadDef_t radioTaskControlBlock;
+const osThreadAttr_t radioTask_attributes = {
+  .name = "radioTask",
+  .stack_mem = &radioTaskBuffer[0],
+  .stack_size = sizeof(radioTaskBuffer),
+  .cb_mem = &radioTaskControlBlock,
+  .cb_size = sizeof(radioTaskControlBlock),
+  .priority = (osPriority_t) osPriorityNormal,
+};
+/* Definitions for cc2500IRQTask */
+osThreadId_t cc2500IRQTaskHandle;
+uint32_t cc2500IRQTaskBuffer[ 512 ];
+osStaticThreadDef_t cc2500IRQTaskControlBlock;
+const osThreadAttr_t cc2500IRQTask_attributes = {
+  .name = "cc2500IRQTask",
+  .stack_mem = &cc2500IRQTaskBuffer[0],
+  .stack_size = sizeof(cc2500IRQTaskBuffer),
+  .cb_mem = &cc2500IRQTaskControlBlock,
+  .cb_size = sizeof(cc2500IRQTaskControlBlock),
+  .priority = (osPriority_t) osPriorityHigh,
+};
 /* Definitions for spi1Mutex */
 osMutexId_t spi1MutexHandle;
 osStaticMutexDef_t spi1MutexControlBlock;
@@ -236,6 +260,14 @@ const osMutexAttr_t flowDataMutex_attributes = {
   .cb_mem = &flowDataMutexControlBlock,
   .cb_size = sizeof(flowDataMutexControlBlock),
 };
+/* Definitions for cc2500StatusMutex */
+osMutexId_t cc2500StatusMutexHandle;
+osStaticMutexDef_t cc2500StatusMutexControlBlock;
+const osMutexAttr_t cc2500StatusMutex_attributes = {
+  .name = "cc2500StatusMutex",
+  .cb_mem = &cc2500StatusMutexControlBlock,
+  .cb_size = sizeof(cc2500StatusMutexControlBlock),
+};
 
 /* Private function prototypes -----------------------------------------------*/
 /* USER CODE BEGIN FunctionPrototypes */
@@ -250,6 +282,8 @@ void start_mag_irq_task(void *argument);
 void start_fusion_logging_task(void *argument);
 void start_ultrasonic_polling_task(void *argument);
 void start_optical_flow_polling_task(void *argument);
+void start_radio_task(void *argument);
+void start_cc2500_irq_task(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -306,6 +340,9 @@ void MX_FREERTOS_Init(void) {
   /* creation of flowDataMutex */
   flowDataMutexHandle = osMutexNew(&flowDataMutex_attributes);
 
+  /* creation of cc2500StatusMutex */
+  cc2500StatusMutexHandle = osMutexNew(&cc2500StatusMutex_attributes);
+
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
@@ -347,6 +384,12 @@ void MX_FREERTOS_Init(void) {
   /* creation of opticalFlowPollingTask */
   opticalFlowPollingTaskHandle = osThreadNew(start_optical_flow_polling_task, NULL, &opticalFlowPollingTask_attributes);
 
+  /* creation of radioTask */
+  radioTaskHandle = osThreadNew(start_radio_task, NULL, &radioTask_attributes);
+
+  /* creation of cc2500IRQTask */
+  cc2500IRQTaskHandle = osThreadNew(start_cc2500_irq_task, NULL, &cc2500IRQTask_attributes);
+
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
   /* USER CODE END RTOS_THREADS */
@@ -366,6 +409,8 @@ void MX_FREERTOS_Init(void) {
 /* USER CODE END Header_start_sensor_fusion_task */
 void start_sensor_fusion_task(void *argument)
 {
+  /* init code for USB_Device */
+  MX_USB_Device_Init();
   /* USER CODE BEGIN start_sensor_fusion_task */
   /* Infinite loop */
   sensor_fusion_thread();
@@ -509,6 +554,40 @@ void start_optical_flow_polling_task(void *argument)
   /* USER CODE END start_optical_flow_polling_task */
 }
 
+/* USER CODE BEGIN Header_start_radio_task */
+/**
+* @brief Function implementing the radioTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_start_radio_task */
+void start_radio_task(void *argument)
+{
+  /* USER CODE BEGIN start_radio_task */
+  /* Infinite loop */
+  radio_thread();
+  /* USER CODE END start_radio_task */
+}
+
+/* USER CODE BEGIN Header_start_cc2500_irq_task */
+/**
+* @brief Function implementing the cc2500IRQTask thread.
+* @param argument: Not used
+* @retval None
+*/
+/* USER CODE END Header_start_cc2500_irq_task */
+void start_cc2500_irq_task(void *argument)
+{
+  /* USER CODE BEGIN start_cc2500_irq_task */
+  /* Infinite loop */
+	for(;;)
+	{
+		osThreadFlagsWait(0x00000001U, osFlagsWaitAll, osWaitForever);
+		service_CC2500_receive_irq();
+	}
+  /* USER CODE END start_cc2500_irq_task */
+}
+
 /* Private application code --------------------------------------------------*/
 /* USER CODE BEGIN Application */
 
@@ -529,6 +608,10 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	else if (GPIO_Pin == MAG_DRDY_Pin)
 	{
 		osThreadFlagsSet(magIRQTaskHandle, 0x00000001U);
+	}
+	else if (GPIO_Pin == CC2500_GDO0_Pin)
+	{
+		osThreadFlagsSet(cc2500IRQTaskHandle, 0x00000001U);
 	}
 }
 

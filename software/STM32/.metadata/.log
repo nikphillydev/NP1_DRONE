@@ -11022,3 +11022,346 @@ Command-line arguments:  -os linux -ws gtk -arch x86_64
 
 !ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-05-22 22:26:16.939
 !MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-05-25 14:42:34.932
+!MESSAGE Indexed 'RadioTesting' (61 sources, 138 headers) in 2.6 sec: 13,747 declarations; 95,588 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0018%)
+!SESSION 2025-05-26 20:33:27.664 -----------------------------------------------
+eclipse.buildId=Version 1.17.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-05-26 20:33:33.621
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-05-26 20:33:33.622
+!MESSAGE Log4j2 initialized with config file /home/nikolai/Documents/NP1_DRONE/software/STM32/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-05-26 20:33:36.802
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.dsf 4 10001 2025-05-26 22:07:45.212
+!MESSAGE Target not available.
+
+!ENTRY org.eclipse.cdt.dsf 4 10001 2025-05-26 22:29:21.804
+!MESSAGE Target not available.
+
+!ENTRY org.eclipse.cdt.dsf 4 10001 2025-05-26 22:36:20.535
+!MESSAGE Target not available.
+
+!ENTRY org.eclipse.cdt.dsf 4 10001 2025-05-26 22:38:29.469
+!MESSAGE Target not available.
+
+!ENTRY org.eclipse.cdt.dsf 4 10001 2025-05-26 22:39:27.055
+!MESSAGE Target not available.
+
+!ENTRY org.eclipse.cdt.dsf 4 10001 2025-05-26 22:40:42.426
+!MESSAGE Target not available.
+
+!ENTRY org.eclipse.cdt.dsf 4 10001 2025-05-26 22:41:52.251
+!MESSAGE Target not available.
+
+!ENTRY org.eclipse.cdt.dsf 4 10001 2025-05-28 21:19:49.837
+!MESSAGE Target not available.
+
+!ENTRY org.eclipse.cdt.dsf 4 10001 2025-05-29 22:02:44.233
+!MESSAGE Target not available.
+!SESSION 2025-07-03 10:27:29.830 -----------------------------------------------
+eclipse.buildId=Version 1.17.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-07-03 10:27:34.284
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-07-03 10:27:34.285
+!MESSAGE Log4j2 initialized with config file /home/nikolai/Documents/NP1_DRONE/software/STM32/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-07-03 10:27:37.156
+!MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2025-07-31 22:09:46.354 -----------------------------------------------
+eclipse.buildId=Version 1.17.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-07-31 22:09:51.492
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-07-31 22:09:51.493
+!MESSAGE Log4j2 initialized with config file /home/nikolai/Documents/NP1_DRONE/software/STM32/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-07-31 22:09:54.953
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.dsf 4 10001 2025-08-01 17:57:32.952
+!MESSAGE Target not available.
+
+!ENTRY org.eclipse.core.jobs 4 2 2025-08-01 17:58:06.322
+!MESSAGE An internal error occurred during: "Suspend monitor job.".
+!STACK 0
+java.util.concurrent.RejectedExecutionException: Task java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask@5be5c6e5[Not completed, task = java.util.concurrent.Executors$RunnableAdapter@bef0ba5[Wrapped task = org.eclipse.cdt.dsf.gdb.service.GDBRunControl_7_12$MonitorSuspendJob$2@54145593]] rejected from org.eclipse.cdt.dsf.concurrent.DefaultDsfExecutor@6cd8fa0[Terminated, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 13574]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$AbortPolicy.rejectedExecution(ThreadPoolExecutor.java:2081)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.reject(ThreadPoolExecutor.java:841)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor.delayedExecute(ScheduledThreadPoolExecutor.java:340)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor.schedule(ScheduledThreadPoolExecutor.java:562)
+	at org.eclipse.cdt.dsf.concurrent.DefaultDsfExecutor.schedule(DefaultDsfExecutor.java:450)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor.submit(ScheduledThreadPoolExecutor.java:715)
+	at org.eclipse.cdt.dsf.concurrent.DefaultDsfExecutor.submit(DefaultDsfExecutor.java:482)
+	at org.eclipse.cdt.dsf.gdb.service.GDBRunControl_7_12$MonitorSuspendJob.run(GDBRunControl_7_12.java:358)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.core.jobs 4 2 2025-08-01 17:58:07.965
+!MESSAGE An internal error occurred during: "Suspend monitor job.".
+!STACK 0
+java.util.concurrent.RejectedExecutionException: Task java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask@3d370c3f[Not completed, task = java.util.concurrent.Executors$RunnableAdapter@185e12a3[Wrapped task = org.eclipse.cdt.dsf.gdb.service.GDBRunControl_7_12$MonitorSuspendJob$2@63363e09]] rejected from org.eclipse.cdt.dsf.concurrent.DefaultDsfExecutor@6cd8fa0[Terminated, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 13574]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$AbortPolicy.rejectedExecution(ThreadPoolExecutor.java:2081)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.reject(ThreadPoolExecutor.java:841)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor.delayedExecute(ScheduledThreadPoolExecutor.java:340)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor.schedule(ScheduledThreadPoolExecutor.java:562)
+	at org.eclipse.cdt.dsf.concurrent.DefaultDsfExecutor.schedule(DefaultDsfExecutor.java:450)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor.submit(ScheduledThreadPoolExecutor.java:715)
+	at org.eclipse.cdt.dsf.concurrent.DefaultDsfExecutor.submit(DefaultDsfExecutor.java:482)
+	at org.eclipse.cdt.dsf.gdb.service.GDBRunControl_7_12$MonitorSuspendJob.run(GDBRunControl_7_12.java:358)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.core.jobs 4 2 2025-08-01 17:58:10.247
+!MESSAGE An internal error occurred during: "Suspend monitor job.".
+!STACK 0
+java.util.concurrent.RejectedExecutionException: Task java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask@464ecffb[Not completed, task = java.util.concurrent.Executors$RunnableAdapter@608f3e19[Wrapped task = org.eclipse.cdt.dsf.gdb.service.GDBRunControl_7_12$MonitorSuspendJob$2@3fa001e4]] rejected from org.eclipse.cdt.dsf.concurrent.DefaultDsfExecutor@6cd8fa0[Terminated, pool size = 0, active threads = 0, queued tasks = 0, completed tasks = 13574]
+	at java.base/java.util.concurrent.ThreadPoolExecutor$AbortPolicy.rejectedExecution(ThreadPoolExecutor.java:2081)
+	at java.base/java.util.concurrent.ThreadPoolExecutor.reject(ThreadPoolExecutor.java:841)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor.delayedExecute(ScheduledThreadPoolExecutor.java:340)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor.schedule(ScheduledThreadPoolExecutor.java:562)
+	at org.eclipse.cdt.dsf.concurrent.DefaultDsfExecutor.schedule(DefaultDsfExecutor.java:450)
+	at java.base/java.util.concurrent.ScheduledThreadPoolExecutor.submit(ScheduledThreadPoolExecutor.java:715)
+	at org.eclipse.cdt.dsf.concurrent.DefaultDsfExecutor.submit(DefaultDsfExecutor.java:482)
+	at org.eclipse.cdt.dsf.gdb.service.GDBRunControl_7_12$MonitorSuspendJob.run(GDBRunControl_7_12.java:358)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+
+!ENTRY org.eclipse.cdt.dsf 4 10001 2025-08-02 12:02:27.882
+!MESSAGE Target not available.
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-08-11 22:00:43.829
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 19 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-08-11 22:00:43.830
+!MESSAGE Existing sessions are:
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-08-11 22:00:43.830
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 19 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-08-11 22:00:43.830
+!MESSAGE Existing sessions are:
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-08-11 22:00:43.830
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 19 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-08-11 22:00:43.830
+!MESSAGE Existing sessions are:
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-08-11 22:00:43.831
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 19 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-08-11 22:00:43.831
+!MESSAGE Existing sessions are:
+!SESSION 2025-08-18 11:35:15.654 -----------------------------------------------
+eclipse.buildId=Version 1.17.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-08-18 11:35:20.056
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-08-18 11:35:20.057
+!MESSAGE Log4j2 initialized with config file /home/nikolai/Documents/NP1_DRONE/software/STM32/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-08-18 11:35:23.203
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.dsf 4 10001 2025-08-25 21:15:43.605
+!MESSAGE Target not available.
+!SESSION 2025-08-25 21:59:44.436 -----------------------------------------------
+eclipse.buildId=Version 1.17.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-08-25 21:59:50.384
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-08-25 21:59:50.385
+!MESSAGE Log4j2 initialized with config file /home/nikolai/Documents/NP1_DRONE/software/STM32/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-08-25 21:59:54.477
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.dsf 4 10001 2025-09-01 22:48:02.140
+!MESSAGE Target not available.
+
+!ENTRY org.eclipse.cdt.dsf 4 10001 2025-09-01 23:02:49.206
+!MESSAGE Target not available.
+
+!ENTRY org.eclipse.cdt.dsf 4 10001 2025-09-01 23:03:55.858
+!MESSAGE Target not available.
+
+!ENTRY org.eclipse.cdt.dsf.gdb 4 5012 2025-09-01 23:38:12.550
+!MESSAGE Error in final launch sequence:
+
+Failed to execute MI command:
+target remote localhost:61234
+
+Error message from debugger back end:
+localhost:61234: Connection timed out.
+!STACK 1
+org.eclipse.core.runtime.CoreException: Failed to execute MI command:
+target remote localhost:61234
+
+Error message from debugger back end:
+localhost:61234: Connection timed out.
+	at org.eclipse.cdt.dsf.concurrent.Query.get(Query.java:112)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugSession(GdbLaunchDelegate.java:252)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launchDebugger(GdbLaunchDelegate.java:109)
+	at org.eclipse.cdt.dsf.gdb.launching.GdbLaunchDelegate.launch(GdbLaunchDelegate.java:97)
+	at com.st.stm32cube.ide.mcu.debug.launch.DSFDelegate.launch(DSFDelegate.java:334)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:805)
+	at org.eclipse.debug.internal.core.LaunchConfiguration.launch(LaunchConfiguration.java:716)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin.buildAndLaunch(DebugUIPlugin.java:1040)
+	at org.eclipse.debug.internal.ui.DebugUIPlugin$1.run(DebugUIPlugin.java:1243)
+	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:63)
+Caused by: java.lang.Exception: localhost:61234: Connection timed out.
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.processMIOutput(AbstractMIControl.java:1024)
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.run(AbstractMIControl.java:853)
+!SUBENTRY 1 org.eclipse.cdt.dsf.gdb 4 10004 2025-09-01 23:38:12.550
+!MESSAGE Failed to execute MI command:
+target remote localhost:61234
+
+Error message from debugger back end:
+localhost:61234: Connection timed out.
+!STACK 0
+java.lang.Exception: localhost:61234: Connection timed out.
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.processMIOutput(AbstractMIControl.java:1024)
+	at org.eclipse.cdt.dsf.mi.service.command.AbstractMIControl$RxThread.run(AbstractMIControl.java:853)
+
+!ENTRY org.eclipse.cdt.dsf 4 10001 2025-09-02 09:24:23.648
+!MESSAGE Target not available.
+
+!ENTRY org.eclipse.cdt.dsf 4 10001 2025-09-02 09:42:29.067
+!MESSAGE Target not available.
+
+!ENTRY org.eclipse.cdt.dsf 4 10001 2025-09-02 09:51:18.251
+!MESSAGE Target not available.
+
+!ENTRY org.eclipse.cdt.dsf 4 10001 2025-09-02 10:04:51.956
+!MESSAGE Target not available.
+
+!ENTRY org.eclipse.cdt.dsf 4 10001 2025-09-02 21:22:10.111
+!MESSAGE Target not available.
+
+!ENTRY org.eclipse.cdt.dsf 4 10001 2025-09-02 21:29:15.965
+!MESSAGE Target not available.
+
+!ENTRY org.eclipse.cdt.dsf 4 10001 2025-09-02 21:55:44.234
+!MESSAGE Target not available.
+
+!ENTRY org.eclipse.cdt.dsf 4 10001 2025-09-02 22:07:01.887
+!MESSAGE Target not available.
+
+!ENTRY org.eclipse.debug.ui 4 120 2025-09-02 22:10:51.868
+!MESSAGE Error logged from Debug UI: 
+!STACK 0
+java.lang.IllegalStateException: No action found for id: find, fGlobalActionMap: {selectAll=null, find=org.eclipse.debug.internal.ui.viewers.model.VirtualFindAction@34de19fc, copy=org.eclipse.ui.internal.ViewPluginAction@1ce15721, paste=null}
+	at org.eclipse.debug.internal.ui.views.variables.VariablesView.fillContextMenu(VariablesView.java:1090)
+	at org.eclipse.jface.action.MenuManager.fireAboutToShow(MenuManager.java:338)
+	at org.eclipse.jface.action.MenuManager.handleAboutToShow(MenuManager.java:468)
+	at org.eclipse.jface.action.MenuManager$2.menuShown(MenuManager.java:495)
+	at org.eclipse.swt.widgets.TypedListener.handleEvent(TypedListener.java:259)
+	at org.eclipse.swt.widgets.EventTable.sendEvent(EventTable.java:89)
+	at org.eclipse.swt.widgets.Display.sendEvent(Display.java:5854)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1529)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1555)
+	at org.eclipse.swt.widgets.Widget.sendEvent(Widget.java:1534)
+	at org.eclipse.swt.widgets.Menu._setVisible(Menu.java:290)
+	at org.eclipse.swt.widgets.Display.runPopups(Display.java:5106)
+	at org.eclipse.swt.widgets.Display.readAndDispatch(Display.java:4507)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine$5.run(PartRenderingEngine.java:1155)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:342)
+	at org.eclipse.e4.ui.internal.workbench.swt.PartRenderingEngine.run(PartRenderingEngine.java:1046)
+	at org.eclipse.e4.ui.internal.workbench.E4Workbench.createAndRunUI(E4Workbench.java:155)
+	at org.eclipse.ui.internal.Workbench.lambda$3(Workbench.java:648)
+	at org.eclipse.core.databinding.observable.Realm.runWithDefault(Realm.java:342)
+	at org.eclipse.ui.internal.Workbench.createAndRunWorkbench(Workbench.java:555)
+	at org.eclipse.ui.PlatformUI.createAndRunWorkbench(PlatformUI.java:173)
+	at org.eclipse.ui.internal.ide.application.IDEApplication.start(IDEApplication.java:152)
+	at org.eclipse.equinox.internal.app.EclipseAppHandle.run(EclipseAppHandle.java:208)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.runApplication(EclipseAppLauncher.java:136)
+	at org.eclipse.core.runtime.internal.adaptor.EclipseAppLauncher.start(EclipseAppLauncher.java:104)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:402)
+	at org.eclipse.core.runtime.adaptor.EclipseStarter.run(EclipseStarter.java:255)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.eclipse.equinox.launcher.Main.invokeFramework(Main.java:651)
+	at org.eclipse.equinox.launcher.Main.basicRun(Main.java:588)
+	at org.eclipse.equinox.launcher.Main.run(Main.java:1459)
+	at org.eclipse.equinox.launcher.Main.main(Main.java:1432)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-09-02 22:41:48.219
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 63 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-09-02 22:41:48.219
+!MESSAGE Existing sessions are:
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-09-02 22:41:48.220
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 63 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-09-02 22:41:48.220
+!MESSAGE Existing sessions are:
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-09-02 22:41:48.220
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 63 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-09-02 22:41:48.220
+!MESSAGE Existing sessions are:
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-09-02 22:41:48.221
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 63 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-09-02 22:41:48.221
+!MESSAGE Existing sessions are:
+!SESSION 2025-12-14 19:38:57.722 -----------------------------------------------
+eclipse.buildId=Version 1.17.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-12-14 19:39:01.866
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-12-14 19:39:01.867
+!MESSAGE Log4j2 initialized with config file /home/nikolai/Documents/NP1_DRONE/software/STM32/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-12-14 19:39:05.380
+!MESSAGE Started RMI Server, listening on port 41337
+!SESSION 2025-12-14 19:39:40.076 -----------------------------------------------
+eclipse.buildId=Version 1.17.0
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=linux, ARCH=x86_64, WS=gtk, NL=en_US
+Command-line arguments:  -os linux -ws gtk -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-12-14 19:39:43.732
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-12-14 19:39:43.732
+!MESSAGE Log4j2 initialized with config file /home/nikolai/Documents/NP1_DRONE/software/STM32/.metadata/.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-12-14 19:39:46.420
+!MESSAGE Started RMI Server, listening on port 41337

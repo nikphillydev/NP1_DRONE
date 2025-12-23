@@ -42,7 +42,15 @@
 #define REG_INT_THS_L				0x32
 #define REG_INT_THS_H				0x33
 
+/* ACCESS TYPES */
+#define LIS3MDL_READ_BURST			0x80
+
+/* I2C ADDRESS */
 #define LIS3MDL_ADDRESS				0x1C
+
+/* CUTOFF FREQUENCY */
+#define CUTOFF						10.0f		// Hz
+
 
 struct LIS3MDL_CalibrationData
 {
@@ -51,7 +59,6 @@ struct LIS3MDL_CalibrationData
 	const float y_offset = -0.2835;
 	const float z_offset = -0.1110;
 };
-
 
 class LIS3MDL
 {
@@ -81,7 +88,7 @@ private:
     LIS3MDL_CalibrationData calib_data;
 
 	// Conversion constant
-	const float LSB_per_gauss = 6842.0; 		/* Based on +-4G range */
+	const float LSB_per_gauss = 6842.0; 		// Based on +-4G range
 
 	// Magnetometer data mutex
 	osMutexId_t& mag_data_mutex;

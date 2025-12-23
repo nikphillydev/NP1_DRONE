@@ -30,7 +30,7 @@ void US100_Ultrasonic::finish_distance_transfer()
 	uint16_t distance_mm = (rx_buffer_DMA[0] << 8) | rx_buffer_DMA[1];
 
 	np::lock_guard lock(data_mutex);
-	distance = distance_filter.update(distance_mm / 1000.0f);
+	distance = distance_filter.update(static_cast<float>(distance_mm) / 1000.0f);
 	if (distance > MAX_DISTANCE_M)
 	{
 		distance = MAX_DISTANCE_M;

@@ -68,7 +68,6 @@ bool LIS3MDL::init()
 
 	// Initilize IIR Filters
 	float ODR = 40;				// Hz
-	float CUTOFF = 10;			// Hz
 	for (size_t i = 0; i < filters.size(); i++)
 	{
 		filters[i] = std::make_unique<IIRFilter>(CUTOFF, ODR);
@@ -144,11 +143,7 @@ bool LIS3MDL::read_register(uint8_t reg_addr, uint8_t* rx_data, uint16_t data_le
 {
 	bool status = false;
 
-	if (data_len > 1)
-	{
-		// In order to read multiple bytes, it is necessary to assert the most significant bit of the address field
-		reg_addr |= 0x80;
-	}
+	if (data_len > 1) reg_addr |= LIS3MDL_READ_BURST;
 
 	{
 		np::lock_guard lock(i2c_mutex);
@@ -157,7 +152,7 @@ bool LIS3MDL::read_register(uint8_t reg_addr, uint8_t* rx_data, uint16_t data_le
 
 	if (!status)
 	{
-		USB_Log("LIS3MDL register read failed.\n", ERR);
+		USB_Log("LIS3MDL register read failed.", ERR);
 	}
 
 	return status;
@@ -173,7 +168,7 @@ bool LIS3MDL::write_register(uint8_t reg_addr, uint8_t* tx_data, uint16_t data_l
 
 	if (!status)
 	{
-		USB_Log("LIS3MDL register write failed.\n", ERR);
+		USB_Log("LIS3MDL register write failed.", ERR);
 	}
 
 	return status;

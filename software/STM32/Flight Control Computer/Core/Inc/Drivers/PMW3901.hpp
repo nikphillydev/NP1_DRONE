@@ -39,7 +39,11 @@
 #define REG_RAW_DATA_GRAB_STATUS        0x59
 #define REG_INVERSE_PRODUCT_ID          0x5F
 
+/* ACCESS TYPES */
+#define PMW3901_READ					0x00
+#define PMW3901_WRITE					0x80
 
+/* CONSTANTS AND SCALERS */
 #define FOV_DEG							42
 #define RES_PIX							30
 #define MOTION_SCALER					8		// Determined experimentally
@@ -89,6 +93,6 @@ private:
 	osMutexId_t& data_mutex;
 
 	// Filter for delta x,y data
-	MovingAverageFilter<int16_t> delta_x_filter;
-	MovingAverageFilter<int16_t> delta_y_filter;
+	MovingAverageFilter<float> delta_x_filter;
+	MovingAverageFilter<float> delta_y_filter;
 };

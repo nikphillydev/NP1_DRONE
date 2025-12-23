@@ -40,6 +40,9 @@ void MX_GPIO_Init(void);
 
 /* USER CODE BEGIN Prototypes */
 
+void GPIO_Enable_EXTI0_IRQn();
+void GPIO_Disable_EXTI0_IRQn();
+
 /* USER CODE END Prototypes */
 
 #ifdef __cplusplus

@@ -49,6 +49,7 @@ extern osMutexId_t stateMutexHandle;
 extern osMutexId_t uart2MutexHandle;
 extern osMutexId_t ultrasonicDataMutexHandle;
 extern osMutexId_t flowDataMutexHandle;
+extern osMutexId_t cc2500StatusMutexHandle;
 
 /* USER CODE END ET */
 
@@ -86,6 +87,7 @@ void Error_Handler(void);
 #define ACCEL_CS_GPIO_Port GPIOA
 #define CC2500_GDO0_Pin GPIO_PIN_0
 #define CC2500_GDO0_GPIO_Port GPIOB
+#define CC2500_GDO0_EXTI_IRQn EXTI0_IRQn
 #define CC2500_CS_Pin GPIO_PIN_1
 #define CC2500_CS_GPIO_Port GPIOB
 #define CC2500_GDO2_Pin GPIO_PIN_2

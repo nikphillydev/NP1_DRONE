@@ -82,7 +82,6 @@ bool BMI088::init()
 
 	// Initialize accelerometer IIR Filters
 	float ACCEL_ODR = 400;				// Hz
-	float ACCEL_CUTOFF = 10;			// Hz
 	for (size_t i = 0; i < accel_filters.size(); i++)
 	{
 		accel_filters[i] = std::make_unique<IIRFilter>(ACCEL_CUTOFF, ACCEL_ODR);
@@ -147,7 +146,6 @@ bool BMI088::init()
 
 	// Initialize gyroscope IIR Filters
 	float GYRO_ODR = 400;		// Hz
-	float GYRO_CUTOFF = 50;		// Hz
 	for (size_t i = 0; i < gyro_filters.size(); i++)
 	{
 		gyro_filters[i] = std::make_unique<IIRFilter>(GYRO_CUTOFF, GYRO_ODR);
@@ -328,10 +326,10 @@ bool BMI088::read_accel_register(uint8_t reg_addr, uint8_t* rx_data, uint16_t da
 	uint16_t num_bytes = data_len + 2;
 	uint8_t tx_buffer[num_bytes];
 	uint8_t rx_buffer[num_bytes];
-	memset(tx_buffer, 0, num_bytes);
-	memset(rx_buffer, 0, num_bytes);
+	memset(tx_buffer, 0, sizeof(tx_buffer));
+	memset(rx_buffer, 0, sizeof(rx_buffer));
 
-	tx_buffer[0] = 0x80 | reg_addr;	// Read operation
+	tx_buffer[0] = reg_addr | BMI088_READ;
 
 	{
 		np::lock_guard lock(spi_mutex);
@@ -350,7 +348,7 @@ bool BMI088::read_accel_register(uint8_t reg_addr, uint8_t* rx_data, uint16_t da
 	}
 	else
 	{
-		USB_Log("BMI088 accelerometer register read failed.\n", ERR);
+		USB_Log("BMI088 accelerometer register read failed.", ERR);
 	}
 
 	return status;
@@ -362,10 +360,10 @@ bool BMI088::read_gyro_register(uint8_t reg_addr, uint8_t* rx_data, uint16_t dat
 	uint16_t num_bytes = data_len + 1;
 	uint8_t tx_buffer[num_bytes];
 	uint8_t rx_buffer[num_bytes];
-	memset(tx_buffer, 0, num_bytes);
-	memset(rx_buffer, 0, num_bytes);
+	memset(tx_buffer, 0, sizeof(tx_buffer));
+	memset(rx_buffer, 0, sizeof(rx_buffer));
 
-	tx_buffer[0] = 0x80 | reg_addr;	// Read operation
+	tx_buffer[0] = reg_addr | BMI088_READ;
 
 	{
 		np::lock_guard lock(spi_mutex);
@@ -383,7 +381,7 @@ bool BMI088::read_gyro_register(uint8_t reg_addr, uint8_t* rx_data, uint16_t dat
 	}
 	else
 	{
-		USB_Log("BMI088 gyroscope register read failed.\n", ERR);
+		USB_Log("BMI088 gyroscope register read failed.", ERR);
 	}
 
 	return status;
@@ -394,9 +392,9 @@ bool BMI088::write_accel_register(uint8_t reg_addr, uint8_t* tx_data, uint16_t d
 	bool status = false;
 	uint16_t num_bytes = data_len + 1;
 	uint8_t tx_buffer[num_bytes];
-	memset(tx_buffer, 0, num_bytes);
+	memset(tx_buffer, 0, sizeof(tx_buffer));
 
-	tx_buffer[0] = reg_addr;	// Write operation
+	tx_buffer[0] = reg_addr | BMI088_WRITE;
 
 	for (int i = 1; i < num_bytes; i++)
 	{
@@ -412,7 +410,7 @@ bool BMI088::write_accel_register(uint8_t reg_addr, uint8_t* tx_data, uint16_t d
 
 	if (!status)
 	{
-		USB_Log("BMI088 accelerometer register write failed.\n", ERR);
+		USB_Log("BMI088 accelerometer register write failed.", ERR);
 	}
 
 	return status;
@@ -423,9 +421,9 @@ bool BMI088::write_gyro_register(uint8_t reg_addr, uint8_t* tx_data, uint16_t da
 	bool status = false;
 	uint16_t num_bytes = data_len + 1;
 	uint8_t tx_buffer[num_bytes];
-	memset(tx_buffer, 0, num_bytes);
+	memset(tx_buffer, 0, sizeof(tx_buffer));
 
-	tx_buffer[0] = reg_addr;	// Write operation
+	tx_buffer[0] = reg_addr | BMI088_WRITE;
 
 	for (int i = 1; i < num_bytes; i++)
 	{
@@ -441,7 +439,7 @@ bool BMI088::write_gyro_register(uint8_t reg_addr, uint8_t* tx_data, uint16_t da
 
 	if (!status)
 	{
-		USB_Log("BMI088 gyroscope register write failed.\n", ERR);
+		USB_Log("BMI088 gyroscope register write failed.", ERR);
 	}
 
 	return status;

@@ -20,8 +20,8 @@ PMW3901::PMW3901(SPI_HandleTypeDef* spi_handle, osMutexId_t& spi_mutex, GPIO_Typ
 	  cs_port(cs_port),
 	  cs_pin(cs_pin),
 	  data_mutex(data_mutex),
-	  delta_x_filter(2),
-	  delta_y_filter(2) {}
+	  delta_x_filter(4),
+	  delta_y_filter(4) {}
 
 bool PMW3901::init()
 {
@@ -42,13 +42,16 @@ bool PMW3901::init()
 
 	// Check PMW3901 product ID and inverse product ID
 	rx_data[0] = 0;
+	rx_data[1] = 0;
+
 	status = read_register(REG_PRODUCT_ID, rx_data, 1);
 	if (!status) return status;
 	osDelay(10);
-	rx_data[1] = 0;
+
 	status = read_register(REG_INVERSE_PRODUCT_ID, rx_data+1, 1);
 	if (!status) return status;
 	osDelay(10);
+
 	if (rx_data[0] == 0x49 && rx_data[1] == 0xB6)
 	{
 		USB_Log("Found PMW3901 optical flow sensor, starting initialization.", CRITICAL);
@@ -118,9 +121,12 @@ bool PMW3901::update()
 	status = read_register(REG_DELTA_Y_L, rx_data+4, 1);
 	if (!status) return status;
 
+	int16_t x = (rx_data[1] << 8) | rx_data[2];
+	int16_t y = (rx_data[3] << 8) | rx_data[4];
+
 	np::lock_guard lock(data_mutex);
-	delta_raw[0] = delta_x_filter.update((rx_data[1] << 8) | rx_data[2]);
-	delta_raw[1] = delta_y_filter.update((rx_data[3] << 8) | rx_data[4]);
+	delta_raw[0] = delta_x_filter.update(static_cast<float>(x));
+	delta_raw[1] = delta_y_filter.update(static_cast<float>(y));
 	return status;
 }
 
@@ -571,10 +577,10 @@ bool PMW3901::read_register(uint8_t reg_addr, uint8_t* rx_data, uint16_t data_le
 	uint16_t num_bytes = data_len + 1;
 	uint8_t tx_buffer[num_bytes];
 	uint8_t rx_buffer[num_bytes];
-	memset(tx_buffer, 0, num_bytes);
-	memset(rx_buffer, 0, num_bytes);
+	memset(tx_buffer, 0, sizeof(tx_buffer));
+	memset(rx_buffer, 0, sizeof(rx_buffer));
 
-	tx_buffer[0] = reg_addr;	// Read operation
+	tx_buffer[0] = reg_addr | PMW3901_READ;
 
 	{
 		np::lock_guard lock(spi_mutex);
@@ -592,7 +598,7 @@ bool PMW3901::read_register(uint8_t reg_addr, uint8_t* rx_data, uint16_t data_le
 	}
 	else
 	{
-		USB_Log("PMW3901 register read failed.\n", ERR);
+		USB_Log("PMW3901 register read failed.", ERR);
 	}
 
 	return status;
@@ -603,9 +609,9 @@ bool PMW3901::write_register(uint8_t reg_addr, uint8_t* tx_data, uint16_t data_l
 	bool status = false;
 	uint16_t num_bytes = data_len + 1;
 	uint8_t tx_buffer[num_bytes];
-	memset(tx_buffer, 0, num_bytes);
+	memset(tx_buffer, 0, sizeof(tx_buffer));
 
-	tx_buffer[0] = 0x80 | reg_addr;		// Write operation
+	tx_buffer[0] = reg_addr | PMW3901_WRITE;
 
 	for (int i = 1; i < num_bytes; i++)
 	{
@@ -621,7 +627,7 @@ bool PMW3901::write_register(uint8_t reg_addr, uint8_t* tx_data, uint16_t data_l
 
 	if (!status)
 	{
-		USB_Log("PMW3901 register write failed.\n", ERR);
+		USB_Log("PMW3901 register write failed.", ERR);
 	}
 
 	return status;

@@ -56,6 +56,8 @@ extern volatile unsigned long ulHighFrequencyTimerCounts;
 
 /* External variables --------------------------------------------------------*/
 extern PCD_HandleTypeDef hpcd_USB_FS;
+extern FDCAN_HandleTypeDef hfdcan1;
+extern FDCAN_HandleTypeDef hfdcan2;
 extern TIM_HandleTypeDef htim16;
 extern DMA_HandleTypeDef hdma_usart2_rx;
 extern DMA_HandleTypeDef hdma_usart2_tx;
@@ -165,6 +167,20 @@ void DebugMon_Handler(void)
 /******************************************************************************/
 
 /**
+  * @brief This function handles EXTI line0 interrupt.
+  */
+void EXTI0_IRQHandler(void)
+{
+  /* USER CODE BEGIN EXTI0_IRQn 0 */
+
+  /* USER CODE END EXTI0_IRQn 0 */
+  HAL_GPIO_EXTI_IRQHandler(CC2500_GDO0_Pin);
+  /* USER CODE BEGIN EXTI0_IRQn 1 */
+
+  /* USER CODE END EXTI0_IRQn 1 */
+}
+
+/**
   * @brief This function handles EXTI line1 interrupt.
   */
 void EXTI1_IRQHandler(void)
@@ -218,6 +234,20 @@ void USB_LP_IRQHandler(void)
   /* USER CODE BEGIN USB_LP_IRQn 1 */
 
   /* USER CODE END USB_LP_IRQn 1 */
+}
+
+/**
+  * @brief This function handles FDCAN1 interrupt 0.
+  */
+void FDCAN1_IT0_IRQHandler(void)
+{
+  /* USER CODE BEGIN FDCAN1_IT0_IRQn 0 */
+
+  /* USER CODE END FDCAN1_IT0_IRQn 0 */
+  HAL_FDCAN_IRQHandler(&hfdcan1);
+  /* USER CODE BEGIN FDCAN1_IT0_IRQn 1 */
+
+  /* USER CODE END FDCAN1_IT0_IRQn 1 */
 }
 
 /**
@@ -278,6 +308,20 @@ void TIM6_DAC_IRQHandler(void)
   /* USER CODE BEGIN TIM6_DAC_IRQn 1 */
 
   /* USER CODE END TIM6_DAC_IRQn 1 */
+}
+
+/**
+  * @brief This function handles FDCAN2 interrupt 0.
+  */
+void FDCAN2_IT0_IRQHandler(void)
+{
+  /* USER CODE BEGIN FDCAN2_IT0_IRQn 0 */
+
+  /* USER CODE END FDCAN2_IT0_IRQn 0 */
+  HAL_FDCAN_IRQHandler(&hfdcan2);
+  /* USER CODE BEGIN FDCAN2_IT0_IRQn 1 */
+
+  /* USER CODE END FDCAN2_IT0_IRQn 1 */
 }
 
 /* USER CODE BEGIN 1 */

@@ -1,0 +1,10 @@
+22:40:38 **** Build of configuration Debug for project RadioTesting ****
+make -j20 all 
+arm-none-eabi-size  RadioTesting.elf 
+   text	   data	    bss	    dec	    hex	filename
+  25516	     12	   3220	  28748	   704c	RadioTesting.elf
+Finished building: default.size.stdout
+ 
+
+22:40:39 Build Finished. 0 errors, 0 warnings. (took 267ms)
+

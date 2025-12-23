@@ -287,7 +287,7 @@ bool BMP388::compute_startup_pressure()
 	bool status = false;
 	uint8_t tx_data[2];
 	memset(tx_data, 0, sizeof(tx_data));
-	uint8_t sample_num = 50;
+	uint8_t sample_num = 75;
 	float running_pressure = 0;
 
 	for (int i = 0; i < sample_num; i++)
@@ -321,7 +321,7 @@ bool BMP388::read_register(uint8_t reg_addr, uint8_t* rx_data, uint16_t data_len
 
 	if (!status)
 	{
-		USB_Log("BMP388 register read failed.\n", ERR);
+		USB_Log("BMP388 register read failed.", ERR);
 	}
 
 	return status;
@@ -337,7 +337,7 @@ bool BMP388::write_register(uint8_t reg_addr, uint8_t* tx_data, uint16_t data_le
 
 	if (!status)
 	{
-		USB_Log("BMP388 register write failed.\n", ERR);
+		USB_Log("BMP388 register write failed.", ERR);
 	}
 
 	return status;

@@ -7,12 +7,15 @@
  *      Using NED coordinate system.
  *
  *      HOW TO TUNE SENSOR FUSION ALGORITHM:
- *      	- Accelerometer:
- *      		LPF cutoff frequency
+ *      	- IMU:
+ *      		Accelerometer LPF cutoff frequency
+ *      		Gyroscope LPF cutoff frequency
  *      	- Optical flow sensor:
  *      		MOTION_SCALER		(scale magnitude)
  *      		CORRECTION_SCALER	(correct for roll and pitch changes)
- *      	Ensure integrated velocity and velocity from optical flow match in phase and magnitude.
+ *
+ *      	*** Ensure integrated velocity and camera velocity (from optical flow) match in phase and magnitude, then ...
+ *
  *      	- Fusion:
  *      		XY_VEL_RESET_FREQ	(frequency to reset integrated XY velocity to camera velocity)
  *      		XY_VELOCITY_ALPHA	(degree of trust placed on integrated XY velocity)
@@ -113,7 +116,6 @@ std::array<float, 3> acceleration_BODY {};			// Acceleration in BODY frame
 std::array<float, 3> prev_acceleration_BODY {};		// ...Needed for trapezoidal integration
 std::array<float, 3> vel_integrated_BODY {};		// Velocity integrated from acceleration data in BODY frame
 std::array<float, 3> velocity_BODY {};				// Velocity in BODY frame (from complimentary filter)
-std::array<float, 3> prev_velocity_BODY {};			// ...Needed for trapezoidal integration
 float rf_distance_WORLD = 0;						// Distance from range finder in WORLD frame
 float altitude = 0;									// Altitude in WORLD frame (from complimentary filter)
 
@@ -259,7 +261,7 @@ void sensor_fusion_thread()
 			    R[2][2] = 1.0f - 2.0f * (qx*qx + qy*qy);
 
 			    // Extract BODY acceleration
-			    acceleration_BODY[0] = data_out.linear_acceleration[0];
+			    acceleration_BODY[0] = data_out.linear_acceleration[0];		// in m/s^2
 			    acceleration_BODY[1] = data_out.linear_acceleration[1];
 			    acceleration_BODY[2] = data_out.linear_acceleration[2];
 
@@ -340,7 +342,7 @@ void sensor_fusion_thread()
 	}
 	else
 	{
-		USB_Log("Failed to initialize sensors.", ERR);
+		USB_Log("SENSOR FUSION THREAD: Failed to initialize sensors.", ERR);
 		osDelay(10);
 		vTaskDelete( NULL );
 	}
@@ -352,6 +354,8 @@ void fusion_logging_thread()
 	USB_Log("--- FUSION LOGGING THREAD STARTING ---", CRITICAL);
 	osDelay(100);
 
+//	vTaskDelete( NULL );
+
 	char state_log[128];
 	while (1)
 	{
@@ -362,7 +366,7 @@ void fusion_logging_thread()
 					"%.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f",
 					drone_state.rotation[0], drone_state.rotation[1], drone_state.rotation[2],
 					drone_state.quaternion[0], drone_state.quaternion[1], drone_state.quaternion[2], drone_state.quaternion[3],
-					drone_state.xy_velocity[0], drone_state.xy_velocity[1],
+					vel_integrated_BODY[1], vel_camera_BODY[1],
 					drone_state.altitude);
 		}
 		USB_Log(state_log, STATE);		// Log drone state data

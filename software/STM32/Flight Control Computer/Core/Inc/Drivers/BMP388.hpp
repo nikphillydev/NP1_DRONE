@@ -66,6 +66,7 @@
 #define REG_NVM_PAR_P10			0x44
 #define REG_NVM_PAR_P11			0x45
 
+/* I2C ADDRESS */
 #define BMP388_ADDRESS			0x76
 
 struct BMP388_CalibrationData

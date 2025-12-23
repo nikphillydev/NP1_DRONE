@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="z_distance_BODY"/>
+		<item key="selection" value="prev_velocity_BODY"/>
 		<item key="wrap" value="true"/>
-		<item key="casesensitive" value="false"/>
-		<item key="wholeword" value="false"/>
+		<item key="casesensitive" value="true"/>
+		<item key="wholeword" value="true"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="prev_velocity_BODY"/>
+			<item value="CRITICAL"/>
+			<item value="ERR"/>
+			<item value="read_calibration_nvm"/>
+			<item value="reset_xy_counter"/>
 			<item value="z_distance_BODY"/>
 			<item value="barometer"/>
 			<item value="XY_VEL_RESET_FREQ"/>
@@ -18,13 +23,11 @@
 			<item value="delta_m"/>
 			<item value="US100"/>
 			<item value="q3"/>
-			<item value="q2"/>
-			<item value="q1"/>
-			<item value="q0"/>
-			<item value="ulHighFrequencyTimerTicks"/>
-			<item value="spi_mutex"/>
 		</list>
 		<list key="replacehistory">
+			<item value="INFO"/>
+			<item value="WARN"/>
+			<item value="counter"/>
 			<item value="range_finder"/>
 			<item value="qz"/>
 			<item value="qy"/>
@@ -37,9 +40,6 @@
 			<item value="&amp;gyro_cs_port"/>
 			<item value="&amp;acc_cs_pin"/>
 			<item value="&amp;acc_cs_port"/>
-			<item value="write_gyro_register"/>
-			<item value="read_gyro_register"/>
-			<item value="read_accel_register"/>
 		</list>
 	</section>
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog_dialogBounds">

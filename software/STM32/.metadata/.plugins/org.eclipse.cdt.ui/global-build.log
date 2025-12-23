@@ -1,15 +1,6 @@
-10:29:55 **** Incremental Build of configuration Debug for project Flight Control Computer ****
+14:15:46 **** Incremental Build of configuration Debug for project Flight Control Computer ****
 make -j20 all 
-arm-none-eabi-g++ "../Core/Src/Threads/sensor.cpp" -mcpu=cortex-m4 -std=gnu++20 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Core/Inc/Threads -I../Core/Inc/Utility -I../Core/Inc/Drivers -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Middlewares/ST/STM32_MotionFX_Library/Inc -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Threads/sensor.d" -MT"Core/Src/Threads/sensor.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Threads/sensor.o"
-../Core/Src/Threads/sensor.cpp: In function 'void sensor_fusion_thread()':
-../Core/Src/Threads/sensor.cpp:311:37: error: 'reset_xy_counter' was not declared in this scope
-  311 |                                 if (reset_xy_counter % reset_xy_period_multiple == 0) {
-      |                                     ^~~~~~~~~~~~~~~~
-make: *** [Core/Src/Threads/subdir.mk:19: Core/Src/Threads/sensor.o] Error 1
-"make -j20 all" terminated with exit code 2. Build might be incomplete.
-10:30:02 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-g++ "../Core/Src/Threads/sensor.cpp" -mcpu=cortex-m4 -std=gnu++20 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Core/Inc/Threads -I../Core/Inc/Utility -I../Core/Inc/Drivers -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Middlewares/ST/STM32_MotionFX_Library/Inc -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Threads/sensor.d" -MT"Core/Src/Threads/sensor.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Threads/sensor.o"
+arm-none-eabi-g++ "../Core/Src/Threads/radio.cpp" -mcpu=cortex-m4 -std=gnu++20 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Core/Inc/Threads -I../Core/Inc/Utility -I../Core/Inc/Drivers -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Middlewares/ST/STM32_MotionFX_Library/Inc -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Threads/radio.d" -MT"Core/Src/Threads/radio.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Threads/radio.o"
 arm-none-eabi-g++ -o "Flight Control Computer.elf" @"objects.list"  -l:MotionFX_CM4F_wc32_ot_hard.a -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--cref -Wl,--gc-sections -static -L../Middlewares/ST/STM32_MotionFX_Library/Lib -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.linux64_1.1.0.202410170702/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld: warning: Flight Control Computer.elf has a LOAD segment with RWX permissions
 Finished building target: Flight Control Computer.elf
@@ -17,15 +8,14 @@ Finished building target: Flight Control Computer.elf
 arm-none-eabi-size  Flight\ Control\ Computer.elf 
 arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
    text	   data	    bss	    dec	    hex	filename
- 164768	    896	 105304	 270968	  42278	Flight Control Computer.elf
+ 168760	    900	 112040	 281700	  44c64	Flight Control Computer.elf
 Finished building: default.size.stdout
  
 Finished building: Flight Control Computer.list
  
-10:35:43 **** Incremental Build of configuration Debug for project Flight Control Computer ****
+16:45:09 **** Incremental Build of configuration Debug for project Flight Control Computer ****
 make -j20 all 
-arm-none-eabi-g++ "../Core/Src/Threads/sensor.cpp" -mcpu=cortex-m4 -std=gnu++20 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Core/Inc/Threads -I../Core/Inc/Utility -I../Core/Inc/Drivers -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Middlewares/ST/STM32_MotionFX_Library/Inc -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Threads/sensor.d" -MT"Core/Src/Threads/sensor.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Threads/sensor.o"
-arm-none-eabi-g++ "../Core/Src/Drivers/BMP388.cpp" -mcpu=cortex-m4 -std=gnu++20 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Core/Inc/Threads -I../Core/Inc/Utility -I../Core/Inc/Drivers -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Middlewares/ST/STM32_MotionFX_Library/Inc -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/BMP388.d" -MT"Core/Src/Drivers/BMP388.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/BMP388.o"
+arm-none-eabi-g++ "../Core/Src/Threads/radio.cpp" -mcpu=cortex-m4 -std=gnu++20 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Core/Inc/Threads -I../Core/Inc/Utility -I../Core/Inc/Drivers -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Middlewares/ST/STM32_MotionFX_Library/Inc -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Threads/radio.d" -MT"Core/Src/Threads/radio.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Threads/radio.o"
 arm-none-eabi-g++ -o "Flight Control Computer.elf" @"objects.list"  -l:MotionFX_CM4F_wc32_ot_hard.a -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--cref -Wl,--gc-sections -static -L../Middlewares/ST/STM32_MotionFX_Library/Lib -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.linux64_1.1.0.202410170702/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld: warning: Flight Control Computer.elf has a LOAD segment with RWX permissions
 Finished building target: Flight Control Computer.elf
@@ -33,14 +23,14 @@ Finished building target: Flight Control Computer.elf
 arm-none-eabi-size  Flight\ Control\ Computer.elf 
 arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
    text	   data	    bss	    dec	    hex	filename
- 164840	    896	 105328	 271064	  422d8	Flight Control Computer.elf
+ 168776	    900	 112040	 281716	  44c74	Flight Control Computer.elf
 Finished building: default.size.stdout
  
 Finished building: Flight Control Computer.list
  
-10:37:10 **** Incremental Build of configuration Debug for project Flight Control Computer ****
+16:46:53 **** Incremental Build of configuration Debug for project Flight Control Computer ****
 make -j20 all 
-arm-none-eabi-g++ "../Core/Src/Drivers/BMP388.cpp" -mcpu=cortex-m4 -std=gnu++20 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Core/Inc/Threads -I../Core/Inc/Utility -I../Core/Inc/Drivers -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Middlewares/ST/STM32_MotionFX_Library/Inc -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/BMP388.d" -MT"Core/Src/Drivers/BMP388.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/BMP388.o"
+arm-none-eabi-g++ "../Core/Src/Threads/radio.cpp" -mcpu=cortex-m4 -std=gnu++20 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Core/Inc/Threads -I../Core/Inc/Utility -I../Core/Inc/Drivers -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Middlewares/ST/STM32_MotionFX_Library/Inc -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Threads/radio.d" -MT"Core/Src/Threads/radio.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Threads/radio.o"
 arm-none-eabi-g++ -o "Flight Control Computer.elf" @"objects.list"  -l:MotionFX_CM4F_wc32_ot_hard.a -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--cref -Wl,--gc-sections -static -L../Middlewares/ST/STM32_MotionFX_Library/Lib -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.linux64_1.1.0.202410170702/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld: warning: Flight Control Computer.elf has a LOAD segment with RWX permissions
 Finished building target: Flight Control Computer.elf
@@ -48,58 +38,12 @@ Finished building target: Flight Control Computer.elf
 arm-none-eabi-size  Flight\ Control\ Computer.elf 
 arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
    text	   data	    bss	    dec	    hex	filename
- 164872	    896	 105328	 271096	  422f8	Flight Control Computer.elf
+ 168760	    900	 112040	 281700	  44c64	Flight Control Computer.elf
 Finished building: default.size.stdout
  
 Finished building: Flight Control Computer.list
  
-10:38:18 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-g++ "../Core/Src/Threads/sensor.cpp" -mcpu=cortex-m4 -std=gnu++20 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Core/Inc/Threads -I../Core/Inc/Utility -I../Core/Inc/Drivers -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Middlewares/ST/STM32_MotionFX_Library/Inc -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Threads/sensor.d" -MT"Core/Src/Threads/sensor.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Threads/sensor.o"
-arm-none-eabi-g++ "../Core/Src/Drivers/BMP388.cpp" -mcpu=cortex-m4 -std=gnu++20 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Core/Inc/Threads -I../Core/Inc/Utility -I../Core/Inc/Drivers -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Middlewares/ST/STM32_MotionFX_Library/Inc -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/BMP388.d" -MT"Core/Src/Drivers/BMP388.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/BMP388.o"
-arm-none-eabi-g++ -o "Flight Control Computer.elf" @"objects.list"  -l:MotionFX_CM4F_wc32_ot_hard.a -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--cref -Wl,--gc-sections -static -L../Middlewares/ST/STM32_MotionFX_Library/Lib -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-/opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.linux64_1.1.0.202410170702/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld: warning: Flight Control Computer.elf has a LOAD segment with RWX permissions
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
- 164872	    896	 105328	 271096	  422f8	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-10:39:16 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-g++ "../Core/Src/Drivers/BMP388.cpp" -mcpu=cortex-m4 -std=gnu++20 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Core/Inc/Threads -I../Core/Inc/Utility -I../Core/Inc/Drivers -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Middlewares/ST/STM32_MotionFX_Library/Inc -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/BMP388.d" -MT"Core/Src/Drivers/BMP388.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/BMP388.o"
-arm-none-eabi-g++ -o "Flight Control Computer.elf" @"objects.list"  -l:MotionFX_CM4F_wc32_ot_hard.a -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--cref -Wl,--gc-sections -static -L../Middlewares/ST/STM32_MotionFX_Library/Lib -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-/opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.linux64_1.1.0.202410170702/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld: warning: Flight Control Computer.elf has a LOAD segment with RWX permissions
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
- 164872	    896	 105328	 271096	  422f8	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-10:42:06 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-g++ "../Core/Src/Drivers/BMP388.cpp" -mcpu=cortex-m4 -std=gnu++20 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Core/Inc/Threads -I../Core/Inc/Utility -I../Core/Inc/Drivers -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Middlewares/ST/STM32_MotionFX_Library/Inc -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/BMP388.d" -MT"Core/Src/Drivers/BMP388.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/BMP388.o"
-arm-none-eabi-g++ -o "Flight Control Computer.elf" @"objects.list"  -l:MotionFX_CM4F_wc32_ot_hard.a -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--cref -Wl,--gc-sections -static -L../Middlewares/ST/STM32_MotionFX_Library/Lib -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-/opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.linux64_1.1.0.202410170702/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld: warning: Flight Control Computer.elf has a LOAD segment with RWX permissions
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
- 164872	    896	 105328	 271096	  422f8	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-10:45:23 **** Incremental Build of configuration Debug for project Flight Control Computer ****
+16:48:37 **** Incremental Build of configuration Debug for project Flight Control Computer ****
 make -j20 all 
 arm-none-eabi-g++ "../Core/Src/Threads/sensor.cpp" -mcpu=cortex-m4 -std=gnu++20 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Core/Inc/Threads -I../Core/Inc/Utility -I../Core/Inc/Drivers -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Middlewares/ST/STM32_MotionFX_Library/Inc -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Threads/sensor.d" -MT"Core/Src/Threads/sensor.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Threads/sensor.o"
 arm-none-eabi-g++ -o "Flight Control Computer.elf" @"objects.list"  -l:MotionFX_CM4F_wc32_ot_hard.a -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--cref -Wl,--gc-sections -static -L../Middlewares/ST/STM32_MotionFX_Library/Lib -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
@@ -109,14 +53,14 @@ Finished building target: Flight Control Computer.elf
 arm-none-eabi-size  Flight\ Control\ Computer.elf 
 arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
    text	   data	    bss	    dec	    hex	filename
- 165032	    896	 105328	 271256	  42398	Flight Control Computer.elf
+ 168760	    900	 112040	 281700	  44c64	Flight Control Computer.elf
 Finished building: default.size.stdout
  
 Finished building: Flight Control Computer.list
  
-10:46:43 **** Incremental Build of configuration Debug for project Flight Control Computer ****
+18:34:22 **** Incremental Build of configuration Debug for project Flight Control Computer ****
 make -j20 all 
-arm-none-eabi-g++ "../Core/Src/Drivers/BMP388.cpp" -mcpu=cortex-m4 -std=gnu++20 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Core/Inc/Threads -I../Core/Inc/Utility -I../Core/Inc/Drivers -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Middlewares/ST/STM32_MotionFX_Library/Inc -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/BMP388.d" -MT"Core/Src/Drivers/BMP388.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/BMP388.o"
+arm-none-eabi-g++ "../Core/Src/Threads/radio.cpp" -mcpu=cortex-m4 -std=gnu++20 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Core/Inc/Threads -I../Core/Inc/Utility -I../Core/Inc/Drivers -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Middlewares/ST/STM32_MotionFX_Library/Inc -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Threads/radio.d" -MT"Core/Src/Threads/radio.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Threads/radio.o"
 arm-none-eabi-g++ -o "Flight Control Computer.elf" @"objects.list"  -l:MotionFX_CM4F_wc32_ot_hard.a -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--cref -Wl,--gc-sections -static -L../Middlewares/ST/STM32_MotionFX_Library/Lib -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.linux64_1.1.0.202410170702/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld: warning: Flight Control Computer.elf has a LOAD segment with RWX permissions
 Finished building target: Flight Control Computer.elf
@@ -124,37 +68,7 @@ Finished building target: Flight Control Computer.elf
 arm-none-eabi-size  Flight\ Control\ Computer.elf 
 arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
    text	   data	    bss	    dec	    hex	filename
- 165032	    896	 105328	 271256	  42398	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-10:47:31 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-g++ "../Core/Src/Drivers/BMP388.cpp" -mcpu=cortex-m4 -std=gnu++20 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Core/Inc/Threads -I../Core/Inc/Utility -I../Core/Inc/Drivers -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Middlewares/ST/STM32_MotionFX_Library/Inc -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Drivers/BMP388.d" -MT"Core/Src/Drivers/BMP388.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Drivers/BMP388.o"
-arm-none-eabi-g++ -o "Flight Control Computer.elf" @"objects.list"  -l:MotionFX_CM4F_wc32_ot_hard.a -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--cref -Wl,--gc-sections -static -L../Middlewares/ST/STM32_MotionFX_Library/Lib -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-/opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.linux64_1.1.0.202410170702/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld: warning: Flight Control Computer.elf has a LOAD segment with RWX permissions
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
- 165032	    896	 105328	 271256	  42398	Flight Control Computer.elf
-Finished building: default.size.stdout
- 
-Finished building: Flight Control Computer.list
- 
-10:49:29 **** Incremental Build of configuration Debug for project Flight Control Computer ****
-make -j20 all 
-arm-none-eabi-g++ "../Core/Src/Threads/sensor.cpp" -mcpu=cortex-m4 -std=gnu++20 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32G474xx -c -I../Core/Inc -I../Core/Inc/Threads -I../Core/Inc/Utility -I../Core/Inc/Drivers -I../Drivers/STM32G4xx_HAL_Driver/Inc -I../Drivers/STM32G4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32G4xx/Include -I../Drivers/CMSIS/Include -I../USB_Device/App -I../USB_Device/Target -I../Middlewares/ST/STM32_USB_Device_Library/Core/Inc -I../Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc -I../Middlewares/Third_Party/FreeRTOS/Source/include -I../Middlewares/Third_Party/FreeRTOS/Source/CMSIS_RTOS_V2 -I../Middlewares/Third_Party/FreeRTOS/Source/portable/GCC/ARM_CM4F -I../Middlewares/ST/STM32_MotionFX_Library/Inc -O0 -ffunction-sections -fdata-sections -fno-exceptions -fno-rtti -fno-use-cxa-atexit -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Src/Threads/sensor.d" -MT"Core/Src/Threads/sensor.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Src/Threads/sensor.o"
-arm-none-eabi-g++ -o "Flight Control Computer.elf" @"objects.list"  -l:MotionFX_CM4F_wc32_ot_hard.a -mcpu=cortex-m4 -T"/home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/STM32G474CETX_FLASH.ld" --specs=nosys.specs -Wl,-Map="Flight Control Computer.map" -Wl,--cref -Wl,--gc-sections -static -L../Middlewares/ST/STM32_MotionFX_Library/Lib -u _printf_float --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
-/opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.ide.mcu.externaltools.gnu-tools-for-stm32.12.3.rel1.linux64_1.1.0.202410170702/tools/bin/../lib/gcc/arm-none-eabi/12.3.1/../../../../arm-none-eabi/bin/ld: warning: Flight Control Computer.elf has a LOAD segment with RWX permissions
-Finished building target: Flight Control Computer.elf
- 
-arm-none-eabi-size  Flight\ Control\ Computer.elf 
-arm-none-eabi-objdump -h -S Flight\ Control\ Computer.elf  > "Flight Control Computer.list"
-   text	   data	    bss	    dec	    hex	filename
- 164872	    896	 105328	 271096	  422f8	Flight Control Computer.elf
+ 168760	    900	 112040	 281700	  44c64	Flight Control Computer.elf
 Finished building: default.size.stdout
  
 Finished building: Flight Control Computer.list

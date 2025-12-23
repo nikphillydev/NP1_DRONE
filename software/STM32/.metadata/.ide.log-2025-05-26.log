@@ -1,0 +1,715 @@
+2025-05-28 21:38:51,636 [INFO] MainUpdater:2872 - connection check result : 10
+2025-05-28 21:38:51,642 [INFO] MainUpdater:2872 - connection check result : 10
+2025-05-28 21:38:51,753 [INFO] I2cTimingTraitement:330 - 0x40621236
+2025-05-28 21:38:51,761 [INFO] MicroXplorer:468 - Change Database Path : 
+2025-05-28 21:38:51,761 [INFO] MicroXplorer:498 - Change Database Version : DB.6.0.130
+2025-05-28 21:38:51,787 [ERROR] ProjectManagerView:394 - 
+java.lang.NullPointerException: Cannot invoke "javax.swing.JTextField.getText()" because the return value of "java.util.List.get(int)" is null
+	at com.st.microxplorer.plugins.projectmanager.gui.ProjectChoiceTab$9.caretUpdate(ProjectChoiceTab.java:2616) ~[filemanager.jar:?]
+	at javax.swing.text.JTextComponent.fireCaretUpdate(JTextComponent.java:408) ~[?:?]
+	at javax.swing.text.JTextComponent$MutableCaretEvent.fire(JTextComponent.java:4484) ~[?:?]
+	at javax.swing.text.JTextComponent$MutableCaretEvent.stateChanged(JTextComponent.java:4506) ~[?:?]
+	at javax.swing.text.DefaultCaret.fireStateChanged(DefaultCaret.java:857) ~[?:?]
+	at javax.swing.text.DefaultCaret.changeCaretPosition(DefaultCaret.java:1343) ~[?:?]
+	at javax.swing.text.DefaultCaret.handleSetDot(DefaultCaret.java:1242) ~[?:?]
+	at javax.swing.text.DefaultCaret.setDot(DefaultCaret.java:1223) ~[?:?]
+	at javax.swing.text.DefaultCaret$Handler.insertUpdate(DefaultCaret.java:1819) ~[?:?]
+	at javax.swing.text.AbstractDocument.fireInsertUpdate(AbstractDocument.java:227) ~[?:?]
+	at javax.swing.text.AbstractDocument.handleInsertString(AbstractDocument.java:781) ~[?:?]
+	at javax.swing.text.AbstractDocument.insertString(AbstractDocument.java:740) ~[?:?]
+	at javax.swing.text.PlainDocument.insertString(PlainDocument.java:131) ~[?:?]
+	at javax.swing.text.AbstractDocument.replace(AbstractDocument.java:699) ~[?:?]
+	at javax.swing.text.JTextComponent.setText(JTextComponent.java:1725) ~[?:?]
+	at com.st.microxplorer.plugins.projectmanager.gui.ProjectChoiceTab.createHeapStackFields(ProjectChoiceTab.java:975) ~[filemanager.jar:?]
+	at com.st.microxplorer.plugins.projectmanager.gui.ProjectChoiceTab.buildLinkSettingsPanel(ProjectChoiceTab.java:3666) ~[filemanager.jar:?]
+	at com.st.microxplorer.plugins.projectmanager.gui.ProjectChoiceTab.defineWindowsFields(ProjectChoiceTab.java:1934) ~[filemanager.jar:?]
+	at com.st.microxplorer.plugins.projectmanager.gui.ProjectChoiceTab.updateSettings(ProjectChoiceTab.java:553) ~[filemanager.jar:?]
+	at com.st.microxplorer.plugins.projectmanager.gui.ProjectSettingsPanel.UpdateDialog(ProjectSettingsPanel.java:245) ~[filemanager.jar:?]
+	at com.st.microxplorer.plugins.projectmanager.ProjectManagerView.propertyChange(ProjectManagerView.java:391) ~[filemanager.jar:?]
+	at java.beans.PropertyChangeSupport.fire(PropertyChangeSupport.java:343) ~[?:?]
+	at java.beans.PropertyChangeSupport.firePropertyChange(PropertyChangeSupport.java:335) ~[?:?]
+	at java.beans.PropertyChangeSupport.firePropertyChange(PropertyChangeSupport.java:268) ~[?:?]
+	at com.st.microxplorer.util.MXPropertyChangeSupport.firePropertyChange(MXPropertyChangeSupport.java:54) ~[STM32CubeMX.jar:?]
+	at com.st.microxplorer.mxsystem.MxSystem.closeConfig(MxSystem.java:899) ~[STM32CubeMX.jar:?]
+	at com.st.microxplorer.maingui.MainPanel.closeConfig(MainPanel.java:789) ~[STM32CubeMX.jar:?]
+	at com.st.microxplorer.plugins.filemanager.engine.OpenFileManager.loadConfigurationFile(OpenFileManager.java:265) ~[filemanager.jar:?]
+	at com.st.microxplorer.plugins.filemanager.engine.MainFileManager.userLoadConfig(MainFileManager.java:340) ~[filemanager.jar:?]
+	at com.st.microxplorer.plugins.filemanager.engine.MainFileManager.userLoadConfig(MainFileManager.java:318) ~[filemanager.jar:?]
+	at com.st.microxplorer.plugins.filemanager.FileManagerView.getSpecificTask(FileManagerView.java:246) ~[filemanager.jar:?]
+	at com.st.stm32cube.common.mx.editor.CubeMxEditor.getMxTabbedPaneInstance(CubeMxEditor.java:1198) ~[com.st.stm32cube.common.mx_6.13.0.202411220809/:?]
+	at com.st.stm32cube.common.mx.editor.CubeMxEditor$12$1.createSwingComponent(CubeMxEditor.java:1068) ~[com.st.stm32cube.common.mx_6.13.0.202411220809/:?]
+	at com.st.stm32cube.common.mx.oss.core.awtswtbridge.EmbeddedSwingComposite.doComponentCreation(EmbeddedSwingComposite.java:492) ~[com.st.stm32cube.common.mx.oss_6.13.0.202411220809/:?]
+	at com.st.stm32cube.common.mx.oss.core.awtswtbridge.EmbeddedSwingComposite$4.run(EmbeddedSwingComposite.java:291) ~[com.st.stm32cube.common.mx.oss_6.13.0.202411220809/:?]
+	at com.st.stm32cube.common.mx.oss.core.awtswtbridge.AwtEnvironment$2.run(AwtEnvironment.java:166) ~[com.st.stm32cube.common.mx.oss_6.13.0.202411220809/:?]
+	at java.awt.event.InvocationEvent.dispatch(InvocationEvent.java:318) ~[?:?]
+	at java.awt.EventQueue.dispatchEventImpl(EventQueue.java:773) ~[?:?]
+	at java.awt.EventQueue$4.run(EventQueue.java:720) ~[?:?]
+	at java.awt.EventQueue$4.run(EventQueue.java:714) ~[?:?]
+	at java.security.AccessController.doPrivileged(AccessController.java:400) ~[?:?]
+	at java.security.ProtectionDomain$JavaSecurityAccessImpl.doIntersectionPrivilege(ProtectionDomain.java:87) ~[?:?]
+	at java.awt.EventQueue.dispatchEvent(EventQueue.java:742) ~[?:?]
+	at java.awt.EventDispatchThread.pumpOneEventForFilters(EventDispatchThread.java:203) ~[?:?]
+	at java.awt.EventDispatchThread.pumpEventsForFilter(EventDispatchThread.java:124) ~[?:?]
+	at java.awt.EventDispatchThread.pumpEventsForHierarchy(EventDispatchThread.java:113) ~[?:?]
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:109) ~[?:?]
+	at java.awt.EventDispatchThread.pumpEvents(EventDispatchThread.java:101) ~[?:?]
+	at java.awt.EventDispatchThread.run(EventDispatchThread.java:90) ~[?:?]
+2025-05-28 21:38:51,793 [WARN] ThirdParty:871 - waiting for thirdparty lock release [close project]
+2025-05-28 21:38:51,793 [INFO] ThirdParty:873 - entering critical section [close project]
+2025-05-28 21:38:51,793 [INFO] ThirdParty:883 - exiting critical section [close project]
+2025-05-28 21:38:51,795 [INFO] PinOutPanel:1589 - setPackage(No Configuration,No Configuration)
+2025-05-28 21:38:51,802 [INFO] UtilMem:75 - Begin LoadConfig() Used Memory: 397491880 Bytes (699400192)
+2025-05-28 21:38:51,803 [INFO] MicroXplorer:468 - Change Database Path : 
+2025-05-28 21:38:51,803 [INFO] MicroXplorer:498 - Change Database Version : DB.6.0.130
+2025-05-28 21:38:51,803 [INFO] OpenFileManager:332 - Change cursor
+2025-05-28 21:38:51,827 [INFO] Mcu:2035 - Initializing MCU STM32G474C(B-C-E)Tx STM32G474CETx STM32G474CET6
+2025-05-28 21:38:53,881 [INFO] Context:748 - Trying to add GPIOservice into a context  which must be forbidden
+2025-05-28 21:38:55,021 [INFO] ApiDbIP:1849 - IP STMicroelectronics.X-CUBE-MEMS1.11.1.0 11.1.0 refparameter STHS34PF80_ADDR is referenced in RefMode but not declared as Refparameter
+2025-05-28 21:38:55,039 [INFO] ApiDbMcu:508 - Load IP Config File for STMicroelectronics.X-CUBE-MEMS1.11.1.0
+2025-05-28 21:38:55,194 [INFO] RtosManager:555 - Registered RTOS mode: class=CMSIS, group=RTOS, mode=CMSIS_V1, owner=FREERTOS
+2025-05-28 21:38:55,194 [INFO] RtosManager:555 - Registered RTOS mode: class=CMSIS, group=RTOS2, mode=CMSIS_V2, owner=FREERTOS
+2025-05-28 21:38:55,195 [INFO] RtosManager:555 - Registered RTOS mode: class=RTOS, group=Core, mode=CMSIS_V1, owner=FREERTOS
+2025-05-28 21:38:55,195 [INFO] RtosManager:555 - Registered RTOS mode: class=RTOS, group=Core, mode=CMSIS_V2, owner=FREERTOS
+2025-05-28 21:38:55,195 [WARN] ModelIntegratedComponent:184 - Missing modes for component STMicroelectronics:FreeRTOS:0.0.1:STMicroelectronics:RTOS:FreeRTOS:Core:::10.2.0:
+2025-05-28 21:38:55,197 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,197 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,197 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,197 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,197 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,197 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,197 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,197 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,197 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,197 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,197 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,197 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,197 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,197 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,197 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,197 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,197 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,197 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,197 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,197 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,197 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,197 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,198 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,198 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,198 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,198 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,198 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,198 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,198 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,198 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,198 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,198 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,198 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,198 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,198 [WARN] ModelIntegratedComponent:63 - No mode defined for component null
+2025-05-28 21:38:55,198 [WARN] ModelPack:524 - Component already loaded: STMicroelectronics:HAL Drivers:0.0.0:STMicroelectronics:Device:STMicro_Driver:XSPI:HAL::0.0.1:HAL_XSPI
+2025-05-28 21:38:55,581 [INFO] ApiDbMcu:508 - Load IP Config File for FREERTOS
+2025-05-28 21:38:55,585 [INFO] ApiDbMcu:508 - Load IP Config File for USB_DEVICE
+2025-05-28 21:38:55,605 [INFO] ThirdPartyModel:298 - Start build external matchings
+2025-05-28 21:38:56,320 [INFO] ThirdPartyModel:316 - End build external matchings
+2025-05-28 21:38:56,356 [INFO] RtosManager:922 - Current active RTOS is FREERTOS [Cortex-M4NS]
+2025-05-28 21:38:56,365 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (Instance) has Id (USART2_RX) currently not set
+2025-05-28 21:38:56,365 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (Request) has Id (USART2_RX) currently not set
+2025-05-28 21:38:56,365 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (Direction) has Id (USART2_RX) currently not set
+2025-05-28 21:38:56,365 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (PeriphInc) has Id (USART2_RX) currently not set
+2025-05-28 21:38:56,365 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (MemInc) has Id (USART2_RX) currently not set
+2025-05-28 21:38:56,366 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (PeriphDataAlignment) has Id (USART2_RX) currently not set
+2025-05-28 21:38:56,366 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (MemDataAlignment) has Id (USART2_RX) currently not set
+2025-05-28 21:38:56,366 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (Mode) has Id (USART2_RX) currently not set
+2025-05-28 21:38:56,366 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (Priority) has Id (USART2_RX) currently not set
+2025-05-28 21:38:56,366 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (SignalID) has Id (USART2_RX) currently not set
+2025-05-28 21:38:56,366 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (Polarity) has Id (USART2_RX) currently not set
+2025-05-28 21:38:56,366 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (RequestNumber) has Id (USART2_RX) currently not set
+2025-05-28 21:38:56,367 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (SyncSignalID) has Id (USART2_RX) currently not set
+2025-05-28 21:38:56,367 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (SyncPolarity) has Id (USART2_RX) currently not set
+2025-05-28 21:38:56,367 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (SyncEnable) has Id (USART2_RX) currently not set
+2025-05-28 21:38:56,367 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (EventEnable) has Id (USART2_RX) currently not set
+2025-05-28 21:38:56,367 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (SyncRequestNumber) has Id (USART2_RX) currently not set
+2025-05-28 21:38:56,367 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (Instance) has Id (USART2_TX) currently not set
+2025-05-28 21:38:56,367 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (Request) has Id (USART2_TX) currently not set
+2025-05-28 21:38:56,367 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (Direction) has Id (USART2_TX) currently not set
+2025-05-28 21:38:56,367 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (PeriphInc) has Id (USART2_TX) currently not set
+2025-05-28 21:38:56,367 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (MemInc) has Id (USART2_TX) currently not set
+2025-05-28 21:38:56,367 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (PeriphDataAlignment) has Id (USART2_TX) currently not set
+2025-05-28 21:38:56,367 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (MemDataAlignment) has Id (USART2_TX) currently not set
+2025-05-28 21:38:56,367 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (Mode) has Id (USART2_TX) currently not set
+2025-05-28 21:38:56,367 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (Priority) has Id (USART2_TX) currently not set
+2025-05-28 21:38:56,367 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (SignalID) has Id (USART2_TX) currently not set
+2025-05-28 21:38:56,367 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (Polarity) has Id (USART2_TX) currently not set
+2025-05-28 21:38:56,367 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (RequestNumber) has Id (USART2_TX) currently not set
+2025-05-28 21:38:56,367 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (SyncSignalID) has Id (USART2_TX) currently not set
+2025-05-28 21:38:56,367 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (SyncPolarity) has Id (USART2_TX) currently not set
+2025-05-28 21:38:56,367 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (SyncEnable) has Id (USART2_TX) currently not set
+2025-05-28 21:38:56,367 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (EventEnable) has Id (USART2_TX) currently not set
+2025-05-28 21:38:56,367 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (DMA) : Parameter (SyncRequestNumber) has Id (USART2_TX) currently not set
+2025-05-28 21:38:56,367 [WARN] IP:2251 - MessageRAMOffset not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,367 [WARN] IP:2251 - RxFifo0ElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,367 [WARN] IP:2251 - RxFifo0ElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,367 [WARN] IP:2251 - RxFifo1ElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,367 [WARN] IP:2251 - RxFifo1ElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,367 [WARN] IP:2251 - RxBuffersNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,367 [WARN] IP:2251 - RxBufferSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,367 [WARN] IP:2251 - TxEventsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,367 [WARN] IP:2251 - TxBuffersNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,367 [WARN] IP:2251 - TxFifoQueueElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,368 [WARN] IP:2251 - TxElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,368 [WARN] IP:2251 - ClockCalibrationCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,368 [WARN] IP:2251 - ClockDividerCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,368 [WARN] IP:2251 - MinOscClkPeriodsCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,368 [WARN] IP:2251 - TimeQuantaPerBitTimeCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,368 [WARN] IP:2251 - WatchdogStartValueCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,368 [WARN] IP:2251 - MessageRAMOffset not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,368 [WARN] IP:2251 - RxFifo0ElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,368 [WARN] IP:2251 - RxFifo0ElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,368 [WARN] IP:2251 - RxFifo1ElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,368 [WARN] IP:2251 - RxFifo1ElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,368 [WARN] IP:2251 - RxBuffersNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,368 [WARN] IP:2251 - RxBufferSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,368 [WARN] IP:2251 - TxEventsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,368 [WARN] IP:2251 - TxBuffersNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,368 [WARN] IP:2251 - TxFifoQueueElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,368 [WARN] IP:2251 - TxElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,368 [WARN] IP:2251 - ClockCalibrationCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,368 [WARN] IP:2251 - ClockDividerCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,369 [WARN] IP:2251 - MinOscClkPeriodsCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,369 [WARN] IP:2251 - TimeQuantaPerBitTimeCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,369 [WARN] IP:2251 - WatchdogStartValueCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:56,373 [INFO] ImportTextPane:218 - (OptionalMessage_ERROR) IP (RCC) : Invalid parameter (FamilyName)
+2025-05-28 21:38:56,555 [INFO] UtilMem:75 - End LoadConfig() Used Memory: 616086400 Bytes (825229312)
+2025-05-28 21:38:56,566 [WARN] ThirdParty:833 - waiting for thirdparty lock release [change project]
+2025-05-28 21:38:56,567 [INFO] ThirdParty:835 - entering critical section [change project]
+2025-05-28 21:38:56,567 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics USBPD 4.1
+2025-05-28 21:38:56,567 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-GNSS1 6.0.0
+2025-05-28 21:38:56,567 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics USB_HOST 2.0.0
+2025-05-28 21:38:56,567 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics FP-SNS-MOTENVWB1 1.4.0
+2025-05-28 21:38:56,567 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AZRTOS-F4 1.1.0
+2025-05-28 21:38:56,567 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics LIBJPEG 8.0.0
+2025-05-28 21:38:56,567 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics FP-ATR-ASTRA1 2.0.2
+2025-05-28 21:38:56,567 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics FP-ATR-ASTRA1 2.0.1
+2025-05-28 21:38:56,567 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :Avnet-IotConnect X-CUBE-IoTC-DA16k-PMOD 1.0.0
+2025-05-28 21:38:56,567 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-SMBUS 2.1.0
+2025-05-28 21:38:56,567 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-WB05N 1.1.0
+2025-05-28 21:38:56,567 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-ISPU 2.1.0
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-FREERTOS 1.2.0
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :wolfSSL I-CUBE-wolfSSL 5.6.6
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-ST60 1.0.0
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-TOUCHGFX 4.23.0
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-TOUCHGFX 4.23.2
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AZRTOS-F7 1.1.0
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AZRTOS-L5 2.0.0
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics USB_DEVICE 2.0.0
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-EEPRMA1 4.2.0
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-NFC6 3.1.0
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :ITTIA_DB I-CUBE-ITTIADB 8.8.0
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics FP-SNS-MOTENV1 4.3.2
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-MEMS1 11.0.0
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics FreeRTOS 0.0.1
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-DPower 1.2.0
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics FP-SNS-FLIGHT1 5.0.2
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AI 9.0.0
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics PDM2PCM 3.3.0
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-DISPLAY 3.0.0
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-BLE1 7.0.0
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-NFC10 1.0.0
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-BLEMGR 4.0.0
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-FREERTOS 1.3.1
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics HAL Drivers 0.0.0
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :emotas I-CUBE-CANOPEN 1.3.0
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-FREERTOS 1.3.0
+2025-05-28 21:38:56,568 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-NFC7 1.0.1
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics MBEDTLS 2.14.1
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :wolfSSL I-CUBE-wolfTPM 3.2.0
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-NFC6 3.0.0
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-BLEMGR 3.1.0
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AI 10.0.0
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics FP-SNS-SMARTAG2 1.2.0
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics FP-SNS-FLIGHT1 5.1.0
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-MEMS1 11.1.0
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AZRTOS-WL 2.0.0
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-DPower 1.3.0
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics FP-SNS-MOTENV1 5.0.0
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics USB_DEVICE 1.0.0
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AI 8.1.0
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :wolfSSL I-CUBE-wolfMQTT 1.19.0
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AZRTOS-L4 2.0.0
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics ThreadX 0.0.2
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :WES I-CUBE-Cesium 1.3.0
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics lwIP 2.1.2
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-SFXS2LP1 4.0.0
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-BLE2 3.3.0
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics PDM2PCM 3.2.0
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AZRTOS-H7 3.3.0
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-NFC9 1.0.0
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-BLE1 7.1.0
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics USB_DEVICE 3.0.0
+2025-05-28 21:38:56,569 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-TCPP 4.1.0
+2025-05-28 21:38:56,570 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-IPS 3.0.0
+2025-05-28 21:38:56,570 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AZRTOS-WB 2.0.0
+2025-05-28 21:38:56,570 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-GNSS1 7.0.0
+2025-05-28 21:38:56,570 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-GNSS1 7.0.1
+2025-05-28 21:38:56,570 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-TOUCHGFX 4.25.0
+2025-05-28 21:38:56,570 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics FP-SNS-STBOX1 2.0.0
+2025-05-28 21:38:56,570 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-ALGOBUILD 1.3.0
+2025-05-28 21:38:56,570 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-MEMS1 11.2.0
+2025-05-28 21:38:56,570 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AZRTOS-G0 1.1.0
+2025-05-28 21:38:56,570 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-SAFEA1 1.2.2
+2025-05-28 21:38:56,570 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-NFC4 3.0.0
+2025-05-28 21:38:56,570 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-SUBG2 5.0.0
+2025-05-28 21:38:56,570 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AZRTOS-H7RS 1.1.0
+2025-05-28 21:38:56,570 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics STM32_WPAN 1.0.0
+2025-05-28 21:38:56,570 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :EmbeddedOffice I-CUBE-FS-RTOS 1.0.1
+2025-05-28 21:38:56,570 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics lwIP 2.0.3
+2025-05-28 21:38:56,570 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics USB_HOST 1.0.0
+2025-05-28 21:38:56,570 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AZRTOS-G4 2.0.0
+2025-05-28 21:38:56,570 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-WB05N 2.0.0
+2025-05-28 21:38:56,570 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics PDM2PCM 3.1.0
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :Infineon AIROC-Wi-Fi-Bluetooth-STM32 1.5.1
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-BLEMGR 3.0.0
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-NFC7 2.0.0
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-TCPP 4.2.0
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :RealThread X-CUBE-RT-Thread_Nano 4.1.1
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics FP-SNS-MOTENVWB1 1.3.1
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics FP-ATR-SIGFOX1 3.2.0
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :quantropi X-CUBE-qispace-sdk-base 1.9.3
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-ISPU 2.0.0
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-EEPRMA1 5.1.0
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics MBEDTLS 2.16.2
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-IPS 3.1.0
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-ALS 1.0.2
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-MEMS1 10.0.0
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-FREERTOS 1.1.0
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-TOUCHGFX 4.24.0
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-TOUCHGFX 4.24.2
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-TOUCHGFX 4.24.1
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :portGmbH I-Cube-SoM-uGOAL 1.1.0
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-ALS 1.0.1
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics ThreadX 1.0.0
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :SEGGER I-CUBE-embOS 1.3.1
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-ALGOBUILD 1.4.0
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AZRTOS-H7RS 1.0.0
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics FP-ATR-ASTRA1 2.0.0
+2025-05-28 21:38:56,571 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-TOF1 3.4.2
+2025-05-28 21:38:56,572 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-TOF1 3.4.3
+2025-05-28 21:38:56,572 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AI 9.1.0
+2025-05-28 21:38:56,572 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-TOF1 3.4.0
+2025-05-28 21:38:56,572 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-TOF1 3.4.1
+2025-05-28 21:38:56,572 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :STMicroelectronics X-CUBE-AZRTOS-H7 3.2.0
+2025-05-28 21:38:56,572 [INFO] ThirdParty:1030 - CMSIS Pack Vendor :wolfSSL I-CUBE-wolfSSH 1.4.17
+2025-05-28 21:38:56,572 [INFO] ThirdParty:841 - exiting critical section [change project]
+2025-05-28 21:38:56,745 [INFO] PinOutPanel:1589 - setPackage(No Configuration,No Configuration)
+2025-05-28 21:38:56,751 [INFO] PinOutPanel:1589 - setPackage(STM32G474CETx,LQFP48)
+2025-05-28 21:38:57,053 [INFO] UtilMem:75 - Before build in PCC Used Memory: 491026136 Bytes (825229312)
+2025-05-28 21:38:57,291 [INFO] UtilMem:75 - After build in PCC Used Memory: 592738008 Bytes (825229312)
+2025-05-28 21:38:57,311 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,311 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,311 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,312 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,312 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,312 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,312 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,312 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,312 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,312 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,312 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,312 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,312 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,312 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,312 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,312 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,312 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,312 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,313 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,313 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,313 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,313 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,313 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,313 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,313 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,313 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,313 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,313 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,314 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,314 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,314 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,314 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,314 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,314 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,314 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,314 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,314 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,314 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,314 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,314 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,314 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,314 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,315 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,315 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,315 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,315 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,315 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,315 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,315 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,315 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,315 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,315 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,316 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,316 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,316 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,316 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,316 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,317 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,317 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,317 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,317 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,317 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,317 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,317 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,317 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,318 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,318 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,318 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,318 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,318 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,319 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,319 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,319 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,319 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,319 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,320 [INFO] IPUIPlugin:80 - create IPUIPlugin
+2025-05-28 21:38:57,321 [WARN] IP:2251 - MessageRAMOffset not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,321 [WARN] IP:2251 - RxFifo0ElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,321 [WARN] IP:2251 - RxFifo0ElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,321 [WARN] IP:2251 - RxFifo1ElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,321 [WARN] IP:2251 - RxFifo1ElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,321 [WARN] IP:2251 - RxBuffersNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,321 [WARN] IP:2251 - RxBufferSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,321 [WARN] IP:2251 - TxEventsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,321 [WARN] IP:2251 - TxBuffersNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,321 [WARN] IP:2251 - TxFifoQueueElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,321 [WARN] IP:2251 - TxElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,321 [WARN] IP:2251 - ClockCalibrationCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,321 [WARN] IP:2251 - ClockDividerCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,321 [WARN] IP:2251 - MinOscClkPeriodsCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,321 [WARN] IP:2251 - TimeQuantaPerBitTimeCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,321 [WARN] IP:2251 - WatchdogStartValueCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,322 [INFO] Can:71 - Can Add PropertyChangeListener com.st.microxplorer.plugins.ip.can.Can@2a07e4f1
+2025-05-28 21:38:57,323 [WARN] IP:2251 - MessageRAMOffset not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,323 [WARN] IP:2251 - RxFifo0ElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,323 [WARN] IP:2251 - RxFifo0ElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,323 [WARN] IP:2251 - RxFifo1ElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,323 [WARN] IP:2251 - RxFifo1ElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,323 [WARN] IP:2251 - RxBuffersNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,323 [WARN] IP:2251 - RxBufferSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,323 [WARN] IP:2251 - TxEventsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,323 [WARN] IP:2251 - TxBuffersNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,323 [WARN] IP:2251 - TxFifoQueueElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,323 [WARN] IP:2251 - TxElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,323 [WARN] IP:2251 - ClockCalibrationCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,323 [WARN] IP:2251 - ClockDividerCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,323 [WARN] IP:2251 - MinOscClkPeriodsCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,323 [WARN] IP:2251 - TimeQuantaPerBitTimeCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,323 [WARN] IP:2251 - WatchdogStartValueCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,324 [INFO] Can:71 - Can Add PropertyChangeListener com.st.microxplorer.plugins.ip.can.Can@26a35b8a
+2025-05-28 21:38:57,343 [WARN] FreeRTOS:1023 - Null or empty value: should not occur! (nothing added to the table)
+2025-05-28 21:38:57,388 [INFO] CADModel:165 - CPN selected for project levelSTM32G474CET6
+2025-05-28 21:38:57,388 [INFO] CADModel:114 - Register for checkConnection events
+2025-05-28 21:38:57,389 [INFO] RtosManager:697 - Active RTOS found at IOC load: FREERTOS [Cortex-M4NS]
+2025-05-28 21:38:57,431 [INFO] OpenFileManager:363 - Restore cursor
+2025-05-28 21:38:57,584 [WARN] IP:2251 - MessageRAMOffset not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,584 [WARN] IP:2251 - RxFifo0ElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,584 [WARN] IP:2251 - RxFifo0ElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,584 [WARN] IP:2251 - RxFifo1ElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,584 [WARN] IP:2251 - RxFifo1ElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,584 [WARN] IP:2251 - RxBuffersNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,584 [WARN] IP:2251 - RxBufferSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,584 [WARN] IP:2251 - TxEventsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,584 [WARN] IP:2251 - TxBuffersNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,584 [WARN] IP:2251 - TxFifoQueueElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,584 [WARN] IP:2251 - TxElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,584 [WARN] IP:2251 - ClockCalibrationCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,584 [WARN] IP:2251 - ClockDividerCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,584 [WARN] IP:2251 - MinOscClkPeriodsCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,584 [WARN] IP:2251 - TimeQuantaPerBitTimeCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,584 [WARN] IP:2251 - WatchdogStartValueCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,585 [WARN] IP:2251 - MessageRAMOffset not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,585 [WARN] IP:2251 - RxFifo0ElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,585 [WARN] IP:2251 - RxFifo0ElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,585 [WARN] IP:2251 - RxFifo1ElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,585 [WARN] IP:2251 - RxFifo1ElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,585 [WARN] IP:2251 - RxBuffersNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,585 [WARN] IP:2251 - RxBufferSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,585 [WARN] IP:2251 - TxEventsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,585 [WARN] IP:2251 - TxBuffersNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,585 [WARN] IP:2251 - TxFifoQueueElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,585 [WARN] IP:2251 - TxElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,585 [WARN] IP:2251 - ClockCalibrationCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,585 [WARN] IP:2251 - ClockDividerCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,585 [WARN] IP:2251 - MinOscClkPeriodsCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,585 [WARN] IP:2251 - TimeQuantaPerBitTimeCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,585 [WARN] IP:2251 - WatchdogStartValueCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,648 [WARN] IP:2251 - MessageRAMOffset not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,648 [WARN] IP:2251 - RxFifo0ElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,648 [WARN] IP:2251 - RxFifo0ElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,648 [WARN] IP:2251 - RxFifo1ElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,648 [WARN] IP:2251 - RxFifo1ElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,648 [WARN] IP:2251 - RxBuffersNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,648 [WARN] IP:2251 - RxBufferSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,648 [WARN] IP:2251 - TxEventsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,648 [WARN] IP:2251 - TxBuffersNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,648 [WARN] IP:2251 - TxFifoQueueElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,648 [WARN] IP:2251 - TxElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,648 [WARN] IP:2251 - ClockCalibrationCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,648 [WARN] IP:2251 - ClockDividerCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,648 [WARN] IP:2251 - MinOscClkPeriodsCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,648 [WARN] IP:2251 - TimeQuantaPerBitTimeCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:38:57,648 [WARN] IP:2251 - WatchdogStartValueCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:39:02,538 [ERROR] RtosPanel:558 - Can not restore the selected Tab for FREERTOS(A reason can be that the tab is no more available.)
+2025-05-28 21:39:07,177 [INFO] TasksAndQueuesTab:757 - Static
+2025-05-28 21:39:07,177 [INFO] TasksAndQueuesTab:757 - Static
+2025-05-28 21:39:07,177 [INFO] TasksAndQueuesTab:757 - Static
+2025-05-28 21:39:07,177 [INFO] TasksAndQueuesTab:757 - Static
+2025-05-28 21:39:07,177 [INFO] TasksAndQueuesTab:757 - Static
+2025-05-28 21:39:07,177 [INFO] TasksAndQueuesTab:757 - Static
+2025-05-28 21:39:07,178 [INFO] TasksAndQueuesTab:757 - Static
+2025-05-28 21:39:07,178 [INFO] TasksAndQueuesTab:757 - Static
+2025-05-28 21:39:29,999 [INFO] EditThreadDialog:704 - RAM SIZE (in KB): 128
+2025-05-28 21:39:30,000 [INFO] EditThreadDialog:706 - RAM SIZE (in words): 32768
+2025-05-28 21:40:02,363 [INFO] TasksAndQueuesTab:757 - Static
+2025-05-28 21:40:02,363 [INFO] TasksAndQueuesTab:757 - Static
+2025-05-28 21:40:02,363 [INFO] TasksAndQueuesTab:757 - Static
+2025-05-28 21:40:02,363 [INFO] TasksAndQueuesTab:757 - Static
+2025-05-28 21:40:02,363 [INFO] TasksAndQueuesTab:757 - Static
+2025-05-28 21:40:02,363 [INFO] TasksAndQueuesTab:757 - Static
+2025-05-28 21:40:02,363 [INFO] TasksAndQueuesTab:757 - Static
+2025-05-28 21:40:02,363 [INFO] TasksAndQueuesTab:757 - Static
+2025-05-28 21:40:02,363 [INFO] TasksAndQueuesTab:757 - Static
+2025-05-28 21:40:06,091 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 733123840 Bytes (825229312)
+2025-05-28 21:40:06,220 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 751379584 Bytes (825229312)
+2025-05-28 21:40:06,802 [INFO] UtilMem:75 - End SaveConfig() Used Memory: 391639296 Bytes (825229312)
+2025-05-28 21:40:07,125 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: SPI
+2025-05-28 21:40:07,125 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: FDCAN
+2025-05-28 21:40:07,125 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: FREERTOS
+2025-05-28 21:40:07,125 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: USB_Device
+2025-05-28 21:40:07,125 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: SYS
+2025-05-28 21:40:07,125 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: RCC
+2025-05-28 21:40:07,125 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: CRC
+2025-05-28 21:40:07,125 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: I2C
+2025-05-28 21:40:07,125 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: NVIC
+2025-05-28 21:40:07,125 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: USART
+2025-05-28 21:40:07,125 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: DMA
+2025-05-28 21:40:07,125 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: TIM1_8G4
+2025-05-28 21:40:07,125 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: USB
+2025-05-28 21:40:07,125 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: STMicroelectronics.X-CUBE-MEMS1.11.1.0
+2025-05-28 21:40:07,125 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: GPIO
+2025-05-28 21:40:07,125 [INFO] BlockDiagram:2766 - set Specific Code input for plugin: FDCAN
+2025-05-28 21:40:07,129 [WARN] ThirdPartyIpManager:480 - Condition 'CM0_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:07,130 [WARN] ThirdPartyIpManager:480 - Condition 'CM0_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:07,130 [WARN] ThirdPartyIpManager:480 - Condition 'CM0_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:07,130 [WARN] ThirdPartyIpManager:480 - Condition 'CM3_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:07,130 [WARN] ThirdPartyIpManager:480 - Condition 'CM3_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:07,130 [WARN] ThirdPartyIpManager:480 - Condition 'CM3_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:07,130 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:07,130 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:07,130 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_GCC_NoFPU' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:07,130 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_IAR_NoFPU' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:07,131 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_Keil_NoFPU' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:07,131 [WARN] ThirdPartyIpManager:480 - Condition 'CM7_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:07,131 [WARN] ThirdPartyIpManager:480 - Condition 'CM7_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:07,131 [WARN] ThirdPartyIpManager:480 - Condition 'CM7_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:07,131 [WARN] ThirdPartyIpManager:480 - Condition 'CM33_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:07,131 [WARN] ThirdPartyIpManager:480 - Condition 'CM33_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:07,131 [WARN] ThirdPartyIpManager:480 - Condition 'CM33_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:07,131 [INFO] CodeGenerator:896 - code generatio: config db path: /opt/st/stm32cubeide_1.17.0_2/plugins/com.st.stm32cube.common.mx_6.13.0.202411220809//db/
+2025-05-28 21:40:07,137 [WARN] IP:2251 - MessageRAMOffset not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,137 [WARN] IP:2251 - RxFifo0ElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,137 [WARN] IP:2251 - RxFifo0ElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,137 [WARN] IP:2251 - RxFifo1ElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,137 [WARN] IP:2251 - RxFifo1ElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,137 [WARN] IP:2251 - RxBuffersNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,137 [WARN] IP:2251 - RxBufferSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,137 [WARN] IP:2251 - TxEventsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,137 [WARN] IP:2251 - TxBuffersNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,137 [WARN] IP:2251 - TxFifoQueueElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,137 [WARN] IP:2251 - TxElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,137 [WARN] IP:2251 - ClockCalibrationCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,137 [WARN] IP:2251 - ClockDividerCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,137 [WARN] IP:2251 - MinOscClkPeriodsCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,137 [WARN] IP:2251 - TimeQuantaPerBitTimeCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,137 [WARN] IP:2251 - WatchdogStartValueCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,138 [WARN] IP:2251 - MessageRAMOffset not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,139 [WARN] IP:2251 - RxFifo0ElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,139 [WARN] IP:2251 - RxFifo0ElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,139 [WARN] IP:2251 - RxFifo1ElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,139 [WARN] IP:2251 - RxFifo1ElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,139 [WARN] IP:2251 - RxBuffersNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,139 [WARN] IP:2251 - RxBufferSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,139 [WARN] IP:2251 - TxEventsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,139 [WARN] IP:2251 - TxBuffersNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,139 [WARN] IP:2251 - TxFifoQueueElmtsNbr not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,139 [WARN] IP:2251 - TxElmtSize not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,139 [WARN] IP:2251 - ClockCalibrationCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,139 [WARN] IP:2251 - ClockDividerCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,139 [WARN] IP:2251 - MinOscClkPeriodsCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,139 [WARN] IP:2251 - TimeQuantaPerBitTimeCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,139 [WARN] IP:2251 - WatchdogStartValueCCU not found: check if there is a RefParameter without a condition.
+2025-05-28 21:40:07,213 [INFO] IP:3348 - RTE Config file name : RTE_Component
+2025-05-28 21:40:07,213 [INFO] IP:3366 - RTE template : RTE_Components.ftl
+2025-05-28 21:40:07,222 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/license.tmp_save
+2025-05-28 21:40:07,510 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/license.tmp
+2025-05-28 21:40:07,594 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/gpio.c_save
+2025-05-28 21:40:07,692 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/gpio.c
+2025-05-28 21:40:07,694 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/gpio.h_save
+2025-05-28 21:40:07,742 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/gpio.h
+2025-05-28 21:40:07,882 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_vars.tmp_save
+2025-05-28 21:40:07,928 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_vars.tmp
+2025-05-28 21:40:07,929 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_inc.tmp_save
+2025-05-28 21:40:07,967 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_inc.tmp
+2025-05-28 21:40:07,968 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_HalInit.tmp_save
+2025-05-28 21:40:08,019 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_HalInit.tmp
+2025-05-28 21:40:08,020 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_Msp.tmp_save
+2025-05-28 21:40:08,112 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/usb_Msp.tmp
+2025-05-28 21:40:08,949 [INFO] Middleware:1450 - No code input for Bsp Dependency
+2025-05-28 21:40:08,952 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_inc.tmp_save
+2025-05-28 21:40:08,991 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_inc.tmp
+2025-05-28 21:40:08,991 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelInit.tmp_save
+2025-05-28 21:40:09,028 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelInit.tmp
+2025-05-28 21:40:09,028 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelStart.tmp_save
+2025-05-28 21:40:09,061 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelStart.tmp
+2025-05-28 21:40:09,062 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_typedefs.tmp_save
+2025-05-28 21:40:09,093 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_typedefs.tmp
+2025-05-28 21:40:09,094 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_vars.tmp_save
+2025-05-28 21:40:09,130 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_vars.tmp
+2025-05-28 21:40:09,131 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_pfp.tmp_save
+2025-05-28 21:40:09,164 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_pfp.tmp
+2025-05-28 21:40:09,165 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_obj_creat.tmp_save
+2025-05-28 21:40:09,200 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_obj_creat.tmp
+2025-05-28 21:40:09,201 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_default_thread.tmp_save
+2025-05-28 21:40:09,237 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_default_thread.tmp
+2025-05-28 21:40:09,238 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_threads.tmp_save
+2025-05-28 21:40:09,272 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_threads.tmp
+2025-05-28 21:40:09,320 [INFO] Middleware:1450 - No code input for Bsp Dependency
+2025-05-28 21:40:09,325 [INFO] Middleware:1450 - No code input for Bsp Dependency
+2025-05-28 21:40:09,340 [INFO] Middleware:1450 - No code input for Bsp Dependency
+2025-05-28 21:40:09,342 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_inc.tmp_save
+2025-05-28 21:40:09,382 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_inc.tmp
+2025-05-28 21:40:09,382 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelInit.tmp_save
+2025-05-28 21:40:09,419 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelInit.tmp
+2025-05-28 21:40:09,420 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelStart.tmp_save
+2025-05-28 21:40:09,455 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_kernelStart.tmp
+2025-05-28 21:40:09,455 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_typedefs.tmp_save
+2025-05-28 21:40:09,494 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_typedefs.tmp
+2025-05-28 21:40:09,495 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_vars.tmp_save
+2025-05-28 21:40:09,531 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_vars.tmp
+2025-05-28 21:40:09,532 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_pfp.tmp_save
+2025-05-28 21:40:09,567 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_pfp.tmp
+2025-05-28 21:40:09,567 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_obj_creat.tmp_save
+2025-05-28 21:40:09,603 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_obj_creat.tmp
+2025-05-28 21:40:09,604 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_default_thread.tmp_save
+2025-05-28 21:40:09,637 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_default_thread.tmp
+2025-05-28 21:40:09,638 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_threads.tmp_save
+2025-05-28 21:40:09,671 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/rtos_threads.tmp
+2025-05-28 21:40:09,672 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/FreeRTOSConfig.h_save
+2025-05-28 21:40:09,721 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/FreeRTOSConfig.h
+2025-05-28 21:40:09,722 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/app_freertos.c_save
+2025-05-28 21:40:09,778 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/app_freertos.c
+2025-05-28 21:40:09,780 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/crc.c_save
+2025-05-28 21:40:09,839 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/crc.c
+2025-05-28 21:40:09,840 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/crc.h_save
+2025-05-28 21:40:09,876 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/crc.h
+2025-05-28 21:40:09,913 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/dma.c_save
+2025-05-28 21:40:09,946 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/dma.c
+2025-05-28 21:40:09,947 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/dma.h_save
+2025-05-28 21:40:09,978 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/dma.h
+2025-05-28 21:40:09,980 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/fdcan.c_save
+2025-05-28 21:40:10,035 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/fdcan.c
+2025-05-28 21:40:10,036 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/fdcan.h_save
+2025-05-28 21:40:10,070 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/fdcan.h
+2025-05-28 21:40:10,072 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/i2c.c_save
+2025-05-28 21:40:10,121 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/i2c.c
+2025-05-28 21:40:10,121 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/i2c.h_save
+2025-05-28 21:40:10,155 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/i2c.h
+2025-05-28 21:40:10,156 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/spi.c_save
+2025-05-28 21:40:10,203 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/spi.c
+2025-05-28 21:40:10,204 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/spi.h_save
+2025-05-28 21:40:10,239 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/spi.h
+2025-05-28 21:40:10,267 [INFO] Middleware:1450 - No code input for Bsp Dependency
+2025-05-28 21:40:10,269 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/tim.c_save
+2025-05-28 21:40:10,343 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/tim.c
+2025-05-28 21:40:10,345 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/tim.h_save
+2025-05-28 21:40:10,385 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/tim.h
+2025-05-28 21:40:10,387 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/usart.c_save
+2025-05-28 21:40:10,442 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/usart.c
+2025-05-28 21:40:10,443 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/usart.h_save
+2025-05-28 21:40:10,477 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/usart.h
+2025-05-28 21:40:10,482 [INFO] Middleware:1450 - No code input for Bsp Dependency
+2025-05-28 21:40:10,484 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usb_device.c_save
+2025-05-28 21:40:10,529 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usb_device.c
+2025-05-28 21:40:10,530 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usb_device.h_save
+2025-05-28 21:40:10,560 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usb_device.h
+2025-05-28 21:40:10,560 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/Target/usbd_conf.h_save
+2025-05-28 21:40:10,591 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/Target/usbd_conf.h
+2025-05-28 21:40:10,592 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/Target/usbd_conf.c_save
+2025-05-28 21:40:10,640 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/Target/usbd_conf.c
+2025-05-28 21:40:10,641 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_desc.h_save
+2025-05-28 21:40:10,673 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_desc.h
+2025-05-28 21:40:10,674 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_desc.c_save
+2025-05-28 21:40:10,710 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_desc.c
+2025-05-28 21:40:10,711 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_cdc_if.h_save
+2025-05-28 21:40:10,745 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_cdc_if.h
+2025-05-28 21:40:10,745 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_cdc_if.c_save
+2025-05-28 21:40:10,782 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/USB_Device/App/usbd_cdc_if.c
+2025-05-28 21:40:10,790 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/stm32g4xx_it.c_save
+2025-05-28 21:40:10,844 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/stm32g4xx_it.c
+2025-05-28 21:40:10,845 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/stm32g4xx_it.h_save
+2025-05-28 21:40:10,882 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/stm32g4xx_it.h
+2025-05-28 21:40:10,893 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/stm32g4xx_hal_msp.c_save
+2025-05-28 21:40:10,947 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/stm32g4xx_hal_msp.c
+2025-05-28 21:40:10,948 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/system.tmp_save
+2025-05-28 21:40:10,980 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/MXTmpFiles/system.tmp
+2025-05-28 21:40:10,981 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/stm32g4xx_hal_timebase_tim.c_save
+2025-05-28 21:40:11,017 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/stm32g4xx_hal_timebase_tim.c
+2025-05-28 21:40:11,019 [INFO] CodeEngine:311 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/stm32g4xx_hal_conf.h_save
+2025-05-28 21:40:11,054 [INFO] CodeEngine:335 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/stm32g4xx_hal_conf.h
+2025-05-28 21:40:11,065 [WARN] IPConfigManager:3034 - Warning: the RefConfig RCC_CommonPeriphClockConfig is not available in your config.xml file
+2025-05-28 21:40:11,073 [INFO] ApiDbMcu:508 - Load IP Config File for CRC
+2025-05-28 21:40:11,075 [INFO] ApiDbMcu:508 - Load IP Config File for FDCAN1
+2025-05-28 21:40:11,077 [INFO] ApiDbMcu:508 - Load IP Config File for FDCAN2
+2025-05-28 21:40:11,079 [INFO] ApiDbMcu:508 - Load IP Config File for I2C2
+2025-05-28 21:40:11,080 [INFO] ApiDbMcu:508 - Load IP Config File for SPI1
+2025-05-28 21:40:11,089 [INFO] ApiDbMcu:508 - Load IP Config File for TIM16
+2025-05-28 21:40:11,095 [INFO] ApiDbMcu:508 - Load IP Config File for USART2
+2025-05-28 21:40:11,097 [INFO] ApiDbMcu:508 - Load IP Config File for RCC
+2025-05-28 21:40:11,107 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/main.h_save
+2025-05-28 21:40:11,151 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Inc/main.h
+2025-05-28 21:40:11,152 [INFO] CodeEngine:255 - oldGeneratedFile, /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/main.c_save
+2025-05-28 21:40:11,212 [INFO] CodeEngine:279 - Generated code: /home/nikolai/Documents/NP1_DRONE/software/STM32/Flight Control Computer/Core/Src/main.c
+2025-05-28 21:40:11,357 [INFO] ProjectBuilder:3289 - Time for Copy HAL[1] : 51mS.
+2025-05-28 21:40:11,358 [WARN] ThirdPartyIpManager:480 - Condition 'CM0_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:11,358 [WARN] ThirdPartyIpManager:480 - Condition 'CM0_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:11,358 [WARN] ThirdPartyIpManager:480 - Condition 'CM0_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:11,358 [WARN] ThirdPartyIpManager:480 - Condition 'CM3_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:11,358 [WARN] ThirdPartyIpManager:480 - Condition 'CM3_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:11,358 [WARN] ThirdPartyIpManager:480 - Condition 'CM3_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:11,358 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:11,358 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:11,358 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_GCC_NoFPU' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:11,358 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_IAR_NoFPU' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:11,358 [WARN] ThirdPartyIpManager:480 - Condition 'CM4_Keil_NoFPU' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:11,358 [WARN] ThirdPartyIpManager:480 - Condition 'CM7_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:11,358 [WARN] ThirdPartyIpManager:480 - Condition 'CM7_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:11,358 [WARN] ThirdPartyIpManager:480 - Condition 'CM7_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:11,358 [WARN] ThirdPartyIpManager:480 - Condition 'CM33_GCC' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:11,358 [WARN] ThirdPartyIpManager:480 - Condition 'CM33_IAR' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:11,358 [WARN] ThirdPartyIpManager:480 - Condition 'CM33_Keil' not fulfilled in pack 'STMicroelectronics.X-CUBE-MEMS1.11.1.0'
+2025-05-28 21:40:11,362 [INFO] ProjectBuilder:9095 - Time for Copy ThirdParty[1] : 3mS.
+2025-05-28 21:40:11,368 [INFO] ProjectBuilder:4876 - Project Generator version: 4.5.0-RC5
+2025-05-28 21:40:11,411 [INFO] ConfigFileManager:1579 - The Die is : DIE469
+2025-05-28 21:40:11,412 [INFO] ApiDbMcu:508 - Load IP Config File for FATFS
+2025-05-28 21:40:11,415 [INFO] ApiDbMcu:508 - Load IP Config File for USBPD
+2025-05-28 21:40:12,124 [INFO] ProjectBuilder:5154 - Time for Generating toolchain IDE Files: 757mS.
+2025-05-28 21:40:12,125 [INFO] ProjectBuilder:3146 - Time for Copy CMSIS : 1mS.
+2025-05-28 21:40:12,127 [INFO] ProjectBuilder:3146 - Time for Copy CMSIS : 0mS.

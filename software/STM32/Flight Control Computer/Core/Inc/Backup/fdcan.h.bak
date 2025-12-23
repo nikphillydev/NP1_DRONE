@@ -38,6 +38,9 @@ extern FDCAN_HandleTypeDef hfdcan2;
 
 /* USER CODE BEGIN Private defines */
 
+extern FDCAN_TxHeaderTypeDef TxHeaderCan1;
+extern FDCAN_TxHeaderTypeDef TxHeaderCan2;
+
 /* USER CODE END Private defines */
 
 void MX_FDCAN1_Init(void);

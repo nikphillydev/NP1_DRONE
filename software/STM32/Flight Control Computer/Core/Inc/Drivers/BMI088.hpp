@@ -73,6 +73,14 @@
 #define	REG_GYRO_FIFO_CONFIG_1  0x3E
 #define	REG_GYRO_FIFO_DATA		0x3F
 
+/* ACCESS TYPES */
+#define BMI088_READ				0x80
+#define BMI088_WRITE			0x00
+
+/* CUTOFF FREQUENCIES */
+#define ACCEL_CUTOFF 			10.0f		// Hz
+#define GYRO_CUTOFF 			70.0f		// Hz
+
 
 class BMI088
 {

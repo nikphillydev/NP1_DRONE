@@ -106,6 +106,10 @@ int main(void)
   MX_CRC_Init();
   /* USER CODE BEGIN 2 */
   MX_USB_Device_Init();
+
+  // Required until CC2500 is fully initialized
+  GPIO_Disable_EXTI0_IRQn();
+
   /* USER CODE END 2 */
 
   /* Init scheduler */
