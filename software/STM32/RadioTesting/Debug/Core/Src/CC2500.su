@@ -1,5 +1,0 @@
-../Core/Src/CC2500.cpp:12:1:CC2500::CC2500(SPI_HandleTypeDef*, GPIO_TypeDef*, uint16_t)	24	static
-../Core/Src/CC2500.cpp:17:6:bool CC2500::init()	32	static
-../Core/Src/CC2500.cpp:46:6:bool CC2500::command_strobe(uint8_t)	24	static
-../Core/Src/CC2500.cpp:67:6:bool CC2500::write_register(uint8_t, uint8_t*, uint16_t)	64	dynamic
-../Core/Src/CC2500.cpp:96:6:bool CC2500::read_register(uint8_t, uint8_t*, uint16_t)	96	dynamic
