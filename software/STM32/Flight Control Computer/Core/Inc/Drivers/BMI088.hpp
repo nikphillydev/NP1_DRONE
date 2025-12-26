@@ -78,8 +78,8 @@
 #define BMI088_WRITE			0x00
 
 /* CUTOFF FREQUENCIES */
-#define ACCEL_CUTOFF 			10.0f		// Hz
-#define GYRO_CUTOFF 			70.0f		// Hz
+#define ACCEL_CUTOFF 			15.0f		// Hz
+#define GYRO_CUTOFF 			80.0f		// Hz
 
 
 class BMI088
@@ -120,8 +120,8 @@ private:
 	uint16_t gyro_irq_pin;
 
 	// Conversion constants
-	const float acc_conversion = 9.80665 / 32768.0f * powf(2.0, 0x01 + 1) * 1.5f; 		// Based on +-6g range
-	const float gyro_conversion = M_PI / 180.0f * 500.0f / 32768.0f; 					// Based on +-500 deg/s range
+	const float acc_conversion = 9.80665 / 32768.0f * powf(2.0, 0x03 + 1) * 1.5f; 		// Based on +-24g range
+	const float gyro_conversion = M_PI / 180.0f * 2000.0f / 32768.0f; 					// Based on +-2000 deg/s range
 
 	// IMU data mutexes
 	osMutexId_t& accel_data_mutex;

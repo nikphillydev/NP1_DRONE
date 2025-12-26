@@ -133,19 +133,3 @@ private:
 	MovingAverageFilter<float> alt_filter;
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

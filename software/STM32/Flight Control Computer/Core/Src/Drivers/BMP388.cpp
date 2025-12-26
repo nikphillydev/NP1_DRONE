@@ -53,20 +53,19 @@ bool BMP388::init()
 	status = read_calibration_nvm();
 	if (!status) return status;
 
-	// Set pressure measurement to ultra-high resolution (x16 over-sampling, 20 bit / 0.17 Pa),
-	// set temperature measurement to low power (x2 over-sampling, 17 bit / 0.0025 degC)
-	tx_data[0] = 0x0C;
+	// Set pressure measurement x8 over-sampling, temperature measurement no over-sampling
+	tx_data[0] = 0x03;
 	status = write_register(REG_OSR, tx_data, 1);
 	if (!status) return status;
 	osDelay(10);
 
-	// Set 25Hz ODR
-	tx_data[0] = 0x03;
+	// Set 50Hz ODR
+	tx_data[0] = 0x02;
 	status = write_register(REG_ODR, tx_data, 1);
 	if (!status) return status;
 	osDelay(10);
 
-	// Set IIR filter coefficient to 15
+	// Set IIR filter coefficient to 3
 	tx_data[0] = 0x04;
 	status = write_register(REG_CONFIG, tx_data, 1);
 	if (!status) return status;
@@ -76,7 +75,7 @@ bool BMP388::init()
 	status = compute_startup_pressure();
 	if (!status) return status;
 
-	// Switch device into normal mode and enable pressure, temperature sensor
+	// Switch device into normal mode, enable pressure and temperature sensor
 	tx_data[0] = 0x33;
 	status = write_register(REG_PWR_CTRL, tx_data, 1);
 	if (!status) return status;
@@ -96,31 +95,28 @@ bool BMP388::init()
 
 bool BMP388::service_irq()
 {
-	// Compute compensated temperature
+	// Compute compensated temperature and pressure
 
-	uint8_t rx_temp_data[3];
-	bool status_temp = read_register(REG_DATA_3, rx_temp_data, sizeof(rx_temp_data));
+	uint8_t rx_data[6];
+	bool status = read_register(REG_DATA_0, rx_data, sizeof(rx_data));
 
-	if (status_temp)
+	if (status)
 	{
-		uint32_t temp_raw = (rx_temp_data[2] << 16) | (rx_temp_data[1] << 8) | rx_temp_data[0];
+		// Compute compensated temperature
+
+		uint32_t temp_raw = (rx_data[5] << 16) | (rx_data[4] << 8) | rx_data[3];
 
 		float temp_partial_data1 = (float)temp_raw - calib_data.par_t1;
 		float temp_partial_data2 = temp_partial_data1 * calib_data.par_t2;
 
-		np::lock_guard lock(baro_data_mutex);
-		temperature = temp_partial_data2 + (temp_partial_data1 * temp_partial_data1) * calib_data.par_t3;
-	}
+		{
+			np::lock_guard lock(baro_data_mutex);
+			temperature = temp_partial_data2 + (temp_partial_data1 * temp_partial_data1) * calib_data.par_t3;
+		}
 
-	// Compute compensated pressure
+		// Compute compensated pressure
 
-	uint8_t rx_press_data[3];
-	bool status_pressure = read_register(REG_DATA_0, rx_press_data, sizeof(rx_press_data));
-
-	
-	if (status_temp && status_pressure)
-	{
-		uint32_t press_raw = (rx_press_data[2] << 16) | (rx_press_data[1] << 8) | rx_press_data[0];
+		uint32_t press_raw = (rx_data[2] << 16) | (rx_data[1] << 8) | rx_data[0];
 
 		np::lock_guard lock(baro_data_mutex);
 
@@ -158,7 +154,7 @@ bool BMP388::service_irq()
 		USB_Log("ERROR reading BMP388 data.", ERR);
 	}
 
-	return status_temp && status_pressure;
+	return status;
 }
 
 void BMP388::log_data_to_gcs()

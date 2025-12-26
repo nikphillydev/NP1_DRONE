@@ -20,6 +20,8 @@ public:
 	float update(float input);
 
 private:
+	bool initialized = false;
+
 	// Parameters
 	const float cutoff_frequency;		// Hz
 	const float sampling_frequency;		// Hz

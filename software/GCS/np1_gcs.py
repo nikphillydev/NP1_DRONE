@@ -13,7 +13,7 @@ from Widgets.altimeter_widget import AltimeterWidget
 
 def main():
     # Configuration
-    usb_port = "/dev/ttyACM1"
+    usb_port = "/dev/ttyACM0"
     max_saved_samples = 100
     max_saved_logs = 30
     

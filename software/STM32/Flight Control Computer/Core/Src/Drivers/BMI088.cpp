@@ -74,21 +74,21 @@ bool BMI088::init()
 	}
 	osDelay(10);
 
-	// Set 400Hz ODR, no over-sampling (145Hz BW)
-	tx_data[0] = 0xAA;
+	// Set 1600Hz ODR, no over-sampling (280Hz BW)
+	tx_data[0] = 0xAC;
 	status = write_accel_register(REG_ACC_CONF, tx_data, 1);
 	if (!status) return status;
 	osDelay(10);
 
 	// Initialize accelerometer IIR Filters
-	float ACCEL_ODR = 400;				// Hz
+	float ACCEL_ODR = 1600;				// Hz
 	for (size_t i = 0; i < accel_filters.size(); i++)
 	{
 		accel_filters[i] = std::make_unique<IIRFilter>(ACCEL_CUTOFF, ACCEL_ODR);
 	}
 
-	// Set +-6g range (5460 LSB/g)
-	tx_data[0] = 0x01;
+	// Set +-24g range
+	tx_data[0] = 0x03;
 	status = write_accel_register(REG_ACC_RANGE, tx_data, 1);
 	if (!status) return status;
 	osDelay(10);
@@ -138,21 +138,21 @@ bool BMI088::init()
 	}
 	osDelay(10);
 
-	// Set 400Hz ODR (47Hz BW)
-	tx_data[0] = 0x03;
+	// Set 2000Hz ODR (230Hz BW)
+	tx_data[0] = 0x01;
 	status = write_gyro_register(REG_GYRO_BANDWIDTH, tx_data, 1);
 	if (!status) return status;
 	osDelay(10);
 
 	// Initialize gyroscope IIR Filters
-	float GYRO_ODR = 400;		// Hz
+	float GYRO_ODR = 2000;		// Hz
 	for (size_t i = 0; i < gyro_filters.size(); i++)
 	{
 		gyro_filters[i] = std::make_unique<IIRFilter>(GYRO_CUTOFF, GYRO_ODR);
 	}
 
-	// Set +-500 deg/s range (65.536 LSB/deg/s)
-	tx_data[0] = 0x02;
+	// Set +-2000 deg/s range
+	tx_data[0] = 0x00;
 	status = write_gyro_register(REG_GYRO_RANGE, tx_data, 1);
 	if (!status) return status;
 	osDelay(10);

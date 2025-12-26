@@ -37,7 +37,7 @@ bool LIS3MDL::init()
 	}
 	else
 	{
-		USB_Log("Failed to find BMP388. Initialization failed.", ERR);
+		USB_Log("Failed to find LIS3MDL. Initialization failed.", ERR);
 		return false;
 	}
 	osDelay(10);
@@ -54,8 +54,8 @@ bool LIS3MDL::init()
 	if (!status) return status;
 	osDelay(10);
 
-	// Set X,Y axes ultra-high performance mode, 40Hz ODR, enable temperature sensor
-	tx_data[0] = 0xF8;
+	// Set X,Y axes ultra-high performance mode, 155Hz ODR, disable temperature sensor
+	tx_data[0] = 0x62;
 	status = write_register(REG_CTRL_REG1, tx_data, 1);
 	if (!status) return status;
 	osDelay(10);
@@ -66,12 +66,18 @@ bool LIS3MDL::init()
 	if (!status) return status;
 	osDelay(10);
 
-	// Initilize IIR Filters
-	float ODR = 40;				// Hz
+	// Initialize IIR Filters
+	float ODR = 155;				// Hz
 	for (size_t i = 0; i < filters.size(); i++)
 	{
 		filters[i] = std::make_unique<IIRFilter>(CUTOFF, ODR);
 	}
+
+	// Enable block data update
+	tx_data[0] = 0x40;
+	status = write_register(REG_CTRL_REG5, tx_data, 1);
+	if (!status) return status;
+	osDelay(10);
 
 	// Switch to continuous-conversion mode
 	tx_data[0] = 0x00;
