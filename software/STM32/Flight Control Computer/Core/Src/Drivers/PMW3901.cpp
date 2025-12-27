@@ -540,7 +540,7 @@ bool PMW3901::initialize_registers()
 
 bool PMW3901::set_led(bool on_flag)
 {
-	// Turn the onboard led ON or OFF
+	// Turn the onboard LED ON or OFF
 
 	bool status = false;
 	uint8_t tx_data[4];

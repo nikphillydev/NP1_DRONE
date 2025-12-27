@@ -35,13 +35,14 @@ private:
 	// UART communication
 	UART_HandleTypeDef* uart_handle;
 	osMutexId_t& uart_mutex;
-	uint8_t rx_buffer_DMA[4];
+	uint8_t rx_buffer_DMA[2];
+
+	// Ultrasonic data mutex
+	osMutexId_t& data_mutex;
 
 	// Ultrasonic data
 	float distance;			// meters
 	int temperature;		// deg C
-
-	osMutexId_t& data_mutex;
 
 	// Filter for distance data
 	MovingAverageFilter<float> distance_filter;

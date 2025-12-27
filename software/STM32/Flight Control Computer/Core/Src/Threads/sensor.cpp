@@ -4,7 +4,7 @@
  *  Created on: Dec 15, 2024
  *      Author: Nikolai Philipenko
  *
- *      Using NED coordinate system.
+ *      Custom sensor fusion algorithm for the NP1 Drone. Running at 250 Hz using NED coordinate system.
  *
  *      HOW TO TUNE SENSOR FUSION ALGORITHM:
  *      	- IMU:
@@ -13,13 +13,15 @@
  *      	- Optical flow sensor:
  *      		MOTION_SCALER		(scale magnitude)
  *      		CORRECTION_SCALER	(correct for roll and pitch changes)
+ *      		Moving average filter on delta x/y
  *
- *      	*** Ensure integrated velocity and camera velocity (from optical flow) match in phase and magnitude, then ...
+ *      	*** Ensure XY integrated velocity (from accelerometer) and camera velocity (from optical flow)
+ *      		match in phase and magnitude, then ...
  *
  *      	- Fusion:
  *      		XY_VEL_RESET_FREQ	(frequency to reset integrated XY velocity to camera velocity)
- *      		XY_VELOCITY_ALPHA	(degree of trust placed on integrated XY velocity)
- *      		ALTITUDE_ALPHA		(degree of trust placed on barometer altitude)
+ *      		XY_VELOCITY_ALPHA	(degree of trust placed on integrated XY velocity vs. camera velocity)
+ *      		ALTITUDE_ALPHA		(degree of trust placed on barometer altitude vs. ultrasonic sensor)
  */
 
 #include "Threads/sensor.hpp"
@@ -46,7 +48,7 @@
 
 #define STATE_SIZE					2432
 #define FUSION_FREQ					250
-#define XY_VEL_RESET_FREQ			1.5
+#define XY_VEL_RESET_FREQ			1.5					// Integrated XY velocity reset frequency
 
 #define MS2_TO_G					1 / 9.80665
 #define G_TO_MS2					9.80665
@@ -57,7 +59,7 @@
 #define GBIAS_GYRO_TH_SC        	2 * 0.002
 #define GBIAS_MAG_TH_SC         	2 * 0.001500
 
-#define XY_VELOCITY_ALPHA			0.25				// XY Velocity complimentary filter parameter
+#define XY_VELOCITY_ALPHA			0.25				// XY velocity complimentary filter parameter
 #define ALTITUDE_ALPHA				0.005				// Altitude complimentary filter parameter
 
 
@@ -76,7 +78,7 @@ std::array<float, 3> angular_velocity_BODY {};		// Velocities from gyroscope in 
 std::array<float, 3> mag_intensity_BODY {};			// Magnetic field strength from magnetometer in BODY frame
 float barometer_altitude = 0;						// Altitude from barometer in WORLD frame
 float rf_distance_BODY = 0;							// Distance from range finder in BODY frame
-std::array<float, 2> vel_camera_BODY {};			// XY Velocity from optical flow and range finder in BODY frame
+std::array<float, 2> vel_camera_BODY {};			// XY Velocity from optical flow (and range finder) in BODY frame
 
 /*
  * Magnetometer calibration
@@ -111,15 +113,14 @@ uint32_t fusion_period_ms = (1.0 / FUSION_FREQ) * 1000;			// ms
  */
 state drone_state;									// Drone state in WORLD frame
 
-std::array<std::array<float, 3>, 3> R {};			// Rotation matrix from BODY frame to WORLD frame
-std::array<float, 3> acceleration_BODY {};			// Acceleration in BODY frame
+std::array<std::array<float, 3>, 3> R {};			// Rotation matrix from WORLD frame to BODY frame
+std::array<float, 3> acceleration_BODY {};			// Acceleration in BODY frame (no gravity)
 std::array<float, 3> prev_acceleration_BODY {};		// ...Needed for trapezoidal integration
 std::array<float, 3> vel_integrated_BODY {};		// Velocity integrated from acceleration data in BODY frame
-std::array<float, 3> velocity_BODY {};				// Velocity in BODY frame (from complimentary filter)
-float rf_distance_WORLD = 0;						// Distance from range finder in WORLD frame
-float altitude = 0;									// Altitude in WORLD frame (from complimentary filter)
-
 std::array<float, 3> prev_roll_pitch {};			// Previous roll and pitch for optical flow XY velocity calculations
+std::array<float, 3> velocity_BODY {};				// Velocity in BODY frame (from velocity complimentary filter)
+float rf_distance_WORLD = 0;						// Distance from range finder in WORLD frame
+float altitude = 0;									// Altitude in WORLD frame (from altitude complimentary filter)
 
 /*
  *
@@ -161,10 +162,9 @@ void sensor_fusion_thread()
 			osDelay(10);
 		}
 
-		// Initialize last_wake_time variable with the current time
 		uint32_t last_wake_time = osKernelGetTickCount();
 
-		// Counter to reset integrated XY velocity drift (resets to absolute optical flow value)
+		// Counter to reset integrated XY velocity (to camera velocity)
 		uint32_t counter = 0;
 		uint32_t reset_xy_period_multiple = FUSION_FREQ / XY_VEL_RESET_FREQ;
 
@@ -219,7 +219,9 @@ void sensor_fusion_thread()
 				osDelayUntil(last_wake_time);
 				counter++;
 
-				// Get accelerometer, gyroscope, and magnetometer data for Orientation Kalman Filter
+				// ORIENTATION KALMAN FILTER
+
+				// Get accelerometer, gyroscope, and magnetometer data
 				linear_acceleration_BODY = imu.get_linear_accelerations();
 				angular_velocity_BODY = imu.get_angular_velocities();
 				mag_intensity_BODY = magnetometer.get_axis_intensities();
@@ -244,12 +246,23 @@ void sensor_fusion_thread()
 				MotionFX_propagate(mfxstate, &data_out, &data_in, &dT);
 				MotionFX_update(mfxstate, &data_out, &data_in, &dT, NULL);
 
-				// Extract and normalize rotation quaternion
+			    // Prime algorithm on first iteration
+			    if (counter == 1) {
+					prev_acceleration_BODY[0] = data_out.linear_acceleration[0];
+					prev_acceleration_BODY[1] = data_out.linear_acceleration[1];
+					prev_acceleration_BODY[2] = data_out.linear_acceleration[2];
+					prev_roll_pitch[0] = data_out.rotation[2];
+					prev_roll_pitch[1] = data_out.rotation[1];
+			    }
+
+				// ALTITUDE COMPLIMENTARY FILTER
+
+				// Extract and normalize orientation quaternion
 				float qx = data_out.quaternion[0], qy = data_out.quaternion[1], qz = data_out.quaternion[2], qw = data_out.quaternion[3];
 				float n = 1.0f / sqrtf(qx*qx + qy*qy + qz*qz + qw*qw);
 				qx *= n; qy *= n; qz *= n; qw *= n;
 
-				// Update BODY -> WORLD rotation matrix using current orientation
+				// Update WORLD -> BODY rotation matrix using current orientation
 				R[0][0] = 1.0f - 2.0f * (qy*qy + qz*qz);		// Row 1
 			    R[0][1] = 2.0f * (qx*qy - qw*qz);
 			    R[0][2] = 2.0f * (qx*qz + qw*qy);
@@ -260,26 +273,9 @@ void sensor_fusion_thread()
 			    R[2][1] = 2.0f * (qy*qz + qw*qx);
 			    R[2][2] = 1.0f - 2.0f * (qx*qx + qy*qy);
 
-			    // Extract BODY acceleration
-			    acceleration_BODY[0] = data_out.linear_acceleration[0];		// in m/s^2
-			    acceleration_BODY[1] = data_out.linear_acceleration[1];
-			    acceleration_BODY[2] = data_out.linear_acceleration[2];
-
-			    // Integrate BODY acceleration to get velocity (trapezoidal rule)
-				vel_integrated_BODY[0] += 0.5f * (acceleration_BODY[0] + prev_acceleration_BODY[0]) * dT;
-				vel_integrated_BODY[1] += 0.5f * (acceleration_BODY[1] + prev_acceleration_BODY[1]) * dT;
-				vel_integrated_BODY[2] += 0.5f * (acceleration_BODY[2] + prev_acceleration_BODY[2]) * dT;
-
-				// Update previous for next iteration
-				prev_acceleration_BODY[0] = acceleration_BODY[0];
-				prev_acceleration_BODY[1] = acceleration_BODY[1];
-				prev_acceleration_BODY[2] = acceleration_BODY[2];
-
 				// Get range finder distance and transform to WORLD frame
 				rf_distance_BODY = range_finder.get_distance();
-				rf_distance_WORLD =	R[2][0] * rf_distance_BODY +
-									R[2][1] * rf_distance_BODY +
-									R[2][2] * rf_distance_BODY;
+				rf_distance_WORLD =	R[2][2] * rf_distance_BODY;
 
 				// Get barometer altitude
 				barometer_altitude = barometer.get_altitude();
@@ -301,7 +297,24 @@ void sensor_fusion_thread()
 					USB_Log("sensor fusion: rf saturated", CRITICAL);
 				}
 
-				// Get optical flow data for Velocity Complimentary Filter
+				// VELOCITY COMPLIMENTARY FILTER
+
+			    // Extract BODY acceleration
+			    acceleration_BODY[0] = data_out.linear_acceleration[0];		// in m/s^2
+			    acceleration_BODY[1] = data_out.linear_acceleration[1];
+			    acceleration_BODY[2] = data_out.linear_acceleration[2];
+
+			    // Integrate BODY acceleration to get velocity (trapezoidal rule)
+				vel_integrated_BODY[0] += 0.5f * (acceleration_BODY[0] + prev_acceleration_BODY[0]) * dT;
+				vel_integrated_BODY[1] += 0.5f * (acceleration_BODY[1] + prev_acceleration_BODY[1]) * dT;
+				vel_integrated_BODY[2] += 0.5f * (acceleration_BODY[2] + prev_acceleration_BODY[2]) * dT;
+
+				// Update previous for next iteration
+				prev_acceleration_BODY[0] = acceleration_BODY[0];
+				prev_acceleration_BODY[1] = acceleration_BODY[1];
+				prev_acceleration_BODY[2] = acceleration_BODY[2];
+
+				// Get optical flow data
 				float delta_roll = data_out.rotation[2] - prev_roll_pitch[0];		// Roll change
 				float delta_pitch = data_out.rotation[1] - prev_roll_pitch[1];		// Pitch change
 				vel_camera_BODY = optical_flow.get_delta_m(altitude, delta_pitch, delta_roll);
@@ -321,7 +334,8 @@ void sensor_fusion_thread()
 				velocity_BODY[1] = XY_VELOCITY_ALPHA * vel_integrated_BODY[1] + (1.0f - XY_VELOCITY_ALPHA) * vel_camera_BODY[1];
 				velocity_BODY[2] = vel_integrated_BODY[2];
 
-				// Update drone state variable
+				// UPDATE DRONE STATE AND SEND FEEDBACK
+
 				{
 					np::lock_guard lock(stateMutexHandle);
 					drone_state.rotation[0] = data_out.rotation[2];		// Roll

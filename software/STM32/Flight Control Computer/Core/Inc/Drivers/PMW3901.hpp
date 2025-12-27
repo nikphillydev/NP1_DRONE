@@ -43,10 +43,12 @@
 #define PMW3901_READ					0x00
 #define PMW3901_WRITE					0x80
 
-/* CONSTANTS AND SCALERS */
+/* CONSTANTS */
 #define FOV_DEG							42
 #define RES_PIX							30
-#define MOTION_SCALER					8		// Determined experimentally
+
+/* SCALERS */
+#define MOTION_SCALER					6		// Determined experimentally
 #define CORRECTION_SCALER				29		// Determined experimentally
 
 
@@ -87,10 +89,11 @@ private:
 	const float conversion = 2 * tanf(FOV_DEG / 2) / (RES_PIX * MOTION_SCALER);
 	const float expected_cf = RES_PIX * CORRECTION_SCALER / FOV_DEG;
 
+	// Optical flow data mutex
+	osMutexId_t& data_mutex;
+
 	// Optical flow data
 	std::array<int16_t, 2> delta_raw {};		// camera delta x, y
-
-	osMutexId_t& data_mutex;
 
 	// Filter for delta x,y data
 	MovingAverageFilter<float> delta_x_filter;
