@@ -15,13 +15,16 @@
  *      		CORRECTION_SCALER	(correct for roll and pitch changes)
  *      		Moving average filter on delta x/y
  *
- *      	*** Ensure XY integrated velocity (from accelerometer) and camera velocity (from optical flow)
- *      		match in phase and magnitude, then ...
  *
  *      	- Fusion:
- *      		XY_VEL_RESET_FREQ	(frequency to reset integrated XY velocity to camera velocity)
- *      		XY_VELOCITY_ALPHA	(degree of trust placed on integrated XY velocity vs. camera velocity)
- *      		ALTITUDE_ALPHA		(degree of trust placed on barometer altitude vs. ultrasonic sensor)
+ *      		FUSION_FREQ
+ *      			Frequency to run sensor fusion algorithm.
+ *      		VEL_SETTLING_TIME
+ *      			2% settling time of velocity leaky integrator. Integrated velocities from accelerometer
+ *      			are leaked towards absolute values of XY camera velocity and Z altitude velocity.
+ *      		ALTITUDE_ALPHA
+ *      			Degree of trust placed on barometer altitude vs. ultrasonic sensor for altitude
+ *      			complimentary filter.
  */
 
 #include "Threads/sensor.hpp"
@@ -47,21 +50,27 @@
 #define COUNTS_TO_SECONDS			(float)TIMER_PERIOD / TIMER_FREQUENCY
 
 #define STATE_SIZE					2432
-#define FUSION_FREQ					250
-#define XY_VEL_RESET_FREQ			1.5					// Integrated XY velocity reset frequency
+#define GBIAS_ACC_TH_SC        	 	2 * 0.000765
+#define GBIAS_GYRO_TH_SC        	2 * 0.002
+#define GBIAS_MAG_TH_SC         	2 * 0.001500
 
 #define MS2_TO_G					1 / 9.80665
 #define G_TO_MS2					9.80665
 #define RADIANS_TO_DEGREES			180.0 / M_PI
 #define GAUSS_TO_uTESLA				100.0
 
-#define GBIAS_ACC_TH_SC        	 	2 * 0.000765
-#define GBIAS_GYRO_TH_SC        	2 * 0.002
-#define GBIAS_MAG_TH_SC         	2 * 0.001500
+// --- SENSOR FUSION TUNING ---
 
-#define XY_VELOCITY_ALPHA			0.25				// XY velocity complimentary filter parameter
-#define ALTITUDE_ALPHA				0.005				// Altitude complimentary filter parameter
+// Frequency to run sensor fusion
+#define FUSION_FREQ					250
 
+// Settling time (2%) of leaky integrator from integrated velocities to absolute
+// velocity values (camera XY velocity and altitude Z velocity)
+#define VEL_SETTLING_TIME			0.6f
+const float VEL_LEAK_ALPHA = 		1.0f - 4.0f / (FUSION_FREQ * VEL_SETTLING_TIME);
+
+// Altitude complimentary filter alpha
+#define ALTITUDE_ALPHA				0.005f
 
 /*
  * Sensor drivers
@@ -114,13 +123,12 @@ uint32_t fusion_period_ms = (1.0 / FUSION_FREQ) * 1000;			// ms
 state drone_state;									// Drone state in WORLD frame
 
 std::array<std::array<float, 3>, 3> R {};			// Rotation matrix from WORLD frame to BODY frame
-std::array<float, 3> acceleration_BODY {};			// Acceleration in BODY frame (no gravity)
-std::array<float, 3> prev_acceleration_BODY {};		// ...Needed for trapezoidal integration
-std::array<float, 3> vel_integrated_BODY {};		// Velocity integrated from acceleration data in BODY frame
-std::array<float, 3> prev_roll_pitch {};			// Previous roll and pitch for optical flow XY velocity calculations
-std::array<float, 3> velocity_BODY {};				// Velocity in BODY frame (from velocity complimentary filter)
-float rf_distance_WORLD = 0;						// Distance from range finder in WORLD frame
+std::array<float, 3> velocity_BODY {};				// Velocity in BODY frame (from leaky integrator)
 float altitude = 0;									// Altitude in WORLD frame (from altitude complimentary filter)
+
+std::array<float, 3> prev_acceleration_BODY {};		// Previous acceleration in BODY frame (no gravity) for trapezoidal integration
+std::array<float, 3> prev_roll_pitch {};			// Previous roll and pitch for optical flow XY velocity calculations
+float prev_altitude = 0;							// Previous altitude for Z velocity calculation
 
 /*
  *
@@ -162,11 +170,8 @@ void sensor_fusion_thread()
 			osDelay(10);
 		}
 
-		uint32_t last_wake_time = osKernelGetTickCount();
-
-		// Counter to reset integrated XY velocity (to camera velocity)
 		uint32_t counter = 0;
-		uint32_t reset_xy_period_multiple = FUSION_FREQ / XY_VEL_RESET_FREQ;
+		uint32_t last_wake_time = osKernelGetTickCount();
 
 		// Range finder saturated flag
 		bool rf_saturated = false;
@@ -246,9 +251,9 @@ void sensor_fusion_thread()
 				MotionFX_propagate(mfxstate, &data_out, &data_in, &dT);
 				MotionFX_update(mfxstate, &data_out, &data_in, &dT, NULL);
 
-			    // Prime algorithm on first iteration
 			    if (counter == 1) {
-					prev_acceleration_BODY[0] = data_out.linear_acceleration[0];
+			    	// Prime algorithm on first iteration
+			    	prev_acceleration_BODY[0] = data_out.linear_acceleration[0];
 					prev_acceleration_BODY[1] = data_out.linear_acceleration[1];
 					prev_acceleration_BODY[2] = data_out.linear_acceleration[2];
 					prev_roll_pitch[0] = data_out.rotation[2];
@@ -263,19 +268,19 @@ void sensor_fusion_thread()
 				qx *= n; qy *= n; qz *= n; qw *= n;
 
 				// Update WORLD -> BODY rotation matrix using current orientation
-				R[0][0] = 1.0f - 2.0f * (qy*qy + qz*qz);		// Row 1
-			    R[0][1] = 2.0f * (qx*qy - qw*qz);
-			    R[0][2] = 2.0f * (qx*qz + qw*qy);
-			    R[1][0] = 2.0f * (qx*qy + qw*qz);				// Row 2
-			    R[1][1] = 1.0f - 2.0f * (qx*qx + qz*qz);
-			    R[1][2] = 2.0f * (qy*qz - qw*qx);
-			    R[2][0] = 2.0f * (qx*qz - qw*qy);				// Row 3
-			    R[2][1] = 2.0f * (qy*qz + qw*qx);
+				// R[0][0] = 1.0f - 2.0f * (qy*qy + qz*qz);		// Row 1
+			    // R[0][1] = 2.0f * (qx*qy - qw*qz);
+			    // R[0][2] = 2.0f * (qx*qz + qw*qy);
+			    // R[1][0] = 2.0f * (qx*qy + qw*qz);				// Row 2
+			    // R[1][1] = 1.0f - 2.0f * (qx*qx + qz*qz);
+			    // R[1][2] = 2.0f * (qy*qz - qw*qx);
+			    // R[2][0] = 2.0f * (qx*qz - qw*qy);				// Row 3
+			    // R[2][1] = 2.0f * (qy*qz + qw*qx);
 			    R[2][2] = 1.0f - 2.0f * (qx*qx + qy*qy);
 
 				// Get range finder distance and transform to WORLD frame
 				rf_distance_BODY = range_finder.get_distance();
-				rf_distance_WORLD =	R[2][2] * rf_distance_BODY;
+				float rf_distance_WORLD = R[2][2] * rf_distance_BODY;
 
 				// Get barometer altitude
 				barometer_altitude = barometer.get_altitude();
@@ -297,22 +302,7 @@ void sensor_fusion_thread()
 					USB_Log("sensor fusion: rf saturated", CRITICAL);
 				}
 
-				// VELOCITY COMPLIMENTARY FILTER
-
-			    // Extract BODY acceleration
-			    acceleration_BODY[0] = data_out.linear_acceleration[0];		// in m/s^2
-			    acceleration_BODY[1] = data_out.linear_acceleration[1];
-			    acceleration_BODY[2] = data_out.linear_acceleration[2];
-
-			    // Integrate BODY acceleration to get velocity (trapezoidal rule)
-				vel_integrated_BODY[0] += 0.5f * (acceleration_BODY[0] + prev_acceleration_BODY[0]) * dT;
-				vel_integrated_BODY[1] += 0.5f * (acceleration_BODY[1] + prev_acceleration_BODY[1]) * dT;
-				vel_integrated_BODY[2] += 0.5f * (acceleration_BODY[2] + prev_acceleration_BODY[2]) * dT;
-
-				// Update previous for next iteration
-				prev_acceleration_BODY[0] = acceleration_BODY[0];
-				prev_acceleration_BODY[1] = acceleration_BODY[1];
-				prev_acceleration_BODY[2] = acceleration_BODY[2];
+				// VELOCITY LEAKY INTEGRATOR
 
 				// Get optical flow data
 				float delta_roll = data_out.rotation[2] - prev_roll_pitch[0];		// Roll change
@@ -323,16 +313,28 @@ void sensor_fusion_thread()
 				prev_roll_pitch[0] = data_out.rotation[2];		// Roll
 				prev_roll_pitch[1] = data_out.rotation[1];		// Pitch
 
-				// Reset integrated XY velocity drift if necessary
-				if (counter % reset_xy_period_multiple == 0) {
-					vel_integrated_BODY[0] = vel_camera_BODY[0];
-					vel_integrated_BODY[1] = vel_camera_BODY[1];
-				}
+			    // Integrate BODY acceleration to get delta velocity (trapezoidal rule)
+			    float delta_vel_x = 0.5f * (data_out.linear_acceleration[0] + prev_acceleration_BODY[0]) * dT;
+			    float delta_vel_y = 0.5f * (data_out.linear_acceleration[1] + prev_acceleration_BODY[1]) * dT;
+			    float delta_vel_z = 0.5f * (data_out.linear_acceleration[2] + prev_acceleration_BODY[2]) * dT;
 
-				// Fuse XY velocity via complimentary filter
-				velocity_BODY[0] = XY_VELOCITY_ALPHA * vel_integrated_BODY[0] + (1.0f - XY_VELOCITY_ALPHA) * vel_camera_BODY[0];
-				velocity_BODY[1] = XY_VELOCITY_ALPHA * vel_integrated_BODY[1] + (1.0f - XY_VELOCITY_ALPHA) * vel_camera_BODY[1];
-				velocity_BODY[2] = vel_integrated_BODY[2];
+				// Update previous for next iteration
+				prev_acceleration_BODY[0] = data_out.linear_acceleration[0];
+				prev_acceleration_BODY[1] = data_out.linear_acceleration[1];
+				prev_acceleration_BODY[2] = data_out.linear_acceleration[2];
+
+				// Calculate Z velocity reference from altitude change
+				if (counter == 1) {
+					// Prime algorithm on first iteration
+					prev_altitude = altitude;
+				}
+				float vel_alt_z = (altitude - prev_altitude) / dT;
+				prev_altitude = altitude;
+
+				// Apply Leaky Integrator to fuse velocities
+				velocity_BODY[0] = delta_vel_x + VEL_LEAK_ALPHA * velocity_BODY[0] + (1.0f - VEL_LEAK_ALPHA) * vel_camera_BODY[0];
+				velocity_BODY[1] = delta_vel_y + VEL_LEAK_ALPHA * velocity_BODY[1] + (1.0f - VEL_LEAK_ALPHA) * vel_camera_BODY[1];
+				velocity_BODY[2] = delta_vel_z + VEL_LEAK_ALPHA * velocity_BODY[2] + (1.0f - VEL_LEAK_ALPHA) * vel_alt_z;
 
 				// UPDATE DRONE STATE AND SEND FEEDBACK
 
@@ -345,9 +347,10 @@ void sensor_fusion_thread()
 					drone_state.quaternion[1] = qy;
 					drone_state.quaternion[2] = qz;
 					drone_state.quaternion[3] = qw;
-					drone_state.xy_velocity[0] = velocity_BODY[0];		// X velocity
-					drone_state.xy_velocity[1] = velocity_BODY[1];		// Y velocity
-					drone_state.altitude = altitude;					// Z position
+					drone_state.velocity[0] = velocity_BODY[0];			// X velocity
+					drone_state.velocity[1] = velocity_BODY[1];			// Y velocity
+					drone_state.velocity[2] = velocity_BODY[2];			// Z velocity
+					drone_state.altitude = altitude;
 				}
 
 				// TODO: send to control system queue!
@@ -380,7 +383,7 @@ void fusion_logging_thread()
 					"%.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f",
 					drone_state.rotation[0], drone_state.rotation[1], drone_state.rotation[2],
 					drone_state.quaternion[0], drone_state.quaternion[1], drone_state.quaternion[2], drone_state.quaternion[3],
-					vel_integrated_BODY[1], vel_camera_BODY[1],
+					velocity_BODY[0], velocity_BODY[1],
 					drone_state.altitude);
 		}
 		USB_Log(state_log, STATE);		// Log drone state data

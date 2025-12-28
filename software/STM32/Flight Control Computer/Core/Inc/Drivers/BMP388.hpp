@@ -69,6 +69,9 @@
 /* I2C ADDRESS */
 #define BMP388_ADDRESS			0x76
 
+/* MOVING AVERAGE FILTER */
+#define MOVING_AVG_FLT_COUNT	4
+
 struct BMP388_CalibrationData
 {
 	float par_t1;

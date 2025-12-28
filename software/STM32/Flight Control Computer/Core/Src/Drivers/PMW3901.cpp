@@ -20,8 +20,8 @@ PMW3901::PMW3901(SPI_HandleTypeDef* spi_handle, osMutexId_t& spi_mutex, GPIO_Typ
 	  cs_port(cs_port),
 	  cs_pin(cs_pin),
 	  data_mutex(data_mutex),
-	  delta_x_filter(4),
-	  delta_y_filter(4) {}
+	  delta_x_filter(MOVING_AVG_FLT_COUNT),
+	  delta_y_filter(MOVING_AVG_FLT_COUNT) {}
 
 bool PMW3901::init()
 {

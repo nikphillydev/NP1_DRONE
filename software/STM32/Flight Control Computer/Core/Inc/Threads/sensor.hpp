@@ -26,7 +26,7 @@ struct state	// Drone state vector in NED coordinate system
 {
 	float rotation[3];				// Roll, Pitch, Yaw 					(deg)
 	float quaternion[4];			// Quaternion rotation 					(X-Y-Z-W)
-	float xy_velocity[2];			// Linear velocity in BODY frame (m/s) 	[x,y]
+	float velocity[3];				// Linear velocity in BODY frame (m/s) 	[x,y,z]
 	float altitude;					// Altitude (m)		 					[z]
 };
 

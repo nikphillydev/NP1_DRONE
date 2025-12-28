@@ -51,6 +51,8 @@
 #define MOTION_SCALER					6		// Determined experimentally
 #define CORRECTION_SCALER				29		// Determined experimentally
 
+/* MOVING AVERAGE FILTER */
+#define MOVING_AVG_FLT_COUNT			4
 
 class PMW3901
 {

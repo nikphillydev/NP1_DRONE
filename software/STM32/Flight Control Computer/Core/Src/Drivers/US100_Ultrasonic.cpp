@@ -15,7 +15,7 @@ US100_Ultrasonic::US100_Ultrasonic(UART_HandleTypeDef* uart_handle, osMutexId_t&
 	: uart_handle(uart_handle),
 	  uart_mutex(uart_mutex),
 	  data_mutex(data_mutex),
-	  distance_filter(4) {}
+	  distance_filter(MOVING_AVG_FLT_COUNT) {}
 
 void US100_Ultrasonic::start_distance_transfer()
 {

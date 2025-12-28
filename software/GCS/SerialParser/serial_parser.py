@@ -113,6 +113,7 @@ class SerialParserThread(QThread):
         qw = float(string_split[7])
         vel_x = float(string_split[8]) * 100.0    # Meters to centimeters
         vel_y = float(string_split[9]) * 100.0    # Meters to centimeters
+        vel_z = float(string_split[9]) * 100.0    # Meters to centimeters
         altitude = float(string_split[10])
         self.sensor_data.update_state(roll, pitch, yaw, qx, qy, qz, qw, vel_x, vel_y, altitude, tp)
     

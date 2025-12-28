@@ -12,6 +12,9 @@
 #include "Utility/MovingAverageFilter.hpp"
 #include <cstdint>
 
+/* MOVING AVERAGE FILTER */
+#define MOVING_AVG_FLT_COUNT	4
+
 #define MAX_DISTANCE_M			(float)4.5
 
 
