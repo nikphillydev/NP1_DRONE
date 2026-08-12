@@ -1,0 +1,345 @@
+/*
+ * BMP388.cpp
+ *
+ *  Created on: Dec 16, 2024
+ *      Author: Nikolai Philipenko
+ */
+
+#include <cmath>
+#include <cstdio>
+#include <cstring>
+
+#include "Drivers/BMP388/bmp388.hpp"
+#include "Drivers/BMP388/bmp388_regs.hpp"
+#include "Drivers/usb.hpp"
+#include "Utility/lock_guard.hpp"
+
+
+BMP388::BMP388(I2C_HandleTypeDef* i2c_handle, osMutexId_t& i2c_mutex, osMutexId_t& baro_data_mutex, USB_Logger& logger)
+	:i2c_handle(i2c_handle),
+	 i2c_mutex(i2c_mutex),
+	 baro_data_mutex(baro_data_mutex),
+	 alt_filter(MOVING_AVG_FLT_COUNT),
+	 logger(logger) {}
+
+bool BMP388::init()
+{
+	bool status = false;
+
+	// Temporary buffers
+	uint8_t tx_data[4];
+	uint8_t rx_data[4];
+	memset(tx_data, 0, sizeof(tx_data));
+	memset(rx_data, 0, sizeof(rx_data));
+
+	// Check chip ID
+	rx_data[0] = 0x00;
+	status = read_register(REG_CHIP_ID, rx_data, 1);
+	if (status && rx_data[0] == 0x50)
+	{
+		logger.log("Found BMP388, starting initialization.", CRITICAL);
+	}
+	else
+	{
+		logger.log("Failed to find BMP388. Initialization failed.", ERR);
+		return false;
+	}
+	osDelay(10);
+
+	// Perform soft-reset of device
+	tx_data[0] = 0xB6;
+	status = write_register(REG_CMD, tx_data, 1);
+	if (!status) return status;
+	osDelay(10);
+
+	// Read, calculate, and store calibration coefficients
+	status = read_calibration_nvm();
+	if (!status) return status;
+
+	// Set pressure measurement x8 over-sampling, temperature measurement no over-sampling
+	tx_data[0] = 0x03;
+	status = write_register(REG_OSR, tx_data, 1);
+	if (!status) return status;
+	osDelay(10);
+
+	// Set 50Hz ODR
+	tx_data[0] = 0x02;
+	status = write_register(REG_ODR, tx_data, 1);
+	if (!status) return status;
+	osDelay(10);
+
+	// Set IIR filter coefficient to 3
+	tx_data[0] = 0x04;
+	status = write_register(REG_CONFIG, tx_data, 1);
+	if (!status) return status;
+	osDelay(10);
+
+	// Compute startup pressure for initial altitude reference
+	status = compute_startup_pressure();
+	if (!status) return status;
+
+	// Switch device into normal mode, enable pressure and temperature sensor
+	tx_data[0] = 0x33;
+	status = write_register(REG_PWR_CTRL, tx_data, 1);
+	if (!status) return status;
+	osDelay(10);
+
+	// Enable data ready interrupt (temperature and pressure) and configure INT pin (active high, push-pull)
+	tx_data[0] = 0x42;
+	status = write_register(REG_INT_CTRL, tx_data, 1);
+	if (!status) return status;
+	osDelay(10);
+
+	logger.log("BMP388 initialized OK.", CRITICAL);
+	osDelay(100);
+
+	return status;
+}
+
+bool BMP388::service_irq()
+{
+	// Compute compensated temperature and pressure
+
+	uint8_t rx_data[6];
+	bool status = read_register(REG_DATA_0, rx_data, sizeof(rx_data));
+
+	if (status)
+	{
+		// Compute compensated temperature
+
+		uint32_t temp_raw = (rx_data[5] << 16) | (rx_data[4] << 8) | rx_data[3];
+
+		float temp_partial_data1 = (float)temp_raw - calib_data.par_t1;
+		float temp_partial_data2 = temp_partial_data1 * calib_data.par_t2;
+
+		{
+			np::lock_guard lock(baro_data_mutex);
+			temperature = temp_partial_data2 + (temp_partial_data1 * temp_partial_data1) * calib_data.par_t3;
+		}
+
+		// Compute compensated pressure
+
+		uint32_t press_raw = (rx_data[2] << 16) | (rx_data[1] << 8) | rx_data[0];
+
+		np::lock_guard lock(baro_data_mutex);
+
+		float press_partial_data1 = calib_data.par_p6 * temperature;
+		float press_partial_data2 = calib_data.par_p7 * (temperature * temperature);
+		float press_partial_data3 = calib_data.par_p8 * (temperature * temperature * temperature);
+		float press_partial_out1 = calib_data.par_p5 + press_partial_data1 + press_partial_data2 + press_partial_data3;
+
+		press_partial_data1 = calib_data.par_p2 * temperature;
+		press_partial_data2 = calib_data.par_p3 * (temperature * temperature);
+		press_partial_data3 = calib_data.par_p4 * (temperature * temperature * temperature);
+		float press_partial_out2 = (float)press_raw * (calib_data.par_p1 + press_partial_data1 + press_partial_data2 + press_partial_data3);
+
+		press_partial_data1 = (float)press_raw * (float)press_raw;
+		press_partial_data2 = calib_data.par_p9 + calib_data.par_p10 * temperature;
+		press_partial_data3 = press_partial_data1 *	press_partial_data2;
+		float press_partial_out3 = press_partial_data3 + ((float)press_raw * (float)press_raw * (float)press_raw) * calib_data.par_p11;
+
+		pressure = press_partial_out1 + press_partial_out2 + press_partial_out3;
+
+		// Compute altitude
+
+		if (pressure && startup_pressure)
+		{
+			altitude = alt_filter.update(44330.0 * (1.0 - powf(pressure / startup_pressure, 1.0 / 5.25579)));
+			if (altitude < 0.0) {
+				altitude = 0.0;
+			}
+		}
+
+		// Data ready INT cleared automatically 2.5 ms after the interrupt assertion
+	}
+	else
+	{
+		logger.log("ERROR reading BMP388 data.", ERR);
+	}
+
+	return status;
+}
+
+void BMP388::log_data_to_gcs()
+{
+	char string[128];
+	{
+		np::lock_guard lock(baro_data_mutex);
+		snprintf(string, sizeof(string), "BMP388 %.2f %.2f %.2f", pressure, altitude, temperature);
+	}
+	logger.log(string, SENSOR);
+}
+
+float BMP388::get_pressure()
+{
+	np::lock_guard lock(baro_data_mutex);
+	return pressure;
+}
+
+float BMP388::get_altitude()
+{
+	np::lock_guard lock(baro_data_mutex);
+	return altitude;
+}
+
+float BMP388::get_temperature()
+{
+	np::lock_guard lock(baro_data_mutex);
+	return temperature;
+}
+
+bool BMP388::read_calibration_nvm()
+{
+	bool status = false;
+	uint8_t rx_data[2];
+
+	// PAR T1
+	status = read_register(REG_NVM_PAR_T1_LSB, rx_data, 2);
+	if (!status) return status;
+	uint16_t par_t1_raw = (rx_data[1] << 8) | rx_data[0];
+	calib_data.par_t1 = (float)par_t1_raw / powf(2, -8);
+
+	// PAR T2
+	status = read_register(REG_NVM_PAR_T2_LSB, rx_data, 2);
+	if (!status) return status;
+	uint16_t par_t2_raw = (rx_data[1] << 8) | rx_data[0];
+	calib_data.par_t2 = (float)par_t2_raw / powf(2, 30);
+
+	// PAR T3
+	status = read_register(REG_NVM_PAR_T3, rx_data, 1);
+	if (!status) return status;
+	int8_t par_t3_raw = rx_data[0];
+	calib_data.par_t3 = (float)par_t3_raw / powf(2, 48);
+
+	// PAR P1
+	status = read_register(REG_NVM_PAR_P1_LSB, rx_data, 2);
+	if (!status) return status;
+	int16_t par_p1_raw = (rx_data[1] << 8) | rx_data[0];
+	calib_data.par_p1 = ((float)par_p1_raw - powf(2, 14)) / powf(2, 20);
+
+	// PAR P2
+	status = read_register(REG_NVM_PAR_P2_LSB, rx_data, 2);
+	if (!status) return status;
+	int16_t par_p2_raw = (rx_data[1] << 8) | rx_data[0];
+	calib_data.par_p2 = ((float)par_p2_raw - powf(2, 14)) / powf(2, 29);
+
+	// PAR P3
+	status = read_register(REG_NVM_PAR_P3, rx_data, 1);
+	if (!status) return status;
+	int8_t par_p3_raw = rx_data[0];
+	calib_data.par_p3 = (float)par_p3_raw / powf(2, 32);
+
+	// PAR P4
+	status = read_register(REG_NVM_PAR_P4, rx_data, 1);
+	if (!status) return status;
+	int8_t par_p4_raw = rx_data[0];
+	calib_data.par_p4 = (float)par_p4_raw / powf(2, 37);
+
+	// PAR P5
+	status = read_register(REG_NVM_PAR_P5_LSB, rx_data, 2);
+	if (!status) return status;
+	uint16_t par_p5_raw = (rx_data[1] << 8) | rx_data[0];
+	calib_data.par_p5 = (float)par_p5_raw / powf(2, -3);
+
+	// PAR P6
+	status = read_register(REG_NVM_PAR_P6_LSB, rx_data, 2);
+	if (!status) return status;
+	uint16_t par_p6_raw = (rx_data[1] << 8) | rx_data[0];
+	calib_data.par_p6 = (float)par_p6_raw / powf(2, 6);
+
+	// PAR P7
+	status = read_register(REG_NVM_PAR_P7, rx_data, 1);
+	if (!status) return status;
+	int8_t par_p7_raw = rx_data[0];
+	calib_data.par_p7 = (float)par_p7_raw / powf(2, 8);
+
+	// PAR P8
+	status = read_register(REG_NVM_PAR_P8, rx_data, 1);
+	if (!status) return status;
+	int8_t par_p8_raw = rx_data[0];
+	calib_data.par_p8 = (float)par_p8_raw / powf(2, 15);
+
+	// PAR P9
+	status = read_register(REG_NVM_PAR_P9_LSB, rx_data, 2);
+	if (!status) return status;
+	int16_t par_p9_raw = (rx_data[1] << 8) | rx_data[0];
+	calib_data.par_p9 = (float)par_p9_raw / powf(2, 48);
+
+	// PAR P10
+	status = read_register(REG_NVM_PAR_P10, rx_data, 1);
+	if (!status) return status;
+	int8_t par_p10_raw = rx_data[0];
+	calib_data.par_p10 = (float)par_p10_raw / powf(2, 48);
+
+	// PAR P11
+	status = read_register(REG_NVM_PAR_P11, rx_data, 1);
+	if (!status) return status;
+	int8_t par_p11_raw = rx_data[0];
+	calib_data.par_p11 = (float)par_p11_raw / powf(2, 65);
+
+	return status;
+}
+
+bool BMP388::compute_startup_pressure()
+{
+	// Compute the average current pressure (for initial altitude reference)
+	bool status = false;
+	uint8_t tx_data[2];
+	memset(tx_data, 0, sizeof(tx_data));
+	uint8_t sample_num = 75;
+	float running_pressure = 0;
+
+	for (int i = 0; i < sample_num; i++)
+	{
+		// Switch sensor into forced mode (take one reading, return to sleep)
+		tx_data[0] = 0x13;
+		status = write_register(REG_PWR_CTRL, tx_data, 1);
+		if (!status) return status;
+		osDelay(40);
+		service_irq();
+		np::lock_guard lock(baro_data_mutex);
+		running_pressure += pressure;
+	}
+	np::lock_guard lock(baro_data_mutex);
+	startup_pressure = running_pressure / sample_num;
+	return status;
+}
+
+/*
+ *
+ *  Low-level register read / write
+ *
+ */
+bool BMP388::read_register(uint8_t reg_addr, uint8_t* rx_data, uint16_t data_len)
+{
+	bool status = false;
+	{
+		np::lock_guard lock(i2c_mutex);
+		status = (HAL_I2C_Mem_Read(i2c_handle, (BMP388_ADDRESS << 1), reg_addr, I2C_MEMADD_SIZE_8BIT, rx_data, data_len, HAL_MAX_DELAY) == HAL_OK);
+	}
+
+	if (!status)
+	{
+		logger.log("BMP388 register read failed.", ERR);
+	}
+
+	return status;
+}
+
+bool BMP388::write_register(uint8_t reg_addr, uint8_t* tx_data, uint16_t data_len)
+{
+	bool status = false;
+	{
+		np::lock_guard lock(i2c_mutex);
+		status = (HAL_I2C_Mem_Write(i2c_handle, (BMP388_ADDRESS << 1), reg_addr, I2C_MEMADD_SIZE_8BIT, tx_data, data_len, HAL_MAX_DELAY) == HAL_OK);
+	}
+
+	if (!status)
+	{
+		logger.log("BMP388 register write failed.", ERR);
+	}
+
+	return status;
+}
+
+

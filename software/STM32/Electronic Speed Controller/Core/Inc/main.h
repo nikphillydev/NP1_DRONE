@@ -32,10 +32,14 @@ extern "C" {
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
+#include "cmsis_os.h"
+
 /* USER CODE END Includes */
 
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
+
+extern osMessageQueueId_t threadInputQueueHandle;
 
 /* USER CODE END ET */
 
@@ -48,8 +52,6 @@ extern "C" {
 /* USER CODE BEGIN EM */
 
 /* USER CODE END EM */
-
-void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 
 /* Exported functions prototypes ---------------------------------------------*/
 void Error_Handler(void);
@@ -65,8 +67,32 @@ void Error_Handler(void);
 #define LED2_GPIO_Port GPIOC
 #define LED3_Pin GPIO_PIN_15
 #define LED3_GPIO_Port GPIOC
+#define PHA_FILT_Pin GPIO_PIN_1
+#define PHA_FILT_GPIO_Port GPIOA
 #define TEMP_Pin GPIO_PIN_2
 #define TEMP_GPIO_Port GPIOA
+#define PH_VNA_Pin GPIO_PIN_4
+#define PH_VNA_GPIO_Port GPIOA
+#define PH_VNB_Pin GPIO_PIN_5
+#define PH_VNB_GPIO_Port GPIOA
+#define PHB_FILT_Pin GPIO_PIN_7
+#define PHB_FILT_GPIO_Port GPIOA
+#define PHC_FILT_Pin GPIO_PIN_0
+#define PHC_FILT_GPIO_Port GPIOB
+#define PH_VNC_Pin GPIO_PIN_2
+#define PH_VNC_GPIO_Port GPIOB
+#define PHA_L_Pin GPIO_PIN_13
+#define PHA_L_GPIO_Port GPIOB
+#define PHB_L_Pin GPIO_PIN_14
+#define PHB_L_GPIO_Port GPIOB
+#define PHC_L_Pin GPIO_PIN_15
+#define PHC_L_GPIO_Port GPIOB
+#define PHA_H_Pin GPIO_PIN_8
+#define PHA_H_GPIO_Port GPIOA
+#define PHB_H_Pin GPIO_PIN_9
+#define PHB_H_GPIO_Port GPIOA
+#define PHC_H_Pin GPIO_PIN_10
+#define PHC_H_GPIO_Port GPIOA
 
 /* USER CODE BEGIN Private defines */
 

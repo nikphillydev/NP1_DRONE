@@ -92,11 +92,11 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_PULLDOWN;
   HAL_GPIO_Init(GYRO_INT_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pin : CC2500_GDO0_Pin */
-  GPIO_InitStruct.Pin = CC2500_GDO0_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
+  /*Configure GPIO pins : CC2500_GDO0_Pin MAG_INT_Pin */
+  GPIO_InitStruct.Pin = CC2500_GDO0_Pin|MAG_INT_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(CC2500_GDO0_GPIO_Port, &GPIO_InitStruct);
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
   /*Configure GPIO pin : CC2500_CS_Pin */
   GPIO_InitStruct.Pin = CC2500_CS_Pin;
@@ -105,11 +105,11 @@ void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(CC2500_CS_GPIO_Port, &GPIO_InitStruct);
 
-  /*Configure GPIO pins : CC2500_GDO2_Pin MAG_INT_Pin */
-  GPIO_InitStruct.Pin = CC2500_GDO2_Pin|MAG_INT_Pin;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  /*Configure GPIO pin : CC2500_GDO2_Pin */
+  GPIO_InitStruct.Pin = CC2500_GDO2_Pin;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_FALLING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
-  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+  HAL_GPIO_Init(CC2500_GDO2_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : GPIO8_Pin GPIO9_Pin GPIO7_Pin GPIO4_Pin
                            GPIO1_Pin */
@@ -134,11 +134,11 @@ void MX_GPIO_Init(void)
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
   /* EXTI interrupt init*/
-  HAL_NVIC_SetPriority(EXTI0_IRQn, 5, 0);
-  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
-
   HAL_NVIC_SetPriority(EXTI1_IRQn, 5, 0);
   HAL_NVIC_EnableIRQ(EXTI1_IRQn);
+
+  HAL_NVIC_SetPriority(EXTI2_IRQn, 5, 0);
+  HAL_NVIC_EnableIRQ(EXTI2_IRQn);
 
   HAL_NVIC_SetPriority(EXTI15_10_IRQn, 5, 0);
   HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
@@ -146,21 +146,5 @@ void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 2 */
-
-void GPIO_Enable_EXTI0_IRQn()
-{
-	__disable_irq();
-	HAL_NVIC_SetPriority(EXTI0_IRQn, 5, 0);
-	HAL_NVIC_ClearPendingIRQ(EXTI0_IRQn);
-	HAL_NVIC_EnableIRQ(EXTI0_IRQn);
-	__enable_irq();
-}
-
-void GPIO_Disable_EXTI0_IRQn()
-{
-	__disable_irq();
-	HAL_NVIC_DisableIRQ(EXTI0_IRQn);
-	__enable_irq();
-}
 
 /* USER CODE END 2 */

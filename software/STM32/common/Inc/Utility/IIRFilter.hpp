@@ -1,0 +1,41 @@
+/*
+ * IIRFilter.hpp
+ *
+ *  Created on: Jan 31, 2025
+ *      Author: Nikolai Philipenko
+ */
+#pragma once
+
+#include <cstdint>
+#include <array>
+
+
+class IIRFilter
+{
+	/*
+	 * Class to implement a Butterworth second-order low-pass filter
+	 */
+public:
+	IIRFilter(float cutoff_freq_hz, float sampling_freq_hz);
+
+	float update(float input);
+
+private:
+	bool initialized = false;
+
+	// Parameters
+	const float cutoff_freq_hz;			// Hz
+	const float sampling_freq_hz;		// Hz
+	const float K;
+	const float Q = 0.7071;				// Butterworth response quality factor
+
+	// Filter coefficients
+	std::array<float, 3> a {};
+	std::array<float, 2> b {};
+
+	// Previous input / outputs
+	std::array<float, 2> prev_input {};
+	std::array<float, 2> prev_output {};
+};
+
+

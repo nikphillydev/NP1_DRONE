@@ -53,6 +53,7 @@
 
 /* USER CODE BEGIN PV */
 volatile unsigned long ulHighFrequencyTimerCounts;
+const int THREAD_START_DELAY_MS = 650;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -106,9 +107,6 @@ int main(void)
   MX_CRC_Init();
   /* USER CODE BEGIN 2 */
   MX_USB_Device_Init();
-
-  // Required until CC2500 is fully initialized
-  GPIO_Disable_EXTI0_IRQn();
 
   /* USER CODE END 2 */
 

@@ -26,14 +26,19 @@
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
-#include "Threads/radio.hpp"
-#include "Threads/sensor.hpp"
+#include "Threads/sensor_fusion_thread.hpp"
+#include "Threads/radio_thread.hpp"
+#include "Threads/motor_controller.hpp"
+
+#include "Drivers/CC2500/cc2500_types.h"
 
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
 typedef StaticTask_t osStaticThreadDef_t;
+typedef StaticQueue_t osStaticMessageQDef_t;
 typedef StaticSemaphore_t osStaticMutexDef_t;
+typedef StaticSemaphore_t osStaticSemaphoreDef_t;
 /* USER CODE BEGIN PTD */
 
 /* USER CODE END PTD */
@@ -160,17 +165,39 @@ const osThreadAttr_t radioTask_attributes = {
   .cb_size = sizeof(radioTaskControlBlock),
   .priority = (osPriority_t) osPriorityNormal,
 };
-/* Definitions for cc2500IRQTask */
-osThreadId_t cc2500IRQTaskHandle;
-uint32_t cc2500IRQTaskBuffer[ 512 ];
-osStaticThreadDef_t cc2500IRQTaskControlBlock;
-const osThreadAttr_t cc2500IRQTask_attributes = {
-  .name = "cc2500IRQTask",
-  .stack_mem = &cc2500IRQTaskBuffer[0],
-  .stack_size = sizeof(cc2500IRQTaskBuffer),
-  .cb_mem = &cc2500IRQTaskControlBlock,
-  .cb_size = sizeof(cc2500IRQTaskControlBlock),
-  .priority = (osPriority_t) osPriorityHigh,
+/* Definitions for motorControllerTask */
+osThreadId_t motorControllerTaskHandle;
+uint32_t motorControllerTaskBuffer[ 512 ];
+osStaticThreadDef_t motorControllerTaskControlBlock;
+const osThreadAttr_t motorControllerTask_attributes = {
+  .name = "motorControllerTask",
+  .stack_mem = &motorControllerTaskBuffer[0],
+  .stack_size = sizeof(motorControllerTaskBuffer),
+  .cb_mem = &motorControllerTaskControlBlock,
+  .cb_size = sizeof(motorControllerTaskControlBlock),
+  .priority = (osPriority_t) osPriorityNormal,
+};
+/* Definitions for stateQueue */
+osMessageQueueId_t stateQueueHandle;
+uint8_t stateQueueBuffer[ 1 * sizeof( drone_state_t ) ];
+osStaticMessageQDef_t stateQueueControlBlock;
+const osMessageQueueAttr_t stateQueue_attributes = {
+  .name = "stateQueue",
+  .cb_mem = &stateQueueControlBlock,
+  .cb_size = sizeof(stateQueueControlBlock),
+  .mq_mem = &stateQueueBuffer,
+  .mq_size = sizeof(stateQueueBuffer)
+};
+/* Definitions for radioQueue */
+osMessageQueueId_t radioQueueHandle;
+uint8_t radioQueueBuffer[ 64 * sizeof( cc2500_packet_t ) ];
+osStaticMessageQDef_t radioQueueControlBlock;
+const osMessageQueueAttr_t radioQueue_attributes = {
+  .name = "radioQueue",
+  .cb_mem = &radioQueueControlBlock,
+  .cb_size = sizeof(radioQueueControlBlock),
+  .mq_mem = &radioQueueBuffer,
+  .mq_size = sizeof(radioQueueBuffer)
 };
 /* Definitions for spi1Mutex */
 osMutexId_t spi1MutexHandle;
@@ -260,13 +287,13 @@ const osMutexAttr_t flowDataMutex_attributes = {
   .cb_mem = &flowDataMutexControlBlock,
   .cb_size = sizeof(flowDataMutexControlBlock),
 };
-/* Definitions for cc2500StatusMutex */
-osMutexId_t cc2500StatusMutexHandle;
-osStaticMutexDef_t cc2500StatusMutexControlBlock;
-const osMutexAttr_t cc2500StatusMutex_attributes = {
-  .name = "cc2500StatusMutex",
-  .cb_mem = &cc2500StatusMutexControlBlock,
-  .cb_size = sizeof(cc2500StatusMutexControlBlock),
+/* Definitions for radioRxSemaphore */
+osSemaphoreId_t radioRxSemaphoreHandle;
+osStaticSemaphoreDef_t radioRxSemaphoreControlBlock;
+const osSemaphoreAttr_t radioRxSemaphore_attributes = {
+  .name = "radioRxSemaphore",
+  .cb_mem = &radioRxSemaphoreControlBlock,
+  .cb_size = sizeof(radioRxSemaphoreControlBlock),
 };
 
 /* Private function prototypes -----------------------------------------------*/
@@ -283,7 +310,7 @@ void start_fusion_logging_task(void *argument);
 void start_ultrasonic_polling_task(void *argument);
 void start_optical_flow_polling_task(void *argument);
 void start_radio_task(void *argument);
-void start_cc2500_irq_task(void *argument);
+void start_motor_controller_task(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -340,12 +367,13 @@ void MX_FREERTOS_Init(void) {
   /* creation of flowDataMutex */
   flowDataMutexHandle = osMutexNew(&flowDataMutex_attributes);
 
-  /* creation of cc2500StatusMutex */
-  cc2500StatusMutexHandle = osMutexNew(&cc2500StatusMutex_attributes);
-
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
+
+  /* Create the semaphores(s) */
+  /* creation of radioRxSemaphore */
+  radioRxSemaphoreHandle = osSemaphoreNew(64, 0, &radioRxSemaphore_attributes);
 
   /* USER CODE BEGIN RTOS_SEMAPHORES */
   /* add semaphores, ... */
@@ -354,6 +382,13 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE BEGIN RTOS_TIMERS */
   /* start timers, add new ones, ... */
   /* USER CODE END RTOS_TIMERS */
+
+  /* Create the queue(s) */
+  /* creation of stateQueue */
+  stateQueueHandle = osMessageQueueNew (1, sizeof(drone_state_t), &stateQueue_attributes);
+
+  /* creation of radioQueue */
+  radioQueueHandle = osMessageQueueNew (64, sizeof(cc2500_packet_t), &radioQueue_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
@@ -387,8 +422,8 @@ void MX_FREERTOS_Init(void) {
   /* creation of radioTask */
   radioTaskHandle = osThreadNew(start_radio_task, NULL, &radioTask_attributes);
 
-  /* creation of cc2500IRQTask */
-  cc2500IRQTaskHandle = osThreadNew(start_cc2500_irq_task, NULL, &cc2500IRQTask_attributes);
+  /* creation of motorControllerTask */
+  motorControllerTaskHandle = osThreadNew(start_motor_controller_task, NULL, &motorControllerTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -409,8 +444,6 @@ void MX_FREERTOS_Init(void) {
 /* USER CODE END Header_start_sensor_fusion_task */
 void start_sensor_fusion_task(void *argument)
 {
-  /* init code for USB_Device */
-  MX_USB_Device_Init();
   /* USER CODE BEGIN start_sensor_fusion_task */
   /* Infinite loop */
   sensor_fusion_thread();
@@ -519,15 +552,18 @@ void start_ultrasonic_polling_task(void *argument)
 {
   /* USER CODE BEGIN start_ultrasonic_polling_task */
 	/* Infinite loop */
-	uint32_t last_wake_time = osKernelGetTickCount();
+
+	const uint32_t polling_period_ms = 100;		// update distance at 10 Hz
+	uint32_t wakeup_time = osKernelGetTickCount();
+
 	for(;;)
 	{
 		poll_US100_Ultrasonic( 1 );
 		osThreadFlagsWait(0x00000001U, osFlagsWaitAll, osWaitForever);
 		poll_US100_Ultrasonic( 0 );
 
-		last_wake_time += 100;			// 100ms delay, update distance at 10Hz
-		osDelayUntil(last_wake_time);
+		wakeup_time += polling_period_ms;
+		osDelayUntil(wakeup_time);
 	}
   /* USER CODE END start_ultrasonic_polling_task */
 }
@@ -543,13 +579,16 @@ void start_optical_flow_polling_task(void *argument)
 {
   /* USER CODE BEGIN start_optical_flow_polling_task */
 	/* Infinite loop */
-	uint32_t last_wake_time = osKernelGetTickCount();
+
+	const uint32_t polling_period_ms = 10;		// update flow rate at 100 Hz
+	uint32_t wakeup_time = osKernelGetTickCount();
+
 	for(;;)
 	{
-		poll_PMW3901();
+		poll_PMW3901(polling_period_ms / 1000.0f);
 
-		last_wake_time += 10;			// 10ms delay, update delta x,y at 100 Hz
-		osDelayUntil(last_wake_time);
+		wakeup_time += polling_period_ms;
+		osDelayUntil(wakeup_time);
 	}
   /* USER CODE END start_optical_flow_polling_task */
 }
@@ -569,23 +608,19 @@ void start_radio_task(void *argument)
   /* USER CODE END start_radio_task */
 }
 
-/* USER CODE BEGIN Header_start_cc2500_irq_task */
+/* USER CODE BEGIN Header_start_motor_controller_task */
 /**
-* @brief Function implementing the cc2500IRQTask thread.
+* @brief Function implementing the motorControllerTask thread.
 * @param argument: Not used
 * @retval None
 */
-/* USER CODE END Header_start_cc2500_irq_task */
-void start_cc2500_irq_task(void *argument)
+/* USER CODE END Header_start_motor_controller_task */
+void start_motor_controller_task(void *argument)
 {
-  /* USER CODE BEGIN start_cc2500_irq_task */
+  /* USER CODE BEGIN start_motor_controller_task */
   /* Infinite loop */
-	for(;;)
-	{
-		osThreadFlagsWait(0x00000001U, osFlagsWaitAll, osWaitForever);
-		service_CC2500_receive_irq();
-	}
-  /* USER CODE END start_cc2500_irq_task */
+	motor_controller_thread();
+  /* USER CODE END start_motor_controller_task */
 }
 
 /* Private application code --------------------------------------------------*/
@@ -609,9 +644,9 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 	{
 		osThreadFlagsSet(magIRQTaskHandle, 0x00000001U);
 	}
-	else if (GPIO_Pin == CC2500_GDO0_Pin)
+	else if (GPIO_Pin == CC2500_GDO2_Pin)
 	{
-		osThreadFlagsSet(cc2500IRQTaskHandle, 0x00000001U);
+		osSemaphoreRelease(radioRxSemaphoreHandle);
 	}
 }
 

@@ -37,7 +37,7 @@ extern "C" {
 /* Exported types ------------------------------------------------------------*/
 /* USER CODE BEGIN ET */
 
-/* Export mutexes for everyone to use */
+/* Export mutexes */
 extern osMutexId_t spi1MutexHandle;
 extern osMutexId_t usbMutexHandle;
 extern osMutexId_t i2c2MutexHandle;
@@ -49,12 +49,23 @@ extern osMutexId_t stateMutexHandle;
 extern osMutexId_t uart2MutexHandle;
 extern osMutexId_t ultrasonicDataMutexHandle;
 extern osMutexId_t flowDataMutexHandle;
-extern osMutexId_t cc2500StatusMutexHandle;
+
+/* Export tasks */
+extern osThreadId_t fusionLoggingTaskHandle;
+
+/* Export queues */
+extern osMessageQueueId_t stateQueueHandle;
+extern osMessageQueueId_t radioQueueHandle;
+
+/* Export semaphores */
+extern osSemaphoreId_t radioRxSemaphoreHandle;
 
 /* USER CODE END ET */
 
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
+
+extern const int THREAD_START_DELAY_MS;
 
 /* USER CODE END EC */
 
@@ -87,11 +98,11 @@ void Error_Handler(void);
 #define ACCEL_CS_GPIO_Port GPIOA
 #define CC2500_GDO0_Pin GPIO_PIN_0
 #define CC2500_GDO0_GPIO_Port GPIOB
-#define CC2500_GDO0_EXTI_IRQn EXTI0_IRQn
 #define CC2500_CS_Pin GPIO_PIN_1
 #define CC2500_CS_GPIO_Port GPIOB
 #define CC2500_GDO2_Pin GPIO_PIN_2
 #define CC2500_GDO2_GPIO_Port GPIOB
+#define CC2500_GDO2_EXTI_IRQn EXTI2_IRQn
 #define GPIO8_Pin GPIO_PIN_10
 #define GPIO8_GPIO_Port GPIOB
 #define GPIO9_Pin GPIO_PIN_11

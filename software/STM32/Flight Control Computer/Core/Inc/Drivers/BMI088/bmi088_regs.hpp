@@ -1,0 +1,76 @@
+/*
+ * bmi088_regs.hpp
+ *
+ *  Created on: Jul 28, 2026
+ *      Author: Nikolai Philipenko
+ */
+
+#pragma once
+
+/*
+ *
+ * REGISTERS
+ *
+ */
+
+/* ACCELEROMETER REGISTERS */
+#define REG_ACC_CHIP_ID			0x00
+#define REG_ACC_ERR_REG			0x02
+#define REG_ACC_STATUS			0x03
+#define REG_ACC_X_LSB			0x12
+#define REG_ACC_X_MSB			0x13
+#define REG_ACC_Y_LSB			0x14
+#define REG_ACC_Y_MSB			0x15
+#define REG_ACC_Z_LSB			0x16
+#define REG_ACC_Z_MSB			0x17
+#define REG_ACC_SENSORTIME_0	0x18
+#define REG_ACC_SENSORTIME_1	0x19
+#define REG_ACC_SENSORTIME_2	0x1A
+#define REG_ACC_INT_STAT_1		0x1D
+#define	REG_TEMP_MSB			0x22
+#define	REG_TEMP_LSB			0x23
+#define	REG_ACC_FIFO_LENGTH_0	0x24
+#define	REG_ACC_FIFO_LENGTH_1	0x25
+#define	REG_ACC_FIFO_DATA		0x26
+#define REG_ACC_CONF			0x40
+#define REG_ACC_RANGE			0x41
+#define REG_ACC_FIFO_DOWNS		0x45
+#define	REG_ACC_FIFO_WTM_0		0x46
+#define	REG_ACC_FIFO_WTM_1		0x47
+#define	REG_ACC_FIFO_CONFIG_0	0x48
+#define	REG_ACC_FIFO_CONFIG_1	0x49
+#define	REG_INT1_IO_CTRL		0x53
+#define	REG_INT2_IO_CTRL		0x54
+#define REG_INT_MAP_DATA		0x58
+#define REG_ACC_SELF_TEST		0x6D
+#define REG_ACC_PWR_CONF		0x7C
+#define REG_ACC_PWR_CTRL		0x7D
+#define	REG_ACC_SOFTRESET		0x7E
+
+/* GYROSCOPE REGISTERS */
+#define REG_GYRO_CHIP_ID		0x00
+#define REG_RATE_X_LSB			0x02
+#define REG_RATE_X_MSB			0x03
+#define REG_RATE_Y_LSB			0x04
+#define REG_RATE_Y_MSB 			0x05
+#define REG_RATE_Z_LSB			0x06
+#define REG_RATE_Z_MSB			0x07
+#define REG_GYRO_INT_STAT_1		0x0A
+#define REG_GYRO_FIFO_STATUS	0x0E
+#define REG_GYRO_RANGE			0x0F
+#define REG_GYRO_BANDWIDTH		0x10
+#define REG_GYRO_LPM1			0x11
+#define REG_GYRO_SOFTRESET		0x14
+#define REG_GYRO_INT_CTRL		0x15
+#define REG_INT3_INT4_IO_CONF	0x16
+#define REG_INT3_INT4_IO_MAP	0x18
+#define REG_GYRO_FIFO_WM_EN		0x1E
+#define REG_GYRO_FIFO_EXT_INT_S	0x34
+#define REG_GYRO_SELF_TEST		0x3C
+#define REG_GYRO_FIFO_CONFIG_0	0x3D
+#define	REG_GYRO_FIFO_CONFIG_1  0x3E
+#define	REG_GYRO_FIFO_DATA		0x3F
+
+/* ACCESS TYPES */
+#define BMI088_READ				0x80
+#define BMI088_WRITE			0x00
