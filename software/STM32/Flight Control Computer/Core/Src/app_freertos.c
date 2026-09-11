@@ -28,7 +28,7 @@
 
 #include "Threads/sensor_fusion_thread.hpp"
 #include "Threads/radio_thread.hpp"
-#include "Threads/motor_controller.hpp"
+#include "Threads/control_system_thread.hpp"
 
 #include "Drivers/CC2500/cc2500_types.h"
 
@@ -163,30 +163,19 @@ const osThreadAttr_t radioTask_attributes = {
   .stack_size = sizeof(radioTaskBuffer),
   .cb_mem = &radioTaskControlBlock,
   .cb_size = sizeof(radioTaskControlBlock),
-  .priority = (osPriority_t) osPriorityNormal,
+  .priority = (osPriority_t) osPriorityAboveNormal,
 };
-/* Definitions for motorControllerTask */
-osThreadId_t motorControllerTaskHandle;
-uint32_t motorControllerTaskBuffer[ 512 ];
-osStaticThreadDef_t motorControllerTaskControlBlock;
-const osThreadAttr_t motorControllerTask_attributes = {
-  .name = "motorControllerTask",
-  .stack_mem = &motorControllerTaskBuffer[0],
-  .stack_size = sizeof(motorControllerTaskBuffer),
-  .cb_mem = &motorControllerTaskControlBlock,
-  .cb_size = sizeof(motorControllerTaskControlBlock),
+/* Definitions for controlSystemTask */
+osThreadId_t controlSystemTaskHandle;
+uint32_t controlSystemTaskBuffer[ 2048 ];
+osStaticThreadDef_t controlSystemTaskControlBlock;
+const osThreadAttr_t controlSystemTask_attributes = {
+  .name = "controlSystemTask",
+  .stack_mem = &controlSystemTaskBuffer[0],
+  .stack_size = sizeof(controlSystemTaskBuffer),
+  .cb_mem = &controlSystemTaskControlBlock,
+  .cb_size = sizeof(controlSystemTaskControlBlock),
   .priority = (osPriority_t) osPriorityNormal,
-};
-/* Definitions for stateQueue */
-osMessageQueueId_t stateQueueHandle;
-uint8_t stateQueueBuffer[ 1 * sizeof( drone_state_t ) ];
-osStaticMessageQDef_t stateQueueControlBlock;
-const osMessageQueueAttr_t stateQueue_attributes = {
-  .name = "stateQueue",
-  .cb_mem = &stateQueueControlBlock,
-  .cb_size = sizeof(stateQueueControlBlock),
-  .mq_mem = &stateQueueBuffer,
-  .mq_size = sizeof(stateQueueBuffer)
 };
 /* Definitions for radioQueue */
 osMessageQueueId_t radioQueueHandle;
@@ -287,6 +276,14 @@ const osMutexAttr_t flowDataMutex_attributes = {
   .cb_mem = &flowDataMutexControlBlock,
   .cb_size = sizeof(flowDataMutexControlBlock),
 };
+/* Definitions for stateTopicMutex */
+osMutexId_t stateTopicMutexHandle;
+osStaticMutexDef_t stateTopicMutexControlBlock;
+const osMutexAttr_t stateTopicMutex_attributes = {
+  .name = "stateTopicMutex",
+  .cb_mem = &stateTopicMutexControlBlock,
+  .cb_size = sizeof(stateTopicMutexControlBlock),
+};
 /* Definitions for radioRxSemaphore */
 osSemaphoreId_t radioRxSemaphoreHandle;
 osStaticSemaphoreDef_t radioRxSemaphoreControlBlock;
@@ -310,7 +307,7 @@ void start_fusion_logging_task(void *argument);
 void start_ultrasonic_polling_task(void *argument);
 void start_optical_flow_polling_task(void *argument);
 void start_radio_task(void *argument);
-void start_motor_controller_task(void *argument);
+void start_control_system_task(void *argument);
 
 void MX_FREERTOS_Init(void); /* (MISRA C 2004 rule 8.1) */
 
@@ -367,6 +364,9 @@ void MX_FREERTOS_Init(void) {
   /* creation of flowDataMutex */
   flowDataMutexHandle = osMutexNew(&flowDataMutex_attributes);
 
+  /* creation of stateTopicMutex */
+  stateTopicMutexHandle = osMutexNew(&stateTopicMutex_attributes);
+
   /* USER CODE BEGIN RTOS_MUTEX */
   /* add mutexes, ... */
   /* USER CODE END RTOS_MUTEX */
@@ -384,9 +384,6 @@ void MX_FREERTOS_Init(void) {
   /* USER CODE END RTOS_TIMERS */
 
   /* Create the queue(s) */
-  /* creation of stateQueue */
-  stateQueueHandle = osMessageQueueNew (1, sizeof(drone_state_t), &stateQueue_attributes);
-
   /* creation of radioQueue */
   radioQueueHandle = osMessageQueueNew (64, sizeof(cc2500_packet_t), &radioQueue_attributes);
 
@@ -422,8 +419,8 @@ void MX_FREERTOS_Init(void) {
   /* creation of radioTask */
   radioTaskHandle = osThreadNew(start_radio_task, NULL, &radioTask_attributes);
 
-  /* creation of motorControllerTask */
-  motorControllerTaskHandle = osThreadNew(start_motor_controller_task, NULL, &motorControllerTask_attributes);
+  /* creation of controlSystemTask */
+  controlSystemTaskHandle = osThreadNew(start_control_system_task, NULL, &controlSystemTask_attributes);
 
   /* USER CODE BEGIN RTOS_THREADS */
   /* add threads, ... */
@@ -608,19 +605,19 @@ void start_radio_task(void *argument)
   /* USER CODE END start_radio_task */
 }
 
-/* USER CODE BEGIN Header_start_motor_controller_task */
+/* USER CODE BEGIN Header_start_control_system_task */
 /**
-* @brief Function implementing the motorControllerTask thread.
+* @brief Function implementing the controlSystemTask thread.
 * @param argument: Not used
 * @retval None
 */
-/* USER CODE END Header_start_motor_controller_task */
-void start_motor_controller_task(void *argument)
+/* USER CODE END Header_start_control_system_task */
+void start_control_system_task(void *argument)
 {
-  /* USER CODE BEGIN start_motor_controller_task */
+  /* USER CODE BEGIN start_control_system_task */
   /* Infinite loop */
-	motor_controller_thread();
-  /* USER CODE END start_motor_controller_task */
+	control_system_thread();
+  /* USER CODE END start_control_system_task */
 }
 
 /* Private application code --------------------------------------------------*/

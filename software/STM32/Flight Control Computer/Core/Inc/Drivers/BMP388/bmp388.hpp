@@ -10,7 +10,7 @@
 #include "stm32g4xx_hal.h"
 #include "cmsis_os.h"
 
-#include "Utility/MovingAverageFilter.hpp"
+#include "Utility/moving_avg_filter.hpp"
 #include "Drivers/usb.hpp"
 
 /* I2C ADDRESS */

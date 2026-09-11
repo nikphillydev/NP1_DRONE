@@ -82,7 +82,8 @@ bool OrientationEKF::calibrate_magnetometer()
 	uint32_t wakeup_time = osKernelGetTickCount();
 
 	uint32_t count = 0;
-	const uint32_t max_count = 1 * 60 * 1000 / calibration_period_ms;		// 1 minute timeout
+	uint32_t timeout_min = 1;
+	const uint32_t max_count = timeout_min * 60 * 1000 / calibration_period_ms;
 
 	MotionFX_MagCal_init(calibration_period_ms, 1);
 

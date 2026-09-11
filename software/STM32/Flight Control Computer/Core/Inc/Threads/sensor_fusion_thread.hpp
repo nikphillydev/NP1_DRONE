@@ -22,6 +22,8 @@ extern "C" {
  */
 typedef struct						// NED coordinate system
 {
+	uint32_t timestamp;
+
 	float rotation[3];				// Roll, Pitch, Yaw 					(deg)
 	float quaternion[4];			// Quaternion rotation 					[x,y,z,w]
 	float velocity[2];				// Linear velocity in BODY frame (m/s) 	[x,y]

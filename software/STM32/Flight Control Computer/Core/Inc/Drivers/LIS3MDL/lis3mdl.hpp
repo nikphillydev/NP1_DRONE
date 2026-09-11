@@ -14,7 +14,7 @@
 #include <array>
 #include <memory>
 
-#include "Utility/IIRFilter.hpp"
+#include "Utility/iir_filter.hpp"
 #include "Drivers/usb.hpp"
 
 /* I2C ADDRESS */

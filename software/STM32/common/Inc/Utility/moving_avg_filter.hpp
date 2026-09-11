@@ -1,5 +1,5 @@
 /*
- * MovingAverageFilter.hpp
+ * moving_avg_filter.hpp
  *
  *  Created on: Mar 10, 2025
  *      Author: Nikolai Philipenko
@@ -10,9 +10,7 @@
 #include <vector>
 #include <algorithm>
 
-/*
- * Interface
- */
+
 template <typename T>
 class MovingAverageFilter
 {

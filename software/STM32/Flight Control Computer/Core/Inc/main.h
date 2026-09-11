@@ -49,12 +49,12 @@ extern osMutexId_t stateMutexHandle;
 extern osMutexId_t uart2MutexHandle;
 extern osMutexId_t ultrasonicDataMutexHandle;
 extern osMutexId_t flowDataMutexHandle;
+extern osMutexId_t stateTopicMutexHandle;
 
 /* Export tasks */
 extern osThreadId_t fusionLoggingTaskHandle;
 
 /* Export queues */
-extern osMessageQueueId_t stateQueueHandle;
 extern osMessageQueueId_t radioQueueHandle;
 
 /* Export semaphores */

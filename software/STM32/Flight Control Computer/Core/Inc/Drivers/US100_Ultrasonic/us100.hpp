@@ -12,7 +12,7 @@
 
 #include <cstdint>
 
-#include "Utility/MovingAverageFilter.hpp"
+#include "Utility/moving_avg_filter.hpp"
 #include "Drivers/usb.hpp"
 
 #define RANGE_MAX_DISTANCE_M		(float)4.5

@@ -17,19 +17,20 @@ AltitudeComplementaryFilter::AltitudeComplementaryFilter(US100& range_finder, BM
 
 float AltitudeComplementaryFilter::update(const MFX_output_t& state)
 {
-	bool roll_valid = -ABS_MAX_ROLL_PITCH < state.rotation[2] && state.rotation[2] < ABS_MAX_ROLL_PITCH;
-	bool pitch_valid = -ABS_MAX_ROLL_PITCH < state.rotation[1] && state.rotation[1] < ABS_MAX_ROLL_PITCH;
-
 	// Get range finder distance
 	float rf_distance_BODY = range_finder.get_distance();
-	bool rf_valid = 0 < rf_distance_BODY && rf_distance_BODY < RANGE_MAX_DISTANCE_M;
+
+	bool roll_valid = -ABS_MAX_ROLL_PITCH < state.rotation[2] && state.rotation[2] < ABS_MAX_ROLL_PITCH;
+	bool pitch_valid = -ABS_MAX_ROLL_PITCH < state.rotation[1] && state.rotation[1] < ABS_MAX_ROLL_PITCH;
+	bool distance_valid = 0 < rf_distance_BODY && rf_distance_BODY < RANGE_MAX_DISTANCE_M;
+	bool range_finder_valid = roll_valid && pitch_valid && distance_valid;
 
 	// Get barometer altitude
 	float barometer_altitude = barometer.get_altitude();
 
 	float altitude = 0;
 
-	if (roll_valid && pitch_valid && rf_valid)
+	if (range_finder_valid)
 	{
 		// Extract and normalize orientation quaternion
 		float qx = state.quaternion[0], qy = state.quaternion[1], qz = state.quaternion[2], qw = state.quaternion[3];

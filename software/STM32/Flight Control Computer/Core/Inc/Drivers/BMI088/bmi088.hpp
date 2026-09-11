@@ -15,7 +15,7 @@
 #include <cmath>
 #include <cstdint>
 
-#include "Utility/IIRFilter.hpp"
+#include "Utility/iir_filter.hpp"
 #include "Drivers/usb.hpp"
 
 

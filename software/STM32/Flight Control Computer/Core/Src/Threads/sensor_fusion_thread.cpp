@@ -30,14 +30,15 @@
  *      	- ALTITUDE COMPLEMENTARY FILTER:
  *      		(param) ALTITUDE_ALPHA: Degree of trust placed on barometer altitude vs. ultrasonic sensor for altitude.
  *      	- VELOCITY LEAKY INTEGRATOR:
- *      		(param) First-order settling time (2%) of leaky integrator from integrated XY velocities (from accelerations)
- *      				to absolute camera XY velocities.
-  */
+ *      		(param) VEL_SETTLING_TIME: First-order settling time (2%) of leaky integrator from integrated XY velocities
+ *      				(from accelerations) to absolute camera XY velocities.
+ */
 
 #include "main.h"
 #include "spi.h"
 #include "i2c.h"
 #include "usart.h"
+#include "fcc_topics.hpp"
 
 #include <cstdio>
 #include <cmath>
@@ -175,7 +176,6 @@ void sensor_fusion_thread()
 		// VELOCITY LEAKY INTEGRATOR
 
 		std::array<float, 2> xy_velocity{};
-
 		if (leaky_integrator_okay)
 			xy_velocity = vel_leaky_integrator.update(data_out, altitude, dT);
 
@@ -183,6 +183,9 @@ void sensor_fusion_thread()
 
 		{
 			np::lock_guard lock(stateMutexHandle);
+
+			drone_state.timestamp = osKernelGetTickCount();
+
 			drone_state.rotation[0] = data_out.rotation[2];			// Roll
 			drone_state.rotation[1] = data_out.rotation[1];			// Pitch
 			drone_state.rotation[2] = data_out.rotation[0];			// Yaw
@@ -197,7 +200,7 @@ void sensor_fusion_thread()
 
 		// PUBLISH DRONE STATE
 
-		osMessageQueuePut(stateQueueHandle, &drone_state, 0, 0);
+		state_topic.publish(drone_state);
 	}
 }
 

@@ -76,7 +76,6 @@ void radio_thread()
 		osStatus_t sem_status = osSemaphoreAcquire(radioRxSemaphoreHandle, radio_rx_timeout_ms);
 
 		// Check GCS heartbeat
-		// Runs whether packet received or timeout occured
 		if (osKernelGetTickCount() - last_heartbeat_tick > heartbeat_tick_delta)
 		{
 			if (!loss_of_link_flag)

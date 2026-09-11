@@ -15,7 +15,7 @@
 #include <array>
 #include <cmath>
 
-#include "Utility/MovingAverageFilter.hpp"
+#include "Utility/moving_avg_filter.hpp"
 #include "Drivers/usb.hpp"
 
 

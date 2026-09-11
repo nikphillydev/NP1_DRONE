@@ -17,7 +17,7 @@
 #include "Drivers/usb.hpp"
 #include "Drivers/CC2500/cc2500.hpp"
 #include "Radio/radio_link.hpp"
-#include "Utility/MovingAverageFilter.hpp"
+#include "Utility/moving_avg_filter.hpp"
 #include "constants.hpp"
 
 #define SEND_THROTTLE_COMMAND_HZ	50
@@ -132,6 +132,11 @@ void rc_controller_thread()
 				msg.throttle = throttle;
 				cc2500_packet_t packet = NP1RadioLink::throttle_msg_pack(msg);
 				transmit_packet(packet, transceiver, logger);
+
+				char debug[128];
+				snprintf(debug, sizeof(debug), "Sending throttle. ADC: %d, Throttle: %d", adc_filtered, throttle);
+				logger.log(debug, INFO);
+
 				break;
 			}
 			default:

@@ -1,10 +1,10 @@
 /*
- * IIRFilter.cpp
+ * iir_filter.cpp
  *
  *  Created on: Jan 31, 2025
  *      Author: Nikolai Philipenko
  */
-#include "Utility/IIRFilter.hpp"
+#include "Utility/iir_filter.hpp"
 #include <cmath>
 
 

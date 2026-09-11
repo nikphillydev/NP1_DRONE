@@ -1,7 +1,7 @@
 /*
- * motor_controller.cpp
+ * control_system_thread.hpp
  *
- *  Created on: Jun 1, 2026
+ *  Created on: Aug 24, 2026
  *      Author: Nikolai Philipenko
  */
 
@@ -20,7 +20,7 @@ extern "C" {
  * THREADS
  *
  */
-void motor_controller_thread();
+void control_system_thread();
 
 #ifdef __cplusplus
 }

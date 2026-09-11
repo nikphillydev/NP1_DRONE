@@ -1,5 +1,5 @@
 /*
- * IIRFilter.hpp
+ * iir_filter.hpp
  *
  *  Created on: Jan 31, 2025
  *      Author: Nikolai Philipenko
