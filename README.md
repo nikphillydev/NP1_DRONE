@@ -1,54 +1,38 @@
 # NP1 DRONE
-Building a quadcopter from scratch. Hardware (KiCAD) and software (STM32 C/C++) by Nikolai Philipenko, University of Alberta.
-## Hardware Overview
-This project includes 2 custom PCB designs on the vehicle side: 
-1. Flight Control Computer (FCC)
-2. Electronic Speed Controller (ESC)
+I am attempting to build a quadcopter from scratch, both the PCB hardware (using KiCAD) and software (C/C++ on STM32).
 
-And a RaspberryPi 5 with a 2.4GHz RF transceiver running the ground station software and commanding the drone.
-#### PCB: Flight Control Computer [COMPLETE]
-The FCC PCB incorporates:
-- STM32G474 microcontroller
-- BMI088 IMU (accelerometer + gyroscope), LIS3MDL magnetometer, BMP388 barometer
-- USB 2.0 Full Speed (Data + Power)
-- 2 SN65HVD232 CANbus transceivers (one bus for ESC comms and another bus for serial payloads)
-- CC2500 2.4GHz RF transceiver (for comms with ground station)
-- M24C32 32kBit EEPROM
-- Power regulation (4S / 6S LIPO -> +5V -> +3.3V)
-- Payload header (exposing +5V, +3.3V, GPIO, I2C, SPI, UART)
-#### PCB: Electronic Speed Controller [COMPLETE]
-The ESC PCB incorporates:
-- STM32G474 microcontroller
-- 3 Half-bridge MOSFET gate drivers to support a 3 phase BLDC motor
-- 6 N-channel power MOSFETS (in 3 half-bridge topologies)
-- Per phase voltage measurement
-- Back-EMF zero-crossing detection (using MCU comparators)
-- CANbus transceiver (comms to FCC)
-- Power regulation (4S / 6S LIPO -> +11V -> +5V -> +3.3V) 
+I am a computer software engineering student at the University of Alberta. I started this project in early 2024 to push myself with embedded systems. Since its inception, I have learned a ton about PCB design and FreeRTOS firmware on STM32 microcontrollers. 
 
-## Software Overview
-Each custom vehicle PCB (FCC and ESC) has a dedicated STM32 MCU running FreeRTOS (using CMSIS_V2 API). The ground station software runs on the RPi5 and is built on PyQT6.
-### Software: Flight Control Computer [WIP]
-The flight control computer software performs a multitude of functions involving vehicle command and control:
+Everything I make in this project is from scratch. The STM32-based circuit boards are designed with KiCAD and ordered from JLCPCB with assembly. I am using FreeRTOS for the software because of its scalability in complex embedded projects. I have written all the device drivers from scratch, and wholely designed the multi-threaded architecture for each of the drone's sub-systems.
 
-**Sensor fusion:** Uses custom software drivers to get data from the on-board accelerometer, gyroscope, magnetometer, and barometer, and the off-board PMW3901 optical flow sensor and US100 range finder. Using this data, the FCC implements
-- 9-axis extended kalman filter (EKF) for orientation estimation [roll, pitch, yaw]
-- Velocity complimentary filter fusing velocities integrated from accelerometer data and velocites from the optical flow camera and range finder
-- Altitude complimentary filter fusing altitude from range finder (transformed from body frame to world frame) and altitude from the onboard barometer
+Each sub-system presents its own set of challenges. As an overview, there are 3 sub-systems of the NP1 Drone:
+```
+                     (Over-The-Air Messaging)                               (CANBUS)
+[RC CONTROLLER]   <---------------------------->  [Flight Controller]   <--------------->  [Electronic Speed Controller] x4
+```
+#### 1. Flight Controller Overview
+The Flight Controller (FCC) is a custom PCB design whose software runs the control system for the drone. In order to achieve this, it must 1) receive pilot input from the RC Controller, and 2) estimate its attitude and heading (roll, pitch, yaw). These inputs enter the onboard PID controller in order to calculate the necessary motor commands to send to the Electronic Speed Controllers (ESCs).
 
-**Over-the-air (OTA) Comms with GCS:** Not yet complete
+The FCC is equipped with a multitude of sensors, namely an IMU, magnetometer, barometer, optical flow sensor, and range finder. It performs sensor fusion through the use of an Extended Kalman Filter (EKF) and a few other custom algorithms. When it receives Over-The-Air (OTA) messages from the RC Controller, it monitors for a HEARTBEAT signal to detect LOSS-OF-LINK and perform flight termination. The control system interprets pilot input and sets the target roll, pitch, and yaw accordingly depending on flight mode (various flight modes still WIP).
 
-**Control system:** Not yet complete. All control modes use a PID controller that converts thrust to RPM commands that are sent to the 4 ESCs via CANbus. Will support the following control modes:
-  - Hover at specific altitude
-  - Circular loiter at altitude and radius
-  - Manual control 
+#### 2. RC Controller Overview
+The RC Controller is simple: receive pilot input from various joysticks and buttons and send those values Over-The-Air (OTA) to the FCC. A custom OTA messaging protocol (modelled after MAVLINK) has been developed to facilitate this communication. The physical inputs of the RC Controller are fairly WIP right now. Currently, its a breadboard with push-buttons and a potentiometer, (hopefully) soon it will be a PS4 controller.
 
-### Software: Electronic Speed Controller  [N/A]
-The NP1 ESC hardware was designed to support the following BLDC control algorithms:
-- Trapezoidal control (Back-EMF zero-crossing detection)
-  - This will be implemented first
-- Field-oriented control (Voltage and current measurements per phase)
-### Software: NP1 Ground Control Station (GCS)  [WIP]
-The NP1 GCS displays current vehicle state as well as logging information from the FCC.
+#### 3. Electronic Speed Controller Overview
+The Electronic Speed Controller (ESC) requires a strong understanding of Brushless DC (BLDC) motor control. The custom PCB design and software are designed around the (sensorless) 6-Step Trapezoidal control method, where a Back Electromotive Force (BEMF) measurement from the floating motor phase is measured in order to know when to switch the commutation to the next step. In order to perform proper closed-loop control in this method, the motor must be spinning fast enough to generate a sufficient BEMF. I designed the ESC to operate in a software defined state-machine. Here are the states:
+1. STAND-BY: ESC is not commanding a rotation of the motor.
+2. ARMING: Align-and-Go Step. ESC commands an open-loop ramp up of the motor to obtain sufficient BEMF measurements. Lasts for about 0.8 sec.
+3. ARMED: ESC is commanding true closed-loop, 6-Step commutation with BEMF zero-crossing detection.
 
+The ESC receives ARM, DISARM, and THROTTLE CANBUS messages from the FCC to transition between its internal states and increase / decrease motor RPM.
+
+### In-Depth Design
+For more detailed design, please see the hardware and software folders.
+
+Here is the [hardware overview](hardware/README.md).
+
+Here is the [software overview](software/STM32/README.md).
+
+### A Note on the Use of AI
+When I started the project in 2024, zero AI was used. Now, from 2026 onward, AI is obviously much better. However, this is a PASSION PROJECT. The goal of this project is to LEARN. I will not be able to effectively achieve that goal if I use AI. The intelligence you gain from AI is artificial. Therefore, I write all the code MYSELF. If there are bugs or I want some review / feedback of my work, I will use AI to do so. In this way, AI is the reviewer and I formulate my own thoughts first. 
 
