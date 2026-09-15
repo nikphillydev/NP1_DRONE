@@ -3,7 +3,7 @@ I am attempting to build a quadcopter from scratch, both the PCB hardware (using
 
 I am a computer software engineering student at the University of Alberta. I started this project in early 2024 to push myself with embedded systems. Since its inception, I have learned a ton about PCB design and FreeRTOS firmware on STM32 microcontrollers. 
 
-Everything I make in this project is from scratch. The STM32-based circuit boards are designed with KiCAD and ordered from JLCPCB with assembly. I am using FreeRTOS for the software because of its scalability in complex embedded projects. I have written all the device drivers from scratch, and wholely designed the multi-threaded architecture for each of the drone's sub-systems.
+Everything I make in this project is from scratch. The STM32-based circuit boards are designed with KiCAD and ordered from JLCPCB with assembly. I am using FreeRTOS for the software because of its scalability in complex embedded projects. I have written all the device drivers from scratch, and wholly designed the multi-threaded architecture for each of the drone's sub-systems.
 
 Each sub-system presents its own set of challenges. As an overview, there are 3 sub-systems of the NP1 Drone:
 ```
