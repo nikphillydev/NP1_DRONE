@@ -15,6 +15,14 @@ The Flight Controller (FCC) is a custom PCB design whose software runs the contr
 
 The FCC is equipped with a multitude of sensors, namely an IMU, magnetometer, barometer, optical flow sensor, and range finder. It performs sensor fusion through the use of an Extended Kalman Filter (EKF) and a few other custom algorithms. When it receives Over-The-Air (OTA) messages from the RC Controller, it monitors for a HEARTBEAT signal to detect LOSS-OF-LINK and perform flight termination. The control system interprets pilot input and sets the target roll, pitch, and yaw accordingly depending on flight mode (various flight modes still WIP).
 
+<div align="center">
+  <figure>
+    <img src="documentation/images/FCC.jpeg" width="250" style="display: block; margin: 0 auto;">
+    <figcaption>Figure 1: The Flight Controller (FCC) sitting on a Lego frame. A USB connector powers the board and enables logging to my laptop; jumper wires connect the external range finder and optical flow sensor to the FCC; the green and yellow twisted pair CANBUS wiring connects to the ESCs.</figcaption>
+  </figure>
+</div>
+<!-- <img src="documentation/images/FCC.jpeg" width="300" style="display: block; margin: 0 auto;"/> -->
+
 #### 2. RC Controller Overview
 The RC Controller is simple: receive pilot input from various joysticks and buttons and send those values Over-The-Air (OTA) to the FCC. A custom OTA messaging protocol (modelled after MAVLINK) has been developed to facilitate this communication. The physical inputs of the RC Controller are fairly WIP right now. Currently, its a breadboard with push-buttons and a potentiometer, (hopefully) soon it will be a PS4 controller.
 
