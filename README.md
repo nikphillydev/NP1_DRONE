@@ -16,12 +16,17 @@ The Flight Controller (FCC) is a custom PCB design whose software runs the contr
 The FCC is equipped with a multitude of sensors, namely an IMU, magnetometer, barometer, optical flow sensor, and range finder. It performs sensor fusion through the use of an Extended Kalman Filter (EKF) and a few other custom algorithms. When it receives Over-The-Air (OTA) messages from the RC Controller, it monitors for a HEARTBEAT signal to detect LOSS-OF-LINK and perform flight termination. The control system interprets pilot input and sets the target roll, pitch, and yaw accordingly depending on flight mode (various flight modes still WIP).
 
 <p align="center">
-  <img src="documentation/images/FCC.jpeg" width="250" alt="Flight Controller"><br>
-  <sub><b>Figure 1:</b> The Flight Controller (FCC) sitting on a Lego frame. A USB connector powers the board and enables logging to my laptop; jumper wires connect the external range finder and optical flow sensor to the FCC; the green and yellow twisted pair CANBUS wiring connects to the ESCs.</sub>
+  <img src="documentation/images/FCC.jpeg" width="300" alt="Flight Controller"><br>
+  <sub><b>Figure 1:</b> The Flight Controller (FCC) sitting on a Lego frame. The USB powers the board and enables logging to my laptop; jumper wires connect the external range finder and optical flow sensor; the green and yellow twisted pair connect to the ESCs using CANBUS.</sub>
 </p>
 
 #### 2. RC Controller Overview
 The RC Controller is simple: receive pilot input from various joysticks and buttons and send those values Over-The-Air (OTA) to the FCC. A custom OTA messaging protocol (modelled after MAVLINK) has been developed to facilitate this communication. The physical inputs of the RC Controller are fairly WIP right now. Currently, its a breadboard with push-buttons and a potentiometer, (hopefully) soon it will be a PS4 controller.
+
+<p align="center">
+  <img src="documentation/images/RC_CONTROLLER.jpeg" width="400" alt="RC Controller"><br>
+  <sub><b>Figure 2:</b> The RC Controller, in its current state. Spare hardware is used to capture pilot input.</sub>
+</p>
 
 #### 3. Electronic Speed Controller Overview
 The Electronic Speed Controller (ESC) requires a strong understanding of Brushless DC (BLDC) motor control. The custom PCB design and software are designed around the (sensorless) 6-Step Trapezoidal control method, where a Back Electromotive Force (BEMF) measurement from the floating motor phase is measured in order to know when to switch the commutation to the next step. In order to perform proper closed-loop control in this method, the motor must be spinning fast enough to generate a sufficient BEMF. I designed the ESC to operate in a software defined state-machine. Here are the states:
@@ -30,6 +35,19 @@ The Electronic Speed Controller (ESC) requires a strong understanding of Brushle
 3. ARMED: ESC is commanding true closed-loop, 6-Step commutation with BEMF zero-crossing detection.
 
 The ESC receives ARM, DISARM, and THROTTLE CANBUS messages from the FCC to transition between its internal states and increase / decrease motor RPM.
+
+<table align="center">
+  <tr>
+    <td align="center" valign="top">
+      <img src="documentation/images/ESC_1.jpeg" width="250" alt="Electronic Speed Controller"><br>
+      <sub><b>Figure 2:</b> The Electronic Speed Controller (ESC), connected to the FCC via CANBUS.</sub>
+    </td>
+    <td align="center" valign="top">
+      <img src="documentation/images/ESC_2.jpeg" width="250" alt="Motor Test Stand"><br>
+      <sub><b>Figure 3:</b> The motor test stand; an ESC and BLDC motor mounted onto a wooden lever.</sub>
+    </td>
+  </tr>
+</table>
 
 ### In-Depth Design
 For more detailed design, please see the hardware and software folders.
