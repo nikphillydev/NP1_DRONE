@@ -52,9 +52,7 @@ The ESC receives ARM, DISARM, and THROTTLE CANBUS messages from the FCC to trans
 ### System Demo
 This demo showcases the RC Controller sending my input Over-The-Air (OTA) to the FCC. The FCC receives these commands and uses its estimated state to calculate motor commands in its control system. The resulting commands are sent via CANBUS to the ESC on the motor test stand, controlling the BLDC motor.
 
-<p align="center">
-  <video controls src="documentation/images/demo.mp4" title="Full system demo."></video>
-</p>
+https://github.com/user-attachments/assets/3e73fd2b-c005-44b4-9096-01581734d467
 
 ### In-Depth Design
 For more detailed design, please see the hardware and software folders.
