@@ -7,18 +7,8 @@
 
 #pragma once
 
-#include "Drivers/phase_controller.hpp"
+#include "Drivers/commutator_types.hpp"
 #include "comp.h"
-
-
-typedef enum {
-	AH_BL,
-	AH_CL,
-	BH_CL,
-	BH_AL,
-	CH_AL,
-	CH_BL,
-} bldc_step_t;
 
 /*
  * Class to enable motor control.
@@ -26,23 +16,33 @@ typedef enum {
 class Commutator
 {
 public:
-	void precharge_drivers();
+	Commutator();
 
 	void set_speed_percent(float speed_perc);
 
-	void open_loop_bldc_step();
+	/* Switch to the next commutation step */
+	void bldc_step_open_loop();
 
-	void enable_closed_loop_bldc_step();
-	void disable_closed_loop_bldc_step();
+	/* Switch to the next commutation step IF bemf zero-crossing detected */
+	void bldc_step_closed_loop();
 
-	void closed_loop_bldc_step();
+	void enable_bldc_step_closed_loop();
+	void disable_bldc_step_closed_loop();
 
 private:
 	// Members
-	PhaseController controller;
-	bldc_step_t commutation_step = AH_BL;
+	bldc_step_t commutation_step 	= AH_BL;
+	float source_duty_cycle 		= 0;
+
+	const float MAX_PWM_SOURCE_DUTY_CYCLE 	= 100.0f;
+	const uint32_t PWM_COUNTER_PERIOD 		= 5311 + 1;		// Must match exactly Period+1 in tim.c
+	const float BEMF_POLLING_RATIO 			= 0.9;
 
 	COMP_HandleTypeDef* pha_comp = &hcomp1;
 	COMP_HandleTypeDef* phb_comp = &hcomp2;
 	COMP_HandleTypeDef* phc_comp = &hcomp4;
+
+	// Phase control
+	void phase_control(phase_t phase, phase_mode_t mode);
+	void disable_all_phases();
 };

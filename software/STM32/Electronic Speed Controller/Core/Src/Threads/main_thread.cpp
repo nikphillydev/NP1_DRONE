@@ -32,8 +32,7 @@ void Delay_us(uint32_t us);
 FDCAN_RxHeaderTypeDef rx_header;
 uint8_t rx_data[CAN_BUFFER_SIZE];
 
-const float ALIGN_SPEED_PERC 		= 5.0;
-const float MIN_ARMED_SPEED_PERC	= 25.0;
+const int MIN_ARMED_SPEED_PERC		= 25;
 
 const int ESC_ID					= 0;	// 0-3
 
@@ -98,7 +97,6 @@ void handle_standby_state(esc_state_t& current_state, thread_input_t& input, Com
 	// Handle input
 	if (input.type == CAN_MSG_ARM)
 	{
-		comm.precharge_drivers();
 		current_state = ARMING;
 		return;
 	}
@@ -114,16 +112,16 @@ void handle_arming_state(esc_state_t& current_state, thread_input_t& input, Comm
 	const unsigned align_ticks_delta = osKernelGetTickFreq() * align_time_seconds;
 
 	// OPEN-LOOP Ramp up tuning parameters
-	const int startup_delay_us 	= 5000;
+	const int start_delay_us 	= 5000;
 	const int target_delay_us 	= 100;
-	const int start_speed_perc 	= ALIGN_SPEED_PERC;
+	const int start_speed_perc 	= 5;
 	const int target_speed_perc	= MIN_ARMED_SPEED_PERC;
 	const int ramp_step			= 50;
 
 	// Static function parameters
 	static bool align_init = false;
 	static int align_ticks_begin = 0;
-	static int current_delay = startup_delay_us;
+	static int current_delay = start_delay_us;
 	static int current_speed = start_speed_perc;
 
 	// Handle input
@@ -132,7 +130,7 @@ void handle_arming_state(esc_state_t& current_state, thread_input_t& input, Comm
 		// Reset static variables for next ARMING sequence
 		align_init = false;
 		align_ticks_begin = 0;
-		current_delay = startup_delay_us;
+		current_delay = start_delay_us;
 		current_speed = start_speed_perc;
 
 		if (input.type == CAN_MSG_DISARM)
@@ -142,7 +140,7 @@ void handle_arming_state(esc_state_t& current_state, thread_input_t& input, Comm
 		}
 		else if (input.type == ARMING_COMPLETE)
 		{
-			comm.enable_closed_loop_bldc_step();
+			comm.enable_bldc_step_closed_loop();
 			current_state = ARMED;
 			return;
 		}
@@ -155,7 +153,7 @@ void handle_arming_state(esc_state_t& current_state, thread_input_t& input, Comm
 	if(!align_init)
 	{
 		comm.set_speed_percent(start_speed_perc);
-		comm.open_loop_bldc_step();
+		comm.bldc_step_open_loop();
 		align_init = true;
 		align_ticks_begin = osKernelGetTickCount();
 	}
@@ -172,7 +170,7 @@ void handle_arming_state(esc_state_t& current_state, thread_input_t& input, Comm
 		if(current_delay > target_delay_us)
 		{
 			comm.set_speed_percent(current_speed);
-			comm.open_loop_bldc_step();
+			comm.bldc_step_open_loop();
 
 			Delay_us(current_delay);
 
@@ -180,7 +178,7 @@ void handle_arming_state(esc_state_t& current_state, thread_input_t& input, Comm
 			current_delay -= ramp_step;
 
 			// Linear interpolation with delay to increase speed
-			current_speed = start_speed_perc + (float)(current_delay - startup_delay_us) * (target_speed_perc - start_speed_perc) / (target_delay_us - startup_delay_us);
+			current_speed = start_speed_perc + (float)(current_delay - start_delay_us) * (target_speed_perc - start_speed_perc) / (target_delay_us - start_delay_us);
 		}
 		else
 		{
@@ -195,7 +193,7 @@ void handle_armed_state(esc_state_t& current_state, thread_input_t& input, Commu
 	// Handle input
 	if (input.type == CAN_MSG_DISARM)
 	{
-		comm.disable_closed_loop_bldc_step();
+		comm.disable_bldc_step_closed_loop();
 		current_state = STAND_BY;
 		return;
 	}
@@ -204,7 +202,7 @@ void handle_armed_state(esc_state_t& current_state, thread_input_t& input, Commu
 
 	else if (input.type == ISR_BEMF_POLL)
 	{
-		comm.closed_loop_bldc_step();
+		comm.bldc_step_closed_loop();
 	}
 	else if (input.type == CAN_MSG_SPEED)
 	{
