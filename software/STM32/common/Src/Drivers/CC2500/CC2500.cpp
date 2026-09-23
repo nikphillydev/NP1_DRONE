@@ -473,9 +473,9 @@ bool CC2500::command_strobe(uint8_t strobe, CC2500_STATUS_UPDATE status_update)
 	bool status = false;
 
 	// Check command strobe validity
-	if (strobe < 0x30 || strobe > 0x3D)
+	if (strobe < CMD_SRES || strobe > CMD_SNOP)
 	{
-		logger.error("CC2500 command strobe register does not exist.");
+		logger.error("CC2500 command strobe does not exist.");
 		return false;
 	}
 
@@ -522,7 +522,7 @@ bool CC2500::write_register(uint8_t reg, uint8_t *tx_data, uint16_t data_len)
 	uint8_t tx_buffer[num_bytes]{};
 
 	// Check if status register
-	if (reg >= 0x30 && reg <= 0x3D)
+	if (REG_PARTNUM <= reg && reg <= REG_RCCTRL0_STATUS)
 	{
 		logger.error("CC2500 status registers can only be read.");
 		return false;
@@ -531,7 +531,10 @@ bool CC2500::write_register(uint8_t reg, uint8_t *tx_data, uint16_t data_len)
 	tx_buffer[0] = reg | CC2500_WRITE;
 
 	if (data_len > 1)
+	{
+		// For burst writes, the burst bit must be 1
 		tx_buffer[0] |= CC2500_BURST;
+	}
 
 	for (int i = 1; i < num_bytes; i++)
 	{
@@ -564,8 +567,10 @@ bool CC2500::read_register(uint8_t reg, uint8_t *rx_data, uint16_t data_len)
 
 	// Check if register is a status register
 	bool is_status_reg = false;
-	if (0x30 <= reg && reg <= 0x3D)
+	if (REG_PARTNUM <= reg && reg <= REG_RCCTRL0_STATUS)
+	{
 		is_status_reg = true;
+	}
 
 	if (data_len > 1 && is_status_reg)
 	{
@@ -574,7 +579,7 @@ bool CC2500::read_register(uint8_t reg, uint8_t *rx_data, uint16_t data_len)
 	}
 	else if (data_len > 1 || is_status_reg)
 	{
-		// For status registers, the burst bit must be 1
+		// For status registers and burst reads, the burst bit must be 1
 		tx_buffer[0] |= CC2500_BURST;
 	}
 
