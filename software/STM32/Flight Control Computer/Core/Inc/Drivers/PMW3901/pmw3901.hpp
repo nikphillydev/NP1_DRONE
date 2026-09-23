@@ -16,14 +16,14 @@
 #include <cmath>
 
 #include "Utility/moving_avg_filter.hpp"
-#include "Drivers/usb.hpp"
+#include "Drivers/Logger/logger.hpp"
 
 
 class PMW3901
 {
 public:
 	PMW3901(SPI_HandleTypeDef* spi_handle, osMutexId_t& spi_mutex, GPIO_TypeDef* cs_port, uint16_t cs_pin,
-			osMutexId_t& data_mutex, USB_Logger& logger);
+			osMutexId_t& data_mutex, Logger& logger);
 
 	// Initialization after startup
 	[[nodiscard]] bool init();
@@ -62,5 +62,5 @@ private:
 	MovingAverageFilter<float> rate_y_filter;
 
 	// Logger
-	USB_Logger& logger;
+	Logger& logger;
 };

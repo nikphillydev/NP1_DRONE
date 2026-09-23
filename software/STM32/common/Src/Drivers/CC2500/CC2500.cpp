@@ -11,13 +11,12 @@
 #include <cstdio>
 
 #include "Drivers/CC2500/cc2500.hpp"
-
 #include "Utility/lock_guard.hpp"
 
 #define CC2500_TX_PACKET_LENGTH			PACKET_LENGTH + 1		// packet + address byte
 
 
-CC2500::CC2500(SPI_HandleTypeDef *spi_handle, osMutexId_t& spi_mutex, GPIO_TypeDef *cs_port, uint16_t cs_pin, USB_Logger& logger)
+CC2500::CC2500(SPI_HandleTypeDef *spi_handle, osMutexId_t& spi_mutex, GPIO_TypeDef *cs_port, uint16_t cs_pin, Logger& logger)
 	: spi_handle(spi_handle),
 	  spi_mutex(spi_mutex),
 	  cs_port(cs_port),
@@ -29,10 +28,8 @@ bool CC2500::init()
 	bool status = false;
 
 	// Temporary buffers
-	uint8_t tx_data[4];
-	uint8_t rx_data[4];
-	memset(tx_data, 0, sizeof(tx_data));
-	memset(rx_data, 0, sizeof(rx_data));
+	uint8_t tx_data[4]{};
+	uint8_t rx_data[4]{};
 
 	// Reset device
 	status = command_strobe(CMD_SRES, CC2500_STATUS_UPDATE::TX_FIFO_BYTES);
@@ -42,23 +39,23 @@ bool CC2500::init()
 	// Wait till CC2500 chip ready
 	while (chip_status.chip_ready == false)
 	{
-		logger.log("Waiting for CC2500 to start-up...", CRITICAL);
+		logger.warn("Waiting for CC2500 to start-up...");
 		status = command_strobe(CMD_SNOP, CC2500_STATUS_UPDATE::TX_FIFO_BYTES);
 		if (!status) return status;
 		osDelay(100);
 	}
-	logger.log("CC2500 start-up OK.", CRITICAL);
+	logger.info("CC2500 start-up OK.");
 
 	// Check CC2500 chip ID
 	rx_data[0] = 0;
 	status = read_register(REG_PARTNUM, rx_data, 1);
 	if (status && rx_data[0] == 0x80)
 	{
-		logger.log("Found CC2500 RF transceiver, starting initialization.", CRITICAL);
+		logger.info("Found CC2500 RF transceiver, starting initialization.");
 	}
 	else
 	{
-		logger.log("Failed to find CC2500 RF transceiver. Initialization failed.", ERR);
+		logger.error("Failed to find CC2500 RF transceiver. Initialization failed.");
 		return false;
 	}
 	osDelay(10);
@@ -83,9 +80,7 @@ bool CC2500::init()
 
 	// Packet length validity check
 	if (CC2500_TX_PACKET_LENGTH > CC2500_FIFO_SIZE) {
-		char debug[128];
-		snprintf(debug, 128, "CC2500 invalid packet length %d. Packet length must be less than %d", PACKET_LENGTH, CC2500_FIFO_SIZE);
-		logger.log(debug, ERR);
+		logger.error("CC2500 invalid packet length {}. Packet length must be less than {}", PACKET_LENGTH, CC2500_FIFO_SIZE);
 		return false;
 	}
 
@@ -228,7 +223,7 @@ bool CC2500::init()
 	if (!status) return status;
 	osDelay(10);
 
-	logger.log("CC2500 RF transceiver initialized OK.", CRITICAL);
+	logger.info("CC2500 RF transceiver initialized OK.");
 	osDelay(100);
 
 	return status;
@@ -236,7 +231,7 @@ bool CC2500::init()
 
 bool CC2500::enter_rx_mode()
 {
-	logger.log("CC2500 entering RECEIVE mode", CRITICAL);
+	logger.info("CC2500 entering RECEIVE mode");
 
 	if (chip_status.state == CC2500_STATE::RX)
 	{
@@ -263,7 +258,7 @@ bool CC2500::enter_rx_mode()
 
 bool CC2500::enter_tx_mode()
 {
-	logger.log("CC2500 entering TRANSMIT mode", CRITICAL);
+	logger.info("CC2500 entering TRANSMIT mode");
 
 	if (chip_status.state == CC2500_STATE::TX)
 	{
@@ -303,7 +298,7 @@ bool CC2500::transmit_packet(const cc2500_packet_t &packet)
 	txfifo_underflow = (reg_txbytes & CC2500_TXBYTES_UNDERFLOW_BITMASK) >> CC2500_TXBYTES_UNDERFLOW_SHIFT;
 	while (txfifo_underflow)
 	{
-		logger.log("CC2500 TX FIFO underflow", CRITICAL);
+		logger.warn("CC2500 TX FIFO underflow...");
 
 		// Recover from TX FIFO underflow
 		status = flush_tx_fifo();
@@ -313,6 +308,7 @@ bool CC2500::transmit_packet(const cc2500_packet_t &packet)
 
 		status = read_register(REG_TXBYTES, &reg_txbytes, 1);
 		if (!status) return status;
+
 		txfifo_underflow = (reg_txbytes & CC2500_TXBYTES_UNDERFLOW_BITMASK) >> CC2500_TXBYTES_UNDERFLOW_SHIFT;
 	}
 
@@ -322,12 +318,12 @@ bool CC2500::transmit_packet(const cc2500_packet_t &packet)
 
 	while (remaining_txbytes < CC2500_TX_PACKET_LENGTH)		// need space for packet + address
 	{
-		logger.log("CC2500 TX FIFO waiting for space...", CRITICAL);
-
+		logger.warn("CC2500 TX FIFO waiting for space...");
 		osDelay(1);
 
 		status = read_register(REG_TXBYTES, &reg_txbytes, 1);
 		if (!status) return status;
+
 		num_txbytes = (reg_txbytes & CC2500_TXBYTES_NUM_TXBYTES_BITMASK) >> CC2500_TXBYTES_NUM_TXBYTES_SHIFT;
 		remaining_txbytes = CC2500_FIFO_SIZE - num_txbytes;
 	}
@@ -352,7 +348,7 @@ bool CC2500::transmit_packet(const cc2500_packet_t &packet)
 	txfifo_underflow = (reg_txbytes & CC2500_TXBYTES_UNDERFLOW_BITMASK) >> CC2500_TXBYTES_UNDERFLOW_SHIFT;
 	if (txfifo_underflow)
 	{
-		logger.log("CC2500 transmit packet failed", CRITICAL);
+		logger.error("CC2500 TX FIFO underflow. Transmit packet failed.");
 
 		// Message failed to send
 		status = flush_tx_fifo();
@@ -381,7 +377,7 @@ bool CC2500::receive_packet(cc2500_packet_t &packet, cc2500_packet_status_t &pac
 	rxfifo_overflow = (reg_rxbytes & CC2500_RXBYTES_OVERFLOW_BITMASK) >> CC2500_RXBYTES_OVERFLOW_SHIFT;
 	if (rxfifo_overflow)
 	{
-		logger.log("CC2500 RX FIFO overflow", CRITICAL);
+		logger.error("CC2500 RX FIFO overflow. Receive packet failed.");
 
 		// Recover from RX FIFO overflow
 		status = flush_rx_fifo();
@@ -403,7 +399,7 @@ bool CC2500::receive_packet(cc2500_packet_t &packet, cc2500_packet_status_t &pac
 		if (!status) return status;
 
 		if (address_byte != ADDRESS) {
-			logger.log("CC2500 incorrect RX packet address", CRITICAL);
+			logger.error("CC2500 incorrect RX packet address. Receive packet failed.");
 			return false;
 		}
 
@@ -435,8 +431,7 @@ bool CC2500::receive_packet(cc2500_packet_t &packet, cc2500_packet_status_t &pac
 		return true;
 	}
 
-	logger.log("CC2500 receive packet failed", CRITICAL);
-
+	logger.error("CC2500 RX FIFO not enough bytes for full packet. Receive packet failed.");
 	return false;
 }
 
@@ -444,7 +439,7 @@ bool CC2500::flush_rx_fifo()
 {
 	bool status = false;
 
-	logger.log("CC2500 flushing RX FIFO", CRITICAL);
+	logger.warn("CC2500 flushing RX FIFO");
 
 	// Flush the receive FIFO
 	status = command_strobe(CMD_SFRX, CC2500_STATUS_UPDATE::RX_FIFO_BYTES);
@@ -458,7 +453,7 @@ bool CC2500::flush_tx_fifo()
 {
 	bool status = false;
 
-	logger.log("CC2500 flushing TX FIFO", CRITICAL);
+	logger.warn("CC2500 flushing TX FIFO");
 
 	// Flush the transmit FIFO
 	status = command_strobe(CMD_SFTX, CC2500_STATUS_UPDATE::TX_FIFO_BYTES);
@@ -480,7 +475,7 @@ bool CC2500::command_strobe(uint8_t strobe, CC2500_STATUS_UPDATE status_update)
 	// Check command strobe validity
 	if (strobe < 0x30 || strobe > 0x3D)
 	{
-		logger.log("CC2500 command strobe register does not exist.", ERR);
+		logger.error("CC2500 command strobe register does not exist.");
 		return false;
 	}
 
@@ -490,9 +485,6 @@ bool CC2500::command_strobe(uint8_t strobe, CC2500_STATUS_UPDATE status_update)
 			break;
 		case CC2500_STATUS_UPDATE::TX_FIFO_BYTES:
 			strobe |= CC2500_WRITE;
-			break;
-		default:
-			logger.log("CC2500 invalid command strobe state update.", ERR);
 			break;
 	}
 
@@ -506,20 +498,19 @@ bool CC2500::command_strobe(uint8_t strobe, CC2500_STATUS_UPDATE status_update)
 		HAL_GPIO_WritePin(cs_port, cs_pin, GPIO_PIN_SET);
 	}
 
-	if (!status)
-	{
-		logger.log("CC2500 command strobe write failed.", ERR);
-	}
-	else
+	if (status)
 	{
 		chip_status.chip_ready = ((status_byte & CC2500_STATUS_CHIP_RDY_BITMASK) >> CC2500_STATUS_CHIP_RDY_SHIFT) == 0;
 		chip_status.state = static_cast<CC2500_STATE>((status_byte & CC2500_STATUS_STATE_BITMASK) >> CC2500_STATUS_STATE_SHIFT);
 		chip_status.fifo_bytes_available = (status_byte & CC2500_STATUS_FIFO_BYTES_BITMASK) >> CC2500_STATUS_FIFO_BYTES_SHIFT;
-	}
 
-//	char debug[128];
-//	snprintf(debug, 128, "Status - Chip Ready: %d, State: %d, Bytes: %d", chip_status.chip_ready, chip_status.state, chip_status.fifo_bytes_available);
-//	USB_Log(debug, INFO);
+//		logger.info("CC2500 Status: Chip Ready: {}, State: {}, Bytes: {}",
+//				chip_status.chip_ready, chip_status.state, chip_status.fifo_bytes_available);
+	}
+	else
+	{
+		logger.error("CC2500 command strobe write failed.");
+	}
 
 	return status;
 }
@@ -528,13 +519,12 @@ bool CC2500::write_register(uint8_t reg, uint8_t *tx_data, uint16_t data_len)
 {
 	bool status = false;
 	uint16_t num_bytes = data_len + 1;
-	uint8_t tx_buffer[num_bytes];
-	memset(tx_buffer, 0, sizeof(tx_buffer));
+	uint8_t tx_buffer[num_bytes]{};
 
 	// Check if status register
 	if (reg >= 0x30 && reg <= 0x3D)
 	{
-		logger.log("CC2500 status registers can only be read.", ERR);
+		logger.error("CC2500 status registers can only be read.");
 		return false;
 	}
 
@@ -557,7 +547,7 @@ bool CC2500::write_register(uint8_t reg, uint8_t *tx_data, uint16_t data_len)
 
 	if (!status)
 	{
-		logger.log("CC2500 register write failed.", ERR);
+		logger.error("CC2500 register write failed.");
 	}
 
 	return status;
@@ -567,10 +557,8 @@ bool CC2500::read_register(uint8_t reg, uint8_t *rx_data, uint16_t data_len)
 {
 	bool status = false;
 	uint16_t num_bytes = data_len + 1;
-	uint8_t tx_buffer[num_bytes];
-	uint8_t rx_buffer[num_bytes];
-	memset(tx_buffer, 0, sizeof(tx_buffer));
-	memset(rx_buffer, 0, sizeof(rx_buffer));
+	uint8_t tx_buffer[num_bytes]{};
+	uint8_t rx_buffer[num_bytes]{};
 
 	tx_buffer[0] = reg | CC2500_READ;
 
@@ -581,7 +569,7 @@ bool CC2500::read_register(uint8_t reg, uint8_t *rx_data, uint16_t data_len)
 
 	if (data_len > 1 && is_status_reg)
 	{
-		logger.log("CC2500 status registers can only be read one at a time.", ERR);
+		logger.error("CC2500 status registers can only be read one at a time.");
 		return false;
 	}
 	else if (data_len > 1 || is_status_reg)
@@ -606,7 +594,7 @@ bool CC2500::read_register(uint8_t reg, uint8_t *rx_data, uint16_t data_len)
 	}
 	else
 	{
-		logger.log("CC2500 register read failed.", ERR);
+		logger.error("CC2500 register read failed.");
 	}
 
 	return status;

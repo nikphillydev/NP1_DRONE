@@ -46,8 +46,8 @@ void main_thread()
 	Commutator comm{};
 	esc_state_t current_state = STAND_BY;
 
-	const unsigned heartbeat_tick_delta = osKernelGetTickFreq() / REQUIRED_ESC_HEARTBEAT_HZ * HEARTBEAT_RX_TOLERANCE_MULTIPLIER;
-	unsigned last_heartbeat_tick_count = 0;
+	const unsigned esc_heartbeat_tick_delta = osKernelGetTickFreq() / constants::REQUIRED_ESC_HEARTBEAT_HZ * constants::HEARTBEAT_RX_TOLERANCE_MULTIPLIER;
+	unsigned esc_last_heartbeat_tick_count = 0;
 
 	while(1)
 	{
@@ -59,9 +59,9 @@ void main_thread()
 
 		if (input.type == CAN_MSG_HEARTBEAT)
 		{
-			last_heartbeat_tick_count = osKernelGetTickCount();
+			esc_last_heartbeat_tick_count = osKernelGetTickCount();
 		}
-		if (osKernelGetTickCount() - last_heartbeat_tick_count > heartbeat_tick_delta)
+		if (osKernelGetTickCount() - esc_last_heartbeat_tick_count > esc_heartbeat_tick_delta)
 		{
 			thread_input_t input{ CAN_MSG_DISARM };
 			osMessageQueuePut(threadInputQueueHandle, &input, 0, 0);
@@ -248,7 +248,7 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 	{
 		if ((RxFifo0ITs & FDCAN_IT_RX_FIFO0_NEW_MESSAGE) != 0)
 		{
-		    /* Retrieve Rx message from RX FIFO0 */
+		    // Retrieve Rx message from RX FIFO0
 		    if (HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &rx_header, rx_data) != HAL_OK)
 		    {
 		    	Error_Handler();

@@ -11,11 +11,10 @@
 
 #include "Drivers/LIS3MDL/lis3mdl.hpp"
 #include "Drivers/LIS3MDL/lis3mdl_regs.hpp"
-#include "Drivers/usb.hpp"
 #include "Utility/lock_guard.hpp"
 
 
-LIS3MDL::LIS3MDL(I2C_HandleTypeDef* i2c_handle, osMutexId_t& i2c_mutex, osMutexId_t& mag_data_mutex, USB_Logger& logger)
+LIS3MDL::LIS3MDL(I2C_HandleTypeDef* i2c_handle, osMutexId_t& i2c_mutex, osMutexId_t& mag_data_mutex, Logger& logger)
 	:i2c_handle(i2c_handle),
 	 i2c_mutex(i2c_mutex),
 	 mag_data_mutex(mag_data_mutex),
@@ -26,21 +25,19 @@ bool LIS3MDL::init()
 	bool status = false;
 
 	// Temporary buffers
-	uint8_t tx_data[4];
-	uint8_t rx_data[4];
-	memset(tx_data, 0, sizeof(tx_data));
-	memset(rx_data, 0, sizeof(rx_data));
+	uint8_t tx_data[4]{};
+	uint8_t rx_data[4]{};
 
 	// Check chip ID
 	rx_data[0] = 0x00;
 	status = read_register(REG_WHO_AM_I, rx_data, 1);
 	if (status && rx_data[0] == 0x3D)
 	{
-		logger.log("Found LIS3MDL, starting initialization.", CRITICAL);
+		logger.info("Found LIS3MDL, starting initialization.");
 	}
 	else
 	{
-		logger.log("Failed to find LIS3MDL. Initialization failed.", ERR);
+		logger.error("Failed to find LIS3MDL. Initialization failed.");
 		return false;
 	}
 	osDelay(10);
@@ -91,7 +88,7 @@ bool LIS3MDL::init()
 	// Read data to clear DRDY interrupt
 	service_irq();
 
-	logger.log("LIS3MDL initialized OK.", CRITICAL);
+	logger.info("LIS3MDL initialized OK.");
 	osDelay(100);
 
 	return status;
@@ -99,7 +96,7 @@ bool LIS3MDL::init()
 
 bool LIS3MDL::service_irq()
 {
-	uint8_t raw_data[6];
+	uint8_t raw_data[6]{};
 	bool status = read_register(REG_OUT_X_L, raw_data, sizeof(raw_data));
 
 	if (status)
@@ -121,7 +118,7 @@ bool LIS3MDL::service_irq()
 	}
 	else
 	{
-		logger.log("ERR reading LIS3MDL data.", ERR);
+		logger.error("ERR reading LIS3MDL data.");
 	}
 
 	return status;
@@ -129,12 +126,8 @@ bool LIS3MDL::service_irq()
 
 void LIS3MDL::log_data_to_gcs()
 {
-	char string[128];
-	{
-		np::lock_guard lock(mag_data_mutex);
-		snprintf(string, sizeof(string), "LIS3MDL %.2f %.2f %.2f", axis_intensities[0], axis_intensities[1], axis_intensities[2]);
-	}
-	logger.log(string, SENSOR);
+	np::lock_guard lock(mag_data_mutex);
+	logger.gcs_sensor("LIS3MDL {} {} {}", axis_intensities[0], axis_intensities[1], axis_intensities[2]);
 }
 
 std::array<float, 3> LIS3MDL::get_axis_intensities()
@@ -161,7 +154,7 @@ bool LIS3MDL::read_register(uint8_t reg_addr, uint8_t* rx_data, uint16_t data_le
 
 	if (!status)
 	{
-		logger.log("LIS3MDL register read failed.", ERR);
+		logger.error("LIS3MDL register read failed.");
 	}
 
 	return status;
@@ -177,7 +170,7 @@ bool LIS3MDL::write_register(uint8_t reg_addr, uint8_t* tx_data, uint16_t data_l
 
 	if (!status)
 	{
-		logger.log("LIS3MDL register write failed.", ERR);
+		logger.error("LIS3MDL register write failed.");
 	}
 
 	return status;

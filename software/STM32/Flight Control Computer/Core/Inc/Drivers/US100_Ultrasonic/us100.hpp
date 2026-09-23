@@ -13,7 +13,7 @@
 #include <cstdint>
 
 #include "Utility/moving_avg_filter.hpp"
-#include "Drivers/usb.hpp"
+#include "Drivers/Logger/logger.hpp"
 
 #define RANGE_MAX_DISTANCE_M		(float)4.5
 
@@ -21,7 +21,7 @@
 class US100
 {
 public:
-	US100(UART_HandleTypeDef* uart_handle, osMutexId_t& uart_mutex, osMutexId_t& data_mutex, USB_Logger& logger);
+	US100(UART_HandleTypeDef* uart_handle, osMutexId_t& uart_mutex, osMutexId_t& data_mutex, Logger& logger);
 
 	// DMA interface
 	void start_distance_transfer();
@@ -48,5 +48,5 @@ private:
 	MovingAverageFilter<float> distance_filter;
 
 	// Logger
-	USB_Logger& logger;
+	Logger& logger;
 };

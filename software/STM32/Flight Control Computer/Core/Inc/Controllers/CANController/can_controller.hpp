@@ -10,15 +10,15 @@
 #include "fdcan.h"
 #include "can_controller_types.hpp"
 
-#include "Drivers/usb.hpp"
+#include "Drivers/Logger/logger.hpp"
 
 
-/*
- * Class to support CANBUS operations for the NP1 drone.
- */
 class CANController {
+	/*
+	 * Class to support CANBUS operations for the NP1 drone.
+	 */
 public:
-	CANController(FDCAN_HandleTypeDef *hfdcan, USB_Logger &logger) : hfdcan(hfdcan), logger(logger) {};
+	CANController(FDCAN_HandleTypeDef *hfdcan, Logger &logger) : hfdcan(hfdcan), logger(logger) {};
 
 	void send_heartbeat();
 	void send_arm();
@@ -26,8 +26,8 @@ public:
 	void send_speed(uint16_t speed);
 
 private:
-	CANBUS_STATE get_canbus_state();
-
 	FDCAN_HandleTypeDef *hfdcan;
-	USB_Logger &logger;
+	Logger &logger;
+
+	CANBUS_STATE get_canbus_state();
 };

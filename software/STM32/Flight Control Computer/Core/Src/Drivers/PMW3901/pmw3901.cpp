@@ -13,12 +13,11 @@
 
 #include "Drivers/PMW3901/pmw3901.hpp"
 #include "Drivers/PMW3901/pmw3901_regs.hpp"
-#include "Drivers/usb.hpp"
 #include "Utility/lock_guard.hpp"
 
 
 PMW3901::PMW3901(SPI_HandleTypeDef* spi_handle, osMutexId_t& spi_mutex, GPIO_TypeDef* cs_port, uint16_t cs_pin,
-		osMutexId_t& data_mutex, USB_Logger& logger)
+		osMutexId_t& data_mutex, Logger& logger)
 	: spi_handle(spi_handle),
 	  spi_mutex(spi_mutex),
 	  cs_port(cs_port),
@@ -34,10 +33,8 @@ bool PMW3901::init()
 	bool status = false;
 
 	// Temporary buffers
-	uint8_t tx_data[4];
-	uint8_t rx_data[4];
-	memset(tx_data, 0, sizeof(tx_data));
-	memset(rx_data, 0, sizeof(rx_data));
+	uint8_t tx_data[4]{};
+	uint8_t rx_data[4]{};
 
 	// Perform power up reset
 	tx_data[0] = 0x5A;
@@ -59,11 +56,11 @@ bool PMW3901::init()
 
 	if (rx_data[0] == 0x49 && rx_data[1] == 0xB6)
 	{
-		logger.log("Found PMW3901 optical flow sensor, starting initialization.", CRITICAL);
+		logger.info("Found PMW3901 optical flow sensor, starting initialization.");
 	}
 	else
 	{
-		logger.log("Failed to find PMW3901 optical flow sensor. Initialization failed.", ERR);
+		logger.error("Failed to find PMW3901 optical flow sensor. Initialization failed.");
 		return false;
 	}
 	osDelay(10);
@@ -102,7 +99,7 @@ bool PMW3901::init()
 	status = set_led(true);
 	if (!status) return status;
 
-	logger.log("PMW3901 optical flow sensor initialized OK.", CRITICAL);
+	logger.info("PMW3901 optical flow sensor initialized OK.");
 	osDelay(100);
 
 	return status;
@@ -113,8 +110,7 @@ bool PMW3901::poll(float deltatime_s)
 	if (deltatime_s <= 0.0f) return false;
 
 	bool status = false;
-	uint8_t rx_data[6];
-	memset(rx_data, 0, sizeof(rx_data));
+	uint8_t rx_data[6]{};
 
 	// Read motion data
 	status = read_register(REG_MOTION, rx_data, 6);
@@ -150,12 +146,8 @@ std::array<float, 2> PMW3901::get_flow_rate()
 
 void PMW3901::log_data_to_gcs()
 {
-	char string[128];
-	{
-		np::lock_guard lock(data_mutex);
-		snprintf(string, sizeof(string), "PMW3901 %f %f", flow_rate[0], flow_rate[1]);
-	}
-	logger.log(string, SENSOR);
+	np::lock_guard lock(data_mutex);
+	logger.gcs_sensor("PMW3901 {} {}", flow_rate[0], flow_rate[1]);
 }
 
 bool PMW3901::initialize_registers()
@@ -163,8 +155,7 @@ bool PMW3901::initialize_registers()
 	// Set optimum performance (see datasheet - no further information given)
 
 	bool status = false;
-	uint8_t tx_data[4];
-	memset(tx_data, 0, 4);
+	uint8_t tx_data[4]{};
 
     tx_data[0] = 0x00;
     status = write_register(0x7F, tx_data, 1);
@@ -541,8 +532,7 @@ bool PMW3901::set_led(bool on_flag)
 	// Turn the onboard LED ON or OFF
 
 	bool status = false;
-	uint8_t tx_data[4];
-	memset(tx_data, 0, sizeof(tx_data));
+	uint8_t tx_data[4]{};
 
 	osDelay(200);
 
@@ -573,10 +563,8 @@ bool PMW3901::read_register(uint8_t reg_addr, uint8_t* rx_data, uint16_t data_le
 {
 	bool status = false;
 	uint16_t num_bytes = data_len + 1;
-	uint8_t tx_buffer[num_bytes];
-	uint8_t rx_buffer[num_bytes];
-	memset(tx_buffer, 0, sizeof(tx_buffer));
-	memset(rx_buffer, 0, sizeof(rx_buffer));
+	uint8_t tx_buffer[num_bytes]{};
+	uint8_t rx_buffer[num_bytes]{};
 
 	tx_buffer[0] = reg_addr | PMW3901_READ;
 
@@ -596,7 +584,7 @@ bool PMW3901::read_register(uint8_t reg_addr, uint8_t* rx_data, uint16_t data_le
 	}
 	else
 	{
-		logger.log("PMW3901 register read failed.", ERR);
+		logger.error("PMW3901 register read failed.");
 	}
 
 	return status;
@@ -606,8 +594,7 @@ bool PMW3901::write_register(uint8_t reg_addr, uint8_t* tx_data, uint16_t data_l
 {
 	bool status = false;
 	uint16_t num_bytes = data_len + 1;
-	uint8_t tx_buffer[num_bytes];
-	memset(tx_buffer, 0, sizeof(tx_buffer));
+	uint8_t tx_buffer[num_bytes]{};
 
 	tx_buffer[0] = reg_addr | PMW3901_WRITE;
 
@@ -625,7 +612,7 @@ bool PMW3901::write_register(uint8_t reg_addr, uint8_t* tx_data, uint16_t data_l
 
 	if (!status)
 	{
-		logger.log("PMW3901 register write failed.", ERR);
+		logger.error("PMW3901 register write failed.");
 	}
 
 	return status;

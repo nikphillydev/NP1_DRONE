@@ -16,7 +16,7 @@
 #include <cstdint>
 
 #include "Utility/iir_filter.hpp"
-#include "Drivers/usb.hpp"
+#include "Drivers/Logger/logger.hpp"
 
 
 class BMI088
@@ -24,7 +24,7 @@ class BMI088
 public:
 	BMI088(SPI_HandleTypeDef* spi_handle, osMutexId_t& spi_mutex, GPIO_TypeDef* acc_cs_port,
 			GPIO_TypeDef* gyro_cs_port, uint16_t acc_cs_pin, uint16_t gyro_cs_pin, osMutexId_t& accel_data_mutex,
-			osMutexId_t& gyro_data_mutex, USB_Logger& logger);
+			osMutexId_t& gyro_data_mutex, Logger& logger);
 
 	// Initialization after startup
 	[[nodiscard]] bool init();
@@ -79,7 +79,7 @@ private:
 	std::array<std::unique_ptr<IIRFilter>, 3> gyro_filters {};
 
 	// Logger
-	USB_Logger& logger;
+	Logger& logger;
 };
 
 

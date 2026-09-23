@@ -11,7 +11,7 @@
 #include "cmsis_os.h"
 
 #include "Utility/moving_avg_filter.hpp"
-#include "Drivers/usb.hpp"
+#include "Drivers/Logger/logger.hpp"
 
 /* I2C ADDRESS */
 #define BMP388_ADDRESS			0x76
@@ -38,7 +38,7 @@ struct BMP388_CalibrationData
 class BMP388
 {
 public:
-	BMP388(I2C_HandleTypeDef* i2c_handle, osMutexId_t& i2c_mutex, osMutexId_t& baro_data_mutex, USB_Logger& logger);
+	BMP388(I2C_HandleTypeDef* i2c_handle, osMutexId_t& i2c_mutex, osMutexId_t& baro_data_mutex, Logger& logger);
 
 	// Initialization after startup
 	[[nodiscard]] bool init();
@@ -80,6 +80,6 @@ private:
 	MovingAverageFilter<float> alt_filter;
 
 	// Logger
-	USB_Logger& logger;
+	Logger& logger;
 };
 

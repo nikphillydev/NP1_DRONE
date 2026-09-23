@@ -20,18 +20,23 @@
 
 #include "Threads/radio_thread.hpp"
 #include "Drivers/CC2500/cc2500.hpp"
-#include "Drivers/usb.hpp"
+#include "Drivers/Logger/usb_serial_port.hpp"
+#include "Drivers/Logger/logger.hpp"
 #include "Radio/message.hpp"
 #include "Radio/radio_link.hpp"
 #include "constants.hpp"
 
-const int radio_rx_timeout_ms = (1.0 / REQUIRED_GCS_HEARTBEAT_HZ) * 1000;		// ms
+/*
+ * GLOBAL
+ */
+static USBSerialPort serial_port(usbMutexHandle);
+static Logger logger(serial_port);
+static CC2500 transceiver(&hspi1, spi1MutexHandle, CC2500_CS_GPIO_Port, CC2500_CS_Pin, logger);
 
 /*
- * Sensors
+ * TIMING
  */
-static USB_Logger logger{usbMutexHandle};
-static CC2500 transceiver(&hspi1, spi1MutexHandle, CC2500_CS_GPIO_Port, CC2500_CS_Pin, logger);
+const int radio_rx_timeout_ms = (1.0 / constants::REQUIRED_GCS_HEARTBEAT_HZ) * 1000;		// ms
 
 /*
  *
@@ -41,7 +46,7 @@ static CC2500 transceiver(&hspi1, spi1MutexHandle, CC2500_CS_GPIO_Port, CC2500_C
 void radio_thread()
 {
 	osDelay(THREAD_START_DELAY_MS);
-	logger.log("--- RADIO THREAD STARTING ---", CRITICAL);
+	logger.info("--- RADIO THREAD STARTING ---");
 	osDelay(10);
 
 	/*
@@ -50,7 +55,7 @@ void radio_thread()
 	bool modem_init = transceiver.init();
 	if (!modem_init)
 	{
-		logger.log("RADIO THREAD: Failed to init modem", ERR);
+		logger.error("RADIO THREAD: Failed to init modem");
 		osDelay(10);
 
 		// Delete this thread
@@ -60,11 +65,11 @@ void radio_thread()
 	// Enter receive mode
 	while(!transceiver.enter_rx_mode())
 	{
-		logger.log("CC2500 failed to enter RX mode", ERR);
+		logger.error("CC2500 failed to enter RX mode");
 	}
 
-	const unsigned heartbeat_tick_delta = osKernelGetTickFreq() / REQUIRED_GCS_HEARTBEAT_HZ * HEARTBEAT_RX_TOLERANCE_MULTIPLIER;
-	unsigned last_heartbeat_tick = osKernelGetTickCount();
+	const unsigned gcs_heartbeat_tick_delta = osKernelGetTickFreq() / constants::REQUIRED_GCS_HEARTBEAT_HZ * constants::HEARTBEAT_RX_TOLERANCE_MULTIPLIER;
+	unsigned gcs_last_heartbeat_tick = osKernelGetTickCount();
 
 	bool loss_of_link_flag = false;
 
@@ -76,7 +81,7 @@ void radio_thread()
 		osStatus_t sem_status = osSemaphoreAcquire(radioRxSemaphoreHandle, radio_rx_timeout_ms);
 
 		// Check GCS heartbeat
-		if (osKernelGetTickCount() - last_heartbeat_tick > heartbeat_tick_delta)
+		if (osKernelGetTickCount() - gcs_last_heartbeat_tick > gcs_heartbeat_tick_delta)
 		{
 			if (!loss_of_link_flag)
 			{
@@ -87,7 +92,7 @@ void radio_thread()
 				cc2500_packet_t lol_packet = NP1RadioLink::loss_of_link_msg_pack(msg);
 				osMessageQueuePut(radioQueueHandle, &lol_packet, 0, 0);
 
-				logger.log("RADIO THREAD: LOSS-OF-LINK", CRITICAL);
+				logger.warn("RADIO THREAD: LOSS-OF-LINK");
 			}
 			loss_of_link_flag = true;
 		}
@@ -101,16 +106,14 @@ void radio_thread()
 
 			if (transceiver.receive_packet(packet, status) && status.crc_ok)
 			{
-//				char output[128];
-//				snprintf(output, sizeof(output), "RADIO RX ID: %d, RSSI: %.2f, LQI: %d, CRC: %s",
+//				logger.log("RADIO RX ID: {}, RSSI: {}, LQI: {}, CRC: {}",
 //						packet.id, status.rssi, status.lqi, status.crc_ok ? "OK" : "ERROR");
-//				logger.log(output, CRITICAL);
 
 				if (packet.id == MSG_ID_HEARTBEAT)
 				{
 					// Received GCS heartbeat, good communication link
 
-					last_heartbeat_tick = osKernelGetTickCount();
+					gcs_last_heartbeat_tick = osKernelGetTickCount();
 
 					if (loss_of_link_flag)
 					{
@@ -121,7 +124,7 @@ void radio_thread()
 						cc2500_packet_t lol_packet = NP1RadioLink::loss_of_link_msg_pack(msg);
 						osMessageQueuePut(radioQueueHandle, &lol_packet, 0, 0);
 
-						logger.log("RADIO THREAD: LINK RESTORED", CRITICAL);
+						logger.warn("RADIO THREAD: LINK RESTORED");
 					}
 					loss_of_link_flag = false;
 				}
@@ -134,7 +137,7 @@ void radio_thread()
 			}
 			else
 			{
-				logger.log("CC2500 failed to receive message", ERR);
+				logger.error("CC2500 failed to receive message");
 			}
 		}
 	}

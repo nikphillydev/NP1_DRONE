@@ -11,12 +11,12 @@
 
 #include "Drivers/CC2500/cc2500_regs.hpp"
 #include "Drivers/CC2500/cc2500_types.h"
-#include "Drivers/usb.hpp"
+#include "Drivers/Logger/logger.hpp"
 
 
 class CC2500 {
 public:
-	CC2500(SPI_HandleTypeDef *spi_handle, osMutexId_t& spi_mutex, GPIO_TypeDef *cs_port, uint16_t cs_pin, USB_Logger& logger);
+	CC2500(SPI_HandleTypeDef *spi_handle, osMutexId_t& spi_mutex, GPIO_TypeDef *cs_port, uint16_t cs_pin, Logger& logger);
 
 	[[nodiscard]] bool init();
 
@@ -45,5 +45,5 @@ private:
 	cc2500_status_t chip_status;
 
 	// Logger
-	USB_Logger& logger;
+	Logger& logger;
 };

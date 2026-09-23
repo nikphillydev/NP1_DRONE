@@ -30,8 +30,11 @@ private:
 	std::stack<T> stack{};
 };
 
+
 /*
- * Implementation
+ *
+ * TEMPLATE IMPLEMENTATION
+ *
  */
 template <typename T>
 void Topic<T>::publish(const T& tx_msg)

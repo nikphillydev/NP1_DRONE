@@ -9,10 +9,9 @@
 
 #include "Drivers/US100_Ultrasonic/us100.hpp"
 #include "Utility/lock_guard.hpp"
-#include "Drivers/usb.hpp"
 
 
-US100::US100(UART_HandleTypeDef* uart_handle, osMutexId_t& uart_mutex, osMutexId_t& data_mutex, USB_Logger& logger)
+US100::US100(UART_HandleTypeDef* uart_handle, osMutexId_t& uart_mutex, osMutexId_t& data_mutex, Logger& logger)
 	: uart_handle(uart_handle),
 	  uart_mutex(uart_mutex),
 	  data_mutex(data_mutex),
@@ -45,12 +44,8 @@ void US100::finish_distance_transfer()
 
 void US100::log_data_to_gcs()
 {
-	char string[128];
-	{
-		np::lock_guard lock(data_mutex);
-		snprintf(string, sizeof(string), "US100 %.2f", distance);
-	}
-	logger.log(string, SENSOR);
+	np::lock_guard lock(data_mutex);
+	logger.gcs_sensor("US100 {}", distance);
 }
 
 float US100::get_distance()

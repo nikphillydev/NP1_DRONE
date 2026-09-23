@@ -10,13 +10,12 @@
 
 #include "Drivers/BMI088/bmi088.hpp"
 #include "Drivers/BMI088/bmi088_regs.hpp"
-#include "Drivers/usb.hpp"
 #include "Utility/lock_guard.hpp"
 
 
 BMI088::BMI088(SPI_HandleTypeDef* spi_handle, osMutexId_t& spi_mutex, GPIO_TypeDef* acc_cs_port,
 			GPIO_TypeDef* gyro_cs_port, uint16_t acc_cs_pin, uint16_t gyro_cs_pin, osMutexId_t& accel_data_mutex,
-			osMutexId_t& gyro_data_mutex, USB_Logger& logger)
+			osMutexId_t& gyro_data_mutex, Logger& logger)
 	: spi_handle(spi_handle),
 	  spi_mutex(spi_mutex),
 	  acc_cs_port(acc_cs_port),
@@ -32,10 +31,8 @@ bool BMI088::init()
 	bool status = false;
 
 	// Temporary buffers
-	uint8_t tx_data[4];
-	uint8_t rx_data[4];
-	memset(tx_data, 0, sizeof(tx_data));
-	memset(rx_data, 0, sizeof(rx_data));
+	uint8_t tx_data[4]{};
+	uint8_t rx_data[4]{};
 
 	// Accelerometer requires rising edge on CS pin to switch to SPI mode
 	HAL_GPIO_WritePin(acc_cs_port, acc_cs_pin, GPIO_PIN_RESET);
@@ -70,11 +67,11 @@ bool BMI088::init()
 	status = read_accel_register(REG_ACC_CHIP_ID, rx_data, 1);
 	if (status && rx_data[0] == 0x1E)
 	{
-		logger.log("Found BMI088 accelerometer, starting initialization.", CRITICAL);
+		logger.info("Found BMI088 accelerometer, starting initialization.");
 	}
 	else
 	{
-		logger.log("Failed to find BMI088 accelerometer. Initialization failed.", ERR);
+		logger.error("Failed to find BMI088 accelerometer. Initialization failed.");
 		return false;
 	}
 	osDelay(10);
@@ -122,7 +119,7 @@ bool BMI088::init()
 	if (!status) return status;
 	osDelay(10);
 
-	logger.log("BMI088 accelerometer initialized OK.", CRITICAL);
+	logger.info("BMI088 accelerometer initialized OK.");
 	osDelay(100);
 
 	/*
@@ -134,11 +131,11 @@ bool BMI088::init()
 	status = read_gyro_register(REG_GYRO_CHIP_ID, rx_data, 1);
 	if (status && rx_data[0] == 0x0F)
 	{
-		logger.log("Found BMI088 gyroscope, starting initialization.", CRITICAL);
+		logger.info("Found BMI088 gyroscope, starting initialization.");
 	}
 	else
 	{
-		logger.log("Failed to find BMI088 gyroscope. Initialization failed.", ERR);
+		logger.error("Failed to find BMI088 gyroscope. Initialization failed.");
 		return false;
 	}
 	osDelay(10);
@@ -180,7 +177,7 @@ bool BMI088::init()
 	if (!status) return status;
 	osDelay(10);
 
-	logger.log("BMI088 gyroscope initialized OK.", CRITICAL);
+	logger.info("BMI088 gyroscope initialized OK.");
 	osDelay(100);
 
 	return status;
@@ -189,7 +186,7 @@ bool BMI088::init()
 bool BMI088::service_irq_accelerometer()
 {
 	// Read raw accelerometer data
-	uint8_t rx_data[6];
+	uint8_t rx_data[6]{};
 	bool status = read_accel_register(REG_ACC_X_LSB, rx_data, sizeof(rx_data));
 
 	if (status)
@@ -216,7 +213,7 @@ bool BMI088::service_irq_accelerometer()
 	}
 	else
 	{
-		logger.log("ERROR reading BMI088 accelerometer data.", ERR);
+		logger.error("ERROR reading BMI088 accelerometer data.");
 	}
 
 	return status;
@@ -225,7 +222,7 @@ bool BMI088::service_irq_accelerometer()
 bool BMI088::service_irq_gyroscope()
 {
 	// Read raw gyroscope data
-	uint8_t rx_data[6];
+	uint8_t rx_data[6]{};
 	bool status = read_gyro_register(REG_RATE_X_LSB, rx_data, sizeof(rx_data));
 
 	if (status)
@@ -248,7 +245,7 @@ bool BMI088::service_irq_gyroscope()
 	}
 	else
 	{
-		logger.log("ERROR reading BMI088 gyroscope data.", ERR);
+		logger.error("ERROR reading BMI088 gyroscope data.");
 	}
 
 	return status;
@@ -257,7 +254,7 @@ bool BMI088::service_irq_gyroscope()
 bool BMI088::service_irq_temperature()
 {
 	// Read raw temperature data
-	uint8_t rx_data[2];
+	uint8_t rx_data[2]{};
 	bool status = read_accel_register(REG_TEMP_MSB, rx_data, sizeof(rx_data));
 
 	if (status)
@@ -278,7 +275,7 @@ bool BMI088::service_irq_temperature()
 	}
 	else
 	{
-		logger.log("ERROR reading BMI088 temperature data.", ERR);
+		logger.error("ERROR reading BMI088 temperature data.");
 	}
 
 	return status;
@@ -286,20 +283,18 @@ bool BMI088::service_irq_temperature()
 
 void BMI088::log_data_to_gcs()
 {
-	char string[128];
-	{
-		np::lock_guard lock1(accel_data_mutex);
-		np::lock_guard lock2(gyro_data_mutex);
-		snprintf(string, sizeof(string), "BMI088 %.2f %.2f %.2f %.2f %.2f %.2f %.2f",
-				linear_accelerations[0],
-				linear_accelerations[1],
-				linear_accelerations[2],
-				angular_velocities[0],
-				angular_velocities[1],
-				angular_velocities[2],
-				temperature);
-	}
-	logger.log(string, SENSOR);
+	np::lock_guard accel_lock(accel_data_mutex);
+	np::lock_guard gyro_lock(gyro_data_mutex);
+	logger.gcs_sensor(
+			"BMI088 {} {} {} {} {} {} {}",
+			linear_accelerations[0],
+			linear_accelerations[1],
+			linear_accelerations[2],
+			angular_velocities[0],
+			angular_velocities[1],
+			angular_velocities[2],
+			temperature
+		);
 }
 
 std::array<float, 3> BMI088::get_linear_accelerations()
@@ -329,10 +324,8 @@ bool BMI088::read_accel_register(uint8_t reg_addr, uint8_t* rx_data, uint16_t da
 {
 	bool status = false;
 	uint16_t num_bytes = data_len + 2;
-	uint8_t tx_buffer[num_bytes];
-	uint8_t rx_buffer[num_bytes];
-	memset(tx_buffer, 0, sizeof(tx_buffer));
-	memset(rx_buffer, 0, sizeof(rx_buffer));
+	uint8_t tx_buffer[num_bytes]{};
+	uint8_t rx_buffer[num_bytes]{};
 
 	tx_buffer[0] = reg_addr | BMI088_READ;
 
@@ -353,7 +346,7 @@ bool BMI088::read_accel_register(uint8_t reg_addr, uint8_t* rx_data, uint16_t da
 	}
 	else
 	{
-		logger.log("BMI088 accelerometer register read failed.", ERR);
+		logger.error("BMI088 accelerometer register read failed.");
 	}
 
 	return status;
@@ -363,10 +356,8 @@ bool BMI088::read_gyro_register(uint8_t reg_addr, uint8_t* rx_data, uint16_t dat
 {
 	bool status = false;
 	uint16_t num_bytes = data_len + 1;
-	uint8_t tx_buffer[num_bytes];
-	uint8_t rx_buffer[num_bytes];
-	memset(tx_buffer, 0, sizeof(tx_buffer));
-	memset(rx_buffer, 0, sizeof(rx_buffer));
+	uint8_t tx_buffer[num_bytes]{};
+	uint8_t rx_buffer[num_bytes]{};
 
 	tx_buffer[0] = reg_addr | BMI088_READ;
 
@@ -386,7 +377,7 @@ bool BMI088::read_gyro_register(uint8_t reg_addr, uint8_t* rx_data, uint16_t dat
 	}
 	else
 	{
-		logger.log("BMI088 gyroscope register read failed.", ERR);
+		logger.error("BMI088 gyroscope register read failed.");
 	}
 
 	return status;
@@ -396,8 +387,7 @@ bool BMI088::write_accel_register(uint8_t reg_addr, uint8_t* tx_data, uint16_t d
 {
 	bool status = false;
 	uint16_t num_bytes = data_len + 1;
-	uint8_t tx_buffer[num_bytes];
-	memset(tx_buffer, 0, sizeof(tx_buffer));
+	uint8_t tx_buffer[num_bytes]{};
 
 	tx_buffer[0] = reg_addr | BMI088_WRITE;
 
@@ -415,7 +405,7 @@ bool BMI088::write_accel_register(uint8_t reg_addr, uint8_t* tx_data, uint16_t d
 
 	if (!status)
 	{
-		logger.log("BMI088 accelerometer register write failed.", ERR);
+		logger.error("BMI088 accelerometer register write failed.");
 	}
 
 	return status;
@@ -425,8 +415,7 @@ bool BMI088::write_gyro_register(uint8_t reg_addr, uint8_t* tx_data, uint16_t da
 {
 	bool status = false;
 	uint16_t num_bytes = data_len + 1;
-	uint8_t tx_buffer[num_bytes];
-	memset(tx_buffer, 0, sizeof(tx_buffer));
+	uint8_t tx_buffer[num_bytes]{};
 
 	tx_buffer[0] = reg_addr | BMI088_WRITE;
 
@@ -444,7 +433,7 @@ bool BMI088::write_gyro_register(uint8_t reg_addr, uint8_t* tx_data, uint16_t da
 
 	if (!status)
 	{
-		logger.log("BMI088 gyroscope register write failed.", ERR);
+		logger.error("BMI088 gyroscope register write failed.");
 	}
 
 	return status;

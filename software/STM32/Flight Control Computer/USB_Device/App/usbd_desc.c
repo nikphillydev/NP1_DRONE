@@ -64,9 +64,9 @@
 
 #define USBD_VID     1155
 #define USBD_LANGID_STRING     1033
-#define USBD_MANUFACTURER_STRING     "STMicroelectronics"
+#define USBD_MANUFACTURER_STRING     "Nikolai Philipenko"
 #define USBD_PID     22336
-#define USBD_PRODUCT_STRING     "STM32 NP1 Virtual ComPort"
+#define USBD_PRODUCT_STRING     "NP1 Flight Control Computer"
 #define USBD_CONFIGURATION_STRING     "CDC Config"
 #define USBD_INTERFACE_STRING     "CDC Interface"
 

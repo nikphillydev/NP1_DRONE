@@ -21,11 +21,11 @@
 #define VEL_SETTLING_TIME			0.6f	// seconds
 
 
-/*
- * Class to run a leaky integrator that integrates accelerations into velocites but
- * slowly leaks the running summation toward velocities from an optical flow camera.
- */
 class VelocityLeakyIntegrator
+	/*
+	 * Class to run a leaky integrator that integrates accelerations into velocites but
+	 * slowly leaks the running summation toward velocities from an optical flow camera.
+	 */
 {
 public:
 	VelocityLeakyIntegrator(PMW3901& optical_flow, BMI088& imu);

@@ -15,7 +15,7 @@
 #include <memory>
 
 #include "Utility/iir_filter.hpp"
-#include "Drivers/usb.hpp"
+#include "Drivers/Logger/logger.hpp"
 
 /* I2C ADDRESS */
 #define LIS3MDL_ADDRESS				0x1C
@@ -32,7 +32,7 @@ struct LIS3MDL_CalibrationData
 class LIS3MDL
 {
 public:
-	LIS3MDL(I2C_HandleTypeDef* i2c_handle, osMutexId_t& i2c_mutex, osMutexId_t& mag_data_mutex, USB_Logger& logger);
+	LIS3MDL(I2C_HandleTypeDef* i2c_handle, osMutexId_t& i2c_mutex, osMutexId_t& mag_data_mutex, Logger& logger);
 
 	// Initialization after startup
 	[[nodiscard]] bool init();
@@ -68,7 +68,7 @@ private:
 	std::array<std::unique_ptr<IIRFilter>, 3> filters {};
 
 	// Logger
-	USB_Logger& logger;
+	Logger& logger;
 };
 
 

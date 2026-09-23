@@ -11,11 +11,10 @@
 
 #include "Drivers/BMP388/bmp388.hpp"
 #include "Drivers/BMP388/bmp388_regs.hpp"
-#include "Drivers/usb.hpp"
 #include "Utility/lock_guard.hpp"
 
 
-BMP388::BMP388(I2C_HandleTypeDef* i2c_handle, osMutexId_t& i2c_mutex, osMutexId_t& baro_data_mutex, USB_Logger& logger)
+BMP388::BMP388(I2C_HandleTypeDef* i2c_handle, osMutexId_t& i2c_mutex, osMutexId_t& baro_data_mutex, Logger& logger)
 	:i2c_handle(i2c_handle),
 	 i2c_mutex(i2c_mutex),
 	 baro_data_mutex(baro_data_mutex),
@@ -27,21 +26,19 @@ bool BMP388::init()
 	bool status = false;
 
 	// Temporary buffers
-	uint8_t tx_data[4];
-	uint8_t rx_data[4];
-	memset(tx_data, 0, sizeof(tx_data));
-	memset(rx_data, 0, sizeof(rx_data));
+	uint8_t tx_data[4]{};
+	uint8_t rx_data[4]{};
 
 	// Check chip ID
 	rx_data[0] = 0x00;
 	status = read_register(REG_CHIP_ID, rx_data, 1);
 	if (status && rx_data[0] == 0x50)
 	{
-		logger.log("Found BMP388, starting initialization.", CRITICAL);
+		logger.info("Found BMP388, starting initialization.");
 	}
 	else
 	{
-		logger.log("Failed to find BMP388. Initialization failed.", ERR);
+		logger.error("Failed to find BMP388. Initialization failed.");
 		return false;
 	}
 	osDelay(10);
@@ -90,7 +87,7 @@ bool BMP388::init()
 	if (!status) return status;
 	osDelay(10);
 
-	logger.log("BMP388 initialized OK.", CRITICAL);
+	logger.info("BMP388 initialized OK.");
 	osDelay(100);
 
 	return status;
@@ -100,7 +97,7 @@ bool BMP388::service_irq()
 {
 	// Compute compensated temperature and pressure
 
-	uint8_t rx_data[6];
+	uint8_t rx_data[6]{};
 	bool status = read_register(REG_DATA_0, rx_data, sizeof(rx_data));
 
 	if (status)
@@ -141,7 +138,7 @@ bool BMP388::service_irq()
 		pressure = press_partial_out1 + press_partial_out2 + press_partial_out3;
 
 		// Compute altitude
-
+		altitude = 0.0;
 		if (pressure && startup_pressure)
 		{
 			altitude = alt_filter.update(44330.0 * (1.0 - powf(pressure / startup_pressure, 1.0 / 5.25579)));
@@ -154,7 +151,7 @@ bool BMP388::service_irq()
 	}
 	else
 	{
-		logger.log("ERROR reading BMP388 data.", ERR);
+		logger.error("ERROR reading BMP388 data.");
 	}
 
 	return status;
@@ -162,12 +159,8 @@ bool BMP388::service_irq()
 
 void BMP388::log_data_to_gcs()
 {
-	char string[128];
-	{
-		np::lock_guard lock(baro_data_mutex);
-		snprintf(string, sizeof(string), "BMP388 %.2f %.2f %.2f", pressure, altitude, temperature);
-	}
-	logger.log(string, SENSOR);
+	np::lock_guard lock(baro_data_mutex);
+	logger.gcs_sensor("BMP388 {} {} {}", pressure, altitude, temperature);
 }
 
 float BMP388::get_pressure()
@@ -191,7 +184,7 @@ float BMP388::get_temperature()
 bool BMP388::read_calibration_nvm()
 {
 	bool status = false;
-	uint8_t rx_data[2];
+	uint8_t rx_data[2]{};
 
 	// PAR T1
 	status = read_register(REG_NVM_PAR_T1_LSB, rx_data, 2);
@@ -284,16 +277,15 @@ bool BMP388::compute_startup_pressure()
 {
 	// Compute the average current pressure (for initial altitude reference)
 	bool status = false;
-	uint8_t tx_data[2];
-	memset(tx_data, 0, sizeof(tx_data));
-	uint8_t sample_num = 75;
+
+	uint8_t num_sample = 75;
 	float running_pressure = 0;
 
-	for (int i = 0; i < sample_num; i++)
+	for (int i = 0; i < num_sample; i++)
 	{
 		// Switch sensor into forced mode (take one reading, return to sleep)
-		tx_data[0] = 0x13;
-		status = write_register(REG_PWR_CTRL, tx_data, 1);
+		uint8_t force = 0x13;
+		status = write_register(REG_PWR_CTRL, &force, 1);
 		if (!status) return status;
 		osDelay(40);
 		service_irq();
@@ -301,7 +293,7 @@ bool BMP388::compute_startup_pressure()
 		running_pressure += pressure;
 	}
 	np::lock_guard lock(baro_data_mutex);
-	startup_pressure = running_pressure / sample_num;
+	startup_pressure = running_pressure / num_sample;
 	return status;
 }
 
@@ -320,7 +312,7 @@ bool BMP388::read_register(uint8_t reg_addr, uint8_t* rx_data, uint16_t data_len
 
 	if (!status)
 	{
-		logger.log("BMP388 register read failed.", ERR);
+		logger.error("BMP388 register read failed.");
 	}
 
 	return status;
@@ -336,7 +328,7 @@ bool BMP388::write_register(uint8_t reg_addr, uint8_t* tx_data, uint16_t data_le
 
 	if (!status)
 	{
-		logger.log("BMP388 register write failed.", ERR);
+		logger.error("BMP388 register write failed.");
 	}
 
 	return status;

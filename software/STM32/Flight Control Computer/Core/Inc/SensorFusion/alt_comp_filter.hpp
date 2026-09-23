@@ -22,10 +22,10 @@
 #define ALTITUDE_ALPHA				0.005f
 
 
-/*
- * Class to run a simple complementary filter to fuse barometer altitude and ultrasonic distance measurements.
- */
 class AltitudeComplementaryFilter
+	/*
+	 * Class to run a simple complementary filter to fuse barometer altitude and ultrasonic distance measurements.
+	 */
 {
 public:
 	AltitudeComplementaryFilter(US100& range_finder, BMP388& barometer);

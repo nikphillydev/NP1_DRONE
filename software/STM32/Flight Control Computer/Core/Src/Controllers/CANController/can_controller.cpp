@@ -14,21 +14,21 @@ void CANController::send_heartbeat()
 		{
 			while (HAL_FDCAN_GetTxFifoFreeLevel(hfdcan) <= 0)
 			{
-				logger.log("CANController: CANBUS Tx Fifo full, send_heartbeat() waiting...", CRITICAL);
+				logger.warn("CANController: CANBUS Tx Fifo full, send_heartbeat() waiting...");
 				osDelay(CANBUS_DELAY_MS_TX_FIFO_FULL);
 			}
 
 			TxHeaderCan1.Identifier = CANBUS_MSG::HEARTBEAT;
-			uint8_t tx_data[8] = {};
+			uint8_t tx_data[8]{};
 			if (HAL_FDCAN_AddMessageToTxFifoQ(hfdcan, &TxHeaderCan1, tx_data) != HAL_OK)
 			{
-				logger.log("CANController: Transmission failed", ERR);
+				logger.error("CANController: Transmission failed");
 			}
 			break;
 		}
 		case CANBUS_STATE::ACTIVE_ERROR:
 		{
-			logger.log("CANController: Error on CANBUS", ERR);
+			logger.error("CANController: Error on CANBUS");
 			break;
 		}
 	}
@@ -41,21 +41,21 @@ void CANController::send_arm()
 		{
 			while (HAL_FDCAN_GetTxFifoFreeLevel(hfdcan) <= 0)
 			{
-				logger.log("CANController: CANBUS Tx Fifo full, send_arm() waiting...", CRITICAL);
+				logger.warn("CANController: CANBUS Tx Fifo full, send_arm() waiting...");
 				osDelay(CANBUS_DELAY_MS_TX_FIFO_FULL);
 			}
 
 			TxHeaderCan1.Identifier = CANBUS_MSG::ARM;
-			uint8_t tx_data[8] = {};
+			uint8_t tx_data[8]{};
 			if (HAL_FDCAN_AddMessageToTxFifoQ(hfdcan, &TxHeaderCan1, tx_data) != HAL_OK)
 			{
-				logger.log("CANController: Transmission failed", ERR);
+				logger.error("CANController: Transmission failed");
 			}
 			break;
 		}
 		case CANBUS_STATE::ACTIVE_ERROR:
 		{
-			logger.log("CANController: Error on CANBUS", ERR);
+			logger.error("CANController: Error on CANBUS");
 			break;
 		}
 	}
@@ -68,21 +68,21 @@ void CANController::send_disarm()
 		{
 			while (HAL_FDCAN_GetTxFifoFreeLevel(hfdcan) <= 0)
 			{
-				logger.log("CANController: CANBUS Tx Fifo full, send_disarm() waiting...", CRITICAL);
+				logger.warn("CANController: CANBUS Tx Fifo full, send_disarm() waiting...");
 				osDelay(CANBUS_DELAY_MS_TX_FIFO_FULL);
 			}
 
 			TxHeaderCan1.Identifier = CANBUS_MSG::DISARM;
-			uint8_t tx_data[8] = {};
+			uint8_t tx_data[8]{};
 			if (HAL_FDCAN_AddMessageToTxFifoQ(hfdcan, &TxHeaderCan1, tx_data) != HAL_OK)
 			{
-				logger.log("CANController: Transmission failed", ERR);
+				logger.error("CANController: Transmission failed");
 			}
 			break;
 		}
 		case CANBUS_STATE::ACTIVE_ERROR:
 		{
-			logger.log("CANController: Error on CANBUS", ERR);
+			logger.error("CANController: Error on CANBUS");
 			break;
 		}
 	}
@@ -95,23 +95,23 @@ void CANController::send_speed(uint16_t speed)
 		{
 			while (HAL_FDCAN_GetTxFifoFreeLevel(hfdcan) <= 0)
 			{
-				logger.log("CANController: CANBUS Tx Fifo full, send_speed() waiting...", CRITICAL);
+				logger.warn("CANController: CANBUS Tx Fifo full, send_speed() waiting...");
 				osDelay(CANBUS_DELAY_MS_TX_FIFO_FULL);
 			}
 
 			TxHeaderCan1.Identifier = CANBUS_MSG::SPEED;
-			uint8_t tx_data[8] = {};
+			uint8_t tx_data[8]{};
 			tx_data[0] = (speed >> 8) & 0xFF;
 			tx_data[1] = speed & 0xFF;
 			if (HAL_FDCAN_AddMessageToTxFifoQ(hfdcan, &TxHeaderCan1, tx_data) != HAL_OK)
 			{
-				logger.log("CANController: Transmission failed", ERR);
+				logger.error("CANController: Transmission failed");
 			}
 			break;
 		}
 		case CANBUS_STATE::ACTIVE_ERROR:
 		{
-			logger.log("CANController: Error on CANBUS", ERR);
+			logger.error("CANController: Error on CANBUS");
 			break;
 		}
 	}
@@ -137,7 +137,7 @@ CANBUS_STATE CANController::get_canbus_state()
 		}
 	}
 
-	logger.log("CANController: Failed to get CANBUS state", ERR);
+	logger.error("CANController: Failed to get CANBUS state");
 	return CANBUS_STATE::ACTIVE_ERROR;
 }
 

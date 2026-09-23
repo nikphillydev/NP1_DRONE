@@ -29,8 +29,11 @@ private:
 	bool initialized = false;
 };
 
+
 /*
- * Implementation
+ *
+ * TEMPLATE IMPLEMENTATION
+ *
  */
 template <typename T>
 MovingAverageFilter<T>::MovingAverageFilter(unsigned max_size)

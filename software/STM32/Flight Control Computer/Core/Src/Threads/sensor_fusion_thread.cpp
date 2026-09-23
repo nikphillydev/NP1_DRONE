@@ -51,13 +51,17 @@
 
 #include "Utility/lock_guard.hpp"
 
-#include "Drivers/usb.hpp"
+#include "Drivers/Logger/usb_serial_port.hpp"
+#include "Drivers/Logger/logger.hpp"
 #include "Drivers/BMI088/bmi088.hpp"
 #include "Drivers/BMP388/bmp388.hpp"
 #include "Drivers/LIS3MDL/lis3mdl.hpp"
 #include "Drivers/US100_Ultrasonic/us100.hpp"
 #include "Drivers/PMW3901/pmw3901.hpp"
 
+/*
+ * DEFINES
+ */
 #define TIMER_PERIOD				1700 				// cycles per count, must match in tim.c
 #define TIMER_FREQUENCY				170000000			// cycles per second, MCU timers clock
 #define COUNTS_TO_SECONDS			(float)TIMER_PERIOD / TIMER_FREQUENCY
@@ -67,9 +71,10 @@
 #define SHOULD_CALIBRATE_MAG		false
 
 /*
- * Sensors
+ * GLOBAL
  */
-static USB_Logger logger(usbMutexHandle);
+static USBSerialPort serial_port(usbMutexHandle);
+static Logger logger(serial_port);
 static BMI088 imu(&hspi1, spi1MutexHandle, ACCEL_CS_GPIO_Port, GYRO_CS_GPIO_Port, ACCEL_CS_Pin,
 		GYRO_CS_Pin, accelDataMutexHandle, gyroDataMutexHandle, logger);
 static LIS3MDL magnetometer(&hi2c2, i2c2MutexHandle, magDataMutexHandle, logger);
@@ -77,16 +82,13 @@ static BMP388 barometer(&hi2c2, i2c2MutexHandle, baroDataMutexHandle, logger);
 static US100 range_finder(&huart2, uart2MutexHandle, ultrasonicDataMutexHandle, logger);
 static PMW3901 optical_flow(&hspi1, spi1MutexHandle, FLOW_CS_GPIO_Port, FLOW_CS_Pin, flowDataMutexHandle, logger);
 
+static drone_state_t drone_state;
+
 /*
- * Timing
+ * TIMING
  */
 extern volatile unsigned long ulHighFrequencyTimerCounts;
 const uint32_t fusion_period_ms = (1.0 / FUSION_FREQ_HZ) * 1000;		// ms
-
-/*
- * Drone state
- */
-drone_state_t drone_state;
 
 /*
  *
@@ -96,7 +98,7 @@ drone_state_t drone_state;
 void sensor_fusion_thread()
 {
 	osDelay(THREAD_START_DELAY_MS);
-	logger.log("--- SENSOR FUSION THREAD STARTING ---", CRITICAL);
+	logger.info("--- SENSOR FUSION THREAD STARTING ---");
 	osDelay(10);
 
 	/*
@@ -107,10 +109,10 @@ void sensor_fusion_thread()
 	bool baro_init = barometer.init();
 	bool flow_init = optical_flow.init();
 
-	if (!imu_init)  logger.log("SENSOR FUSION THREAD: IMU initialization failed.", ERR);
-	if (!mag_init)  logger.log("SENSOR FUSION THREAD: Magnetometer initialization failed.", ERR);
-	if (!baro_init) logger.log("SENSOR FUSION THREAD: Barometer initialization failed.", ERR);
-	if (!flow_init) logger.log("SENSOR FUSION THREAD: Optical flow sensor initialization failed.", ERR);
+	if (!imu_init)  logger.error("SENSOR FUSION THREAD: IMU initialization failed.");
+	if (!mag_init)  logger.error("SENSOR FUSION THREAD: Magnetometer initialization failed.");
+	if (!baro_init) logger.error("SENSOR FUSION THREAD: Barometer initialization failed.");
+	if (!flow_init) logger.error("SENSOR FUSION THREAD: Optical flow sensor initialization failed.");
 
 	OrientationEKF ekf(imu, magnetometer, logger);
 	bool ekf_init = ekf.init();
@@ -125,15 +127,15 @@ void sensor_fusion_thread()
 
 	if (!ekf_okay)
 	{
-		logger.log("SENSOR FUSION THREAD: Orientation EKF not feasible. Killing thread.", ERR);
+		logger.error("SENSOR FUSION THREAD: Orientation EKF not feasible. Killing thread.");
 		osDelay(10);
 
 		// Delete this thread
 		vTaskDelete( NULL );
 	}
 
-	if (!comp_filter_okay) logger.log("SENSOR FUSION THREAD: Altitude complementary filter not feasible.", CRITICAL);
-	if (!leaky_integrator_okay) logger.log("SENSOR FUSION THREAD: Velocity leaky integrator not feasible.", CRITICAL);
+	if (!comp_filter_okay) logger.warn("SENSOR FUSION THREAD: Altitude complementary filter not feasible.");
+	if (!leaky_integrator_okay) logger.warn("SENSOR FUSION THREAD: Velocity leaky integrator not feasible.");
 
 
 	// Calibrate magnetometer if necessary
@@ -208,22 +210,20 @@ void fusion_logging_thread()
 {
 	osThreadFlagsWait(0x00000001U, osFlagsWaitAll, osWaitForever);
 
-	logger.log("--- SENSOR FUSION LOGGING THREAD STARTING ---", CRITICAL);
+	logger.info("--- SENSOR FUSION LOGGING THREAD STARTING ---");
 	osDelay(10);
 
-	char state_log[256];
 	while (1)
 	{
 		{
 			np::lock_guard lock(stateMutexHandle);
-			snprintf(state_log, sizeof(state_log),
-					"%.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f %.4f",
-					drone_state.rotation[0], drone_state.rotation[1], drone_state.rotation[2],
-					drone_state.quaternion[0], drone_state.quaternion[1], drone_state.quaternion[2], drone_state.quaternion[3],
-					drone_state.velocity[0], drone_state.velocity[1],
-					drone_state.altitude);
+			logger.gcs_state("{} {} {} {} {} {} {} {} {} {}",
+				drone_state.rotation[0], drone_state.rotation[1], drone_state.rotation[2],
+				drone_state.quaternion[0], drone_state.quaternion[1], drone_state.quaternion[2], drone_state.quaternion[3],
+				drone_state.velocity[0], drone_state.velocity[1],
+				drone_state.altitude
+			);
 		}
-		logger.log(state_log, STATE);		// Log drone state data
 		osDelay(50);
 	}
 }

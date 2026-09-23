@@ -18,20 +18,25 @@
 
 #include "Controllers/CANController/can_controller.hpp"
 
-#include "Drivers/usb.hpp"
 #include "Drivers/CC2500/cc2500.hpp"
-
-#define CONTROL_SYSTEM_FREQ			100		// Frequency to run control system thread
-#define DRONE_STATE_TIMEOUT_MS		50		// Timeout for invalid (old) drone state
+#include "Drivers/Logger/usb_serial_port.hpp"
+#include "Drivers/Logger/logger.hpp"
 
 /*
- * Sensors
+ * DEFINES
  */
-static USB_Logger logger{usbMutexHandle};
+#define CONTROL_SYSTEM_FREQ			100		// Frequency to run control system thread
+#define DRONE_STATE_TIMEOUT_MS		50		// Timeout in ms for invalid (stale) drone state
+
+/*
+ * GLOBAL
+ */
+static USBSerialPort serial_port(usbMutexHandle);
+static Logger logger(serial_port);
 static CANController canbus{&hfdcan1, logger};
 
 /*
- * Timing
+ * TIMING
  */
 const uint32_t system_period_ms = 1.0f / CONTROL_SYSTEM_FREQ * 1000.0f;
 
@@ -43,15 +48,15 @@ const uint32_t system_period_ms = 1.0f / CONTROL_SYSTEM_FREQ * 1000.0f;
 void control_system_thread()
 {
 	osDelay(THREAD_START_DELAY_MS);
-	logger.log("--- CONTROL SYSTEM THREAD STARTING ---", CRITICAL);
+	logger.info("--- CONTROL SYSTEM THREAD STARTING ---");
 	osDelay(10);
 
 	// Setpoints
 	uint16_t throttle = 0;
 
 	// ESC heartbeat
-	const unsigned heartbeat_tick_delta = osKernelGetTickFreq() / REQUIRED_ESC_HEARTBEAT_HZ;
-	unsigned last_heartbeat_tick = osKernelGetTickCount();
+	const unsigned esc_heartbeat_tick_delta = osKernelGetTickFreq() / constants::REQUIRED_ESC_HEARTBEAT_HZ;
+	unsigned esc_last_heartbeat_tick = osKernelGetTickCount();
 
 	uint32_t wakeup_time = osKernelGetTickCount();
 
@@ -66,10 +71,10 @@ void control_system_thread()
 		// -------------------------
 		// Maintain ESC heartbeat
 		// -------------------------
-		if (osKernelGetTickCount() - last_heartbeat_tick > heartbeat_tick_delta)
+		if (osKernelGetTickCount() - esc_last_heartbeat_tick > esc_heartbeat_tick_delta)
 		{
 			canbus.send_heartbeat();
-			last_heartbeat_tick = osKernelGetTickCount();
+			esc_last_heartbeat_tick = osKernelGetTickCount();
 		}
 
 		// -------------------------
@@ -88,15 +93,14 @@ void control_system_thread()
 					{
 						if (msg.loss_of_link)
 						{
-							logger.log("CONTROL SYSTEM: LOSS-OF-LINK.", ERR);
+							logger.warn("CONTROL SYSTEM: LOSS-OF-LINK.");
 							canbus.send_disarm();
 						}
 						else
 						{
-							logger.log("CONTROL SYSTEM: LINK RESTORED.", CRITICAL);
+							logger.warn("CONTROL SYSTEM: LINK RESTORED.");
 						}
 					}
-
 					break;
 				}
 				case MSG_ID_CMD_ARM_DISARM:
@@ -106,16 +110,15 @@ void control_system_thread()
 					{
 						if (msg.armed)
 						{
-							logger.log("CONTROL SYSTEM: Arming drone.", INFO);
+							logger.info("CONTROL SYSTEM: Arming drone.");
 							canbus.send_arm();
 						}
 						else
 						{
-							logger.log("CONTROL SYSTEM: Disarming drone.", INFO);
+							logger.info("CONTROL SYSTEM: Disarming drone.");
 							canbus.send_disarm();
 						}
 					}
-
 					break;
 				}
 				case MSG_ID_CMD_ANGLE:
@@ -123,9 +126,8 @@ void control_system_thread()
 					angle_msg_t msg;
 					if (NP1RadioLink::angle_msg_decode(rx_packet, msg))
 					{
-						logger.log("CONTROL SYSTEM: Received angle. Not implemented.", INFO);
+						logger.info("CONTROL SYSTEM: Received angle. Not implemented.");
 					}
-
 					break;
 				}
 				case MSG_ID_CMD_THROTTLE:
@@ -133,22 +135,14 @@ void control_system_thread()
 					throttle_msg_t msg;
 					if (NP1RadioLink::throttle_msg_decode(rx_packet, msg))
 					{
-						char debug[128];
-						snprintf(debug, sizeof(debug), "CONTROL SYSTEM: Received new throttle: %d", msg.throttle);
-						logger.log(debug, INFO);
-
-//						logger.log("CONTROL SYSTEM: Received new throttle.", INFO);
-
+						logger.info("CONTROL SYSTEM: Received new throttle: {}", msg.throttle);
 						throttle = msg.throttle;
 					}
-
 					break;
 				}
 				default:
 				{
-					char error[128];
-					snprintf(error, sizeof(error), "CONTROL SYSTEM: Received invalid message ID: %d", rx_packet.id);
-					logger.log(error, ERR);
+					logger.error("CONTROL SYSTEM: Received invalid message ID: {}", rx_packet.id);
 				}
 			}
 		}
@@ -164,11 +158,11 @@ void control_system_thread()
 		{
 			if (!stateStatus)
 			{
-				logger.log("CONTROL SYSTEM: No drone state received.", ERR);
+				logger.error("CONTROL SYSTEM: No drone state received.");
 			}
 			else
 			{
-				logger.log("CONTROL SYSTEM: Drone state invalid. Timeout occured.", ERR);
+				logger.error("CONTROL SYSTEM: Drone state invalid. Timeout occured.");
 			}
 			canbus.send_disarm();
 			continue;

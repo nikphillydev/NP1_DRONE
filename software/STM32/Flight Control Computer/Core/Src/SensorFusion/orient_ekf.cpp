@@ -6,10 +6,9 @@
  */
 
 #include "cmsis_os.h"
-
 #include <array>
-
 #include "SensorFusion/orient_ekf.hpp"
+
 
 #define MS2_TO_G					1 / 9.80665
 #define G_TO_MS2					9.80665
@@ -17,7 +16,7 @@
 #define GAUSS_TO_uTESLA				100.0
 
 
-OrientationEKF::OrientationEKF(BMI088& imu, LIS3MDL& magnetometer, USB_Logger& logger)
+OrientationEKF::OrientationEKF(BMI088& imu, LIS3MDL& magnetometer, Logger& logger)
 	: imu(imu),
 	  magnetometer(magnetometer),
 	  logger(logger) {}
@@ -28,12 +27,12 @@ bool OrientationEKF::init()
 	const float GBIAS_GYRO_TH_SC 	= 2 * 0.002;
 	const float GBIAS_MAG_TH_SC 	= 2 * 0.001500;
 
-	logger.log("EKF: Starting initialization.", CRITICAL);
+	logger.info("EKF: Starting initialization.");
 
 	// Check MotionFX state size
 	if (sizeof(mfxstate) < MotionFX_GetStateSize())
 	{
-		logger.log("EKF: MotionFX algorithm state not enough memory", ERR);
+		logger.error("EKF: MotionFX algorithm state not enough memory");
 		return false;
 	}
 	MotionFX_initialize((MFXState_t *)mfxstate);
@@ -66,7 +65,7 @@ bool OrientationEKF::init()
 	MotionFX_enable_6X(mfxstate, MFX_ENGINE_DISABLE);
 	MotionFX_enable_9X(mfxstate, MFX_ENGINE_ENABLE);
 
-	logger.log("EKF: Initialized OK.", CRITICAL);
+	logger.info("EKF: Initialized OK.");
 	return true;
 }
 
@@ -76,19 +75,22 @@ bool OrientationEKF::calibrate_magnetometer()
 	MFX_MagCal_input_t mag_data_in;
 	MFX_MagCal_output_t mag_data_out;
 
-	logger.log("EKF: Slowly rotate the device in a figure 8 pattern in space to calibrate the magnetometer...", INFO);
+	logger.info("EKF: Slowly rotate the device in a figure 8 pattern in space to calibrate the magnetometer...");
+
+	const uint32_t timeout_min = 3;
+	const uint32_t timeout_ticks = timeout_min * 60 * 1000;
+	const uint32_t start_tick = osKernelGetTickCount();
 
 	const uint32_t calibration_period_ms = 25;
-	uint32_t wakeup_time = osKernelGetTickCount();
-
-	uint32_t count = 0;
-	uint32_t timeout_min = 1;
-	const uint32_t max_count = timeout_min * 60 * 1000 / calibration_period_ms;
+	uint32_t wakeup_time = start_tick;
 
 	MotionFX_MagCal_init(calibration_period_ms, 1);
 
-	while(!magnetometer_calibrated && count < max_count)
+	while(!magnetometer_calibrated)
 	{
+		// Check timeout
+		if (osKernelGetTickCount() - start_tick > timeout_ticks) break;
+
 		wakeup_time += calibration_period_ms;
 		osDelayUntil(wakeup_time);
 
@@ -109,19 +111,17 @@ bool OrientationEKF::calibrate_magnetometer()
 		{
 			magnetometer_calibrated = true;
 		}
-
-		count++;
 	}
 
 	MotionFX_MagCal_init(calibration_period_ms, 0);
 
 	if (!magnetometer_calibrated)
 	{
-		logger.log("EKF: Magnetometer calibration failed. Timeout.", ERR);
+		logger.error("EKF: Magnetometer calibration failed. Timeout.");
 		return false;
 	}
 
-	logger.log("EKF: Magnetometer calibration complete.", INFO);
+	logger.info("EKF: Magnetometer calibration complete.");
 
 	hard_iron_offsets[0] = mag_data_out.hi_bias[0];			// in uT/50
 	hard_iron_offsets[1] = mag_data_out.hi_bias[1];

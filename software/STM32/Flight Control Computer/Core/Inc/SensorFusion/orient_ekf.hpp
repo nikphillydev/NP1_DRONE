@@ -11,19 +11,19 @@
 
 #include "Drivers/BMI088/bmi088.hpp"
 #include "Drivers/LIS3MDL/lis3mdl.hpp"
-#include "Drivers/usb.hpp"
+#include "Drivers/Logger/logger.hpp"
 
 #define MFX_STATE_SIZE		2432
 
 
-/*
- * Class to run an Extended Kalman Filter (EKF) to fuse accelerometer, gyroscope,
- * and magnetometer data into an orientation in NED coordinate system.
- */
 class OrientationEKF
+	/*
+	 * Class to run an Extended Kalman Filter (EKF) to fuse accelerometer, gyroscope,
+	 * and magnetometer data into a 3D orientation in NED coordinate system.
+	 */
 {
 public:
-	OrientationEKF(BMI088& imu, LIS3MDL& magnetometer, USB_Logger& logger);
+	OrientationEKF(BMI088& imu, LIS3MDL& magnetometer, Logger& logger);
 
 	[[nodiscard]] bool init();
 
@@ -46,5 +46,5 @@ private:
 	std::array<float, 3> hard_iron_offsets{};
 
 	// Logger
-	USB_Logger& logger;
+	Logger& logger;
 };
