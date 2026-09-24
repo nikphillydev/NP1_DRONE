@@ -18,7 +18,7 @@ void Logger::print_log_with_timestamp(std::string&& log, std::string_view severi
 {
 	float timestamp = static_cast<float>(osKernelGetTickCount()) / static_cast<float>(osKernelGetTickFreq());
 
-	std::string output_string = fmt::format("[{}] [{}] {}\n", timestamp, severity, log);
+	std::string output_string = fmt::format("[{:.3f}] [{}] {}\n", timestamp, severity, log);
 	std::vector<uint8_t> buffer{output_string.begin(), output_string.end()};
 	serial_port.write_bytes(std::move(buffer));
 }
