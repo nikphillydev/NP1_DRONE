@@ -26,8 +26,6 @@ CC2500::CC2500(SPI_HandleTypeDef *spi_handle, osMutexId_t& spi_mutex, GPIO_TypeD
 bool CC2500::init()
 {
 	bool status = false;
-
-	// Temporary buffers
 	uint8_t tx_data[4]{};
 	uint8_t rx_data[4]{};
 
@@ -42,6 +40,7 @@ bool CC2500::init()
 		logger.warn("Waiting for CC2500 to start-up...");
 		status = command_strobe(CMD_SNOP, CC2500_STATUS_UPDATE::TX_FIFO_BYTES);
 		if (!status) return status;
+
 		osDelay(100);
 	}
 	logger.info("CC2500 start-up OK.");
@@ -58,7 +57,6 @@ bool CC2500::init()
 		logger.error("Failed to find CC2500 RF transceiver. Initialization failed.");
 		return false;
 	}
-	osDelay(10);
 
 	// GDO2 as interrupt: asserts on sync, deasserts on end of packet
 	tx_data[0] = 0x06;
@@ -224,8 +222,6 @@ bool CC2500::init()
 	osDelay(10);
 
 	logger.info("CC2500 RF transceiver initialized OK.");
-	osDelay(100);
-
 	return status;
 }
 
@@ -300,7 +296,6 @@ bool CC2500::transmit_packet(const cc2500_packet_t &packet)
 	{
 		logger.warn("CC2500 TX FIFO underflow...");
 
-		// Recover from TX FIFO underflow
 		status = flush_tx_fifo();
 		if (!status) return status;
 		status = enter_tx_mode();
@@ -319,6 +314,7 @@ bool CC2500::transmit_packet(const cc2500_packet_t &packet)
 	while (remaining_txbytes < CC2500_TX_PACKET_LENGTH)		// need space for packet + address
 	{
 		logger.warn("CC2500 TX FIFO waiting for space...");
+
 		osDelay(1);
 
 		status = read_register(REG_TXBYTES, &reg_txbytes, 1);
@@ -350,7 +346,6 @@ bool CC2500::transmit_packet(const cc2500_packet_t &packet)
 	{
 		logger.error("CC2500 TX FIFO underflow. Transmit packet failed.");
 
-		// Message failed to send
 		status = flush_tx_fifo();
 		if (!status) return status;
 		status = enter_tx_mode();
@@ -379,7 +374,6 @@ bool CC2500::receive_packet(cc2500_packet_t &packet, cc2500_packet_status_t &pac
 	{
 		logger.error("CC2500 RX FIFO overflow. Receive packet failed.");
 
-		// Recover from RX FIFO overflow
 		status = flush_rx_fifo();
 		if (!status) return status;
 		status = enter_rx_mode();
@@ -441,10 +435,8 @@ bool CC2500::flush_rx_fifo()
 
 	logger.warn("CC2500 flushing RX FIFO");
 
-	// Flush the receive FIFO
 	status = command_strobe(CMD_SFRX, CC2500_STATUS_UPDATE::RX_FIFO_BYTES);
 	if (!status) return status;
-	osDelay(10);
 
 	return status;
 }
@@ -455,10 +447,8 @@ bool CC2500::flush_tx_fifo()
 
 	logger.warn("CC2500 flushing TX FIFO");
 
-	// Flush the transmit FIFO
 	status = command_strobe(CMD_SFTX, CC2500_STATUS_UPDATE::TX_FIFO_BYTES);
 	if (!status) return status;
-	osDelay(10);
 
 	return status;
 }

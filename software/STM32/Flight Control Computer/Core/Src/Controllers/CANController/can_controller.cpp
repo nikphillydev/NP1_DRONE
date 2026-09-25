@@ -7,7 +7,7 @@
 #include "Controllers/CANController/can_controller.hpp"
 
 
-void CANController::send_heartbeat()
+bool CANController::send_heartbeat()
 {
 	switch (get_canbus_state()) {
 		case CANBUS_STATE::NORMAL:
@@ -20,10 +20,11 @@ void CANController::send_heartbeat()
 
 			TxHeaderCan1.Identifier = CANBUS_MSG::HEARTBEAT;
 			uint8_t tx_data[8]{};
-			if (HAL_FDCAN_AddMessageToTxFifoQ(hfdcan, &TxHeaderCan1, tx_data) != HAL_OK)
+			if (HAL_FDCAN_AddMessageToTxFifoQ(hfdcan, &TxHeaderCan1, tx_data) == HAL_OK)
 			{
-				logger.error("CANController: Transmission failed");
+				return true;
 			}
+			logger.error("CANController: send_heartbeat() CANBUS transmit failure");
 			break;
 		}
 		case CANBUS_STATE::ACTIVE_ERROR:
@@ -32,9 +33,10 @@ void CANController::send_heartbeat()
 			break;
 		}
 	}
+	return false;
 }
 
-void CANController::send_arm()
+bool CANController::send_arm()
 {
 	switch (get_canbus_state()) {
 		case CANBUS_STATE::NORMAL:
@@ -47,10 +49,11 @@ void CANController::send_arm()
 
 			TxHeaderCan1.Identifier = CANBUS_MSG::ARM;
 			uint8_t tx_data[8]{};
-			if (HAL_FDCAN_AddMessageToTxFifoQ(hfdcan, &TxHeaderCan1, tx_data) != HAL_OK)
+			if (HAL_FDCAN_AddMessageToTxFifoQ(hfdcan, &TxHeaderCan1, tx_data) == HAL_OK)
 			{
-				logger.error("CANController: Transmission failed");
+				return true;
 			}
+			logger.error("CANController: send_arm() CANBUS transmit failure");
 			break;
 		}
 		case CANBUS_STATE::ACTIVE_ERROR:
@@ -59,9 +62,10 @@ void CANController::send_arm()
 			break;
 		}
 	}
+	return false;
 }
 
-void CANController::send_disarm()
+bool CANController::send_disarm()
 {
 	switch (get_canbus_state()) {
 		case CANBUS_STATE::NORMAL:
@@ -74,10 +78,11 @@ void CANController::send_disarm()
 
 			TxHeaderCan1.Identifier = CANBUS_MSG::DISARM;
 			uint8_t tx_data[8]{};
-			if (HAL_FDCAN_AddMessageToTxFifoQ(hfdcan, &TxHeaderCan1, tx_data) != HAL_OK)
+			if (HAL_FDCAN_AddMessageToTxFifoQ(hfdcan, &TxHeaderCan1, tx_data) == HAL_OK)
 			{
-				logger.error("CANController: Transmission failed");
+				return true;
 			}
+			logger.error("CANController: send_disarm() CANBUS transmit failure");
 			break;
 		}
 		case CANBUS_STATE::ACTIVE_ERROR:
@@ -86,9 +91,10 @@ void CANController::send_disarm()
 			break;
 		}
 	}
+	return false;
 }
 
-void CANController::send_speed(uint16_t speed)
+bool CANController::send_speed(uint16_t speed)
 {
 	switch (get_canbus_state()) {
 		case CANBUS_STATE::NORMAL:
@@ -103,10 +109,11 @@ void CANController::send_speed(uint16_t speed)
 			uint8_t tx_data[8]{};
 			tx_data[0] = (speed >> 8) & 0xFF;
 			tx_data[1] = speed & 0xFF;
-			if (HAL_FDCAN_AddMessageToTxFifoQ(hfdcan, &TxHeaderCan1, tx_data) != HAL_OK)
+			if (HAL_FDCAN_AddMessageToTxFifoQ(hfdcan, &TxHeaderCan1, tx_data) == HAL_OK)
 			{
-				logger.error("CANController: Transmission failed");
+				return true;
 			}
+			logger.error("CANController: send_speed() CANBUS transmit failure");
 			break;
 		}
 		case CANBUS_STATE::ACTIVE_ERROR:
@@ -115,6 +122,7 @@ void CANController::send_speed(uint16_t speed)
 			break;
 		}
 	}
+	return false;
 }
 
 /*

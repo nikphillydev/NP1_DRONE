@@ -25,16 +25,13 @@ public:
 	PMW3901(SPI_HandleTypeDef* spi_handle, osMutexId_t& spi_mutex, GPIO_TypeDef* cs_port, uint16_t cs_pin,
 			osMutexId_t& data_mutex, Logger& logger);
 
-	// Initialization after startup
+	// Device operation
 	[[nodiscard]] bool init();
-
-	// Polling interface
 	bool poll(float deltatime_s);
 
-	// Logging
 	void log_data_to_gcs();
 
-	// Getters
+	// Get data
 	std::array<float, 2> get_flow_rate();
 
 private:

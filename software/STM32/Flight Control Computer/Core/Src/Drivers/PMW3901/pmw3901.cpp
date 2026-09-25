@@ -29,10 +29,7 @@ PMW3901::PMW3901(SPI_HandleTypeDef* spi_handle, osMutexId_t& spi_mutex, GPIO_Typ
 
 bool PMW3901::init()
 {
-	osDelay(100);			// Testing found this delay required on start-up
 	bool status = false;
-
-	// Temporary buffers
 	uint8_t tx_data[4]{};
 	uint8_t rx_data[4]{};
 
@@ -44,15 +41,12 @@ bool PMW3901::init()
 
 	// Check PMW3901 product ID and inverse product ID
 	rx_data[0] = 0;
-	rx_data[1] = 0;
-
 	status = read_register(REG_PRODUCT_ID, rx_data, 1);
 	if (!status) return status;
-	osDelay(10);
 
+	rx_data[1] = 0;
 	status = read_register(REG_INVERSE_PRODUCT_ID, rx_data+1, 1);
 	if (!status) return status;
-	osDelay(10);
 
 	if (rx_data[0] == 0x49 && rx_data[1] == 0xB6)
 	{
@@ -63,24 +57,22 @@ bool PMW3901::init()
 		logger.error("Failed to find PMW3901 optical flow sensor. Initialization failed.");
 		return false;
 	}
-	osDelay(10);
 
 	// Reading the motion registers one time
 	status = read_register(REG_MOTION, rx_data, 1);
 	if (!status) return status;
-	osDelay(10);
+
 	status = read_register(REG_DELTA_X_L, rx_data, 1);
 	if (!status) return status;
-	osDelay(10);
+
 	status = read_register(REG_DELTA_X_H, rx_data, 1);
 	if (!status) return status;
-	osDelay(10);
+
 	status = read_register(REG_DELTA_Y_L, rx_data, 1);
 	if (!status) return status;
-	osDelay(10);
+
 	status = read_register(REG_DELTA_Y_H, rx_data, 1);
 	if (!status) return status;
-	osDelay(10);
 
 	// Initialize device registers on startup
 	status = initialize_registers();
@@ -100,8 +92,6 @@ bool PMW3901::init()
 	if (!status) return status;
 
 	logger.info("PMW3901 optical flow sensor initialized OK.");
-	osDelay(100);
-
 	return status;
 }
 

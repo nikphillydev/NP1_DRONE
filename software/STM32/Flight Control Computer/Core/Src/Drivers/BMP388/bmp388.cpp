@@ -24,8 +24,6 @@ BMP388::BMP388(I2C_HandleTypeDef* i2c_handle, osMutexId_t& i2c_mutex, osMutexId_
 bool BMP388::init()
 {
 	bool status = false;
-
-	// Temporary buffers
 	uint8_t tx_data[4]{};
 	uint8_t rx_data[4]{};
 
@@ -41,7 +39,6 @@ bool BMP388::init()
 		logger.error("Failed to find BMP388. Initialization failed.");
 		return false;
 	}
-	osDelay(10);
 
 	// Perform soft-reset of device
 	tx_data[0] = 0xB6;
@@ -88,8 +85,6 @@ bool BMP388::init()
 	osDelay(10);
 
 	logger.info("BMP388 initialized OK.");
-	osDelay(100);
-
 	return status;
 }
 

@@ -34,14 +34,13 @@ class LIS3MDL
 public:
 	LIS3MDL(I2C_HandleTypeDef* i2c_handle, osMutexId_t& i2c_mutex, osMutexId_t& mag_data_mutex, Logger& logger);
 
-	// Initialization after startup
+	// Device operation
 	[[nodiscard]] bool init();
-
-	// IRQ service and logging
 	bool service_irq();
+
 	void log_data_to_gcs();
 
-	// Getters
+	// Get data
 	std::array<float, 3> get_axis_intensities();
 
 private:

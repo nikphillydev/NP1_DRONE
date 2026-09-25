@@ -27,13 +27,13 @@ public:
 	[[nodiscard]] bool receive_packet(cc2500_packet_t &packet, cc2500_packet_status_t &packet_status);
 
 private:
-	[[nodiscard]] bool flush_rx_fifo();
-	[[nodiscard]] bool flush_tx_fifo();
-
 	// Low-level register read / write
 	[[nodiscard]] bool command_strobe(uint8_t strobe, CC2500_STATUS_UPDATE status_update);
 	[[nodiscard]] bool write_register(uint8_t reg, uint8_t *tx_data, uint16_t data_len);
 	[[nodiscard]] bool read_register(uint8_t reg, uint8_t *rx_data, uint16_t data_len);
+
+	[[nodiscard]] bool flush_rx_fifo();
+	[[nodiscard]] bool flush_tx_fifo();
 
 	// SPI communication
 	SPI_HandleTypeDef *spi_handle;

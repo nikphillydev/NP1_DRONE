@@ -23,8 +23,6 @@ LIS3MDL::LIS3MDL(I2C_HandleTypeDef* i2c_handle, osMutexId_t& i2c_mutex, osMutexI
 bool LIS3MDL::init()
 {
 	bool status = false;
-
-	// Temporary buffers
 	uint8_t tx_data[4]{};
 	uint8_t rx_data[4]{};
 
@@ -40,7 +38,6 @@ bool LIS3MDL::init()
 		logger.error("Failed to find LIS3MDL. Initialization failed.");
 		return false;
 	}
-	osDelay(10);
 
 	// Perform soft-reset of device
 	tx_data[0] = 0x04;
@@ -89,8 +86,6 @@ bool LIS3MDL::init()
 	service_irq();
 
 	logger.info("LIS3MDL initialized OK.");
-	osDelay(100);
-
 	return status;
 }
 
@@ -118,7 +113,7 @@ bool LIS3MDL::service_irq()
 	}
 	else
 	{
-		logger.error("ERR reading LIS3MDL data.");
+		logger.error("ERROR reading LIS3MDL data.");
 	}
 
 	return status;

@@ -26,16 +26,15 @@ public:
 			GPIO_TypeDef* gyro_cs_port, uint16_t acc_cs_pin, uint16_t gyro_cs_pin, osMutexId_t& accel_data_mutex,
 			osMutexId_t& gyro_data_mutex, Logger& logger);
 
-	// Initialization after startup
+	// Device operation
 	[[nodiscard]] bool init();
-
-	// IRQ service and logging
 	bool service_irq_accelerometer();
 	bool service_irq_gyroscope();
 	bool service_irq_temperature();
+
 	void log_data_to_gcs();
 
-	// Getters
+	// Get data
 	std::array<float, 3> get_linear_accelerations();
 	std::array<float, 3> get_angular_velocities();
 	float get_temperature();

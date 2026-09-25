@@ -29,10 +29,12 @@ BMI088::BMI088(SPI_HandleTypeDef* spi_handle, osMutexId_t& spi_mutex, GPIO_TypeD
 bool BMI088::init()
 {
 	bool status = false;
-
-	// Temporary buffers
 	uint8_t tx_data[4]{};
 	uint8_t rx_data[4]{};
+
+	/*
+	 * ACCELEROMETER SETUP
+	 */
 
 	// Accelerometer requires rising edge on CS pin to switch to SPI mode
 	HAL_GPIO_WritePin(acc_cs_port, acc_cs_pin, GPIO_PIN_RESET);
@@ -45,16 +47,6 @@ bool BMI088::init()
 	status = write_accel_register(REG_ACC_SOFTRESET, tx_data, 1);
 	if (!status) return status;
 	osDelay(10);
-
-	// Perform soft-reset of gyroscope
-	tx_data[0] = 0xB6;
-	status = write_gyro_register(REG_GYRO_SOFTRESET, tx_data, 1);
-	if (!status) return status;
-	osDelay(10);
-
-	/*
-	 * ACCELEROMETER SETUP
-	 */
 
 	// Accelerometer requires rising edge on CS pin to switch to SPI mode
 	HAL_GPIO_WritePin(acc_cs_port, acc_cs_pin, GPIO_PIN_RESET);
@@ -74,7 +66,6 @@ bool BMI088::init()
 		logger.error("Failed to find BMI088 accelerometer. Initialization failed.");
 		return false;
 	}
-	osDelay(10);
 
 	// Set 1600Hz ODR, no over-sampling (280Hz BW)
 	tx_data[0] = 0xAC;
@@ -120,11 +111,16 @@ bool BMI088::init()
 	osDelay(10);
 
 	logger.info("BMI088 accelerometer initialized OK.");
-	osDelay(100);
 
 	/*
 	 * GYROSCOPE SETUP
 	 */
+
+	// Perform soft-reset of gyroscope
+	tx_data[0] = 0xB6;
+	status = write_gyro_register(REG_GYRO_SOFTRESET, tx_data, 1);
+	if (!status) return status;
+	osDelay(10);
 
 	// Check gyroscope chip ID
 	rx_data[0] = 0;
@@ -138,7 +134,6 @@ bool BMI088::init()
 		logger.error("Failed to find BMI088 gyroscope. Initialization failed.");
 		return false;
 	}
-	osDelay(10);
 
 	// Set 2000Hz ODR (230Hz BW)
 	tx_data[0] = 0x01;
@@ -178,8 +173,6 @@ bool BMI088::init()
 	osDelay(10);
 
 	logger.info("BMI088 gyroscope initialized OK.");
-	osDelay(100);
-
 	return status;
 }
 
@@ -208,8 +201,7 @@ bool BMI088::service_irq_accelerometer()
 		}
 
 		// Clear data ready interrupt
-		bool temp = read_accel_register(REG_ACC_INT_STAT_1, rx_data, 1);
-		(void)temp;
+		(void)read_accel_register(REG_ACC_INT_STAT_1, rx_data, 1);
 	}
 	else
 	{
@@ -286,15 +278,15 @@ void BMI088::log_data_to_gcs()
 	np::lock_guard accel_lock(accel_data_mutex);
 	np::lock_guard gyro_lock(gyro_data_mutex);
 	logger.gcs_sensor(
-			"BMI088 {} {} {} {} {} {} {}",
-			linear_accelerations[0],
-			linear_accelerations[1],
-			linear_accelerations[2],
-			angular_velocities[0],
-			angular_velocities[1],
-			angular_velocities[2],
-			temperature
-		);
+		"BMI088 {} {} {} {} {} {} {}",
+		linear_accelerations[0],
+		linear_accelerations[1],
+		linear_accelerations[2],
+		angular_velocities[0],
+		angular_velocities[1],
+		angular_velocities[2],
+		temperature
+	);
 }
 
 std::array<float, 3> BMI088::get_linear_accelerations()

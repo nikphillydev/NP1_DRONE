@@ -27,10 +27,9 @@ public:
 	void start_distance_transfer();
 	void finish_distance_transfer();
 
-	// Logging
 	void log_data_to_gcs();
 
-	// Getters
+	// Get data
 	float get_distance();
 
 private:
