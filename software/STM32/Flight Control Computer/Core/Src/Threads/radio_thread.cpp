@@ -74,7 +74,7 @@ void radio_thread()
 	bool loss_of_link_flag = false;
 
 	/*
-	 * MAIN LOOP
+	 * RECEIVE MESSAGES FROM GCS
 	 */
 	while (1)
 	{

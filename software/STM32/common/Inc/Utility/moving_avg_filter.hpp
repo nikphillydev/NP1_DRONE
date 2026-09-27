@@ -11,12 +11,12 @@
 #include <algorithm>
 
 
+/*
+ * Class to implement a generic moving average filter for numeric types
+ */
 template <typename T>
 class MovingAverageFilter
 {
-	/*
-	 * Class to implement a generic moving average filter for numeric types
-	 */
 public:
 	MovingAverageFilter(unsigned max_size);
 

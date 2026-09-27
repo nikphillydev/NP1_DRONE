@@ -14,9 +14,9 @@ Commutator::Commutator()
 {
 	// Charge the pumps on the mosfet gate drivers
 
-	phase_control(A, SINK);
-	phase_control(B, SINK);
-	phase_control(C, SINK);
+	phase_control(Phase::A, PhaseMode::Sink);
+	phase_control(Phase::B, PhaseMode::Sink);
+	phase_control(Phase::C, PhaseMode::Sink);
 
 	osDelay(100);
 
@@ -52,33 +52,34 @@ void Commutator::bldc_step_open_loop()
 	disable_all_phases();
 
 	// Increment step
-	commutation_step = static_cast<bldc_step_t>((commutation_step + 1) % 6);
+	int step_increment = static_cast<int>(commutation_step) + 1 % 6;
+	commutation_step = static_cast<BldcStep>(step_increment);
 
 	// Open-Loop 6-Step Trapezoidal commutation
 	switch (commutation_step) {
-		case AH_BL:
-			phase_control(A, SOURCE);
-			phase_control(B, SINK);
+		case BldcStep::AH_BL:
+			phase_control(Phase::A, PhaseMode::Source);
+			phase_control(Phase::B, PhaseMode::Sink);
 			break;
-		case AH_CL:
-			phase_control(A, SOURCE);
-			phase_control(C, SINK);
+		case BldcStep::AH_CL:
+			phase_control(Phase::A, PhaseMode::Source);
+			phase_control(Phase::C, PhaseMode::Sink);
 			break;
-		case BH_CL:
-			phase_control(B, SOURCE);
-			phase_control(C, SINK);
+		case BldcStep::BH_CL:
+			phase_control(Phase::B, PhaseMode::Source);
+			phase_control(Phase::C, PhaseMode::Sink);
 			break;
-		case BH_AL:
-			phase_control(B, SOURCE);
-			phase_control(A, SINK);
+		case BldcStep::BH_AL:
+			phase_control(Phase::B, PhaseMode::Source);
+			phase_control(Phase::A, PhaseMode::Sink);
 			break;
-		case CH_AL:
-			phase_control(C, SOURCE);
-			phase_control(A, SINK);
+		case BldcStep::CH_AL:
+			phase_control(Phase::C, PhaseMode::Source);
+			phase_control(Phase::A, PhaseMode::Sink);
 			break;
-		case CH_BL:
-			phase_control(C, SOURCE);
-			phase_control(B, SINK);
+		case BldcStep::CH_BL:
+			phase_control(Phase::C, PhaseMode::Source);
+			phase_control(Phase::B, PhaseMode::Sink);
 			break;
 	}
 
@@ -91,7 +92,7 @@ void Commutator::bldc_step_closed_loop()
 	// Uses BEMF zero-crossing detection to switch to next commutation state
 
 	switch (commutation_step) {
-		case AH_BL: {
+		case BldcStep::AH_BL: {
 			// Falling-edge phase C
 			uint32_t level = HAL_COMP_GetOutputLevel(phc_comp);
 			if (level == COMP_OUTPUT_LEVEL_LOW) {
@@ -99,7 +100,7 @@ void Commutator::bldc_step_closed_loop()
 			}
 			break;
 		}
-		case AH_CL: {
+		case BldcStep::AH_CL: {
 			// Rising-edge phase B
 			uint32_t level = HAL_COMP_GetOutputLevel(phb_comp);
 			if (level == COMP_OUTPUT_LEVEL_HIGH) {
@@ -107,7 +108,7 @@ void Commutator::bldc_step_closed_loop()
 			}
 			break;
 		}
-		case BH_CL: {
+		case BldcStep::BH_CL: {
 			// Falling-edge phase A
 			uint32_t level = HAL_COMP_GetOutputLevel(pha_comp);
 			if (level == COMP_OUTPUT_LEVEL_LOW) {
@@ -115,7 +116,7 @@ void Commutator::bldc_step_closed_loop()
 			}
 			break;
 		}
-		case BH_AL: {
+		case BldcStep::BH_AL: {
 			// Rising-edge phase C
 			uint32_t level = HAL_COMP_GetOutputLevel(phc_comp);
 			if (level == COMP_OUTPUT_LEVEL_HIGH) {
@@ -123,7 +124,7 @@ void Commutator::bldc_step_closed_loop()
 			}
 			break;
 		}
-		case CH_AL: {
+		case BldcStep::CH_AL: {
 			// Falling-edge phase B
 			uint32_t level = HAL_COMP_GetOutputLevel(phb_comp);
 			if (level == COMP_OUTPUT_LEVEL_LOW) {
@@ -131,7 +132,7 @@ void Commutator::bldc_step_closed_loop()
 			}
 			break;
 		}
-		case CH_BL: {
+		case BldcStep::CH_BL: {
 			// Rising-edge phase A
 			uint32_t level = HAL_COMP_GetOutputLevel(pha_comp);
 			if (level == COMP_OUTPUT_LEVEL_HIGH) {
@@ -159,7 +160,7 @@ void Commutator::disable_bldc_step_closed_loop()
  * PRIVATE METHODS
  *
  */
-void Commutator::phase_control(phase_t phase, phase_mode_t mode)
+void Commutator::phase_control(Phase phase, PhaseMode mode)
 {
 	/*
 	 * 	Each mosfet half-bridge (per phase) uses complementary PWM.
@@ -180,28 +181,28 @@ void Commutator::phase_control(phase_t phase, phase_mode_t mode)
 	uint32_t high_side_pwm_count = 0;
 
 	switch (mode) {
-		case SOURCE: {
+		case PhaseMode::Source: {
 			high_side_pwm_count = PWM_COUNTER_PERIOD * source_duty_cycle / 100.0f;
 			break;
 		}
-		case SINK: {
+		case PhaseMode::Sink: {
 			high_side_pwm_count = 0;
 			break;
 		}
 	}
 
 	switch (phase) {
-		case A: {
+		case Phase::A: {
 			TIM1->CCR1 = high_side_pwm_count;
 			TIM1->CCER |= TIM_CCER_CC1E | TIM_CCER_CC1NE;	// enables PWM channel
 			break;
 		}
-		case B: {
+		case Phase::B: {
 			TIM1->CCR2 = high_side_pwm_count;
 			TIM1->CCER |= TIM_CCER_CC2E | TIM_CCER_CC2NE;
 			break;
 		}
-		case C: {
+		case Phase::C: {
 			TIM1->CCR3 = high_side_pwm_count;
 			TIM1->CCER |= TIM_CCER_CC3E | TIM_CCER_CC3NE;
 			break;

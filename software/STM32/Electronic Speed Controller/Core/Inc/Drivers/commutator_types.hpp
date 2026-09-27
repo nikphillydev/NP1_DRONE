@@ -7,22 +7,25 @@
 
 #pragma once
 
-typedef enum {
-	AH_BL,
-	AH_CL,
-	BH_CL,
-	BH_AL,
-	CH_AL,
-	CH_BL,
-} bldc_step_t;
+enum class BldcStep
+{
+	AH_BL	= 0,
+	AH_CL	= 1,
+	BH_CL	= 2,
+	BH_AL	= 3,
+	CH_AL	= 4,
+	CH_BL	= 5,
+};
 
-typedef enum {
+enum class Phase
+{
 	A,
 	B,
 	C
-} phase_t;
+};
 
-typedef enum {
-	SOURCE,
-	SINK
-} phase_mode_t;
+enum class PhaseMode
+{
+	Source,
+	Sink
+};

@@ -27,6 +27,7 @@
 /* USER CODE BEGIN Includes */
 
 #include "Threads/main_thread.hpp"
+#include "Threads/main_thread_types.hpp"
 
 /* USER CODE END Includes */
 
@@ -65,7 +66,7 @@ const osThreadAttr_t mainTask_attributes = {
 };
 /* Definitions for threadInputQueue */
 osMessageQueueId_t threadInputQueueHandle;
-uint8_t threadInputQueueBuffer[ 64 * sizeof( thread_input_t ) ];
+uint8_t threadInputQueueBuffer[ 64 * sizeof( ThreadInput ) ];
 osStaticMessageQDef_t threadInputQueueControlBlock;
 const osMessageQueueAttr_t threadInputQueue_attributes = {
   .name = "threadInputQueue",
@@ -108,7 +109,7 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the queue(s) */
   /* creation of threadInputQueue */
-  threadInputQueueHandle = osMessageQueueNew (64, sizeof(thread_input_t), &threadInputQueue_attributes);
+  threadInputQueueHandle = osMessageQueueNew (64, sizeof(ThreadInput), &threadInputQueue_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */

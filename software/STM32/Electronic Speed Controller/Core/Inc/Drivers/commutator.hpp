@@ -31,8 +31,8 @@ public:
 
 private:
 	// Members
-	bldc_step_t commutation_step 	= AH_BL;
-	float source_duty_cycle 		= 0;
+	BldcStep commutation_step 	= BldcStep::AH_BL;
+	float source_duty_cycle 	= 0;
 
 	const float MAX_PWM_SOURCE_DUTY_CYCLE 	= 100.0f;
 	const uint32_t PWM_COUNTER_PERIOD 		= 5311 + 1;		// Must match exactly Period+1 in tim.c
@@ -43,6 +43,6 @@ private:
 	COMP_HandleTypeDef* phc_comp = &hcomp4;
 
 	// Phase control
-	void phase_control(phase_t phase, phase_mode_t mode);
+	void phase_control(Phase phase, PhaseMode mode);
 	void disable_all_phases();
 };

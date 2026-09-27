@@ -10,11 +10,11 @@
 #include <array>
 
 
+/*
+ * Class to implement a Butterworth second-order low-pass filter
+ */
 class IIRFilter
 {
-	/*
-	 * Class to implement a Butterworth second-order low-pass filter
-	 */
 public:
 	IIRFilter(float cutoff_freq_hz, float sampling_freq_hz);
 

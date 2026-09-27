@@ -10,7 +10,9 @@
 #include "comp.h"
 
 #include "Threads/main_thread.hpp"
+#include "Threads/main_thread_types.hpp"
 #include "Drivers/commutator.hpp"
+#include "Message/can_message.hpp"
 #include "constants.hpp"
 
 /*
@@ -18,15 +20,15 @@
  * PROTOTYPES
  *
  */
-void handle_standby_state(esc_state_t& state, thread_input_t& input, Commutator& comm);
-void handle_arming_state(esc_state_t& state, thread_input_t& input, Commutator& comm);
-void handle_armed_state(esc_state_t& state, thread_input_t& input, Commutator& comm);
+void handle_standby_state(EscState& current_state, ThreadInput& input, Commutator& comm);
+void handle_arming_state(EscState& current_state, ThreadInput& input, Commutator& comm);
+void handle_armed_state(EscState& current_state, ThreadInput& input, Commutator& comm);
 
 void Delay_us(uint32_t us);
 
 /*
  *
- * GLOBALS
+ * GLOBAL
  *
  */
 FDCAN_RxHeaderTypeDef rx_header;
@@ -44,42 +46,45 @@ const int ESC_ID					= 0;	// 0-3
 void main_thread()
 {
 	Commutator comm{};
-	esc_state_t current_state = STAND_BY;
+	EscState current_state = EscState_Standby;
 
 	const unsigned esc_heartbeat_tick_delta = osKernelGetTickFreq() / constants::REQUIRED_ESC_HEARTBEAT_HZ * constants::HEARTBEAT_RX_TOLERANCE_MULTIPLIER;
 	unsigned esc_last_heartbeat_tick_count = 0;
 
+	/*
+	 * RUN ESC STATE MACHINE
+	 */
 	while(1)
 	{
 		// Try semantics
-		thread_input_t input{ NO_MESSAGE };
+		ThreadInput input{ InputType_None };
 		osMessageQueueGet(threadInputQueueHandle, &input, NULL, 0);
 
 		// Check FCC heartbeat
 
-		if (input.type == CAN_MSG_HEARTBEAT)
+		if (input.type == InputType_CanHeartbeat)
 		{
 			esc_last_heartbeat_tick_count = osKernelGetTickCount();
 		}
 		if (osKernelGetTickCount() - esc_last_heartbeat_tick_count > esc_heartbeat_tick_delta)
 		{
-			thread_input_t input{ CAN_MSG_DISARM };
+			ThreadInput input{ InputType_CanDisarm };
 			osMessageQueuePut(threadInputQueueHandle, &input, 0, 0);
 		}
 
-		// ESC state machine
+		// State machine
 
 		switch (current_state)
 		{
-			case STAND_BY: {
+			case EscState_Standby: {
 				handle_standby_state(current_state, input, comm);
 				break;
 			}
-			case ARMING: {
+			case EscState_Arming: {
 				handle_arming_state(current_state, input, comm);
 				break;
 			}
-			case ARMED: {
+			case EscState_Armed: {
 				handle_armed_state(current_state, input, comm);
 				break;
 			}
@@ -92,12 +97,12 @@ void main_thread()
  * STATE FUNCTIONS
  *
  */
-void handle_standby_state(esc_state_t& current_state, thread_input_t& input, Commutator& comm)
+void handle_standby_state(EscState& current_state, ThreadInput& input, Commutator& comm)
 {
 	// Handle input
-	if (input.type == CAN_MSG_ARM)
+	if (input.type == InputType_CanArm)
 	{
-		current_state = ARMING;
+		current_state = EscState_Arming;
 		return;
 	}
 
@@ -105,7 +110,7 @@ void handle_standby_state(esc_state_t& current_state, thread_input_t& input, Com
 	comm.set_speed_percent(0);
 }
 
-void handle_arming_state(esc_state_t& current_state, thread_input_t& input, Commutator& comm)
+void handle_arming_state(EscState& current_state, ThreadInput& input, Commutator& comm)
 {
 	// ALIGN step tuning parameters
 	const float align_time_seconds = 0.8;
@@ -125,7 +130,7 @@ void handle_arming_state(esc_state_t& current_state, thread_input_t& input, Comm
 	static int current_speed = start_speed_perc;
 
 	// Handle input
-	if (input.type == CAN_MSG_DISARM || input.type == ARMING_COMPLETE)
+	if (input.type == InputType_CanDisarm || input.type == InputType_ArmingComplete)
 	{
 		// Reset static variables for next ARMING sequence
 		align_init = false;
@@ -133,15 +138,15 @@ void handle_arming_state(esc_state_t& current_state, thread_input_t& input, Comm
 		current_delay = start_delay_us;
 		current_speed = start_speed_perc;
 
-		if (input.type == CAN_MSG_DISARM)
+		if (input.type == InputType_CanDisarm)
 		{
-			current_state = STAND_BY;
+			current_state = EscState_Standby;
 			return;
 		}
-		else if (input.type == ARMING_COMPLETE)
+		else if (input.type == InputType_ArmingComplete)
 		{
 			comm.enable_bldc_step_closed_loop();
-			current_state = ARMED;
+			current_state = EscState_Armed;
 			return;
 		}
 	}
@@ -182,29 +187,29 @@ void handle_arming_state(esc_state_t& current_state, thread_input_t& input, Comm
 		}
 		else
 		{
-			thread_input_t input{ ARMING_COMPLETE };
+			ThreadInput input{ InputType_ArmingComplete };
 			osMessageQueuePut(threadInputQueueHandle, &input, 0, 0);
 		}
 	}
 }
 
-void handle_armed_state(esc_state_t& current_state, thread_input_t& input, Commutator& comm)
+void handle_armed_state(EscState& current_state, ThreadInput& input, Commutator& comm)
 {
 	// Handle input
-	if (input.type == CAN_MSG_DISARM)
+	if (input.type == InputType_CanDisarm)
 	{
 		comm.disable_bldc_step_closed_loop();
-		current_state = STAND_BY;
+		current_state = EscState_Standby;
 		return;
 	}
 
 	// CLOSED-LOOP BLDC control
 
-	else if (input.type == ISR_BEMF_POLL)
+	else if (input.type == InputType_IsrBemfPoll)
 	{
 		comm.bldc_step_closed_loop();
 	}
-	else if (input.type == CAN_MSG_SPEED)
+	else if (input.type == InputType_CanSpeed)
 	{
 		// BIG ENDIAN
 		uint16_t raw_speed_int = static_cast<uint16_t>(input.payload[0] << 8) | static_cast<uint16_t>(input.payload[1]);
@@ -237,7 +242,7 @@ void HAL_TIM_PWM_PulseFinishedCallback(TIM_HandleTypeDef *htim)
 {
 	if (htim->Instance == TIM1)
 	{
-		thread_input_t input{ ISR_BEMF_POLL };
+		ThreadInput input{ InputType_IsrBemfPoll };
 		osMessageQueuePut(threadInputQueueHandle, &input, 0, 0);
 	}
 }
@@ -251,30 +256,31 @@ void HAL_FDCAN_RxFifo0Callback(FDCAN_HandleTypeDef *hfdcan, uint32_t RxFifo0ITs)
 		    // Retrieve Rx message from RX FIFO0
 		    if (HAL_FDCAN_GetRxMessage(hfdcan, FDCAN_RX_FIFO0, &rx_header, rx_data) != HAL_OK)
 		    {
-		    	Error_Handler();
+		    	return;
+//		    	Error_Handler();	// Do not want to just die
 		    }
 
-		    switch (rx_header.Identifier)
+		    switch (static_cast<CanbusMsgID>(rx_header.Identifier))
 		    {
-				case 0: {
-					thread_input_t input{ CAN_MSG_DISARM };
+				case CanbusMsgID::Disarm: {
+					ThreadInput input{ InputType_CanDisarm };
 					osMessageQueuePut(threadInputQueueHandle, &input, 0, 0);
 					break;
 				}
-				case 1: {
-					thread_input_t input{ CAN_MSG_ARM };
+				case CanbusMsgID::Arm: {
+					ThreadInput input{ InputType_CanArm };
 					osMessageQueuePut(threadInputQueueHandle, &input, 0, 0);
 					break;
 				}
-				case 2: {
-					thread_input_t input { CAN_MSG_SPEED };
+				case CanbusMsgID::Speed: {
+					ThreadInput input { InputType_CanSpeed };
 					input.payload[0] = rx_data[ESC_ID * 2];
 					input.payload[1] = rx_data[(ESC_ID + 1) * 2 - 1];
 					osMessageQueuePut(threadInputQueueHandle, &input, 0, 0);
 					break;
 				}
-				case 3: {
-					thread_input_t input{ CAN_MSG_HEARTBEAT };
+				case CanbusMsgID::Heartbeat: {
+					ThreadInput input{ InputType_CanHeartbeat };
 					osMessageQueuePut(threadInputQueueHandle, &input, 0, 0);
 					break;
 				}

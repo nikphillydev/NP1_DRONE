@@ -1,12 +1,10 @@
 /*
- * cc2500_types.h
+ * cc2500_types.hpp
  *
  *  Created on: Jul 23, 2026
  *      Author: Nikolai Philipenko
  */
-
-#ifndef CC2500_TYPES_H
-#define CC2500_TYPES_H
+#pragma once
 
 #include <stdint.h>
 #include <stdbool.h>
@@ -63,6 +61,4 @@ typedef struct {
 	uint8_t lqi;							// The Link Quality Indicator estimates how easily a received signal can be demodulated
 	bool crc_ok;							// True if CRC for received data OK (or	CRC disabled), false if CRC error in received data
 } cc2500_packet_status_t;
-
-#endif /* CC2500_TYPES_H */
 

@@ -9,7 +9,7 @@
  */
 #pragma once
 
-#include "Drivers/CC2500/cc2500_types.h"
+#include "Drivers/CC2500/cc2500_types.hpp"
 #include "Radio/message.hpp"
 
 namespace NP1RadioLink

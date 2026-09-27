@@ -16,11 +16,11 @@
 #define MFX_STATE_SIZE		2432
 
 
+/*
+ * Class to run an Extended Kalman Filter (EKF) to fuse accelerometer, gyroscope,
+ * and magnetometer data into a 3D orientation in NED coordinate system.
+ */
 class OrientationEKF
-	/*
-	 * Class to run an Extended Kalman Filter (EKF) to fuse accelerometer, gyroscope,
-	 * and magnetometer data into a 3D orientation in NED coordinate system.
-	 */
 {
 public:
 	OrientationEKF(BMI088& imu, LIS3MDL& magnetometer, Logger& logger);

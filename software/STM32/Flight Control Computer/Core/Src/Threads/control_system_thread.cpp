@@ -16,7 +16,7 @@
 #include "Radio/message.hpp"
 #include "Radio/radio_link.hpp"
 
-#include "Controllers/CANController/can_controller.hpp"
+#include "GaraunteedDelivery/CANBUS/gdelivery_can.hpp"
 
 #include "Drivers/CC2500/cc2500.hpp"
 #include "Drivers/Logger/usb_serial_port.hpp"
@@ -33,7 +33,7 @@
  */
 static USBSerialPort serial_port(usbMutexHandle);
 static Logger logger(serial_port);
-static CANController canbus{&hfdcan1, logger};
+static GaraunteedDeliveryCAN canbus{&hfdcan1, logger};
 
 /*
  * TIMING
@@ -60,11 +60,11 @@ void control_system_thread()
 
 	uint32_t wakeup_time = osKernelGetTickCount();
 
+	/*
+	 * RUN THE CONTROL SYSTEM
+	 */
 	while (1)
 	{
-		/*
-		 * Run Control System
-		 */
 		wakeup_time += system_period_ms;
 		osDelayUntil(wakeup_time);
 
@@ -73,7 +73,7 @@ void control_system_thread()
 		// -------------------------
 		if (osKernelGetTickCount() - esc_last_heartbeat_tick > esc_heartbeat_tick_delta)
 		{
-			canbus.send_heartbeat();
+			canbus.transmit_heartbeat();
 			esc_last_heartbeat_tick = osKernelGetTickCount();
 		}
 
@@ -94,7 +94,7 @@ void control_system_thread()
 						if (msg.loss_of_link)
 						{
 							logger.warn("CONTROL SYSTEM: LOSS-OF-LINK.");
-							canbus.send_disarm();
+							canbus.transmit_disarm();
 						}
 						else
 						{
@@ -111,12 +111,12 @@ void control_system_thread()
 						if (msg.armed)
 						{
 							logger.info("CONTROL SYSTEM: Arming drone.");
-							canbus.send_arm();
+							canbus.transmit_arm();
 						}
 						else
 						{
 							logger.info("CONTROL SYSTEM: Disarming drone.");
-							canbus.send_disarm();
+							canbus.transmit_disarm();
 						}
 					}
 					break;
@@ -164,14 +164,14 @@ void control_system_thread()
 			{
 				logger.error("CONTROL SYSTEM: Drone state invalid. Timeout occured.");
 			}
-			canbus.send_disarm();
+			canbus.transmit_disarm();
 			continue;
 		}
 
 		// -------------------------
 		// Run controller
 		// -------------------------
-		canbus.send_speed(throttle);
+		canbus.transmit_speed(throttle);
 	}
 }
 

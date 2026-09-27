@@ -10,7 +10,7 @@
 #include "cmsis_os.h"
 
 #include "Drivers/CC2500/cc2500_regs.hpp"
-#include "Drivers/CC2500/cc2500_types.h"
+#include "Drivers/CC2500/cc2500_types.hpp"
 #include "Drivers/Logger/logger.hpp"
 
 

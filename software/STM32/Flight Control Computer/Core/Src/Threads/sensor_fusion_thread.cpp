@@ -150,11 +150,11 @@ void sensor_fusion_thread()
 	uint32_t wakeup_time = osKernelGetTickCount();
 	unsigned long ulLastHighFrequencyTimerCounts = ulHighFrequencyTimerCounts;
 
+	/*
+	 * RUN SENSOR FUSION ALGORITHMS
+	 */
 	while (1)
 	{
-		/*
-		 * Run Sensor Fusion algorithm
-		 */
 		wakeup_time += fusion_period_ms;
 		osDelayUntil(wakeup_time);
 
@@ -165,24 +165,20 @@ void sensor_fusion_thread()
 		float dT = delta_counts * COUNTS_TO_SECONDS;
 		if (dT <= 0.0f || dT > 0.1f) dT = 1.0f / FUSION_FREQ_HZ;
 
-		// ORIENTATION KALMAN FILTER
-
+		// Orientation Kalman Filter
 		MFX_output_t data_out = ekf.update(dT);
 
-		// ALTITUDE COMPLIMENTARY FILTER
-
+		// Altitude Complimentary Filter
 		float altitude = 0;
 		if (comp_filter_okay)
 			altitude = alt_comp_filter.update(data_out);
 
-		// VELOCITY LEAKY INTEGRATOR
-
+		// Velocity Leaky Integrator
 		std::array<float, 2> xy_velocity{};
 		if (leaky_integrator_okay)
 			xy_velocity = vel_leaky_integrator.update(data_out, altitude, dT);
 
-		// UPDATE DRONE STATE
-
+		// Update drone state
 		{
 			np::lock_guard lock(stateMutexHandle);
 
@@ -200,8 +196,7 @@ void sensor_fusion_thread()
 			drone_state.altitude = altitude;
 		}
 
-		// PUBLISH DRONE STATE
-
+		// Publish drone state
 		state_topic.publish(drone_state);
 	}
 }

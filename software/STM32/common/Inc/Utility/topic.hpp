@@ -11,11 +11,11 @@
 #include "Utility/lock_guard.hpp"
 
 
+/*
+ * Class to implement a thread-safe, publish/receive messaging service.
+ */
 template <typename T>
 class Topic {
-	/*
-	 * Class to implement a thread-safe, publish/receive messaging service.
-	 */
 public:
 	Topic(osMutexId_t& mutex) : mutex(mutex) {}
 
