@@ -16,7 +16,7 @@
 #include <cmath>
 
 #include "Utility/moving_avg_filter.hpp"
-#include "Drivers/Logger/logger.hpp"
+#include "Logger/logger.hpp"
 
 
 class PMW3901

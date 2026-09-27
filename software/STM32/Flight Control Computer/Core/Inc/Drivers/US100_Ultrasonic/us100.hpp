@@ -13,7 +13,7 @@
 #include <cstdint>
 
 #include "Utility/moving_avg_filter.hpp"
-#include "Drivers/Logger/logger.hpp"
+#include "Logger/logger.hpp"
 
 #define RANGE_MAX_DISTANCE_M		(float)4.5
 

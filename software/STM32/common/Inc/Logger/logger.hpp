@@ -6,7 +6,7 @@
  */
 #pragma once
 
-#include "Drivers/Logger/usb_serial_port.hpp"
+#include "Logger/usb_serial_port.hpp"
 #include <string_view>
 #include <utility>
 

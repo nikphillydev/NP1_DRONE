@@ -51,8 +51,8 @@
 
 #include "Utility/lock_guard.hpp"
 
-#include "Drivers/Logger/usb_serial_port.hpp"
-#include "Drivers/Logger/logger.hpp"
+#include "Logger/usb_serial_port.hpp"
+#include "Logger/logger.hpp"
 #include "Drivers/BMI088/bmi088.hpp"
 #include "Drivers/BMP388/bmp388.hpp"
 #include "Drivers/LIS3MDL/lis3mdl.hpp"

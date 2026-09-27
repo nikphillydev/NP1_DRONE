@@ -15,7 +15,7 @@
 #include <memory>
 
 #include "Utility/iir_filter.hpp"
-#include "Drivers/Logger/logger.hpp"
+#include "Logger/logger.hpp"
 
 /* I2C ADDRESS */
 #define LIS3MDL_ADDRESS				0x1C

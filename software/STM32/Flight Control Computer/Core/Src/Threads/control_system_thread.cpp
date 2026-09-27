@@ -19,8 +19,8 @@
 #include "GaraunteedDelivery/CANBUS/gdelivery_can.hpp"
 
 #include "Drivers/CC2500/cc2500.hpp"
-#include "Drivers/Logger/usb_serial_port.hpp"
-#include "Drivers/Logger/logger.hpp"
+#include "Logger/usb_serial_port.hpp"
+#include "Logger/logger.hpp"
 
 /*
  * DEFINES

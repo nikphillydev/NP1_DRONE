@@ -20,8 +20,8 @@
 
 #include "Threads/radio_thread.hpp"
 #include "Drivers/CC2500/cc2500.hpp"
-#include "Drivers/Logger/usb_serial_port.hpp"
-#include "Drivers/Logger/logger.hpp"
+#include "Logger/usb_serial_port.hpp"
+#include "Logger/logger.hpp"
 #include "Radio/message.hpp"
 #include "Radio/radio_link.hpp"
 #include "constants.hpp"

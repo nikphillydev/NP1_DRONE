@@ -11,7 +11,7 @@
 #include "cmsis_os.h"
 
 #include "Utility/moving_avg_filter.hpp"
-#include "Drivers/Logger/logger.hpp"
+#include "Logger/logger.hpp"
 
 /* I2C ADDRESS */
 #define BMP388_ADDRESS			0x76

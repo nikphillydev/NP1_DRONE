@@ -5,7 +5,7 @@
  *      Author: Nikolai Philipenko
  */
 
-#include "Drivers/Logger/logger.hpp"
+#include "Logger/logger.hpp"
 #include "cmsis_os.h"
 #include "fmt/color.h"
 

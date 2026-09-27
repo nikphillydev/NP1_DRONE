@@ -7,7 +7,7 @@
 #pragma once
 
 #include "fdcan.h"
-#include "Drivers/Logger/logger.hpp"
+#include "Logger/logger.hpp"
 #include "GaraunteedDelivery/CANBUS/gdelivery_can_types.hpp"
 
 

@@ -11,7 +11,7 @@
 
 #include "Drivers/CC2500/cc2500_regs.hpp"
 #include "Drivers/CC2500/cc2500_types.hpp"
-#include "Drivers/Logger/logger.hpp"
+#include "Logger/logger.hpp"
 
 
 class CC2500 {

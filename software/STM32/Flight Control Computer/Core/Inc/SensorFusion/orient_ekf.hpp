@@ -11,7 +11,7 @@
 
 #include "Drivers/BMI088/bmi088.hpp"
 #include "Drivers/LIS3MDL/lis3mdl.hpp"
-#include "Drivers/Logger/logger.hpp"
+#include "Logger/logger.hpp"
 
 #define MFX_STATE_SIZE		2432
 

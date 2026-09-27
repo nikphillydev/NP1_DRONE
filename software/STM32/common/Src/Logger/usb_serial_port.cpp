@@ -4,7 +4,7 @@
  *  Created on: Sep 20, 2026
  *      Author: Nikolai Philipenko
  */
-#include "Drivers/Logger/usb_serial_port.hpp"
+#include "Logger/usb_serial_port.hpp"
 #include "Utility/lock_guard.hpp"
 #include "usbd_cdc_if.h"
 #include "usbd_def.h"

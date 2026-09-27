@@ -16,7 +16,7 @@
 #include <cstdint>
 
 #include "Utility/iir_filter.hpp"
-#include "Drivers/Logger/logger.hpp"
+#include "Logger/logger.hpp"
 
 
 class BMI088
