@@ -17,19 +17,6 @@ extern "C" {
 
 /*
  *
- * TYPES
- *
- */
-typedef enum {
-	NO_INPUT,
-	CMD_HEARTBEAT,
-	CMD_ARM,
-	CMD_DISARM,
-	CMD_THROTTLE
-} thread_input_t;
-
-/*
- *
  * THREADS
  *
  */

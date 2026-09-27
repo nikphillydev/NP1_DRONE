@@ -4,8 +4,8 @@
  *  Created on: Sep 27, 2026
  *      Author: Nikolai Philipenko
  */
-#include "GaraunteedDelivery/CANBUS/gdelivery_can.hpp"
-#include "Message/can_message.hpp"
+#include "Canbus/GaraunteedDelivery/gdelivery_can.hpp"
+#include "Canbus/can_message.hpp"
 
 
 void GaraunteedDeliveryCAN::transmit_heartbeat()

@@ -23,13 +23,16 @@ typedef enum {
 	InputType_IsrBemfPoll
 } InputType;
 
-typedef enum {
-	EscState_Standby,
-	EscState_Arming,
-	EscState_Armed,
-} EscState;
-
 typedef struct {
 	InputType type;
 	uint8_t payload[2];		// optional depending on type
 } ThreadInput;
+
+#ifdef __cplusplus
+enum class EscState
+{
+	Standby,
+	Arming,
+	Armed,
+};
+#endif

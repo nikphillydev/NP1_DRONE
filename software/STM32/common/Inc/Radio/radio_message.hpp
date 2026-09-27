@@ -11,8 +11,6 @@
 #include <cstdint>
 
 
-namespace radio_msg
-{
 enum class RadioMsgID : uint8_t
 {
 	Heartbeat 	= 0,
@@ -25,7 +23,7 @@ enum class RadioMsgID : uint8_t
 // --------------------------------------------
 // LOSS-OF-LINK MESSAGE
 // --------------------------------------------
-struct LossOfLink
+struct LossOfLinkMsg
 {
 	bool loss_of_link;
 };
@@ -33,7 +31,7 @@ struct LossOfLink
 // --------------------------------------------
 // ARM / DISARM MESSAGE
 // --------------------------------------------
-struct ArmDisarm
+struct ArmDisarmMsg
 {
 	bool armed;
 };
@@ -41,7 +39,7 @@ struct ArmDisarm
 // --------------------------------------------
 // ANGLE MESSAGE
 // --------------------------------------------
-struct Angle
+struct AngleMsg
 {
 	uint16_t angle;
 };
@@ -49,8 +47,7 @@ struct Angle
 // --------------------------------------------
 // THROTTLE MESSAGE
 // --------------------------------------------
-struct Throttle
+struct ThrottleMsg
 {
 	uint16_t throttle;
 };
-}  // namespace radio_msg

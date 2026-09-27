@@ -22,7 +22,7 @@
 #include "Drivers/CC2500/cc2500.hpp"
 #include "Logger/usb_serial_port.hpp"
 #include "Logger/logger.hpp"
-#include "Radio/message.hpp"
+#include "Radio/radio_message.hpp"
 #include "Radio/radio_link.hpp"
 #include "constants.hpp"
 
@@ -31,7 +31,7 @@
  */
 static USBSerialPort serial_port(usbMutexHandle);
 static Logger logger(serial_port);
-static CC2500 transceiver(&hspi1, spi1MutexHandle, CC2500_CS_GPIO_Port, CC2500_CS_Pin, logger);
+static CC2500 receiver(&hspi1, spi1MutexHandle, CC2500_CS_GPIO_Port, CC2500_CS_Pin, logger);
 
 /*
  * TIMING
@@ -52,18 +52,16 @@ void radio_thread()
 	/*
 	 * INITIALIZATION
 	 */
-	bool modem_init = transceiver.init();
+	bool modem_init = receiver.init();
 	if (!modem_init)
 	{
 		logger.error("RADIO THREAD: Failed to init modem");
-		osDelay(10);
-
 		// Delete this thread
 		vTaskDelete( NULL );
 	}
 
 	// Enter receive mode
-	while(!transceiver.enter_rx_mode())
+	while(!receiver.enter_rx_mode())
 	{
 		logger.error("CC2500 failed to enter RX mode");
 	}
@@ -87,9 +85,9 @@ void radio_thread()
 			{
 				// Notify control system of loss of link
 
-				loss_of_link_msg_t msg{};
+				LossOfLinkMsg msg{};
 				msg.loss_of_link = true;
-				cc2500_packet_t lol_packet = NP1RadioLink::loss_of_link_msg_pack(msg);
+				cc2500_packet_t lol_packet = RadioLink::loss_of_link_msg_pack(msg);
 				osMessageQueuePut(radioQueueHandle, &lol_packet, 0, 0);
 
 				logger.warn("RADIO THREAD: LOSS-OF-LINK");
@@ -104,35 +102,36 @@ void radio_thread()
 			cc2500_packet_t packet;
 			cc2500_packet_status_t status;
 
-			if (transceiver.receive_packet(packet, status) && status.crc_ok)
+			if (receiver.receive_packet(packet, status) && status.crc_ok)
 			{
 //				logger.log("RADIO RX ID: {}, RSSI: {}, LQI: {}, CRC: {}",
 //						packet.id, status.rssi, status.lqi, status.crc_ok ? "OK" : "ERROR");
 
-				if (packet.id == MSG_ID_HEARTBEAT)
-				{
-					// Received GCS heartbeat, good communication link
-
-					gcs_last_heartbeat_tick = osKernelGetTickCount();
-
-					if (loss_of_link_flag)
+				switch (static_cast<RadioMsgID>(packet.id)) {
+					case RadioMsgID::Heartbeat:
 					{
-						// Notify control system if previously had loss of link
+						// Received GCS heartbeat, good communication link
 
-						loss_of_link_msg_t msg{};
-						msg.loss_of_link = false;
-						cc2500_packet_t lol_packet = NP1RadioLink::loss_of_link_msg_pack(msg);
-						osMessageQueuePut(radioQueueHandle, &lol_packet, 0, 0);
+						if (loss_of_link_flag)
+						{
+							// Notify control system if previously had loss of link
 
-						logger.warn("RADIO THREAD: LINK RESTORED");
+							LossOfLinkMsg msg{};
+							msg.loss_of_link = false;
+							cc2500_packet_t lol_packet = RadioLink::loss_of_link_msg_pack(msg);
+							osMessageQueuePut(radioQueueHandle, &lol_packet, 0, 0);
+
+							logger.warn("RADIO THREAD: LINK RESTORED");
+						}
+						loss_of_link_flag = false;
+						break;
 					}
-					loss_of_link_flag = false;
-				}
-				else
-				{
-					// Forward all other packets to control system
-
-					osMessageQueuePut(radioQueueHandle, &packet, 0, 0);
+					default:
+					{
+						// Forward all other packets to control system
+						osMessageQueuePut(radioQueueHandle, &packet, 0, 0);
+						break;
+					}
 				}
 			}
 			else

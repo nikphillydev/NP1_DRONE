@@ -29,6 +29,7 @@
 #include "fdcan.h"
 
 #include "Threads/rc_controller.hpp"
+#include "Threads/rc_controller_types.hpp"
 
 /* USER CODE END Includes */
 
@@ -68,7 +69,7 @@ const osThreadAttr_t rcControllerTask_attributes = {
 };
 /* Definitions for rcControllerQueue */
 osMessageQueueId_t rcControllerQueueHandle;
-uint8_t rcControllerQueueBuffer[ 64 * sizeof( thread_input_t ) ];
+uint8_t rcControllerQueueBuffer[ 64 * sizeof( ThreadInput ) ];
 osStaticMessageQDef_t rcControllerQueueControlBlock;
 const osMessageQueueAttr_t rcControllerQueue_attributes = {
   .name = "rcControllerQueue",
@@ -143,7 +144,7 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the queue(s) */
   /* creation of rcControllerQueue */
-  rcControllerQueueHandle = osMessageQueueNew (64, sizeof(thread_input_t), &rcControllerQueue_attributes);
+  rcControllerQueueHandle = osMessageQueueNew (64, sizeof(ThreadInput), &rcControllerQueue_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */

@@ -118,7 +118,7 @@
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
-						<entry excluding="Inc/GaraunteedDelivery|Inc/GaraunteedDelivery/Radio|Inc/fmt|Src/Radio|Src/Drivers|Inc/Radio|Inc/Drivers" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="common"/>
+						<entry excluding="Inc/Canbus/GaraunteedDelivery|Inc/Logger|Src/Logger|Src/Canbus|Inc/GaraunteedDelivery|Inc/GaraunteedDelivery/Radio|Inc/fmt|Src/Radio|Src/Drivers|Inc/Radio|Inc/Drivers" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="common"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>
@@ -232,7 +232,7 @@
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Core"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Drivers"/>
 						<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="Middlewares"/>
-						<entry excluding="Inc/GaraunteedDelivery|Inc/GaraunteedDelivery/Radio|Inc/fmt|Src/Radio|Src/Drivers|Inc/Radio|Inc/Drivers" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="common"/>
+						<entry excluding="Inc/Canbus/GaraunteedDelivery|Inc/Logger|Src/Logger|Src/Canbus|Inc/GaraunteedDelivery|Inc/GaraunteedDelivery/Radio|Inc/fmt|Src/Radio|Src/Drivers|Inc/Radio|Inc/Drivers" flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="common"/>
 					</sourceEntries>
 				</configuration>
 			</storageModule>

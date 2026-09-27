@@ -241,15 +241,24 @@ bool CC2500::enter_rx_mode()
 	if (!status) return status;
 	osDelay(10);
 
-	while (chip_status.state != CC2500_STATE::RX)
+	int retry_count = 0;
+	const int max_retry_count = 100;
+
+	while (chip_status.state != CC2500_STATE::RX  && retry_count < max_retry_count)
 	{
 		// Command RX mode
 		status = command_strobe(CMD_SRX, CC2500_STATUS_UPDATE::RX_FIFO_BYTES);
 		if (!status) return status;
 		osDelay(10);
+
+		retry_count++;
 	}
 
-	return status;
+	if (chip_status.state == CC2500_STATE::RX)
+	{
+		return true;
+	}
+	return false;
 }
 
 bool CC2500::enter_tx_mode()
@@ -268,15 +277,24 @@ bool CC2500::enter_tx_mode()
 	if (!status) return status;
 	osDelay(10);
 
-	while (chip_status.state != CC2500_STATE::TX)
+	int retry_count = 0;
+	const int max_retry_count = 100;
+
+	while (chip_status.state != CC2500_STATE::TX && retry_count < max_retry_count)
 	{
 		// Command TX mode
 		status = command_strobe(CMD_STX, CC2500_STATUS_UPDATE::TX_FIFO_BYTES);
 		if (!status) return status;
 		osDelay(10);
+
+		retry_count++;
 	}
 
-	return status;
+	if (chip_status.state == CC2500_STATE::TX)
+	{
+		return true;
+	}
+	return false;
 }
 
 bool CC2500::transmit_packet(const cc2500_packet_t &packet)

@@ -12,7 +12,7 @@
 #include "Threads/main_thread.hpp"
 #include "Threads/main_thread_types.hpp"
 #include "Drivers/commutator.hpp"
-#include "Message/can_message.hpp"
+#include "Canbus/can_message.hpp"
 #include "constants.hpp"
 
 /*
@@ -46,7 +46,7 @@ const int ESC_ID					= 0;	// 0-3
 void main_thread()
 {
 	Commutator comm{};
-	EscState current_state = EscState_Standby;
+	EscState current_state = EscState::Standby;
 
 	const unsigned esc_heartbeat_tick_delta = osKernelGetTickFreq() / constants::REQUIRED_ESC_HEARTBEAT_HZ * constants::HEARTBEAT_RX_TOLERANCE_MULTIPLIER;
 	unsigned esc_last_heartbeat_tick_count = 0;
@@ -76,15 +76,15 @@ void main_thread()
 
 		switch (current_state)
 		{
-			case EscState_Standby: {
+			case EscState::Standby: {
 				handle_standby_state(current_state, input, comm);
 				break;
 			}
-			case EscState_Arming: {
+			case EscState::Arming: {
 				handle_arming_state(current_state, input, comm);
 				break;
 			}
-			case EscState_Armed: {
+			case EscState::Armed: {
 				handle_armed_state(current_state, input, comm);
 				break;
 			}
@@ -102,7 +102,7 @@ void handle_standby_state(EscState& current_state, ThreadInput& input, Commutato
 	// Handle input
 	if (input.type == InputType_CanArm)
 	{
-		current_state = EscState_Arming;
+		current_state = EscState::Arming;
 		return;
 	}
 
@@ -140,13 +140,13 @@ void handle_arming_state(EscState& current_state, ThreadInput& input, Commutator
 
 		if (input.type == InputType_CanDisarm)
 		{
-			current_state = EscState_Standby;
+			current_state = EscState::Standby;
 			return;
 		}
 		else if (input.type == InputType_ArmingComplete)
 		{
 			comm.enable_bldc_step_closed_loop();
-			current_state = EscState_Armed;
+			current_state = EscState::Armed;
 			return;
 		}
 	}
@@ -199,7 +199,7 @@ void handle_armed_state(EscState& current_state, ThreadInput& input, Commutator&
 	if (input.type == InputType_CanDisarm)
 	{
 		comm.disable_bldc_step_closed_loop();
-		current_state = EscState_Standby;
+		current_state = EscState::Standby;
 		return;
 	}
 

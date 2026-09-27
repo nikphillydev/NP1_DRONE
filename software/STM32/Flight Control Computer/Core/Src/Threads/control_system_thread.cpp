@@ -13,10 +13,10 @@
 
 #include "Threads/control_system_thread.hpp"
 
-#include "Radio/message.hpp"
+#include "Radio/radio_message.hpp"
 #include "Radio/radio_link.hpp"
 
-#include "GaraunteedDelivery/CANBUS/gdelivery_can.hpp"
+#include "Canbus/GaraunteedDelivery/gdelivery_can.hpp"
 
 #include "Drivers/CC2500/cc2500.hpp"
 #include "Logger/usb_serial_port.hpp"
@@ -85,64 +85,57 @@ void control_system_thread()
 
 		if (osStatus == osOK)
 		{
-			switch (rx_packet.id) {
-				case MSG_ID_LOSS_OF_LINK:
+			switch (static_cast<RadioMsgID>(rx_packet.id))
+			{
+				case RadioMsgID::Heartbeat:
 				{
-					loss_of_link_msg_t msg;
-					if (NP1RadioLink::loss_of_link_msg_decode(rx_packet, msg))
+					logger.error("CONTROL SYSTEM: Received HEARTBEAT message.");
+					break;
+				}
+				case RadioMsgID::LossOfLink:
+				{
+					LossOfLinkMsg msg;
+					RadioLink::loss_of_link_msg_decode(rx_packet, msg);
+					if (msg.loss_of_link)
 					{
-						if (msg.loss_of_link)
-						{
-							logger.warn("CONTROL SYSTEM: LOSS-OF-LINK.");
-							canbus.transmit_disarm();
-						}
-						else
-						{
-							logger.warn("CONTROL SYSTEM: LINK RESTORED.");
-						}
+						logger.warn("CONTROL SYSTEM: LOSS-OF-LINK.");
+						canbus.transmit_disarm();
+					}
+					else
+					{
+						logger.warn("CONTROL SYSTEM: LINK RESTORED.");
 					}
 					break;
 				}
-				case MSG_ID_CMD_ARM_DISARM:
+				case RadioMsgID::ArmDisarm:
 				{
-					arm_disarm_msg_t msg;
-					if (NP1RadioLink::arm_disarm_msg_decode(rx_packet, msg))
+					ArmDisarmMsg msg;
+					RadioLink::arm_disarm_msg_decode(rx_packet, msg);
+					if (msg.armed)
 					{
-						if (msg.armed)
-						{
-							logger.info("CONTROL SYSTEM: Arming drone.");
-							canbus.transmit_arm();
-						}
-						else
-						{
-							logger.info("CONTROL SYSTEM: Disarming drone.");
-							canbus.transmit_disarm();
-						}
+						logger.info("CONTROL SYSTEM: Arming drone.");
+						canbus.transmit_arm();
+					}
+					else
+					{
+						logger.info("CONTROL SYSTEM: Disarming drone.");
+						canbus.transmit_disarm();
 					}
 					break;
 				}
-				case MSG_ID_CMD_ANGLE:
+				case RadioMsgID::Angle:
 				{
-					angle_msg_t msg;
-					if (NP1RadioLink::angle_msg_decode(rx_packet, msg))
-					{
-						logger.info("CONTROL SYSTEM: Received angle. Not implemented.");
-					}
+					logger.error("CONTROL SYSTEM: Received ANGLE message.");
 					break;
 				}
-				case MSG_ID_CMD_THROTTLE:
+				case RadioMsgID::Throttle:
 				{
-					throttle_msg_t msg;
-					if (NP1RadioLink::throttle_msg_decode(rx_packet, msg))
-					{
-						logger.info("CONTROL SYSTEM: Received new throttle: {}", msg.throttle);
-						throttle = msg.throttle;
-					}
+					ThrottleMsg msg;
+					RadioLink::throttle_msg_decode(rx_packet, msg);
+					throttle = msg.throttle;
+
+					logger.info("CONTROL SYSTEM: Received new throttle: {}", msg.throttle);
 					break;
-				}
-				default:
-				{
-					logger.error("CONTROL SYSTEM: Received invalid message ID: {}", rx_packet.id);
 				}
 			}
 		}

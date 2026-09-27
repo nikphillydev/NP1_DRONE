@@ -5,7 +5,6 @@
  *      Author: Nikolai Philipenko
  */
 
-#include "rc_controller.hpp"
 #include "main.h"
 #include "fdcan.h"
 #include "adc.h"
@@ -14,9 +13,12 @@
 #include <cstdio>
 #include <cstdlib>
 
+#include "Threads/rc_controller.hpp"
+#include "Threads/rc_controller_types.hpp"
 #include "Logger/usb_serial_port.hpp"
 #include "Logger/logger.hpp"
 #include "Drivers/CC2500/cc2500.hpp"
+#include "Radio/GaraunteedDelivery/gdelivery_radio.hpp"
 #include "Radio/radio_link.hpp"
 #include "Utility/moving_avg_filter.hpp"
 #include "constants.hpp"
@@ -32,16 +34,12 @@
 #define THROTTLE_MAX_VALUE			65536
 
 /*
- * PROTOTYPE
- */
-void transmit_packet(const cc2500_packet_t& packet, CC2500& transceiver, Logger& logger);
-
-/*
  * GLOBAL
  */
 static USBSerialPort serial_port(usbMutexHandle);
 static Logger logger(serial_port);
-CC2500 transceiver(&hspi1, spi1MutexHandle, CC2500_CS_GPIO_Port, CC2500_CS_Pin, logger);
+static CC2500 transmitter(&hspi1, spi1MutexHandle, CC2500_CS_GPIO_Port, CC2500_CS_Pin, logger);
+static GaraunteedDeliveryRadio radio(transmitter, logger);
 
 /*
  *
@@ -57,20 +55,11 @@ void rc_controller_thread()
 	/*
 	 * INITIALIZATION
 	 */
-	bool modem_init = transceiver.init();
-	if (!modem_init)
+	if (!radio.init())
 	{
-		logger.error("RC CONTROLLER THREAD: Failed to init modem");
-		osDelay(10);
-
+		logger.error("RC CONTROLLER THREAD: Failed to init radio communications");
 		// Delete this thread
 		vTaskDelete( NULL );
-	}
-
-	// Enter transmit mode
-	while(!transceiver.enter_tx_mode())
-	{
-		logger.error("CC2500 failed to enter TX mode");
 	}
 
 	// Setup ADC
@@ -95,7 +84,7 @@ void rc_controller_thread()
 		// Maintain GCS heartbeat
 		if (osKernelGetTickCount() - gcs_last_heartbeat_tick > gcs_heartbeat_tick_delta)
 		{
-			thread_input_t input{ CMD_HEARTBEAT };
+			ThreadInput input{ ThreadInput_SendHeartbeat };
 			osMessageQueuePut(rcControllerQueueHandle, &input, 0, 0);
 			gcs_last_heartbeat_tick = osKernelGetTickCount();
 		}
@@ -103,66 +92,57 @@ void rc_controller_thread()
 		// Send throttle command
 		if (osKernelGetTickCount() - last_send_throttle_command_tick > send_throttle_command_tick_delta)
 		{
-			thread_input_t input{ CMD_THROTTLE };
+			ThreadInput input{ ThreadInput_SendThrottle };
 			osMessageQueuePut(rcControllerQueueHandle, &input, 0, 0);
 			last_send_throttle_command_tick = osKernelGetTickCount();
 		}
 
 		// Respond to thread commands
-		thread_input_t input{ NO_INPUT };
+		ThreadInput input{ ThreadInput_None };
 		osMessageQueueGet(rcControllerQueueHandle, &input, NULL, 0);
 
-		switch (input) {
-			case CMD_HEARTBEAT: {
+		switch (input)
+		{
+			case ThreadInput_None: { break;	}
+			case ThreadInput_SendHeartbeat:
+			{
 //				logger.info("Sending heartbeat");
-				cc2500_packet_t packet = NP1RadioLink::heartbeat_msg_pack();
-				transmit_packet(packet, transceiver, logger);
+				cc2500_packet_t packet = RadioLink::heartbeat_msg_pack();
+				radio.transmit(packet);
 				break;
 			}
-			case CMD_ARM: {
+			case ThreadInput_SendArm:
+			{
 				logger.info("Sending arm");
-				arm_disarm_msg_t msg{};
+				ArmDisarmMsg msg{};
 				msg.armed = true;
-				cc2500_packet_t packet = NP1RadioLink::arm_disarm_msg_pack(msg);
-				transmit_packet(packet, transceiver, logger);
+				cc2500_packet_t packet = RadioLink::arm_disarm_msg_pack(msg);
+				radio.transmit(packet);
 				break;
 			}
-			case CMD_DISARM: {
+			case ThreadInput_SendDisarm:
+			{
 				logger.info("Sending disarm");
-				arm_disarm_msg_t msg{};
+				ArmDisarmMsg msg{};
 				msg.armed = false;
-				cc2500_packet_t packet = NP1RadioLink::arm_disarm_msg_pack(msg);
-				transmit_packet(packet, transceiver, logger);
+				cc2500_packet_t packet = RadioLink::arm_disarm_msg_pack(msg);
+				radio.transmit(packet);
 				break;
 			}
-			case CMD_THROTTLE: {
+			case ThreadInput_SendThrottle:
+			{
 //				logger.info("Sending throttle command");
 				uint16_t adc_filtered = (uint16_t)adc_filter.update((float)adc_raw);
 				uint16_t throttle = (adc_filtered - ADC_MIN_VALUE) * (THROTTLE_MAX_VALUE - THROTTLE_MIN_VALUE) / (ADC_MAX_VALUE - ADC_MIN_VALUE) + THROTTLE_MIN_VALUE;
-				throttle_msg_t msg{};
+				ThrottleMsg msg{};
 				msg.throttle = throttle;
-				cc2500_packet_t packet = NP1RadioLink::throttle_msg_pack(msg);
-				transmit_packet(packet, transceiver, logger);
+				cc2500_packet_t packet = RadioLink::throttle_msg_pack(msg);
+				radio.transmit(packet);
 
 				logger.info("Sending throttle. ADC: {}, Throttle: {}", adc_filtered, throttle);
 				break;
 			}
-			default:
-				break;
 		}
-	}
-}
-
-/*
- *
- * HELPERS
- *
- */
-void transmit_packet(const cc2500_packet_t& packet, CC2500& transceiver, Logger& logger)
-{
-	if (!transceiver.transmit_packet(packet))
-	{
-		logger.error("RC Controller: Failed to transmit message ID: {}", packet.id);
 	}
 }
 
@@ -175,12 +155,12 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
 {
 	if (GPIO_Pin == GPIO4_DISARM_EXTI4_Pin)
 	{
-		thread_input_t input{ CMD_DISARM };
+		ThreadInput input{ ThreadInput_SendDisarm };
 		osMessageQueuePut(rcControllerQueueHandle, &input, 0, 0);
 	}
 	else if (GPIO_Pin == GPIO6_ARM_EXTI10_Pin)
 	{
-		thread_input_t input{ CMD_ARM };
+		ThreadInput input{ ThreadInput_SendArm };
 		osMessageQueuePut(rcControllerQueueHandle, &input, 0, 0);
 	}
 }

@@ -8,11 +8,11 @@
 
 #include "fdcan.h"
 #include "Logger/logger.hpp"
-#include "GaraunteedDelivery/CANBUS/gdelivery_can_types.hpp"
+#include "Canbus/GaraunteedDelivery/gdelivery_can_types.hpp"
 
 
 /*
- * Class to support garaunteed delivery CANBUS operations for the NP1 drone.
+ * Class to support garaunteed delivery CANBUS communication for the NP1 drone.
  */
 class GaraunteedDeliveryCAN {
 public:
@@ -28,8 +28,8 @@ private:
 	Logger &logger;
 
 	// Configuration
-	const uint32_t CAN_TX_FIFO_FULL_DELAY_MS = 1;
-	const uint32_t MAX_RETRY_COUNT = 10;
+	const uint32_t CAN_TX_FIFO_FULL_DELAY_MS 	= 1;
+	const uint32_t MAX_RETRY_COUNT 				= 1000;
 
 	CanbusState get_canbus_state();
 	void transmit(const FDCAN_TxHeaderTypeDef* header, const uint8_t* tx_data);
