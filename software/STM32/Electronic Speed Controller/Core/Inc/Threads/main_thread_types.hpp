@@ -31,7 +31,7 @@ typedef struct {
 #ifdef __cplusplus
 enum class EscState
 {
-	Standby,
+	StandBy,
 	Arming,
 	Armed,
 };

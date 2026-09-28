@@ -1,15 +1,12 @@
 /*
- * radio.cpp
+ * radio_thread.cpp
  *
  *  Created on: May 28, 2025
  *      Author: Nikolai Philipenko
  *
- *  Packets are received from the CC2500 transceiver.
+ *  Packets are received from the CC2500 transceiver, decoded, and sent to the control system.
  *
- *  The heartbeat packet is monitored and signals a good GCS comms link to the control system.
- *  When the GCS heartbeat is lost, then a loss-of-link is signalled to the control system.
- *
- *  All other packets are forwarded to the control system uninterrupted.
+ *  The heartbeat packet is monitored for loss-of-link with the ground station.
  */
 #include "main.h"
 #include "spi.h"
@@ -52,8 +49,7 @@ void radio_thread()
 	/*
 	 * INITIALIZATION
 	 */
-	bool modem_init = receiver.init();
-	if (!modem_init)
+	if (!receiver.init())
 	{
 		logger.error("RADIO THREAD: Failed to init modem");
 		// Delete this thread
@@ -66,10 +62,14 @@ void radio_thread()
 		logger.error("CC2500 failed to enter RX mode");
 	}
 
+	// GCS heartbeat (receive)
 	const unsigned gcs_heartbeat_tick_delta = osKernelGetTickFreq() / constants::REQUIRED_GCS_HEARTBEAT_HZ * constants::HEARTBEAT_RX_TOLERANCE_MULTIPLIER;
 	unsigned gcs_last_heartbeat_tick = osKernelGetTickCount();
 
-	bool loss_of_link_flag = false;
+	// Radio Input
+	RadioInput radio_input{};
+	radio_input.loss_of_link = true;
+	osMessageQueuePut(radioQueueHandle, &radio_input, 0, 0);
 
 	/*
 	 * RECEIVE MESSAGES FROM GCS
@@ -81,18 +81,10 @@ void radio_thread()
 		// Check GCS heartbeat
 		if (osKernelGetTickCount() - gcs_last_heartbeat_tick > gcs_heartbeat_tick_delta)
 		{
-			if (!loss_of_link_flag)
-			{
-				// Notify control system of loss of link
+			radio_input.loss_of_link = true;
 
-				LossOfLinkMsg msg{};
-				msg.loss_of_link = true;
-				cc2500_packet_t lol_packet = RadioLink::loss_of_link_msg_pack(msg);
-				osMessageQueuePut(radioQueueHandle, &lol_packet, 0, 0);
-
-				logger.warn("RADIO THREAD: LOSS-OF-LINK");
-			}
-			loss_of_link_flag = true;
+			// Send to control system
+			osMessageQueuePut(radioQueueHandle, &radio_input, 0, 0);
 		}
 
 		if (sem_status == osOK)
@@ -107,36 +99,44 @@ void radio_thread()
 //				logger.log("RADIO RX ID: {}, RSSI: {}, LQI: {}, CRC: {}",
 //						packet.id, status.rssi, status.lqi, status.crc_ok ? "OK" : "ERROR");
 
-				switch (static_cast<RadioMsgID>(packet.id)) {
+				switch (static_cast<RadioMsgID>(packet.id))
+				{
 					case RadioMsgID::Heartbeat:
 					{
-						// Received GCS heartbeat, good communication link
-
-						if (loss_of_link_flag)
-						{
-							// Notify control system if previously had loss of link
-
-							LossOfLinkMsg msg{};
-							msg.loss_of_link = false;
-							cc2500_packet_t lol_packet = RadioLink::loss_of_link_msg_pack(msg);
-							osMessageQueuePut(radioQueueHandle, &lol_packet, 0, 0);
-
-							logger.warn("RADIO THREAD: LINK RESTORED");
-						}
-						loss_of_link_flag = false;
+						gcs_last_heartbeat_tick = osKernelGetTickCount();
+						radio_input.loss_of_link = false;
 						break;
 					}
-					default:
+					case RadioMsgID::ArmDisarm:
 					{
-						// Forward all other packets to control system
-						osMessageQueuePut(radioQueueHandle, &packet, 0, 0);
+						ArmDisarmMsg msg;
+						RadioLink::arm_disarm_msg_decode(packet, msg);
+						radio_input.armed = msg.armed;
+
+						logger.info("RADIO THREAD: Received armed: {}", radio_input.armed);
+						break;
+					}
+					case RadioMsgID::Angle:
+					{
+						break;
+					}
+					case RadioMsgID::Throttle:
+					{
+						ThrottleMsg msg;
+						RadioLink::throttle_msg_decode(packet, msg);
+						radio_input.throttle = msg.throttle;
+
+						logger.info("RADIO THREAD: Received new throttle {}", radio_input.throttle);
 						break;
 					}
 				}
+
+				// Send to control system
+				osMessageQueuePut(radioQueueHandle, &radio_input, 0, 0);
 			}
 			else
 			{
-				logger.error("CC2500 failed to receive message");
+				logger.error("RADIO THREAD: Failed to receive message");
 			}
 		}
 	}

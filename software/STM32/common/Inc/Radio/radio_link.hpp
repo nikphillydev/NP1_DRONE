@@ -16,9 +16,6 @@ namespace RadioLink
 {
 	cc2500_packet_t heartbeat_msg_pack();
 
-	cc2500_packet_t loss_of_link_msg_pack(const LossOfLinkMsg& tx_msg);
-	void loss_of_link_msg_decode(const cc2500_packet_t& packet, LossOfLinkMsg& rx_msg);
-
 	cc2500_packet_t arm_disarm_msg_pack(const ArmDisarmMsg& tx_msg);
 	void arm_disarm_msg_decode(const cc2500_packet_t& packet, ArmDisarmMsg& rx_msg);
 

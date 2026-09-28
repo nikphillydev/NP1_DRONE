@@ -46,8 +46,9 @@ const int ESC_ID					= 0;	// 0-3
 void main_thread()
 {
 	Commutator comm{};
-	EscState current_state = EscState::Standby;
+	EscState current_state = EscState::StandBy;
 
+	// ESC heartbeat (receive)
 	const unsigned esc_heartbeat_tick_delta = osKernelGetTickFreq() / constants::REQUIRED_ESC_HEARTBEAT_HZ * constants::HEARTBEAT_RX_TOLERANCE_MULTIPLIER;
 	unsigned esc_last_heartbeat_tick_count = 0;
 
@@ -76,7 +77,7 @@ void main_thread()
 
 		switch (current_state)
 		{
-			case EscState::Standby: {
+			case EscState::StandBy: {
 				handle_standby_state(current_state, input, comm);
 				break;
 			}
@@ -140,7 +141,7 @@ void handle_arming_state(EscState& current_state, ThreadInput& input, Commutator
 
 		if (input.type == InputType_CanDisarm)
 		{
-			current_state = EscState::Standby;
+			current_state = EscState::StandBy;
 			return;
 		}
 		else if (input.type == InputType_ArmingComplete)
@@ -199,7 +200,7 @@ void handle_armed_state(EscState& current_state, ThreadInput& input, Commutator&
 	if (input.type == InputType_CanDisarm)
 	{
 		comm.disable_bldc_step_closed_loop();
-		current_state = EscState::Standby;
+		current_state = EscState::StandBy;
 		return;
 	}
 

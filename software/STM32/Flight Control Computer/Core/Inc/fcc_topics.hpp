@@ -14,4 +14,4 @@
  * FCC Publish/Receive Topics
  */
 
-extern Topic<drone_state_t> state_topic;
+extern Topic<DroneState> state_topic;

@@ -16,20 +16,6 @@ cc2500_packet_t RadioLink::heartbeat_msg_pack()
 	return packet;
 }
 
-cc2500_packet_t RadioLink::loss_of_link_msg_pack(const LossOfLinkMsg& tx_msg)
-{
-	cc2500_packet_t packet{};
-	packet.id = static_cast<uint8_t>(RadioMsgID::LossOfLink);
-	packet.payload[0] = static_cast<uint8_t>(tx_msg.loss_of_link);
-
-	return packet;
-}
-
-void RadioLink::loss_of_link_msg_decode(const cc2500_packet_t& packet, LossOfLinkMsg& rx_msg)
-{
-	rx_msg.loss_of_link =  static_cast<bool>(packet.payload[0]);
-}
-
 cc2500_packet_t RadioLink::arm_disarm_msg_pack(const ArmDisarmMsg& tx_msg)
 {
 	cc2500_packet_t packet{};

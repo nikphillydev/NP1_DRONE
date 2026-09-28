@@ -7,6 +7,9 @@
 
 #pragma once
 
+#include "stdint.h"
+#include "stdbool.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -14,6 +17,21 @@ extern "C" {
  * This #ifdef clause is needed because if a Cpp file defines a function declaration / prototype,
  * than that declaration cannot be used in a C file unless extern "C" is used.
  */
+
+/*
+ *
+ * TYPES
+ *
+ */
+typedef struct
+{
+	// Radio link metadata
+	bool loss_of_link;
+
+	// Pilot input
+	bool armed;
+	uint16_t throttle;
+} RadioInput;
 
 /*
  *

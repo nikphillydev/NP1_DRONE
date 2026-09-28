@@ -28,7 +28,7 @@ typedef struct						// NED coordinate system
 	float quaternion[4];			// Quaternion rotation 					[x,y,z,w]
 	float velocity[2];				// Linear velocity in BODY frame (m/s) 	[x,y]
 	float altitude;					// Altitude (m)		 					[z]
-} drone_state_t;
+} DroneState;
 
 /*
  *

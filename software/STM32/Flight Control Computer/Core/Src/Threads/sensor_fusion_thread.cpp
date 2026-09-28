@@ -1,5 +1,5 @@
 /*
- * sensor.cpp
+ * sensor_fusion_thread.cpp
  *
  *  Created on: Dec 15, 2024
  *      Author: Nikolai Philipenko
@@ -82,7 +82,7 @@ static BMP388 barometer(&hi2c2, i2c2MutexHandle, baroDataMutexHandle, logger);
 static US100 range_finder(&huart2, uart2MutexHandle, ultrasonicDataMutexHandle, logger);
 static PMW3901 optical_flow(&hspi1, spi1MutexHandle, FLOW_CS_GPIO_Port, FLOW_CS_Pin, flowDataMutexHandle, logger);
 
-static drone_state_t drone_state;
+static DroneState drone_state;
 
 /*
  * TIMING

@@ -69,10 +69,11 @@ void rc_controller_thread()
 
 	MovingAverageFilter<float> adc_filter{10};
 
-	// Thread tick timing
+	// GCS heartbeat (transmit)
 	const unsigned gcs_heartbeat_tick_delta = osKernelGetTickFreq() / constants::REQUIRED_GCS_HEARTBEAT_HZ;
 	unsigned gcs_last_heartbeat_tick = osKernelGetTickCount();
 
+	// Throttle command (transmit)
 	const unsigned send_throttle_command_tick_delta = osKernelGetTickFreq() / SEND_THROTTLE_COMMAND_HZ;
 	unsigned last_send_throttle_command_tick = osKernelGetTickCount();
 

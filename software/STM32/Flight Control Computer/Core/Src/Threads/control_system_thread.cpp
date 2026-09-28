@@ -4,28 +4,25 @@
  *  Created on: Aug 24, 2026
  *      Author: Nikolai Philipenko
  *
- *  Control system for the NP1 Drone.
+ *  Control system for the NP1 Drone, requiring drone state and pilot input.
+ *  Performs flight termination on loss-of-link signal.
  */
 #include "main.h"
 #include "fdcan.h"
 #include "fcc_topics.hpp"
-#include "constants.hpp"
 
 #include "Threads/control_system_thread.hpp"
-
-#include "Radio/radio_message.hpp"
-#include "Radio/radio_link.hpp"
+#include "Threads/radio_thread.hpp"
 
 #include "Canbus/GaraunteedDelivery/gdelivery_can.hpp"
-
-#include "Drivers/CC2500/cc2500.hpp"
 #include "Logger/usb_serial_port.hpp"
 #include "Logger/logger.hpp"
+#include "constants.hpp"
 
 /*
  * DEFINES
  */
-#define CONTROL_SYSTEM_FREQ			100		// Frequency to run control system thread
+#define CONTROL_SYSTEM_FREQ			250		// Frequency to run control system thread
 #define DRONE_STATE_TIMEOUT_MS		50		// Timeout in ms for invalid (stale) drone state
 
 /*
@@ -51,10 +48,11 @@ void control_system_thread()
 	logger.info("--- CONTROL SYSTEM THREAD STARTING ---");
 	osDelay(10);
 
-	// Setpoints
-	uint16_t throttle = 0;
+	// Radio Input
+	RadioInput radio_input{};
+	RadioInput prev_radio_input{};
 
-	// ESC heartbeat
+	// ESC heartbeat (transmit)
 	const unsigned esc_heartbeat_tick_delta = osKernelGetTickFreq() / constants::REQUIRED_ESC_HEARTBEAT_HZ;
 	unsigned esc_last_heartbeat_tick = osKernelGetTickCount();
 
@@ -68,9 +66,7 @@ void control_system_thread()
 		wakeup_time += system_period_ms;
 		osDelayUntil(wakeup_time);
 
-		// -------------------------
 		// Maintain ESC heartbeat
-		// -------------------------
 		if (osKernelGetTickCount() - esc_last_heartbeat_tick > esc_heartbeat_tick_delta)
 		{
 			canbus.transmit_heartbeat();
@@ -78,84 +74,47 @@ void control_system_thread()
 		}
 
 		// -------------------------
-		// Receive radio packet
+		// Get latest radio input
 		// -------------------------
-		cc2500_packet_t rx_packet{};
-		osStatus_t osStatus = osMessageQueueGet(radioQueueHandle, &rx_packet, NULL, 0);		// try semantics
+		prev_radio_input = radio_input;
+		osMessageQueueGet(radioQueueHandle, &radio_input, NULL, 0);
 
-		if (osStatus == osOK)
+		// LOSS-OF-LINK CHECK
+		if (radio_input.loss_of_link && !prev_radio_input.loss_of_link)
 		{
-			switch (static_cast<RadioMsgID>(rx_packet.id))
-			{
-				case RadioMsgID::Heartbeat:
-				{
-					logger.error("CONTROL SYSTEM: Received HEARTBEAT message.");
-					break;
-				}
-				case RadioMsgID::LossOfLink:
-				{
-					LossOfLinkMsg msg;
-					RadioLink::loss_of_link_msg_decode(rx_packet, msg);
-					if (msg.loss_of_link)
-					{
-						logger.warn("CONTROL SYSTEM: LOSS-OF-LINK.");
-						canbus.transmit_disarm();
-					}
-					else
-					{
-						logger.warn("CONTROL SYSTEM: LINK RESTORED.");
-					}
-					break;
-				}
-				case RadioMsgID::ArmDisarm:
-				{
-					ArmDisarmMsg msg;
-					RadioLink::arm_disarm_msg_decode(rx_packet, msg);
-					if (msg.armed)
-					{
-						logger.info("CONTROL SYSTEM: Arming drone.");
-						canbus.transmit_arm();
-					}
-					else
-					{
-						logger.info("CONTROL SYSTEM: Disarming drone.");
-						canbus.transmit_disarm();
-					}
-					break;
-				}
-				case RadioMsgID::Angle:
-				{
-					logger.error("CONTROL SYSTEM: Received ANGLE message.");
-					break;
-				}
-				case RadioMsgID::Throttle:
-				{
-					ThrottleMsg msg;
-					RadioLink::throttle_msg_decode(rx_packet, msg);
-					throttle = msg.throttle;
+			logger.warn("CONTROL SYSTEM: LOSS-OF-LINK.");
+			canbus.transmit_disarm();
+		}
+		else if (!radio_input.loss_of_link && prev_radio_input.loss_of_link)
+		{
+			logger.warn("CONTROL SYSTEM: LINK RESTORED.");
+		}
 
-					logger.info("CONTROL SYSTEM: Received new throttle: {}", msg.throttle);
-					break;
-				}
-			}
+		// ARM / DISARM CHECK
+		if (!radio_input.armed && prev_radio_input.armed)
+		{
+			canbus.transmit_disarm();
+		}
+		else if (radio_input.armed && !prev_radio_input.armed)
+		{
+			canbus.transmit_arm();
 		}
 
 		// -------------------------
 		// Get drone state
 		// -------------------------
-		drone_state_t state{};
-		bool stateStatus = state_topic.receive(state);
-
-		bool timeout = stateStatus && (osKernelGetTickCount() - state.timestamp > DRONE_STATE_TIMEOUT_MS);
-		if (!stateStatus || timeout)
+		DroneState state{};
+		bool recv = state_topic.receive(state);
+		bool timeout = recv && (osKernelGetTickCount() - state.timestamp > DRONE_STATE_TIMEOUT_MS);
+		if (!recv || timeout)
 		{
-			if (!stateStatus)
+			if (!recv)
 			{
 				logger.error("CONTROL SYSTEM: No drone state received.");
 			}
 			else
 			{
-				logger.error("CONTROL SYSTEM: Drone state invalid. Timeout occured.");
+				logger.error("CONTROL SYSTEM: Drone state timeout (stale).");
 			}
 			canbus.transmit_disarm();
 			continue;
@@ -164,7 +123,7 @@ void control_system_thread()
 		// -------------------------
 		// Run controller
 		// -------------------------
-		canbus.transmit_speed(throttle);
+		canbus.transmit_speed(radio_input.throttle);
 	}
 }
 

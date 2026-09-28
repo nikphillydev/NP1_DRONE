@@ -52,7 +52,7 @@ void Commutator::bldc_step_open_loop()
 	disable_all_phases();
 
 	// Increment step
-	int step_increment = static_cast<int>(commutation_step) + 1 % 6;
+	int step_increment = (static_cast<int>(commutation_step) + 1) % 6;
 	commutation_step = static_cast<BldcStep>(step_increment);
 
 	// Open-Loop 6-Step Trapezoidal commutation

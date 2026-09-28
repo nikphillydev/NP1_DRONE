@@ -10,5 +10,5 @@
  * FCC Publish/Receive Topics
  */
 
-Topic<drone_state_t> state_topic{stateTopicMutexHandle};
+Topic<DroneState> state_topic{stateTopicMutexHandle};
 

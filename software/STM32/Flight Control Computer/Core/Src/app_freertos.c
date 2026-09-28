@@ -179,7 +179,7 @@ const osThreadAttr_t controlSystemTask_attributes = {
 };
 /* Definitions for radioQueue */
 osMessageQueueId_t radioQueueHandle;
-uint8_t radioQueueBuffer[ 64 * sizeof( cc2500_packet_t ) ];
+uint8_t radioQueueBuffer[ 64 * sizeof( RadioInput ) ];
 osStaticMessageQDef_t radioQueueControlBlock;
 const osMessageQueueAttr_t radioQueue_attributes = {
   .name = "radioQueue",
@@ -385,7 +385,7 @@ void MX_FREERTOS_Init(void) {
 
   /* Create the queue(s) */
   /* creation of radioQueue */
-  radioQueueHandle = osMessageQueueNew (64, sizeof(cc2500_packet_t), &radioQueue_attributes);
+  radioQueueHandle = osMessageQueueNew (64, sizeof(RadioInput), &radioQueue_attributes);
 
   /* USER CODE BEGIN RTOS_QUEUES */
   /* add queues, ... */
