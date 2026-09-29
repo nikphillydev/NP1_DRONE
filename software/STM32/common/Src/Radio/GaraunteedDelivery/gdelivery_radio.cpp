@@ -16,7 +16,7 @@ bool GaraunteedDeliveryRadio::init()
 	return true;
 }
 
-void GaraunteedDeliveryRadio::transmit(const cc2500_packet_t& packet)
+void GaraunteedDeliveryRadio::transmit(const CC2500_Packet& packet)
 {
 	bool transmit_ok = transmitter.transmit_packet(packet);
 

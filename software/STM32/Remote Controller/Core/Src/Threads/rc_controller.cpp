@@ -20,6 +20,7 @@
 #include "Drivers/CC2500/cc2500.hpp"
 #include "Radio/GaraunteedDelivery/gdelivery_radio.hpp"
 #include "Radio/radio_link.hpp"
+#include "Radio/radio_message.hpp"
 #include "Utility/moving_avg_filter.hpp"
 #include "constants.hpp"
 
@@ -108,7 +109,7 @@ void rc_controller_thread()
 			case ThreadInput_SendHeartbeat:
 			{
 //				logger.info("Sending heartbeat");
-				cc2500_packet_t packet = RadioLink::heartbeat_msg_pack();
+				CC2500_Packet packet = RadioLink::heartbeat_msg_pack();
 				radio.transmit(packet);
 				break;
 			}
@@ -117,7 +118,7 @@ void rc_controller_thread()
 				logger.info("Sending arm");
 				ArmDisarmMsg msg{};
 				msg.armed = true;
-				cc2500_packet_t packet = RadioLink::arm_disarm_msg_pack(msg);
+				CC2500_Packet packet = RadioLink::arm_disarm_msg_pack(msg);
 				radio.transmit(packet);
 				break;
 			}
@@ -126,7 +127,7 @@ void rc_controller_thread()
 				logger.info("Sending disarm");
 				ArmDisarmMsg msg{};
 				msg.armed = false;
-				cc2500_packet_t packet = RadioLink::arm_disarm_msg_pack(msg);
+				CC2500_Packet packet = RadioLink::arm_disarm_msg_pack(msg);
 				radio.transmit(packet);
 				break;
 			}
@@ -137,7 +138,7 @@ void rc_controller_thread()
 				uint16_t throttle = (adc_filtered - ADC_MIN_VALUE) * (THROTTLE_MAX_VALUE - THROTTLE_MIN_VALUE) / (ADC_MAX_VALUE - ADC_MIN_VALUE) + THROTTLE_MIN_VALUE;
 				ThrottleMsg msg{};
 				msg.throttle = throttle;
-				cc2500_packet_t packet = RadioLink::throttle_msg_pack(msg);
+				CC2500_Packet packet = RadioLink::throttle_msg_pack(msg);
 				radio.transmit(packet);
 
 				logger.info("Sending throttle. ADC: {}, Throttle: {}", adc_filtered, throttle);

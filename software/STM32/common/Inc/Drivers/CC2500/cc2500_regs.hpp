@@ -110,7 +110,7 @@
 #define CC2500_BURST				0x40
 
 /* TX / RX FIFO SIZES */
-#define CC2500_FIFO_SIZE		64
+#define CC2500_FIFO_SIZE			64
 
 /*
  *

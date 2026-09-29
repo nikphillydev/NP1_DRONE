@@ -91,8 +91,8 @@ void radio_thread()
 		{
 			// Packet ready to be received
 
-			cc2500_packet_t packet;
-			cc2500_packet_status_t status;
+			CC2500_Packet packet;
+			CC2500_PacketStatus status;
 
 			if (receiver.receive_packet(packet, status) && status.crc_ok)
 			{

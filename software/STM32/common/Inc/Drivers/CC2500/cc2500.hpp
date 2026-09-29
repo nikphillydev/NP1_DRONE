@@ -23,12 +23,12 @@ public:
 	[[nodiscard]] bool enter_rx_mode();
 	[[nodiscard]] bool enter_tx_mode();
 
-	[[nodiscard]] bool transmit_packet(const cc2500_packet_t &packet);
-	[[nodiscard]] bool receive_packet(cc2500_packet_t &packet, cc2500_packet_status_t &packet_status);
+	[[nodiscard]] bool transmit_packet(const CC2500_Packet &packet);
+	[[nodiscard]] bool receive_packet(CC2500_Packet &packet, CC2500_PacketStatus &packet_status);
 
 private:
 	// Low-level register read / write
-	[[nodiscard]] bool command_strobe(uint8_t strobe, CC2500_STATUS_UPDATE status_update);
+	[[nodiscard]] bool command_strobe(uint8_t strobe, CC2500_StatusUpdate status_update);
 	[[nodiscard]] bool write_register(uint8_t reg, uint8_t *tx_data, uint16_t data_len);
 	[[nodiscard]] bool read_register(uint8_t reg, uint8_t *rx_data, uint16_t data_len);
 
@@ -42,7 +42,7 @@ private:
 	uint16_t cs_pin;
 
 	// CC2500 status
-	cc2500_status_t chip_status;
+	CC2500_Status chip_status;
 
 	// Logger
 	Logger& logger;

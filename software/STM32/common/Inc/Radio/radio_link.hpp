@@ -14,16 +14,16 @@
 
 namespace RadioLink
 {
-	cc2500_packet_t heartbeat_msg_pack();
+	CC2500_Packet heartbeat_msg_pack();
 
-	cc2500_packet_t arm_disarm_msg_pack(const ArmDisarmMsg& tx_msg);
-	void arm_disarm_msg_decode(const cc2500_packet_t& packet, ArmDisarmMsg& rx_msg);
+	CC2500_Packet arm_disarm_msg_pack(const ArmDisarmMsg& tx_msg);
+	void arm_disarm_msg_decode(const CC2500_Packet& packet, ArmDisarmMsg& rx_msg);
 
-	cc2500_packet_t angle_msg_pack(const AngleMsg& tx_msg);
-	void angle_msg_decode(const cc2500_packet_t& packet, AngleMsg& rx_msg);
+	CC2500_Packet angle_msg_pack(const AngleMsg& tx_msg);
+	void angle_msg_decode(const CC2500_Packet& packet, AngleMsg& rx_msg);
 
-	cc2500_packet_t throttle_msg_pack(const ThrottleMsg& tx_msg);
-	void throttle_msg_decode(const cc2500_packet_t& packet, ThrottleMsg& rx_msg);
+	CC2500_Packet throttle_msg_pack(const ThrottleMsg& tx_msg);
+	void throttle_msg_decode(const CC2500_Packet& packet, ThrottleMsg& rx_msg);
 };
 
 

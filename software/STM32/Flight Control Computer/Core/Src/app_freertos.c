@@ -30,8 +30,6 @@
 #include "Threads/radio_thread.hpp"
 #include "Threads/control_system_thread.hpp"
 
-#include "Drivers/CC2500/cc2500_types.hpp"
-
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/

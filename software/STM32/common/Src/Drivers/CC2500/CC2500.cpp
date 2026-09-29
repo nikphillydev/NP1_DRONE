@@ -30,7 +30,7 @@ bool CC2500::init()
 	uint8_t rx_data[4]{};
 
 	// Reset device
-	status = command_strobe(CMD_SRES, CC2500_STATUS_UPDATE::TX_FIFO_BYTES);
+	status = command_strobe(CMD_SRES, CC2500_StatusUpdate::TxFifoBytes);
 	if (!status) return status;
 	osDelay(10);
 
@@ -38,7 +38,7 @@ bool CC2500::init()
 	while (chip_status.chip_ready == false)
 	{
 		logger.warn("Waiting for CC2500 to start-up...");
-		status = command_strobe(CMD_SNOP, CC2500_STATUS_UPDATE::TX_FIFO_BYTES);
+		status = command_strobe(CMD_SNOP, CC2500_StatusUpdate::TxFifoBytes);
 		if (!status) return status;
 
 		osDelay(100);
@@ -217,7 +217,7 @@ bool CC2500::init()
 	osDelay(10);
 
 	// Update internal driver state
-	status = command_strobe(CMD_SNOP, CC2500_STATUS_UPDATE::TX_FIFO_BYTES);
+	status = command_strobe(CMD_SNOP, CC2500_StatusUpdate::TxFifoBytes);
 	if (!status) return status;
 	osDelay(10);
 
@@ -229,32 +229,27 @@ bool CC2500::enter_rx_mode()
 {
 	logger.info("CC2500 entering RECEIVE mode");
 
-	if (chip_status.state == CC2500_STATE::RX)
-	{
-		return true;
-	}
-
 	bool status = false;
 
 	// Command RX mode
-	status = command_strobe(CMD_SRX, CC2500_STATUS_UPDATE::RX_FIFO_BYTES);
+	status = command_strobe(CMD_SRX, CC2500_StatusUpdate::RxFifoBytes);
 	if (!status) return status;
 	osDelay(10);
 
 	int retry_count = 0;
 	const int max_retry_count = 100;
 
-	while (chip_status.state != CC2500_STATE::RX  && retry_count < max_retry_count)
+	while (chip_status.state != CC2500_State::RX  && retry_count < max_retry_count)
 	{
 		// Command RX mode
-		status = command_strobe(CMD_SRX, CC2500_STATUS_UPDATE::RX_FIFO_BYTES);
+		status = command_strobe(CMD_SRX, CC2500_StatusUpdate::RxFifoBytes);
 		if (!status) return status;
 		osDelay(10);
 
 		retry_count++;
 	}
 
-	if (chip_status.state == CC2500_STATE::RX)
+	if (chip_status.state == CC2500_State::RX)
 	{
 		return true;
 	}
@@ -265,39 +260,34 @@ bool CC2500::enter_tx_mode()
 {
 	logger.info("CC2500 entering TRANSMIT mode");
 
-	if (chip_status.state == CC2500_STATE::TX)
-	{
-		return true;
-	}
-
 	bool status = false;
 
 	// Command TX mode
-	status = command_strobe(CMD_STX, CC2500_STATUS_UPDATE::TX_FIFO_BYTES);
+	status = command_strobe(CMD_STX, CC2500_StatusUpdate::TxFifoBytes);
 	if (!status) return status;
 	osDelay(10);
 
 	int retry_count = 0;
 	const int max_retry_count = 100;
 
-	while (chip_status.state != CC2500_STATE::TX && retry_count < max_retry_count)
+	while (chip_status.state != CC2500_State::TX && retry_count < max_retry_count)
 	{
 		// Command TX mode
-		status = command_strobe(CMD_STX, CC2500_STATUS_UPDATE::TX_FIFO_BYTES);
+		status = command_strobe(CMD_STX, CC2500_StatusUpdate::TxFifoBytes);
 		if (!status) return status;
 		osDelay(10);
 
 		retry_count++;
 	}
 
-	if (chip_status.state == CC2500_STATE::TX)
+	if (chip_status.state == CC2500_State::TX)
 	{
 		return true;
 	}
 	return false;
 }
 
-bool CC2500::transmit_packet(const cc2500_packet_t &packet)
+bool CC2500::transmit_packet(const CC2500_Packet &packet)
 {
 	bool status = false;
 
@@ -375,7 +365,7 @@ bool CC2500::transmit_packet(const cc2500_packet_t &packet)
 	return true;
 }
 
-bool CC2500::receive_packet(cc2500_packet_t &packet, cc2500_packet_status_t &packet_status)
+bool CC2500::receive_packet(CC2500_Packet &packet, CC2500_PacketStatus &packet_status)
 {
 	bool status = false;
 
@@ -453,7 +443,7 @@ bool CC2500::flush_rx_fifo()
 
 	logger.warn("CC2500 flushing RX FIFO");
 
-	status = command_strobe(CMD_SFRX, CC2500_STATUS_UPDATE::RX_FIFO_BYTES);
+	status = command_strobe(CMD_SFRX, CC2500_StatusUpdate::RxFifoBytes);
 	if (!status) return status;
 
 	return status;
@@ -465,7 +455,7 @@ bool CC2500::flush_tx_fifo()
 
 	logger.warn("CC2500 flushing TX FIFO");
 
-	status = command_strobe(CMD_SFTX, CC2500_STATUS_UPDATE::TX_FIFO_BYTES);
+	status = command_strobe(CMD_SFTX, CC2500_StatusUpdate::TxFifoBytes);
 	if (!status) return status;
 
 	return status;
@@ -476,7 +466,7 @@ bool CC2500::flush_tx_fifo()
  *  Low-level register read / write
  *
  */
-bool CC2500::command_strobe(uint8_t strobe, CC2500_STATUS_UPDATE status_update)
+bool CC2500::command_strobe(uint8_t strobe, CC2500_StatusUpdate status_update)
 {
 	bool status = false;
 
@@ -488,10 +478,10 @@ bool CC2500::command_strobe(uint8_t strobe, CC2500_STATUS_UPDATE status_update)
 	}
 
 	switch (status_update) {
-		case CC2500_STATUS_UPDATE::RX_FIFO_BYTES:
+		case CC2500_StatusUpdate::RxFifoBytes:
 			strobe |= CC2500_READ;
 			break;
-		case CC2500_STATUS_UPDATE::TX_FIFO_BYTES:
+		case CC2500_StatusUpdate::TxFifoBytes:
 			strobe |= CC2500_WRITE;
 			break;
 	}
@@ -509,7 +499,7 @@ bool CC2500::command_strobe(uint8_t strobe, CC2500_STATUS_UPDATE status_update)
 	if (status)
 	{
 		chip_status.chip_ready = ((status_byte & CC2500_STATUS_CHIP_RDY_BITMASK) >> CC2500_STATUS_CHIP_RDY_SHIFT) == 0;
-		chip_status.state = static_cast<CC2500_STATE>((status_byte & CC2500_STATUS_STATE_BITMASK) >> CC2500_STATUS_STATE_SHIFT);
+		chip_status.state = static_cast<CC2500_State>((status_byte & CC2500_STATUS_STATE_BITMASK) >> CC2500_STATUS_STATE_SHIFT);
 		chip_status.fifo_bytes_available = (status_byte & CC2500_STATUS_FIFO_BYTES_BITMASK) >> CC2500_STATUS_FIFO_BYTES_SHIFT;
 
 //		logger.info("CC2500 Status: Chip Ready: {}, State: {}, Bytes: {}",

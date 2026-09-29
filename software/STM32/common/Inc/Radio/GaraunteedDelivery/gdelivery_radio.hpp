@@ -19,7 +19,7 @@ public:
 
 	[[nodiscard]] bool init();
 
-	void transmit(const cc2500_packet_t& packet);
+	void transmit(const CC2500_Packet& packet);
 
 private:
 	CC2500& transmitter;
